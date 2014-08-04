@@ -11,7 +11,10 @@ import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CCTexParams;
 import org.cocos2d.types.CGPoint;
+import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
+
+import android.view.MotionEvent;
 
 import java.util.HashMap;
 
@@ -91,6 +94,8 @@ public class GameLayer extends CCLayer{
     
     public void actionFunCallback(){
         System.out.println("clickback"+i);
+        
+        
         if(i<2){
 //            pokers.get(String.valueOf(i)).runAction(actionTo);
             i++;

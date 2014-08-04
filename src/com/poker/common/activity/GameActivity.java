@@ -52,7 +52,6 @@ public class GameActivity extends Activity{
         director.attachInView(mView);
         director.setDeviceOrientation(CCDirector.kCCDeviceOrientationLandscapeLeft);
         setContentView(mView);
-        
 
         // show FPS
         CCDirector.sharedDirector().setDisplayFPS(true);
