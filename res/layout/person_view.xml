@@ -21,7 +21,7 @@
         android:layout_below="@+id/person_title"
         android:layout_above="@+id/person_current_money"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/img_me" />
 
     <TextView
         android:id="@+id/person_current_money"
