@@ -19,6 +19,8 @@ public final class R {
         public static final int join_home_margin_top=0x7f040004;
         public static final int mainpage_me_margin_bottom=0x7f040007;
         public static final int mainpage_me_margin_left=0x7f040006;
+        public static final int person_momey_margin_bottom=0x7f04000b;
+        public static final int person_title_margin_top=0x7f04000a;
         public static final int send_game_margin_right=0x7f040001;
         /**  登陆界面 
          */
@@ -33,31 +35,49 @@ public final class R {
         public static final int img_creat_active=0x7f020005;
         public static final int img_creat_normal=0x7f020006;
         public static final int img_create_home_btn=0x7f020007;
-        public static final int img_gear=0x7f020008;
-        public static final int img_gear_a=0x7f020009;
-        public static final int img_join_active=0x7f02000a;
-        public static final int img_join_home_btn=0x7f02000b;
-        public static final int img_join_normal=0x7f02000c;
-        public static final int img_mainpage_person_btn=0x7f02000d;
-        public static final int img_mainpage_setting_btn=0x7f02000e;
-        public static final int img_me=0x7f02000f;
-        public static final int img_me_a=0x7f020010;
-        public static final int img_send_active=0x7f020011;
-        public static final int img_send_game_bg=0x7f020012;
-        public static final int img_send_game_btn=0x7f020013;
-        public static final int img_send_normal=0x7f020014;
+        public static final int img_desktop=0x7f020008;
+        public static final int img_gear=0x7f020009;
+        public static final int img_gear_a=0x7f02000a;
+        public static final int img_join_active=0x7f02000b;
+        public static final int img_join_home_btn=0x7f02000c;
+        public static final int img_join_normal=0x7f02000d;
+        public static final int img_mainpage_person_btn=0x7f02000e;
+        public static final int img_mainpage_setting_btn=0x7f02000f;
+        public static final int img_me=0x7f020010;
+        public static final int img_me_a=0x7f020011;
+        public static final int img_send_active=0x7f020012;
+        public static final int img_send_game_bg=0x7f020013;
+        public static final int img_send_game_btn=0x7f020014;
+        public static final int img_send_normal=0x7f020015;
     }
     public static final class id {
-        public static final int create_home_btn=0x7f070001;
-        public static final int join_home_btn=0x7f070002;
-        public static final int mainpage_me_btn=0x7f070004;
-        public static final int mainpage_setting_btn=0x7f070003;
-        public static final int send_game_back_btn=0x7f070005;
-        public static final int send_game_btn=0x7f070000;
+        public static final int create_home_btn=0x7f07000d;
+        public static final int game_page_back_btn=0x7f070000;
+        public static final int game_page_poker_type=0x7f070008;
+        public static final int game_page_rank=0x7f070007;
+        public static final int imageButton1=0x7f070009;
+        public static final int imageButton2=0x7f07000b;
+        public static final int imageButton3=0x7f07000a;
+        public static final int join_home_btn=0x7f07000e;
+        public static final int mainpage_me_btn=0x7f070010;
+        public static final int mainpage_setting_btn=0x7f07000f;
+        public static final int person_current_money=0x7f070013;
+        public static final int person_image=0x7f070012;
+        public static final int person_title=0x7f070011;
+        public static final int send_game_back_btn=0x7f070014;
+        public static final int send_game_btn=0x7f07000c;
+        public static final int setfive=0x7f070002;
+        public static final int setfour=0x7f070006;
+        public static final int setone=0x7f070003;
+        public static final int setsix=0x7f070005;
+        public static final int setthree=0x7f070004;
+        public static final int settwo=0x7f070001;
     }
     public static final class layout {
-        public static final int mainactivity=0x7f030000;
-        public static final int send_game_activity=0x7f030001;
+        public static final int gamelayout=0x7f030000;
+        public static final int mainactivity=0x7f030001;
+        public static final int person_view=0x7f030002;
+        public static final int send_game_activity=0x7f030003;
     }
     public static final class string {
         public static final int app_name=0x7f050000;

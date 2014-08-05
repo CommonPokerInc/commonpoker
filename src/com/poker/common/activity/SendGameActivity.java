@@ -27,7 +27,6 @@ public class SendGameActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.send_game_activity);
         
         backBtn = (ImageButton)findViewById(R.id.send_game_back_btn);

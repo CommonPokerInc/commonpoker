@@ -24,19 +24,21 @@ public class MainActivity extends Activity implements OnClickListener{
 
     private ImageButton sendGameBtn;
     
+    private ImageButton joinGameBtn;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mainactivity);
         init();
     }
     
     public void init(){
         sendGameBtn = (ImageButton)findViewById(R.id.send_game_btn);
+        joinGameBtn = (ImageButton)findViewById(R.id.join_home_btn);
         sendGameBtn.setOnClickListener(this);
+        joinGameBtn.setOnClickListener(this);
     }
 
     
@@ -45,6 +47,10 @@ public class MainActivity extends Activity implements OnClickListener{
         // TODO Auto-generated method stub
         if(v.getId() == R.id.send_game_btn){
             Intent it = new Intent(MainActivity.this,SendGameActivity.class);
+            startActivity(it);
+            finish();
+        }else if(v.getId() == R.id.join_home_btn){
+        	Intent it = new Intent(MainActivity.this,GameActivity.class);
             startActivity(it);
             finish();
         }
@@ -62,9 +68,4 @@ public class MainActivity extends Activity implements OnClickListener{
         // TODO Auto-generated method stub
         super.onDestroy();
     }
-
-    
-    
-    
-
 }
