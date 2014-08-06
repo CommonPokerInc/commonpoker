@@ -1,5 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">CommonPoker</string>
+    <string name="title_activity_seat_view">SeatView</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="person_state">状态</string>
 
 </resources>

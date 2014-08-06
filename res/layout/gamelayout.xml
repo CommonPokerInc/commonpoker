@@ -4,113 +4,144 @@
     android:layout_height="match_parent"
     android:background="@drawable/img_desktop" >
 
-	<ImageButton
-        android:id="@+id/game_page_back_btn"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/game_layout1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/game_page_rank"
+        android:layout_marginTop="10dp" >
+
+        <com.poker.common.activity.SeatView
+            android:id="@+id/setone"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/setview_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="120dp" >
+        </com.poker.common.activity.SeatView>
+
+        <com.poker.common.activity.SeatView
+            android:id="@+id/settwo"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/setview_height"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="120dp" >
+        </com.poker.common.activity.SeatView>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/game_page_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/back_margin_top"
-        android:layout_marginLeft="@dimen/back_margin_left"
+        android:layout_marginRight="5dp"
+        android:text="当前排名：第1名"
+        android:textColor="#FFFFFF"
+        android:textSize="13dip"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/game_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/game_layout1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp" >
+
+        <com.poker.common.activity.SeatView
+            android:id="@+id/setthree"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/setview_height"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" >
+        </com.poker.common.activity.SeatView>
+
+        <com.poker.common.activity.SeatView
+            android:id="@+id/setsix"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/setview_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" >
+        </com.poker.common.activity.SeatView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/game_layout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/game_layout2"
+        android:layout_marginTop="10dp" >
+
+        <com.poker.common.activity.SeatView
+            android:id="@+id/setfour"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/setview_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="120dp" >
+        </com.poker.common.activity.SeatView>
+
+        <com.poker.common.activity.SeatView
+            android:id="@+id/setfive"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/setview_height"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="120dp" >
+        </com.poker.common.activity.SeatView>
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/game_layout2"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
         android:background="@drawable/img_back_btn" />
 
-	<com.poker.common.activity.PersonView
-	    android:id="@+id/settwo"
-	    android:layout_width="80dip"
-	    android:layout_height="90dip"
-	    android:layout_alignTop="@+id/game_page_back_btn"
-	    android:layout_alignParentRight="true"
-	    android:layout_marginRight="134dp" >
-	</com.poker.common.activity.PersonView>
-	
-	<com.poker.common.activity.PersonView
-	    android:id="@+id/setfive"
-	    android:layout_width="80dip"
-	    android:layout_height="90dip"
-	    android:layout_alignLeft="@+id/game_page_back_btn"
-	    android:layout_centerVertical="true" >
-	</com.poker.common.activity.PersonView>
-	
-	<com.poker.common.activity.PersonView
-	    android:id="@+id/setone"
-	    android:layout_width="80dip"
-	    android:layout_height="90dip"
-	    android:layout_alignTop="@+id/game_page_back_btn"
-	    android:layout_marginLeft="57dp"
-	    android:layout_toRightOf="@+id/game_page_back_btn" >
-	</com.poker.common.activity.PersonView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/game_layout3" >
 
-	<com.poker.common.activity.PersonView
-	    android:id="@+id/setthree"
-	    android:layout_width="80dip"
-	    android:layout_height="90dip"
-	    android:layout_alignBaseline="@+id/setfive"
-	    android:layout_alignBottom="@+id/setfive"
-	    android:layout_alignParentRight="true" >
-	</com.poker.common.activity.PersonView>
-	
-	<com.poker.common.activity.PersonView
-	    android:id="@+id/setsix"
-	    android:layout_width="80dip"
-	    android:layout_height="90dip"
-	    android:layout_alignLeft="@+id/setone"
-	    android:layout_below="@+id/setthree" >
-	</com.poker.common.activity.PersonView>
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/img_follow_btn" />
 
-	<com.poker.common.activity.PersonView
-	    android:id="@+id/setfour"
-	    android:layout_width="80dip"
-	    android:layout_height="90dip"
-	    android:layout_alignLeft="@+id/settwo"
-	    android:layout_below="@+id/setthree" >
-	</com.poker.common.activity.PersonView>
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="25dp"
+            android:layout_toLeftOf="@+id/imageButton1"
+            android:background="@drawable/img_add_btn" />
 
-	<TextView
-	    android:id="@+id/game_page_rank"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentRight="true"
-	    android:layout_alignParentTop="true"
-	    android:layout_marginTop="5dip"
-	    android:layout_marginRight="5dip"
-	    android:textColor="#FFFFFF"
-	    android:text="当前排名：第1名" />
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="25dp"
+            android:layout_toLeftOf="@+id/imageButton2"
+            android:background="@drawable/img_quit_btn" />
 
-	<ImageButton
-	    android:id="@+id/game_page_poker_type"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_below="@+id/setsix"
-	    android:layout_marginTop="14dp"
-	    android:src="@android:drawable/btn_star" />
-
-	<ImageButton
-	    android:id="@+id/imageButton1"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:layout_alignRight="@+id/game_page_rank"
-	    android:layout_below="@+id/setfour"
-	    android:src="@android:drawable/btn_star" />
-
-	<ImageButton
-	    android:id="@+id/imageButton3"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:layout_alignRight="@+id/setfour"
-	    android:layout_alignTop="@+id/imageButton2"
-	    android:layout_marginRight="17dp"
-	    android:src="@android:drawable/btn_star" />
-
-	<ImageButton
-	    android:id="@+id/imageButton2"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:layout_below="@+id/setfour"
-	    android:layout_toRightOf="@+id/imageButton3"
-	    android:src="@android:drawable/btn_star" />
+    </RelativeLayout>
 
 </RelativeLayout>

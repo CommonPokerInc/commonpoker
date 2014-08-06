@@ -27,6 +27,7 @@ public class PersonView extends FrameLayout{
 		// TODO Auto-generated constructor stub
 		 View v = LayoutInflater.from(context).inflate(R.layout.person_view, this);
 		 title = (TextView) v.findViewById(R.id.person_title);
+		 personMoney = (TextView)v.findViewById(R.id.person_current_money);
 		 personImg = (ImageButton) v.findViewById(R.id.person_image);
 		 personImg.setOnClickListener(new OnClickListener() {
 	            @Override
