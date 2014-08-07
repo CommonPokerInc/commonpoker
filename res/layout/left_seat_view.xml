@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
+    android:id="@+id/left_seat_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <com.poker.common.activity.PersonView
         android:id="@+id/personView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/left_middle_text" >
 
@@ -48,6 +48,14 @@
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/personView"
-        android:background="@drawable/diamond10" />
+        android:background="@drawable/img_poker_back" />
+    
+        <ImageView
+        android:id="@+id/poker2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/personView"
+        android:background="@drawable/img_poker_back" />
 
 </RelativeLayout>

@@ -38,7 +38,7 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="com.poker.common.activity.SeatView"
+            android:name="com.poker.common.activity.LeftSeatView"
             android:label="@string/title_activity_seat_view" >
         </activity>
     </application>

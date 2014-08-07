@@ -1,147 +1,126 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img_desktop" >
-
-    <RelativeLayout
-        android:id="@+id/game_layout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/game_page_rank"
-        android:layout_marginTop="10dp" >
-
-        <com.poker.common.activity.SeatView
-            android:id="@+id/setone"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/setview_height"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="120dp" >
-        </com.poker.common.activity.SeatView>
-
-        <com.poker.common.activity.SeatView
-            android:id="@+id/settwo"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/setview_height"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="120dp" >
-        </com.poker.common.activity.SeatView>
-    </RelativeLayout>
+    android:background="@drawable/img_background" >
 
     <TextView
-        android:id="@+id/game_page_rank"
+        android:id="@+id/player_current_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="5dp"
-        android:text="当前排名：第1名"
-        android:textColor="#FFFFFF"
-        android:textSize="13dip"
-        android:textStyle="bold" />
-
-    <RelativeLayout
-        android:id="@+id/game_layout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/game_layout1"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp" >
-
-        <com.poker.common.activity.SeatView
-            android:id="@+id/setthree"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/setview_height"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true" >
-        </com.poker.common.activity.SeatView>
-
-        <com.poker.common.activity.SeatView
-            android:id="@+id/setsix"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/setview_height"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" >
-        </com.poker.common.activity.SeatView>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/game_layout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/game_layout2"
-        android:layout_marginTop="10dp" >
-
-        <com.poker.common.activity.SeatView
-            android:id="@+id/setfour"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/setview_height"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="120dp" >
-        </com.poker.common.activity.SeatView>
-
-        <com.poker.common.activity.SeatView
-            android:id="@+id/setfive"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/setview_height"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="120dp" >
-        </com.poker.common.activity.SeatView>
-    </RelativeLayout>
+        android:layout_marginTop="5dp"
+        android:text="@string/player_current_rank" />
 
     <ImageButton
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_alignLeft="@+id/game_layout2"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/img_back_btn" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/game_layout3" >
-
+        android:id="@+id/add"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/player_current_rank"
+        android:background="@drawable/img_add_btn" />
+    
         <ImageButton
-            android:id="@+id/imageButton1"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="10dp"
+            android:id="@+id/follow"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/add"
             android:layout_marginRight="5dp"
             android:background="@drawable/img_follow_btn" />
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="25dp"
-            android:layout_toLeftOf="@+id/imageButton1"
-            android:background="@drawable/img_add_btn" />
 
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="25dp"
-            android:layout_toLeftOf="@+id/imageButton2"
+                <ImageButton
+            android:id="@+id/quit"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/follow"
+            android:layout_marginRight="5dp"
             android:background="@drawable/img_quit_btn" />
 
+    <RelativeLayout
+        android:id="@+id/desk_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/follow"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/reback"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/img_desk" >
+
+        <com.poker.common.activity.RightSeatView
+            android:id="@+id/one"
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp" >
+        </com.poker.common.activity.RightSeatView>
+
+        <com.poker.common.activity.LeftSeatView
+            android:id="@+id/four"
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp" >
+        </com.poker.common.activity.LeftSeatView>
+
+        <com.poker.common.activity.RightSeatView
+            android:id="@+id/two"
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/one" >
+        </com.poker.common.activity.RightSeatView>
+
+        <com.poker.common.activity.LeftSeatView
+            android:id="@+id/three"
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@+id/four" >
+        </com.poker.common.activity.LeftSeatView>
+
+        <com.poker.common.activity.RightSeatView
+            android:id="@+id/six"
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/one" >
+        </com.poker.common.activity.RightSeatView>
+
+        <com.poker.common.activity.LeftSeatView
+            android:id="@+id/five"
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@+id/four" >
+        </com.poker.common.activity.LeftSeatView>
     </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/reback"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/player_current_rank"
+        android:layout_marginLeft="13dp"
+        android:background="@drawable/img_back_btn" />
+
+    <ImageButton
+        android:id="@+id/tips"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/img_tips_btn" />
 
 </RelativeLayout>
