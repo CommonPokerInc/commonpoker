@@ -37,6 +37,7 @@
         android:id="@+id/poker2"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginLeft="7dp"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/personView"
         android:background="@drawable/img_poker_back" />

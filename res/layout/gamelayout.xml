@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_background" >
@@ -20,25 +21,24 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/player_current_rank"
         android:background="@drawable/img_add_btn" />
-    
-        <ImageButton
-            android:id="@+id/follow"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/add"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/img_follow_btn" />
 
+    <ImageButton
+        android:id="@+id/follow"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/add"
+        android:background="@drawable/img_follow_btn" />
 
-                <ImageButton
-            android:id="@+id/quit"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/follow"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/img_quit_btn" />
+    <ImageButton
+        android:id="@+id/quit"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/follow"
+        android:background="@drawable/img_quit_btn" />
 
     <RelativeLayout
         android:id="@+id/desk_layout"
@@ -103,6 +103,53 @@
             android:layout_centerHorizontal="true"
             android:layout_toLeftOf="@+id/four" >
         </com.poker.common.activity.LeftSeatView>
+
+        <LinearLayout
+            android:id="@+id/pokers_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/one"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/poker1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="7dp"
+                android:background="@drawable/img_poker_back" />
+
+            <ImageView
+                android:id="@+id/poker2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="7dp"
+                android:background="@drawable/img_poker_back" />
+
+            <ImageView
+                android:id="@+id/poker3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="7dp"
+                android:background="@drawable/img_poker_back" />
+
+            <ImageView
+                android:id="@+id/poker4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="7dp"
+                android:background="@drawable/img_poker_back" />
+
+            <ImageView
+                android:id="@+id/poker5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="7dp"
+                android:background="@drawable/img_poker_back" />
+        </LinearLayout>
+
     </RelativeLayout>
 
     <ImageButton
