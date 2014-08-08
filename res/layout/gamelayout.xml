@@ -8,11 +8,32 @@
         android:id="@+id/player_current_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/player_current_rank_star"
+        android:text="@string/player_current_rank" />
+    
+    <TextView
+        android:id="@+id/player_current_rank_til"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:text="@string/player_current_rank" />
+        android:text="@string/player_current_rank_til" />
+    <ImageView
+        android:id="@+id/player_current_rank_star"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/player_current_rank_til"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/img_rank_1">
+        
+    </ImageView>
 
     <ImageButton
         android:id="@+id/add"

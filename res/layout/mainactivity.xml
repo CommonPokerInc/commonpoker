@@ -2,9 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/img_bg"
-     >
+    android:background="@drawable/img_main_page_bg"
+    android:orientation="vertical" >
 
     <ImageButton
         android:id="@+id/send_game_btn"
@@ -12,31 +11,31 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/img_send_game_btn"
-        android:layout_marginTop="@dimen/send_game_margin_top"
         android:layout_marginRight="@dimen/send_game_margin_right"
-         />
+        android:layout_marginTop="@dimen/send_game_margin_top"
+        android:background="@drawable/img_send_game_btn" />
 
-    <LinearLayout 
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/create_home_margin_left"
-        android:layout_centerVertical="true">
-    
-    <ImageButton
-        android:id="@+id/create_home_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/img_create_home_btn"/>
+        android:layout_below="@+id/mainpage_me_title"
+        android:orientation="vertical" >
 
-    <ImageButton
-        android:id="@+id/join_home_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/join_home_margin_top"
-        android:background="@drawable/img_join_home_btn" />
-    
+        <ImageButton
+            android:id="@+id/create_home_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_create_home_btn" />
+
+        <ImageButton
+            android:id="@+id/join_home_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/join_home_margin_top"
+            android:background="@drawable/img_join_home_btn" />
     </LinearLayout>
 
     <ImageButton
@@ -45,8 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="@dimen/mainpage_me_margin_left"
         android:layout_marginBottom="@dimen/mainpage_me_margin_bottom"
+        android:layout_marginLeft="@dimen/mainpage_me_margin_left"
         android:background="@drawable/img_mainpage_setting_btn" />
 
     <ImageButton
@@ -54,9 +53,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/mainpage_setting_btn"
-        android:layout_marginLeft="@dimen/mainpage_me_margin_left"
         android:layout_marginBottom="@dimen/mainpage_me_margin_bottom"
+        android:layout_marginLeft="@dimen/mainpage_me_margin_left"
+        android:layout_toRightOf="@+id/mainpage_setting_btn"
         android:background="@drawable/img_mainpage_person_btn" />
+
+    <ImageView
+        android:id="@+id/mainpage_me_girl"
+        android:layout_width="@dimen/mainpage_girl_width"
+        android:layout_height="@dimen/mainpage_girl_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/img_main_girl" />
+
+    <ImageView
+        android:id="@+id/mainpage_me_title"
+        android:layout_width="@dimen/mainpage_title_width"
+        android:layout_height="@dimen/mainpage_title_height"
+        android:layout_toLeftOf="@+id/mainpage_me_girl"
+        android:layout_alignTop="@+id/mainpage_me_girl"
+        android:layout_marginTop="-20dp"
+        android:src="@drawable/img_main_title" />
 
 </RelativeLayout>

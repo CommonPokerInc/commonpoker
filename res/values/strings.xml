@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="person_state">状态</string>
-    <string name="player_current_rank">当前排名：第一名</string>
+    <string name="player_current_rank">当前排名：第</string>
+    <string name="player_current_rank_til">名</string>
 
 </resources>
