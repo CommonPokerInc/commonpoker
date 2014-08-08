@@ -15,7 +15,7 @@ public class GameActivity extends Activity{
 
 	private ImageButton reback,follow,add,quit;
 	private TextView current_rank;
-	@Override
+	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
