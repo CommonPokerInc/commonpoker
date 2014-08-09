@@ -36,14 +36,6 @@
     </ImageView>
 
     <ImageButton
-        android:id="@+id/add"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/player_current_rank"
-        android:background="@drawable/img_add_btn" />
-
-    <ImageButton
         android:id="@+id/follow"
         android:layout_width="80dp"
         android:layout_height="40dp"
@@ -72,64 +64,64 @@
         android:background="@drawable/img_desk" >
 
         <com.poker.common.activity.RightSeatView
-            android:id="@+id/one"
+            android:id="@+id/seat_five"
             android:layout_width="wrap_content"
-            android:layout_height="85dp"
+            android:layout_height="@dimen/player_height"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp" >
         </com.poker.common.activity.RightSeatView>
 
         <com.poker.common.activity.LeftSeatView
-            android:id="@+id/four"
+            android:id="@+id/seat_two"
             android:layout_width="wrap_content"
-            android:layout_height="85dp"
+            android:layout_height="@dimen/player_height"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp" >
         </com.poker.common.activity.LeftSeatView>
 
         <com.poker.common.activity.RightSeatView
-            android:id="@+id/two"
+            android:id="@+id/seat_three"
             android:layout_width="wrap_content"
-            android:layout_height="85dp"
+            android:layout_height="@dimen/player_height"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@+id/one" >
+            android:layout_toRightOf="@+id/seat_five" >
         </com.poker.common.activity.RightSeatView>
 
         <com.poker.common.activity.LeftSeatView
-            android:id="@+id/three"
+            android:id="@+id/seat_four"
             android:layout_width="wrap_content"
-            android:layout_height="85dp"
+            android:layout_height="@dimen/player_height"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/four" >
+            android:layout_toLeftOf="@+id/seat_two" >
         </com.poker.common.activity.LeftSeatView>
 
         <com.poker.common.activity.RightSeatView
-            android:id="@+id/six"
+            android:id="@+id/seat_one"
             android:layout_width="wrap_content"
-            android:layout_height="85dp"
+            android:layout_height="@dimen/player_height"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@+id/one" >
+            android:layout_toRightOf="@+id/seat_five" >
         </com.poker.common.activity.RightSeatView>
 
         <com.poker.common.activity.LeftSeatView
-            android:id="@+id/five"
+            android:id="@+id/seat_six"
             android:layout_width="wrap_content"
-            android:layout_height="85dp"
+            android:layout_height="@dimen/player_height"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/four" >
+            android:layout_toLeftOf="@+id/seat_two" >
         </com.poker.common.activity.LeftSeatView>
 
         <LinearLayout
             android:id="@+id/pokers_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/one"
+            android:layout_alignBottom="@+id/seat_five"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:gravity="center"
@@ -137,38 +129,43 @@
 
             <ImageView
                 android:id="@+id/poker1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/public_poker_width"
+                android:layout_height="@dimen/public_poker_height"
                 android:layout_marginLeft="7dp"
-                android:background="@drawable/img_poker_back" />
+                android:padding="@dimen/public_poker_padding"
+                android:src="@drawable/diamond10" />
 
             <ImageView
                 android:id="@+id/poker2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/public_poker_width"
+                android:layout_height="@dimen/public_poker_height"
                 android:layout_marginLeft="7dp"
-                android:background="@drawable/img_poker_back" />
+                android:padding="@dimen/public_poker_padding"
+                android:src="@drawable/diamond10" />
 
             <ImageView
                 android:id="@+id/poker3"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/public_poker_width"
+                android:layout_height="@dimen/public_poker_height"
                 android:layout_marginLeft="7dp"
-                android:background="@drawable/img_poker_back" />
+                android:padding="@dimen/public_poker_padding"
+                android:src="@drawable/diamond10" />
 
             <ImageView
                 android:id="@+id/poker4"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/public_poker_width"
+                android:layout_height="@dimen/public_poker_height"
                 android:layout_marginLeft="7dp"
-                android:background="@drawable/img_poker_back" />
+                android:padding="@dimen/public_poker_padding"
+                android:src="@drawable/diamond10" />
 
             <ImageView
                 android:id="@+id/poker5"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/public_poker_width"
+                android:layout_height="@dimen/public_poker_height"
                 android:layout_marginLeft="7dp"
-                android:background="@drawable/img_poker_back" />
+                android:padding="@dimen/public_poker_padding"
+                android:src="@drawable/diamond10" />
         </LinearLayout>
 
     </RelativeLayout>
@@ -190,5 +187,13 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="5dp"
         android:background="@drawable/img_tips_btn" />
+
+    <ImageButton
+        android:id="@+id/add"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/player_current_rank_til"
+        android:background="@drawable/img_add_btn" />
 
 </RelativeLayout>

@@ -29,16 +29,35 @@ public class PersonView extends FrameLayout{
 		 title = (TextView) v.findViewById(R.id.person_title);
 		 personMoney = (TextView)v.findViewById(R.id.person_current_money);
 		 personImg = (ImageButton) v.findViewById(R.id.person_image);
-		 personImg.setOnClickListener(new OnClickListener() {
-	            @Override
-	            public void onClick(View v) {
-	                Log.i("Rinfon", "person Image Click");
-	            }
-	        });
 	}
 	
 	public void setPersonImgClickListen(OnClickListener l){
 		personImg.setOnClickListener(l);
 	}
+
+	public TextView getTitle() {
+		return title;
+	}
+
+	public void setTitle(TextView title) {
+		this.title = title;
+	}
+
+	public ImageButton getPersonImg() {
+		return personImg;
+	}
+
+	public void setPersonImg(ImageButton personImg) {
+		this.personImg = personImg;
+	}
+
+	public TextView getPersonMoney() {
+		return personMoney;
+	}
+
+	public void setPersonMoney(TextView personMoney) {
+		this.personMoney = personMoney;
+	}
+	
 
 }
