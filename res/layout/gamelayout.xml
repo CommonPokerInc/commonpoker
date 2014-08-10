@@ -13,45 +13,39 @@
         android:layout_marginTop="5dp"
         android:layout_toLeftOf="@+id/player_current_rank_star"
         android:text="@string/player_current_rank" />
-    
-    <TextView
-        android:id="@+id/player_current_rank_til"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/player_current_rank_til" />
+
     <ImageView
         android:id="@+id/player_current_rank_star"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/player_current_rank_til"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
-        android:src="@drawable/img_rank_1">
-        
+        android:src="@drawable/img_rank_1" >
     </ImageView>
 
-    <ImageButton
+    <Button
         android:id="@+id/follow"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="5dp"
         android:layout_toLeftOf="@+id/add"
-        android:background="@drawable/img_follow_btn" />
+        android:background="@drawable/back_btn"
+        android:text="@string/follow"
+        android:textColor="@color/ivory" />
 
-    <ImageButton
+    <Button
         android:id="@+id/quit"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="5dp"
         android:layout_toLeftOf="@+id/follow"
-        android:background="@drawable/img_quit_btn" />
+        android:background="@drawable/back_btn"
+        android:text="@string/quit"
+        android:textColor="@color/ivory" />
 
     <RelativeLayout
         android:id="@+id/desk_layout"
@@ -168,6 +162,34 @@
                 android:src="@drawable/diamond10" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/room_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/pokers_layout"
+            android:layout_below="@+id/pokers_layout"
+            android:layout_marginLeft="@dimen/public_poker_width"
+            android:text="房间：傻猪猪" />
+
+        <TextView
+            android:id="@+id/deal_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/room_name"
+            android:layout_alignBottom="@+id/room_name"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/room_name"
+            android:text="35/70" />
+
+        <TextView
+            android:id="@+id/room_round_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/deal_text"
+            android:layout_alignBottom="@+id/deal_text"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/deal_text"
+            android:text="1/20局" />
     </RelativeLayout>
 
     <ImageButton
@@ -179,21 +201,44 @@
         android:layout_marginLeft="13dp"
         android:background="@drawable/img_back_btn" />
 
-    <ImageButton
+    <Button
         android:id="@+id/tips"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="5dp"
-        android:background="@drawable/img_tips_btn" />
+        android:background="@drawable/img_tips_btn"
+        android:text="@string/tips"
+        android:textColor="@color/ivory" />
 
-    <ImageButton
+    <DigitalClock
+        android:id="@+id/digitalClock1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/player_current_rank_star"
+        android:layout_below="@+id/player_current_rank_star"
+        android:layout_marginTop="5dp"
+        android:maxLength="5"
+        android:text="DigitalClock" />
+
+    <Button
         android:id="@+id/add"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/player_current_rank_til"
-        android:background="@drawable/img_add_btn" />
+        android:layout_alignParentRight="true"
+        android:background="@drawable/back_btn"
+        android:text="@string/add"
+        android:textColor="@color/ivory" />
+
+    <ImageView
+        android:id="@+id/img_card_tip"
+        android:layout_width="@dimen/img_card_tip_width"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_card_tips"
+        android:visibility="invisible" />
 
 </RelativeLayout>

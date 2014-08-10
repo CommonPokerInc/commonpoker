@@ -8,5 +8,9 @@
     <string name="person_state">状态</string>
     <string name="player_current_rank">当前排名：第</string>
     <string name="player_current_rank_til">名</string>
+    <string name="quit">弃牌</string>
+    <string name="follow">跟注</string>
+    <string name="add">加注</string>
+    <string name="tips">牌型</string>
 
 </resources>
