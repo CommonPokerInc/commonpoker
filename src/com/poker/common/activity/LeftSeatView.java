@@ -21,7 +21,7 @@ import com.poker.common.R;
 public class LeftSeatView extends FrameLayout {
 
 	private ImageView left_up,left_counter_img,left_seat_poker1,left_seat_poker2;
-	private TextView left_counter_text;
+	private TextView left_counter_text,card_type;
 	private PersonView personView;
 	private Context mContext;
 	private ObjectAnimator pokerAnim1;
@@ -38,6 +38,7 @@ public class LeftSeatView extends FrameLayout {
 		left_up = (ImageView)view.findViewById(R.id.left_up);
 		left_counter_img = (ImageView)view.findViewById(R.id.left_counter_img);
 		left_counter_text = (TextView)view.findViewById(R.id.left_couter_text);
+		card_type = (TextView)view.findViewById(R.id.card_type);
 		personView = (PersonView)view.findViewById(R.id.left_seat_personView);
 		left_seat_poker1 = (ImageView)view.findViewById(R.id.left_seat_poker1);
 		left_seat_poker2 = (ImageView)view.findViewById(R.id.left_seat_poker2);

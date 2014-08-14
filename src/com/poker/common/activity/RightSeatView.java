@@ -20,7 +20,7 @@ import com.poker.common.R;
 public class RightSeatView extends FrameLayout {
 
 	private ImageView right_up,right_counter_img,right_seat_poker1,right_seat_poker2;
-	private TextView right_counter_text;
+	private TextView right_counter_text,card_type;
 	private Context mContext;
 	private ObjectAnimator pokerAnim1;
 	public RightSeatView(Context context, AttributeSet attrs) {
@@ -37,6 +37,7 @@ public class RightSeatView extends FrameLayout {
 		right_up = (ImageView)view.findViewById(R.id.right_up);
 		right_counter_img = (ImageView)view.findViewById(R.id.right_counter_img);
 		right_counter_text = (TextView)view.findViewById(R.id.right_counter_text);
+		card_type = (TextView)view.findViewById(R.id.card_type);
 		right_seat_poker1 = (ImageView)view.findViewById(R.id.right_seat_poker1);
 		right_seat_poker2 = (ImageView)view.findViewById(R.id.right_seat_poker2);
 		right_seat_poker1.setVisibility(View.INVISIBLE);

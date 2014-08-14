@@ -37,6 +37,10 @@
     <dimen name="img_card_tip_width">250dp</dimen>
     
     
+    <!-- 字体大小 -->
+    <dimen name="card_type">12dp</dimen>
+    
+    
     
 
 </resources>

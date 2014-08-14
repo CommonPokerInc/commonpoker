@@ -27,25 +27,53 @@
 
     <Button
         android:id="@+id/follow"
-        android:layout_width="80dp"
+        android:layout_width="90dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="10dp"
         android:layout_toLeftOf="@+id/add"
         android:background="@drawable/back_btn"
         android:text="@string/follow"
+        android:visibility="invisible"
         android:textColor="@color/ivory" />
+    
+        <Button
+            android:id="@+id/autopq"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/add"
+            android:background="@drawable/img_auto_button"
+            android:gravity="right|center_vertical"
+            android:paddingRight="15dp"
+            android:text="@string/autopq"
+            android:textColor="@color/ivory" />
 
     <Button
         android:id="@+id/quit"
-        android:layout_width="80dp"
+        android:layout_width="90dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="10dp"
         android:layout_toLeftOf="@+id/follow"
         android:background="@drawable/back_btn"
         android:text="@string/quit"
+        android:visibility="invisible"
         android:textColor="@color/ivory" />
+    
+        <Button
+            android:id="@+id/autopass"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/autopq"
+            android:background="@drawable/img_auto_button"
+            android:gravity="right|center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/autopass"
+            android:textColor="@color/ivory" />
 
     <RelativeLayout
         android:id="@+id/desk_layout"
@@ -194,8 +222,8 @@
 
     <ImageButton
         android:id="@+id/reback"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/player_current_rank"
         android:layout_marginLeft="13dp"
@@ -203,11 +231,11 @@
 
     <Button
         android:id="@+id/tips"
-        android:layout_width="80dp"
+        android:layout_width="90dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:background="@drawable/img_tips_btn"
         android:text="@string/tips"
         android:textColor="@color/ivory" />
@@ -224,21 +252,57 @@
 
     <Button
         android:id="@+id/add"
-        android:layout_width="80dp"
+        android:layout_width="90dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
         android:background="@drawable/back_btn"
         android:text="@string/add"
+        android:visibility="invisible"
+        android:textColor="@color/ivory" />
+    
+        <Button
+        android:id="@+id/autofollow"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/img_auto_button"
+        android:gravity="right|center_vertical"
+        android:paddingRight="5dp"
+        android:text="@string/autofollow"
         android:textColor="@color/ivory" />
 
     <ImageView
-        android:id="@+id/img_card_tip"
-        android:layout_width="@dimen/img_card_tip_width"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/img_card_tips"
-        android:visibility="invisible" />
-
+        android:id="@+id/checked1"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/autopass"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/autopass"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/img_auto_uncheck" />
+    
+    <ImageView
+        android:id="@+id/checked2"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/autopq"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/autopq"
+        android:src="@drawable/img_auto_uncheck" />
+    
+    <ImageView
+        android:id="@+id/checked3"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/autofollow"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/autofollow"
+        android:src="@drawable/img_auto_uncheck" />
+   
 </RelativeLayout>

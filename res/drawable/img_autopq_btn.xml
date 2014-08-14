@@ -2,9 +2,9 @@
 	    <item  
 	          android:state_enabled="true" 
 	          android:state_checked="true"
-	          android:drawable="@drawable/img_auto_checked" />  
+	          android:drawable="@drawable/autopq_active" />  
 	    <item               
 	          android:state_enabled="true"     
 	          android:state_checked="false"
-	          android:drawable="@drawable/img_auto_normal" />  
+	          android:drawable="@drawable/autopq_normal" />  
 </selector>

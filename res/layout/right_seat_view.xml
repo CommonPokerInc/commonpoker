@@ -35,21 +35,32 @@
         android:layout_alignParentLeft="true" >
 
     </com.poker.common.activity.PersonView>
+    
+            <TextView
+        android:id="@+id/card_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/right_seat_personView"
+        android:textSize="@dimen/card_type"
+        android:text="@string/tips" />
+            
     <ImageView
         android:id="@+id/right_seat_poker1"
         android:layout_width="@dimen/poker_back_width"
         android:layout_height="@dimen/poker_back_height"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/card_type"
         android:layout_toRightOf="@+id/right_seat_personView"
+        android:layout_marginLeft="-12dp"
         android:padding="@dimen/public_poker_padding"
         android:src="@drawable/img_poker_back" />
-    
+
         <ImageView
         android:id="@+id/right_seat_poker2"
         android:layout_width="@dimen/poker_back_width"
         android:layout_height="@dimen/poker_back_height"
-        android:layout_marginLeft="5dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="-8dp"
+        android:layout_above="@+id/card_type"
         android:layout_toRightOf="@+id/right_seat_personView"
 		android:padding="@dimen/public_poker_padding"
         android:src="@drawable/img_poker_back" />
