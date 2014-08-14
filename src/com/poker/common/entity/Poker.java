@@ -21,6 +21,9 @@ public class Poker {
 	//±àºÅ
 	private int number;
 	
+	public Poker(){
+		
+	}
 //	public Poker(String color,int size) {
 //		// TODO Auto-generated constructor stub
 //		super();
