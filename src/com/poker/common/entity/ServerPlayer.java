@@ -6,7 +6,7 @@ package com.poker.common.entity;
  * time 2014-7-29
  *
  */
-public class ServerPlayer extends AbsPlayer implements ImpPlayer {
+public class ServerPlayer extends ClientPlayer{
 
 	@Override
 	public void abandon() {

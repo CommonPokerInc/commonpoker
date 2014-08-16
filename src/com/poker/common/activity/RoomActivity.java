@@ -80,7 +80,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				//作为服务器不可加入其他wifi
-				if(app.isServer){
+				if(app.isServer()){
 					Toast.makeText(RoomActivity.this, "您已经建立wifi请关闭后再连接其他热点", Toast.LENGTH_SHORT).show();
 					return;
 				}
