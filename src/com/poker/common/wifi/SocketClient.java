@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import com.poker.common.wifi.listener.CommunicationListener;
+
 import android.util.Log;
 
 public class SocketClient {
@@ -23,56 +25,52 @@ public class SocketClient {
 	private int port;
 
 	private boolean onGoinglistner = true;
+	
+	private CommunicationListener listener;
+	
+	private ClientConnectListener connListener;
 
-	private ClientMsgListener clientListener;
-
-	public static interface ClientMsgListener {
-
-		public void handlerErorMsg(String errorMsg);
-
-		public void handlerHotMsg(String hotMsg);
-
+	
+	//连接服务器回调接口
+	public static interface ClientConnectListener {
+		public void onSuccess();
+		public void onFailure(String errorInfo);
 	}
 
-	public static synchronized SocketClient newInstance(String site, int port,
-			ClientMsgListener clientListener) {
+	public static synchronized SocketClient newInstance(String site, int port) {
 
 		if (socketClient == null) {
-			socketClient = new SocketClient(site, port, clientListener);
+			socketClient = new SocketClient(site, port);
 		}
 		Log.i(TAG, "socketClient =" + socketClient);
 		return socketClient;
 	}
 
-	// 切换消息监听器
-	public void setMsgListener(ClientMsgListener listener) {
-		this.clientListener = listener;
-	}
-
-	private SocketClient(String site, int port, ClientMsgListener clientListener) {
+	private SocketClient(String site, int port) {
 
 		this.site = site;
 		this.port = port;
-		this.clientListener = clientListener;
 	}
 
-	public void connectServer() {
+	public void connectServer(final ClientConnectListener connListener) {
 		Log.i(TAG, "into connectServer()");
+		this.setConnListener(connListener);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					client = new Socket(site, port);
 					Log.i(TAG, "Client is created! site:" + site + " port:" + port);
-					acceptMsg();
-					clientListener.handlerHotMsg(Global.INT_CLIENT_SUCCESS);
+					//进入房间给服务器发送消息后再开始监听
+					//acceptMsg();
+					connListener.onSuccess();
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
-					clientListener.handlerErorMsg(Global.INT_CLIENT_FAIL);
+					connListener.onFailure(e.getMessage());
 					Log.d(TAG, "UnknownHostException");
 				} catch (IOException e) {
 					e.printStackTrace();
-					clientListener.handlerErorMsg(Global.INT_CLIENT_FAIL);
+					connListener.onFailure(e.getMessage());
 					Log.d(TAG, "IOException");
 				}
 			}
@@ -80,7 +78,8 @@ public class SocketClient {
 		Log.i(TAG, "out connectServer()");
 	}
 
-	public String sendMsg(final String msg) {
+	//发送消息必须要在接受信息行为之后
+	public String sendMessage(final String msg) {
 		Log.i(TAG, "into sendMsgsendMsg(final ChatMessage msg)  msg =" + msg);
 		new Thread(new Runnable() {
 			@Override
@@ -90,12 +89,15 @@ public class SocketClient {
 						if (!client.isOutputShutdown()) {
 							PrintWriter out = new PrintWriter(client.getOutputStream());
 							out.println(msg);
-							// out.println(JsonUtil.obj2Str(msg));
 							out.flush();
+							if(null!=listener)
+								listener.onSendSuccess();
 						}
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
+					if(null!=listener)
+						listener.onStringReceive(e.getMessage());
 					Log.d(TAG, "client snedMsg error!");
 				}
 			}
@@ -114,7 +116,9 @@ public class SocketClient {
 		}
 	}
 
-	public void acceptMsg() {
+	//开始接受信息
+	public void beganAcceptMessage(final CommunicationListener listener) {
+		setMessageListener(listener);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -127,7 +131,7 @@ public class SocketClient {
 									String chatMsg = in.readLine();
 									Log.i(TAG, "into acceptMsg()  chatMsg =" + chatMsg);
 									if (chatMsg != null && !chatMsg.equals("")) {
-										clientListener.handlerHotMsg(chatMsg);
+										listener.onStringReceive(chatMsg);
 									}
 								} catch (IOException e) {
 									e.printStackTrace();
@@ -146,5 +150,21 @@ public class SocketClient {
 
 	public void stopAcceptMessage() {
 		onGoinglistner = false;
+	}
+
+	public ClientConnectListener getConnListener() {
+		return connListener;
+	}
+
+	public void setConnListener(ClientConnectListener connListener) {
+		this.connListener = connListener;
+	}
+
+	public CommunicationListener getMessageListener() {
+		return listener;
+	}
+
+	public void setMessageListener(CommunicationListener listener) {
+		this.listener = listener;
 	}
 }

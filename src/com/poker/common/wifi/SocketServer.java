@@ -44,11 +44,9 @@ public class SocketServer {
 	}
 
 	public static synchronized SocketServer newInstance(int port, ServerMsgListener serverListener) {
-		Log.i(TAG, "into newInstance(int port, ServerMsgListener serverListener)...................................");
 		if (serverSocket == null) {
 			serverSocket = new SocketServer(port, serverListener);
 		}
-		Log.i(TAG, "out newInstance(int port, ServerMsgListener serverListener)...................................");
 		return serverSocket;
 	}
 

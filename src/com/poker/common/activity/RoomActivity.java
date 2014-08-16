@@ -10,7 +10,6 @@ import com.poker.common.adapter.RoomAdapter;
 import com.poker.common.wifi.Global;
 import com.poker.common.wifi.SocketClient;
 import com.poker.common.wifi.SocketServer;
-import com.poker.common.wifi.SocketClient.ClientMsgListener;
 import com.poker.common.wifi.WifiHotManager;
 import com.poker.common.wifi.WifiHotManager.OpretionsType;
 import com.poker.common.wifi.WifiHotManager.WifiBroadCastOperations;
@@ -100,36 +99,36 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		});
 	}
 	
-	// client 初始化
-		private void initClient(String IP) {
-			client = SocketClient.newInstance("192.168.43.1", Global.WIFI_PORT, new ClientMsgListener() {
-
-				Message msg = null;
-
-				@Override
-				public void handlerErorMsg(String errorMsg) {
-					app.isConnected = false;
-					Log.d(TAG, "client 初始化失败！");
-					msg = clientHandler.obtainMessage();
-					msg.obj = errorMsg;
-					msg.what = 0;
-					clientHandler.sendMessage(msg);
-
-				}
-
-				@Override
-				public void handlerHotMsg(String hotMsg) {
-					app.isConnected = true;
-					Log.i(TAG, "client 初始化成功！");
-					msg = clientHandler.obtainMessage();
-					msg.obj = hotMsg;
-					msg.what = 1;
-					clientHandler.sendMessage(msg);
-
-				}
-			});
-			client.connectServer();
-		}
+//	// client 初始化
+//		private void initClient(String IP) {
+//			client = SocketClient.newInstance("192.168.43.1", Global.WIFI_PORT, new ClientMsgListener() {
+//
+//				Message msg = null;
+//
+//				@Override
+//				public void handlerErorMsg(String errorMsg) {
+//					app.isConnected = false;
+//					Log.d(TAG, "client 初始化失败！");
+//					msg = clientHandler.obtainMessage();
+//					msg.obj = errorMsg;
+//					msg.what = 0;
+//					clientHandler.sendMessage(msg);
+//
+//				}
+//
+//				@Override
+//				public void handlerHotMsg(String hotMsg) {
+//					app.isConnected = true;
+//					Log.i(TAG, "client 初始化成功！");
+//					msg = clientHandler.obtainMessage();
+//					msg.obj = hotMsg;
+//					msg.what = 1;
+//					clientHandler.sendMessage(msg);
+//
+//				}
+//			});
+//			client.connectServer();
+//		}
 	
 		private void initClientHandler() {
 			clientHandler = new Handler() {
@@ -161,7 +160,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		app.wm.setConnectStatu(false);
 		app.wm.unRegisterWifiStateBroadCast();
 		app.wm.unRegisterWifiConnectBroadCast();
-		initClient(ip);
+		//initClient(ip);
 		return false;
 	}
 	@Override
