@@ -26,6 +26,10 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 	
 	public void initMessageListener(MessageListener listener){
 		this.listener = listener;
+		if(app.isServer()){
+		}else{
+			app.getClient().beganAcceptMessage(this);
+		}
 	}
 	
 	@Override

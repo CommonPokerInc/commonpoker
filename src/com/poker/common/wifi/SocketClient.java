@@ -118,7 +118,7 @@ public class SocketClient {
 
 	//开始接受信息
 	public void beganAcceptMessage(final CommunicationListener listener) {
-		setMessageListener(listener);
+		setCommunicationListener(listener);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -160,11 +160,11 @@ public class SocketClient {
 		this.connListener = connListener;
 	}
 
-	public CommunicationListener getMessageListener() {
+	public CommunicationListener getCommunicationListener() {
 		return listener;
 	}
 
-	public void setMessageListener(CommunicationListener listener) {
+	public void setCommunicationListener(CommunicationListener listener) {
 		this.listener = listener;
 	}
 }

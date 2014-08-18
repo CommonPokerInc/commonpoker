@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.poker.common.wifi.listener.CommunicationListener;
 import com.poker.common.wifi.listener.WifiClientListener;
 import com.poker.common.wifi.listener.WifiMessageListener;
 
@@ -27,43 +28,22 @@ public class SocketServer {
 
 	private int mPort;
 
-	private ServerMsgListener serverListener;
-	
-	private WifiMessageListener sendListener;
+	private CommunicationListener listener;
 	
 	private WifiClientListener clientListener;
 
 	private boolean onGoinglistner = true;
 
-	public static interface ServerMsgListener {
-
-		public void handlerErorMsg(String errorMsg);
-
-		public void handlerHotMsg(String hotMsg);
-
-	}
-
-	public static synchronized SocketServer newInstance(int port, ServerMsgListener serverListener) {
+	public static synchronized SocketServer newInstance(int port) {
 		if (serverSocket == null) {
-			serverSocket = new SocketServer(port, serverListener);
+			serverSocket = new SocketServer(port);
 		}
 		return serverSocket;
 	}
-
-	// 切换消息监听器
-	public void setMsgListener(ServerMsgListener listener) {
-		this.serverListener = listener;
-	}
 	
-	//设置消息发送监听器
-	public void setMessageSendListener(WifiMessageListener sendListener){
-		this.sendListener = sendListener;
-	}
-	
-	//设置客户端人数变化监听器
+	//设置热点接入人数变化监听器
 	public void setClientListener(WifiClientListener clientListener){
 		this.clientListener = clientListener;
-		
 	}
 	
 	private void closeConnection() {
@@ -83,14 +63,12 @@ public class SocketServer {
 		closeConnection();
 	}
 
-	private SocketServer(final int port, ServerMsgListener serverListener) {
-		Log.i(TAG, "into SocketServer(final int port, ServerMsgListener serverListener) ...................................");
+	private SocketServer(final int port) {
 		this.mPort = port;
-		this.serverListener = serverListener;
-		Log.i(TAG, "out SocketServer(final int port, ServerMsgListener serverListener) ...................................");
 	}
 
-	public void beginListen() {
+	public void beginListen(final WifiClientListener clientListener) {
+		setClientListener(clientListener);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -99,11 +77,9 @@ public class SocketServer {
 					server.setReuseAddress(true);
 					InetSocketAddress address = new InetSocketAddress(mPort);
 					server.bind(address);
-					serverListener.handlerHotMsg(Global.INT_SERVER_SUCCESS);
 					Log.i(TAG, "server  =" + server);
 				} catch (IOException e1) {
 					e1.printStackTrace();
-					serverListener.handlerErorMsg(Global.INT_SERVER_FAIL);
 					Log.d(TAG, "server int fail ");
 				}
 				if (server != null) {
@@ -129,8 +105,8 @@ public class SocketServer {
 		}).start();
 	}
 
-	//对单个客户端发出消息
-	public void sendMsg(final Socket client, final String msg) {
+	//对单个客户端发出消息,必须在开始监听行为后才可执行
+	public void sendMessage(final Socket client, final String msg) {
 		Log.i(TAG, "into sendMsg(final Socket client,final ChatMessage msg) msg = " + msg);
 		PrintWriter out = null;
 		if (client.isConnected()) {
@@ -139,14 +115,14 @@ public class SocketServer {
 					out = new PrintWriter(client.getOutputStream());
 					out.println(msg);
 					out.flush();
-					if(sendListener!=null){
-						sendListener.sendSuccess(msg);
+					if(listener!=null){
+						listener.onSendSuccess();
 					}
 					Log.i(TAG, "into sendMsg(final Socket client,final ChatMessage msg) msg = " + msg + " success!");
 				} catch (IOException e) {
 					e.printStackTrace();
-					if(sendListener!=null){
-						sendListener.sendFailure(msg);
+					if(listener!=null){
+						listener.onSendFailure(e.getMessage());
 					}
 					Log.d(TAG, "into sendMsg(final Socket client,final ChatMessage msg) fail!");
 				}
@@ -155,12 +131,12 @@ public class SocketServer {
 		Log.i(TAG, "out sendMsg(final Socket client,final ChatMessage msg) msg = " + msg);
 	}
 
-	public void sendMsgToAllCLients(final String msg) {
+	public void sendMessageToAllClients(final String msg) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				for (int i = 0; i < socketQueue.size(); i++) {
-					sendMsg(socketQueue.get(i), msg);
+					sendMessage(socketQueue.get(i), msg);
 				}
 			}
 		}).start();
@@ -178,7 +154,9 @@ public class SocketServer {
 							break;
 						}
 						Log.i(TAG, "client" + socket + "str =" + str);
-						serverListener.handlerHotMsg(str);
+						if(listener!=null){
+							listener.onStringReceive(str);
+						}
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -187,7 +165,7 @@ public class SocketServer {
 		}).start();
 	}
 
-	public int connectNumber() {
+	public int getConnectNumber() {
 		return socketQueue.size();
 	}
 
