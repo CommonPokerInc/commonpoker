@@ -96,113 +96,163 @@ public class Util {
 	
 //	判断是否存在4张牌数字相同
 	public static boolean chekcoutFourPokerNumber(ArrayList<Poker> pokers){
-		int temp = 0;
-		Poker box = new Poker();
-		int currentIndex = -1;
-		for(int i = pokers.size() - 1;i>=4;i--){
-			box = pokers.get(i);
-			currentIndex = i;
-			for(int j = i-1;j>=0;j--){
-				 if(pokers.get(i).getSize() == pokers.get(j).getSize()){
-					 temp++;
-				 }
-			}
-			if(temp == 4){
-				break;
-			}else{
-				temp = 0;
-			}
-		}
-		if(temp == 4){
-			currentPokers.add(box);
-			temp--;
-			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
-				if(pokers.get(n).getSize() == box.getSize()){
-					currentPokers.add(pokers.get(n));
-					temp--;
-				}
-			}
-			return true;
-		}
-		return false;
+//		int temp = 0;
+//		Poker box = new Poker();
+//		int currentIndex = -1;
+//		for(int i = pokers.size() - 1;i>=4;i--){
+//			box = pokers.get(i);
+//			currentIndex = i;
+//			for(int j = i-1;j>=0;j--){
+//				 if(pokers.get(i).getSize() == pokers.get(j).getSize()){
+//					 temp++;
+//				 }
+//			}
+//			if(temp == 4){
+//				break;
+//			}else{
+//				temp = 0;
+//			}
+//		}
+//		if(temp == 4){
+//			currentPokers.add(box);
+//			temp--;
+//			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
+//				if(pokers.get(n).getSize() == box.getSize()){
+//					currentPokers.add(pokers.get(n));
+//					temp--;
+//				}
+//			}
+//			return true;
+//		}
+//		return false;
+	    
+	    return checkNumberSame(pokers,4);
 	}
 	
 //	判断是否存在3张牌数字相同
 	public static boolean checkoutThreePokerNumber(ArrayList<Poker> pokers){
-		int temp = 0;
-		Poker box = new Poker();
-		int currentIndex = -1;
-		for(int i = pokers.size() - 1;i>=3;i--){
-			box = pokers.get(i);
-			currentIndex = i;
-			for(int j = i-1;j>=0;j--){
-				 if(pokers.get(i).getSize() == pokers.get(j).getSize()){
-					 temp++;
-				 }
-			}
-			if(temp == 3){
-				break;
-			}else{
-				temp = 0;
-			}
-		}
-		if(temp == 3){
-			currentPokers.add(box);
-			temp--;
-			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
-				if(pokers.get(n).getSize() == box.getSize()){
-					currentPokers.add(pokers.get(n));
-					temp--;
-				}
-			}
-			return true;
-		}
-		return false;
+//		int temp = 0;
+//		Poker box = new Poker();
+//		int currentIndex = -1;
+//		for(int i = pokers.size() - 1;i>=3;i--){
+//			box = pokers.get(i);
+//			currentIndex = i;
+//			for(int j = i-1;j>=0;j--){
+//				 if(pokers.get(i).getSize() == pokers.get(j).getSize()){
+//					 temp++;
+//				 }
+//			}
+//			if(temp == 3){
+//				break;
+//			}else{
+//				temp = 0;
+//			}
+//		}
+//		if(temp == 3){
+//			currentPokers.add(box);
+//			temp--;
+//			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
+//				if(pokers.get(n).getSize() == box.getSize()){
+//					currentPokers.add(pokers.get(n));
+//					temp--;
+//				}
+//			}
+//			return true;
+//		}
+//		return false;
+	    return checkNumberSame(pokers,3);
 	}
 	
 //	判断是否存在2张牌数字相同
 	public static boolean checkoutTwoPokerNumber(ArrayList<Poker> pokers){
-		int temp = 0;
-		Poker box = new Poker();
-		int currentIndex = -1;
-		for(int i = pokers.size() - 1;i>=2;i--){
-			box = pokers.get(i);
-			currentIndex = i;
-			for(int j = i-1;j>=0;j--){
-				 if(pokers.get(i).getSize() == pokers.get(j).getSize()){
-					 temp++;
-				 }
-			}
-			if(temp == 2){
-				break;
-			}else{
-				temp = 0;
-			}
-		}
-		if(temp == 2){
-			currentPokers.add(box);
-			temp--;
-			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
-				if(pokers.get(n).getSize() == box.getSize()){
-					currentPokers.add(pokers.get(n));
-					temp--;
-				}
-			}
-			return true;
-		}
-		return false;
+//		int temp = 0;
+//		Poker box = new Poker();
+//		int currentIndex = -1;
+//		for(int i = pokers.size() - 1;i>=2;i--){
+//			box = pokers.get(i);
+//			currentIndex = i;
+//			for(int j = i-1;j>=0;j--){
+//				 if(pokers.get(i).getSize() == pokers.get(j).getSize()){
+//					 temp++;
+//				 }
+//			}
+//			if(temp == 2){
+//				break;
+//			}else{
+//				temp = 0;
+//			}
+//		}
+//		if(temp == 2){
+//			currentPokers.add(box);
+//			temp--;
+//			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
+//				if(pokers.get(n).getSize() == box.getSize()){
+//					currentPokers.add(pokers.get(n));
+//					temp--;
+//				}
+//			}
+//			return true;
+//		}
+//		return false;
+	    return checkNumberSame(pokers,2);
 	}
 	
 	public static ArrayList<Poker> insertSort(ArrayList<Poker> pokers){//插入排序算法
-        for(int i=0;i<pokers.size();i++){
+//	             把所有1都变成14,进行排序
+	    for(int i = pokers.size()-1;i>=0;i--){
+	        if(pokers.get(i).getSize() == 1){
+	            pokers.get(i).setSize(14);
+	        }
+	    }
+	    
+        for(int i = pokers.size()-1;i>=0;i--){
                 for(int j=i;j>0;j--){
-                        if (pokers.get(j).getSize()<pokers.get(j-1).getSize()){
+                    if (pokers.get(j).getSize()<pokers.get(j-1).getSize()){
                                 Poker temp = new Poker(pokers.get(j-1));
                                 pokers.get(j-1).setPoker(pokers.get(j));
                                 pokers.get(j).setPoker(temp);
-                        }else break;
+                    }else break;
                 }
         }
+        
+//      恢复所有的14
+        for(int i = pokers.size()-1;i>=0;i--){
+            if(pokers.get(i).getSize() == 14){
+                pokers.get(i).setSize(1);
+            }
+        }
         return pokers;
-}
+	}
+	
+	public static boolean checkNumberSame(ArrayList<Poker> pokers,int size){
+	    int temp = 0;
+        Poker box = new Poker();
+        int currentIndex = -1;
+        for(int i = pokers.size() - 1;i>=size;i--){
+            box = pokers.get(i);
+            currentIndex = i;
+            for(int j = i-1;j>=0;j--){
+                 if(pokers.get(i).getSize() == pokers.get(j).getSize()){
+                     temp++;
+                 }
+            }
+            if(temp == size){
+                break;
+            }else{
+                temp = 0;
+            }
+        }
+        if(temp == size){
+            currentPokers.add(box);
+            temp--;
+            for(int n = currentIndex-1;n>=0&&temp>=0;n--){
+                if(pokers.get(n).getSize() == box.getSize()){
+                    currentPokers.add(pokers.get(n));
+                    temp--;
+                }
+            }
+            return true;
+        }
+        return false;
+	}
 }
