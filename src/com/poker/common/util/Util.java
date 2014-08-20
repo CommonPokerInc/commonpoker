@@ -58,24 +58,28 @@ public class Util {
 		insertSort(pokers);
 		ArrayList<Poker> pokersBack = new ArrayList<Poker>();
 		ArrayList<Poker> pokersBackUp = new ArrayList<Poker>();
-		if(chekcoutPokerSucceedingNumbers(pokers,pokersBack)){
-		    if(checkoutFivePokerColorSame(pokersBack,pokersBackUp)){
+		if(checkoutFivePokerColorSame(pokers,pokersBack)){
+		    if(chekcoutPokerSucceedingNumbers(pokersBack,pokersBackUp)){
 		        return FLUSH;
 		    }else{
-		        return STRAIGHT;
+		        return ROYAL_FLUSH;
 		    }
-		}else if(checkoutFivePokerColorSame(pokers,pokersBack)){
-		    return ROYAL_FLUSH;
+		}else if(chekcoutPokerSucceedingNumbers(pokers,pokersBack)){
+		    return STRAIGHT;
 		}else if(chekcoutFourPokerNumber(pokers,pokersBack)){
 		    return KING_KONG;
 		}else if(checkoutThreePokerNumber(pokers,pokersBack)){
-		    if(checkoutTwoPokerNumber(pokersBack,pokersBackUp)){
+		    pokers.removeAll(pokersBack);
+		    if(checkoutTwoPokerNumber(pokers,pokersBackUp)){
+		        pokersBack.addAll(pokersBackUp);
 		        return GOURD;
 		    }else{
 		        return THREE;
 		    }
 		}else if(checkoutTwoPokerNumber(pokers,pokersBack)){
-		    if(checkoutTwoPokerNumber(pokersBack,pokersBackUp)){
+		    pokers.removeAll(pokersBack);
+		    if(checkoutTwoPokerNumber(pokers,pokersBackUp)){
+		        pokersBack.addAll(pokersBackUp);
 		        return TWO_PAIR;
 		    }else{
 		        return PAIR;
@@ -90,29 +94,47 @@ public class Util {
 		int temp = 0;
 		Poker box = new Poker();
 		int currentIndex = -1;
-		for(int i = pokers.size() - 1;i>=5;i--){
+		for(int i = pokers.size() - 1;i>=4;i--){
 			box = pokers.get(i);
 			currentIndex = i;
+			temp++;
 			for(int j = i-1;j>=0;j--){
 				 if(pokers.get(i).getColor() == pokers.get(j).getColor()){
 					 temp++;
 				 }
 			}
-			if(temp == 5){
-				break;
+//			if(temp == 5){
+//				break;
+//			}else{
+//				temp = 0;
+//			}
+			if(temp<5){
+			    temp = 0;
 			}else{
-				temp = 0;
+			    break;
 			}
 		}
-		if(temp == 5){
-		    pokersBack.add(box);
-			temp--;
-			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
-				if(pokers.get(n).getColor() == box.getColor()){
-				    pokersBack.add(pokers.get(n));
-					temp--;
-				}
+		if(temp > 5){
+//            Poker p = new Poker(box);
+//            pokersBack.add(p);
+//			temp--;
+//			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
+//				if(pokers.get(n).getColor() == box.getColor()){
+//		            Poker pLast = new Poker(pokers.get(n));
+//		            pokersBack.add(pLast);
+////				    pokersBack.add(pokers.get(n));
+//					temp--;
+//				}
+//			}
+			for(int n = 0;n<currentIndex&&temp>=0;n++){
+                if(pokers.get(n).getColor() == box.getColor()){
+                    Poker pLast = new Poker(pokers.get(n));
+                    pokersBack.add(pLast);
+                    temp--;
+                }
 			}
+            Poker p = new Poker(box);
+            pokersBack.add(p);
 			return true;
 		}
 		return false;
@@ -127,9 +149,11 @@ public class Util {
         				if(pokers.get(j).getSize() == pokers.get(j-1).getSize()+1||
         				        (pokers.get(j).getSize() == 1&&pokers.get(j).getSize() == pokers.get(j-1).getSize()-12)){
         					temp++;
-        					pokersBack.add(pokers.get(j));
+        					Poker p = new Poker(pokers.get(j));
+        					pokersBack.add(p);
         					if(temp == 4){
-        					    pokersBack.add(pokers.get(j-1));
+                                Poker pLast = new Poker(pokers.get(j-1));
+                                pokersBack.add(pLast);
         						return true;
         					}
         				}else if(pokers.get(j).getSize() != pokers.get(j-1).getSize()){
@@ -150,9 +174,11 @@ public class Util {
     		    for(int i = 0;i<pokers.size()-1;i++){
     		        if(pokers.get(i).getSize() == pokers.get(i+1).getSize()-1){
                         temp++;
-                        pokersBack.add(pokers.get(i));
+                        Poker p = new Poker(pokers.get(i));
+                        pokersBack.add(p);
                         if(temp == 4){
-                            pokersBack.add(pokers.get(i+1));
+                            Poker pLast = new Poker(pokers.get(i+1));
+                            pokersBack.add(pLast);
                             return true;
                         }
                     }else if(pokers.get(i).getSize() != pokers.get(i+1).getSize()){
@@ -275,12 +301,12 @@ public class Util {
 	public static ArrayList<Poker> insertSort(ArrayList<Poker> pokers){//插入排序算法
 //	             把所有1都变成14,进行排序
 	    for(int i = pokers.size()-1;i>=0;i--){
-	        if(pokers.get(i).getSize() == 1){
+	        if(pokers.get(i).getSize() == 0){
 	            pokers.get(i).setSize(14);
 	        }
 	    }
 	    
-        for(int i = pokers.size()-1;i>=0;i--){
+        for(int i = 1;i<pokers.size();i++){
                 for(int j=i;j>0;j--){
                     if (pokers.get(j).getSize()<pokers.get(j-1).getSize()){
                                 Poker temp = new Poker(pokers.get(j-1));
@@ -293,7 +319,7 @@ public class Util {
 //      恢复所有的14
         for(int i = pokers.size()-1;i>=0;i--){
             if(pokers.get(i).getSize() == 14){
-                pokers.get(i).setSize(1);
+                pokers.get(i).setSize(0);
             }
         }
         return pokers;
@@ -309,20 +335,27 @@ public class Util {
             for(int j = i-1;j>=0;j--){
                  if(pokers.get(i).getSize() == pokers.get(j).getSize()){
                      temp++;
+                     if(temp == size - 1){
+                         break;
+                     }
                  }
             }
-            if(temp == size){
+            if(temp == size - 1){
                 break;
             }else{
                 temp = 0;
             }
         }
-        if(temp == size){
-            pokersBack.add(box);
+        if(temp == size - 1){
+            Poker p = new Poker(box);
+            pokersBack.add(p);
+//            pokersBack.add(box);
             temp--;
             for(int n = currentIndex-1;n>=0&&temp>=0;n--){
                 if(pokers.get(n).getSize() == box.getSize()){
-                    pokersBack.add(pokers.get(n));
+                    Poker pLast = new Poker(pokers.get(n));
+                    pokersBack.add(pLast);
+//                    pokersBack.add(pokers.get(n));
                     temp--;
                 }
             }

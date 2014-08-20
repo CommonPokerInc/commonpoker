@@ -10,7 +10,8 @@ import android.R.bool;
  */
 public class Poker {
 
-	//扑克牌花色
+
+    //扑克牌花色
 //	0：方块
 //	1：梅花
 //	2：红桃
@@ -34,7 +35,7 @@ public class Poker {
 //	0-12方块
 //	13-25梅花 
 //	26-38红桃 
-//	39-21黑桃
+//	39-51黑桃
 	public Poker(int number){
 		this.number = number;
 		this.color = number / 13;
@@ -110,5 +111,18 @@ public class Poker {
 	public void setNumber(int number) {
 		this.number = number;
 	}
+	
+	@Override
+    public boolean equals(Object o) {
+	    // TODO Auto-generated method stub
+	    Poker s = (Poker)o;
+	    if(s.getNumber() == this.getNumber()){
+	        return true;
+	    }else{
+	        return false;
+	    }
+//	    return super.equals(o);
+	}
+
 
 }
