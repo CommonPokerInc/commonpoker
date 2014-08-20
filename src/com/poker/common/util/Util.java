@@ -8,7 +8,34 @@ import com.poker.common.entity.Poker;
 
 public class Util {
 	
-	public static ArrayList<Poker> currentPokers = new ArrayList<Poker>();
+//	public static ArrayList<Poker> currentPokers = new ArrayList<Poker>();
+    
+//    同花顺
+    public static final int FLUSH = 9;
+    
+//  金刚
+    public static final int KING_KONG = 8;
+  
+//  葫芦
+    public static final int GOURD = 7;
+
+//  同花
+    public static final int ROYAL_FLUSH = 6;
+
+//  顺子
+    public static final int STRAIGHT = 5;
+
+//  三条
+    public static final int THREE = 4;
+
+//  两对
+    public static final int TWO_PAIR = 3;
+
+//  一对
+    public static final int PAIR = 2;
+
+//  高牌
+    public static final int HIGH_CARD = 1;
 	
 //	随机生成根据人数来定的扑克牌
 	public static List getPokers(int personsCount){
@@ -29,11 +56,37 @@ public class Util {
 //	根据玩家的7张牌得到最大的牌型，数字越大，牌型越大。
 	public static int getPokerType(ArrayList<Poker> pokers){
 		insertSort(pokers);
-		return 0;
+		ArrayList<Poker> pokersBack = new ArrayList<Poker>();
+		ArrayList<Poker> pokersBackUp = new ArrayList<Poker>();
+		if(chekcoutPokerSucceedingNumbers(pokers,pokersBack)){
+		    if(checkoutFivePokerColorSame(pokersBack,pokersBackUp)){
+		        return FLUSH;
+		    }else{
+		        return STRAIGHT;
+		    }
+		}else if(checkoutFivePokerColorSame(pokers,pokersBack)){
+		    return ROYAL_FLUSH;
+		}else if(chekcoutFourPokerNumber(pokers,pokersBack)){
+		    return KING_KONG;
+		}else if(checkoutThreePokerNumber(pokers,pokersBack)){
+		    if(checkoutTwoPokerNumber(pokersBack,pokersBackUp)){
+		        return GOURD;
+		    }else{
+		        return THREE;
+		    }
+		}else if(checkoutTwoPokerNumber(pokers,pokersBack)){
+		    if(checkoutTwoPokerNumber(pokersBack,pokersBackUp)){
+		        return TWO_PAIR;
+		    }else{
+		        return PAIR;
+		    }
+		}else{
+		    return HIGH_CARD;
+		}
 	}
 	
 //	判断是否存在5张花色相同
-	public static boolean checkoutFivePokerColorSame(ArrayList<Poker> pokers){
+	public static boolean checkoutFivePokerColorSame(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 		int temp = 0;
 		Poker box = new Poker();
 		int currentIndex = -1;
@@ -52,11 +105,11 @@ public class Util {
 			}
 		}
 		if(temp == 5){
-			currentPokers.add(box);
+		    pokersBack.add(box);
 			temp--;
 			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
 				if(pokers.get(n).getColor() == box.getColor()){
-					currentPokers.add(pokers.get(n));
+				    pokersBack.add(pokers.get(n));
 					temp--;
 				}
 			}
@@ -66,36 +119,58 @@ public class Util {
 	}
 	
 //	判断是否存在5张牌数字连续
-	public static boolean chekcoutPokerSucceedingNumbers(ArrayList<Poker> pokers){
-//		未考虑1 13 12 11 10 9情况
+	public static boolean chekcoutPokerSucceedingNumbers(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
+//		包括1 13 12 11 10 9情况
 		int temp = 0;
-		Poker box ;
-		for(int i = pokers.size()-1;i>=5;i--){
-			box = pokers.get(i);
-//			currentPokers.add(box);
-			for(int j = i;j>=1;j--){
-				if(pokers.get(j).getSize() == pokers.get(j-1).getSize()+1){
-					temp++;
-					currentPokers.add(pokers.get(j));
-					if(temp == 4){
-						currentPokers.add(pokers.get(j-1));
-						return true;
-					}
-				}else if(pokers.get(j).getSize() != pokers.get(j-1).getSize()){
-					break;
-				}
-			}
-			if(temp == 4){
-				return true;
-			}else{
-				currentPokers.clear();
-			}
-		}
+    		for(int i = pokers.size()-1;i>=5;i--){
+        			for(int j = i;j>=1;j--){
+        				if(pokers.get(j).getSize() == pokers.get(j-1).getSize()+1||
+        				        (pokers.get(j).getSize() == 1&&pokers.get(j).getSize() == pokers.get(j-1).getSize()-12)){
+        					temp++;
+        					pokersBack.add(pokers.get(j));
+        					if(temp == 4){
+        					    pokersBack.add(pokers.get(j-1));
+        						return true;
+        					}
+        				}else if(pokers.get(j).getSize() != pokers.get(j-1).getSize()){
+        					break;
+        				}
+        			}
+        			if(temp == 4){
+        				return true;
+        			}else{
+        			    temp = 0;
+        			    pokersBack.clear();
+        			}
+        		}
+//    		1 2 3 4 5的情况
+    		if(pokers.get(pokers.size()-1).getSize() == 1&&pokers.get(0).getSize() == 2){
+    		    pokersBack.add(pokers.get(pokers.size()-1));
+    		    temp++;
+    		    for(int i = 0;i<pokers.size()-1;i++){
+    		        if(pokers.get(i).getSize() == pokers.get(i+1).getSize()-1){
+                        temp++;
+                        pokersBack.add(pokers.get(i));
+                        if(temp == 4){
+                            pokersBack.add(pokers.get(i+1));
+                            return true;
+                        }
+                    }else if(pokers.get(i).getSize() != pokers.get(i+1).getSize()){
+                        break;
+                    }
+                }
+                if(temp == 4){
+                    return true;
+                }else{
+                    temp = 0;
+                    pokersBack.clear();
+                }
+    		}
 		return false;
 	}
 	
 //	判断是否存在4张牌数字相同
-	public static boolean chekcoutFourPokerNumber(ArrayList<Poker> pokers){
+	public static boolean chekcoutFourPokerNumber(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 //		int temp = 0;
 //		Poker box = new Poker();
 //		int currentIndex = -1;
@@ -126,11 +201,11 @@ public class Util {
 //		}
 //		return false;
 	    
-	    return checkNumberSame(pokers,4);
+	    return checkNumberSame(pokers,4,pokersBack);
 	}
 	
 //	判断是否存在3张牌数字相同
-	public static boolean checkoutThreePokerNumber(ArrayList<Poker> pokers){
+	public static boolean checkoutThreePokerNumber(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 //		int temp = 0;
 //		Poker box = new Poker();
 //		int currentIndex = -1;
@@ -160,11 +235,11 @@ public class Util {
 //			return true;
 //		}
 //		return false;
-	    return checkNumberSame(pokers,3);
+	    return checkNumberSame(pokers,3,pokersBack);
 	}
 	
 //	判断是否存在2张牌数字相同
-	public static boolean checkoutTwoPokerNumber(ArrayList<Poker> pokers){
+	public static boolean checkoutTwoPokerNumber(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 //		int temp = 0;
 //		Poker box = new Poker();
 //		int currentIndex = -1;
@@ -194,7 +269,7 @@ public class Util {
 //			return true;
 //		}
 //		return false;
-	    return checkNumberSame(pokers,2);
+	    return checkNumberSame(pokers,2,pokersBack);
 	}
 	
 	public static ArrayList<Poker> insertSort(ArrayList<Poker> pokers){//插入排序算法
@@ -224,7 +299,7 @@ public class Util {
         return pokers;
 	}
 	
-	public static boolean checkNumberSame(ArrayList<Poker> pokers,int size){
+	public static boolean checkNumberSame(ArrayList<Poker> pokers,int size,ArrayList<Poker> pokersBack){
 	    int temp = 0;
         Poker box = new Poker();
         int currentIndex = -1;
@@ -243,11 +318,11 @@ public class Util {
             }
         }
         if(temp == size){
-            currentPokers.add(box);
+            pokersBack.add(box);
             temp--;
             for(int n = currentIndex-1;n>=0&&temp>=0;n--){
                 if(pokers.get(n).getSize() == box.getSize()){
-                    currentPokers.add(pokers.get(n));
+                    pokersBack.add(pokers.get(n));
                     temp--;
                 }
             }
