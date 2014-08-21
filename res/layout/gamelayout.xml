@@ -34,21 +34,22 @@
         android:layout_toLeftOf="@+id/add"
         android:background="@drawable/back_btn"
         android:text="@string/follow"
-        android:visibility="invisible"
-        android:textColor="@color/ivory" />
-    
-        <Button
-            android:id="@+id/autopq"
-            android:layout_width="90dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/add"
-            android:background="@drawable/img_auto_button"
-            android:gravity="right|center_vertical"
-            android:paddingRight="15dp"
-            android:text="@string/autopq"
-            android:textColor="@color/ivory" />
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/autopq"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/add"
+        android:background="@drawable/img_auto_button"
+        android:gravity="right|center_vertical"
+        android:paddingRight="15dp"
+        android:text="@string/autopq"
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/quit"
@@ -59,21 +60,22 @@
         android:layout_toLeftOf="@+id/follow"
         android:background="@drawable/back_btn"
         android:text="@string/quit"
-        android:visibility="invisible"
-        android:textColor="@color/ivory" />
-    
-        <Button
-            android:id="@+id/autopass"
-            android:layout_width="90dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/autopq"
-            android:background="@drawable/img_auto_button"
-            android:gravity="right|center_vertical"
-            android:paddingRight="5dp"
-            android:text="@string/autopass"
-            android:textColor="@color/ivory" />
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/autopass"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/autopq"
+        android:background="@drawable/img_auto_button"
+        android:gravity="right|center_vertical"
+        android:paddingRight="5dp"
+        android:text="@string/autopass"
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
 
     <RelativeLayout
         android:id="@+id/desk_layout"
@@ -82,6 +84,7 @@
         android:layout_above="@+id/follow"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/reback"
+        android:layout_marginTop="-10dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/img_desk" >
 
@@ -145,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/seat_five"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="-15dp"
             android:gravity="center"
             android:orientation="horizontal" >
 
@@ -218,6 +221,167 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/deal_text"
             android:text="1/20局" />
+
+        <LinearLayout
+            android:id="@+id/sidepool_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/sidepool_height"
+            android:layout_above="@+id/pokers_layout"
+            android:layout_centerHorizontal="true" >
+
+            <RelativeLayout
+                android:id="@+id/sidepool_layout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp" >
+                
+            <ImageView
+                android:id="@+id/sidepool1"
+                android:layout_width="@dimen/sidepool_width"
+                android:layout_height="@dimen/sidepool_height"
+                android:src="@drawable/sidepool" />
+
+            <TextView
+                android:id="@+id/sidepool1_txt"
+                android:layout_width="@dimen/sidepool_txt_width"
+                android:layout_height="@dimen/sidepool_txt_height"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="right|center_vertical"
+                android:text="@string/sidepool_txt"
+                android:textColor="@color/deepyellow" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sidepool_layout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" 
+                android:layout_marginLeft="7dp">
+                
+            <ImageView
+                android:id="@+id/sidepool2"
+                android:layout_width="@dimen/sidepool_width"
+                android:layout_height="@dimen/sidepool_height"
+                android:src="@drawable/sidepool" />
+
+            <TextView
+                android:id="@+id/sidepool2_txt"
+                android:layout_width="@dimen/sidepool_txt_width"
+                android:layout_height="@dimen/sidepool_txt_height"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="right|center_vertical"
+                android:text="@string/sidepool_txt"
+                android:textColor="@color/deepyellow" />
+
+            </RelativeLayout>
+
+               <RelativeLayout
+                android:id="@+id/sidepool_layout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp" >
+                
+            <ImageView
+                android:id="@+id/sidepool3"
+                android:layout_width="@dimen/sidepool_width"
+                android:layout_height="@dimen/sidepool_height"
+                android:src="@drawable/sidepool" />
+
+            <TextView
+                android:id="@+id/sidepool3_txt"
+                android:layout_width="@dimen/sidepool_txt_width"
+                android:layout_height="@dimen/sidepool_txt_height"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="right|center_vertical"
+                android:text="@string/sidepool_txt"
+                android:textColor="@color/deepyellow" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sidepool_layout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp" >
+                
+            <ImageView
+                android:id="@+id/sidepool4"
+                android:layout_width="@dimen/sidepool_width"
+                android:layout_height="@dimen/sidepool_height"
+                android:src="@drawable/sidepool" />
+
+            <TextView
+                android:id="@+id/sidepool4_txt"
+                android:layout_width="@dimen/sidepool_txt_width"
+                android:layout_height="@dimen/sidepool_txt_height"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="right|center_vertical"
+                android:text="@string/sidepool_txt"
+                android:textColor="@color/deepyellow" />
+
+            </RelativeLayout>
+            
+            
+                        <RelativeLayout
+                android:id="@+id/sidepool_layout5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp" >
+                
+            <ImageView
+                android:id="@+id/sidepool5"
+                android:layout_width="@dimen/sidepool_width"
+                android:layout_height="@dimen/sidepool_height"
+                android:src="@drawable/sidepool" />
+
+            <TextView
+                android:id="@+id/sidepool5_txt"
+                android:layout_width="@dimen/sidepool_txt_width"
+                android:layout_height="@dimen/sidepool_txt_height"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="right|center_vertical"
+                android:text="@string/sidepool_txt"
+                android:textColor="@color/deepyellow" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        
+                    <RelativeLayout
+                        
+                android:id="@+id/mainpool_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                            android:layout_above="@+id/sidepool_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp" >
+                
+        <ImageView
+            android:id="@+id/mainpool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:src="@drawable/mainpool" />
+
+            <TextView
+                android:id="@+id/mainpool_txt"
+                android:layout_width="@dimen/mainpool_txt_width"
+                android:layout_height="@dimen/mainpool_txt_height"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/sidepool_txt"
+                android:textSize="15dp"
+                android:textColor="@color/deepyellow" />
+
+            </RelativeLayout>
+
     </RelativeLayout>
 
     <ImageButton
@@ -259,10 +423,10 @@
         android:layout_marginRight="5dp"
         android:background="@drawable/back_btn"
         android:text="@string/add"
-        android:visibility="invisible"
-        android:textColor="@color/ivory" />
-    
-        <Button
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
+
+    <Button
         android:id="@+id/autofollow"
         android:layout_width="90dp"
         android:layout_height="40dp"
@@ -273,7 +437,8 @@
         android:gravity="right|center_vertical"
         android:paddingRight="5dp"
         android:text="@string/autofollow"
-        android:textColor="@color/ivory" />
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/checked1"
@@ -283,26 +448,78 @@
         android:layout_alignParentBottom="true"
         android:layout_alignTop="@+id/autopass"
         android:layout_marginLeft="5dp"
-        android:src="@drawable/img_auto_uncheck" />
-    
+        android:src="@drawable/img_auto_uncheck"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/checked2"
         android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/autopq"
-        android:layout_marginLeft="5dp"
         android:layout_alignParentBottom="true"
         android:layout_alignTop="@+id/autopq"
-        android:src="@drawable/img_auto_uncheck" />
-    
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/img_auto_uncheck"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/checked3"
         android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/autofollow"
-        android:layout_marginLeft="5dp"
         android:layout_alignParentBottom="true"
         android:layout_alignTop="@+id/autofollow"
-        android:src="@drawable/img_auto_uncheck" />
-   
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/img_auto_uncheck"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" >
+
+        <ImageView
+            android:id="@+id/allin"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/addnumber"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="-12dp"
+            android:src="@drawable/addnumber_allin"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/addnumber"
+            android:layout_width="100dp"
+            android:layout_height="200dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:src="@drawable/addnumber_btn" />
+
+        <com.poker.common.customcontrols.VerticalSeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="21dp"
+            android:layout_height="160dp"
+            android:layout_below="@+id/allin"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:maxHeight="7dip"
+            android:minHeight="7dip"
+            android:progressDrawable="@drawable/bg_bar"
+            android:thumb="@drawable/thumb_bar"
+            android:thumbOffset="0dip" />
+
+        <TextView
+            android:id="@+id/chips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="2000"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
 </RelativeLayout>

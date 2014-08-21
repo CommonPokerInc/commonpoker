@@ -293,5 +293,7 @@
  <!-- 海军色 -->
     <color name="black">#000000</color>
  <!-- 黑色 -->
+ 
+    <color name="deepyellow">#f6bb43</color>
 
 </resources>

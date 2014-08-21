@@ -40,6 +40,15 @@
     <!-- 字体大小 -->
     <dimen name="card_type">12dp</dimen>
     
+    <!-- 边池宽高度 -->
+    <dimen name="sidepool_height">40dp</dimen>
+    <dimen name="sidepool_width">80dp</dimen>
+    <dimen name="sidepool_txt_width">60dp</dimen>
+    <dimen name="sidepool_txt_height">30dp</dimen>
+    
+    <!-- 主池字体宽高度 -->
+    <dimen name="mainpool_txt_height">40dp</dimen>
+    <dimen name="mainpool_txt_width">110dp</dimen>
     
     
 

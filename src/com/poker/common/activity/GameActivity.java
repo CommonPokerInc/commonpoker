@@ -23,9 +23,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.poker.common.R;
+import com.poker.common.customcontrols.VerticalSeekBar;
 import com.poker.common.entity.AbsPlayer;
 import com.poker.common.entity.Poker;
 import com.poker.common.entity.Room;
@@ -63,6 +66,8 @@ public class GameActivity extends Activity implements OnClickListener {
     private View popView = null;// 保存弹出窗口布局
 
     private PopupWindow popWin = null; // 弹出窗口
+    
+    private VerticalSeekBar seekbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +119,10 @@ public class GameActivity extends Activity implements OnClickListener {
         checked2.setOnClickListener(this);
         checked3.setOnClickListener(this);
         setPublicPokerVisibility(View.INVISIBLE);
+        
+        seekbar = (VerticalSeekBar)findViewById(R.id.seekbar);
+//        seekbar.setMax();
+//        seekbar.setOnSeekBarChangeListener(this);
     }
 
     public void initPokerAnim() {
@@ -255,8 +264,10 @@ public class GameActivity extends Activity implements OnClickListener {
 //     if(img_card_tip.getVisibility() == View.VISIBLE){
 //     setCardTip(View.INVISIBLE);
 //     }
-         popWin.dismiss();
-         popWin = null;
+//         if(popWin.isShowing()){
+//             popWin.dismiss();
+//             popWin = null;
+//         }
 //     return true;
      return super.onTouchEvent(event);
      }
