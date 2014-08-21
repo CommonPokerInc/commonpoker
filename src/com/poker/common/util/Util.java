@@ -1,10 +1,10 @@
 package com.poker.common.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import com.poker.common.entity.Poker;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class Util {
 	
@@ -38,28 +38,31 @@ public class Util {
     public static final int HIGH_CARD = 1;
 	
 //	随机生成根据人数来定的扑克牌
-	public static List getPokers(int personsCount){
-		List pokers = new ArrayList(); 
+	public static ArrayList<Poker> getPokers(int personsCount){
+	    ArrayList<Poker> pokers = new ArrayList(); 
 		int pokerLenght = personsCount*2+5;
 		Random rd = new Random();
 		int num ;
 		for(int i = pokerLenght - 1;i>=0;i--){
 			num = rd.nextInt(51);
-			if(!pokers.contains(num)){
-				pokers.add(num);
+			Poker p = new Poker(num);
+			if(!pokers.contains(p)){
+				pokers.add(p);
 			}else{
 				i++;
 			}
 		}
 		return pokers;
 	}
+
 //	根据玩家的7张牌得到最大的牌型，数字越大，牌型越大。
-	public static int getPokerType(ArrayList<Poker> pokers){
+	public static int getPokerType(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 		insertSort(pokers);
-		ArrayList<Poker> pokersBack = new ArrayList<Poker>();
+//		pokersBack = new ArrayList<Poker>();
 		ArrayList<Poker> pokersBackUp = new ArrayList<Poker>();
 		if(checkoutFivePokerColorSame(pokers,pokersBack)){
 		    if(chekcoutPokerSucceedingNumbers(pokersBack,pokersBackUp)){
+		        pokersBack = pokersBackUp;
 		        return FLUSH;
 		    }else{
 		        return ROYAL_FLUSH;
@@ -103,11 +106,6 @@ public class Util {
 					 temp++;
 				 }
 			}
-//			if(temp == 5){
-//				break;
-//			}else{
-//				temp = 0;
-//			}
 			if(temp<5){
 			    temp = 0;
 			}else{
@@ -115,17 +113,6 @@ public class Util {
 			}
 		}
 		if(temp >= 5){
-//            Poker p = new Poker(box);
-//            pokersBack.add(p);
-//			temp--;
-//			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
-//				if(pokers.get(n).getColor() == box.getColor()){
-//		            Poker pLast = new Poker(pokers.get(n));
-//		            pokersBack.add(pLast);
-////				    pokersBack.add(pokers.get(n));
-//					temp--;
-//				}
-//			}
 			for(int n = 0;n<currentIndex&&temp>=0;n++){
                 if(pokers.get(n).getColor() == box.getColor()){
                     Poker pLast = new Poker(pokers.get(n));
@@ -197,104 +184,19 @@ public class Util {
 	
 //	判断是否存在4张牌数字相同
 	public static boolean chekcoutFourPokerNumber(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
-//		int temp = 0;
-//		Poker box = new Poker();
-//		int currentIndex = -1;
-//		for(int i = pokers.size() - 1;i>=4;i--){
-//			box = pokers.get(i);
-//			currentIndex = i;
-//			for(int j = i-1;j>=0;j--){
-//				 if(pokers.get(i).getSize() == pokers.get(j).getSize()){
-//					 temp++;
-//				 }
-//			}
-//			if(temp == 4){
-//				break;
-//			}else{
-//				temp = 0;
-//			}
-//		}
-//		if(temp == 4){
-//			currentPokers.add(box);
-//			temp--;
-//			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
-//				if(pokers.get(n).getSize() == box.getSize()){
-//					currentPokers.add(pokers.get(n));
-//					temp--;
-//				}
-//			}
-//			return true;
-//		}
-//		return false;
 	    
 	    return checkNumberSame(pokers,4,pokersBack);
 	}
 	
 //	判断是否存在3张牌数字相同
 	public static boolean checkoutThreePokerNumber(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
-//		int temp = 0;
-//		Poker box = new Poker();
-//		int currentIndex = -1;
-//		for(int i = pokers.size() - 1;i>=3;i--){
-//			box = pokers.get(i);
-//			currentIndex = i;
-//			for(int j = i-1;j>=0;j--){
-//				 if(pokers.get(i).getSize() == pokers.get(j).getSize()){
-//					 temp++;
-//				 }
-//			}
-//			if(temp == 3){
-//				break;
-//			}else{
-//				temp = 0;
-//			}
-//		}
-//		if(temp == 3){
-//			currentPokers.add(box);
-//			temp--;
-//			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
-//				if(pokers.get(n).getSize() == box.getSize()){
-//					currentPokers.add(pokers.get(n));
-//					temp--;
-//				}
-//			}
-//			return true;
-//		}
-//		return false;
+
 	    return checkNumberSame(pokers,3,pokersBack);
 	}
 	
 //	判断是否存在2张牌数字相同
 	public static boolean checkoutTwoPokerNumber(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
-//		int temp = 0;
-//		Poker box = new Poker();
-//		int currentIndex = -1;
-//		for(int i = pokers.size() - 1;i>=2;i--){
-//			box = pokers.get(i);
-//			currentIndex = i;
-//			for(int j = i-1;j>=0;j--){
-//				 if(pokers.get(i).getSize() == pokers.get(j).getSize()){
-//					 temp++;
-//				 }
-//			}
-//			if(temp == 2){
-//				break;
-//			}else{
-//				temp = 0;
-//			}
-//		}
-//		if(temp == 2){
-//			currentPokers.add(box);
-//			temp--;
-//			for(int n = currentIndex-1;n>=0&&temp>=0;n--){
-//				if(pokers.get(n).getSize() == box.getSize()){
-//					currentPokers.add(pokers.get(n));
-//					temp--;
-//				}
-//			}
-//			return true;
-//		}
-//		return false;
+
 	    return checkNumberSame(pokers,2,pokersBack);
 	}
 	
@@ -349,18 +251,39 @@ public class Util {
         if(temp == size - 1){
             Poker p = new Poker(box);
             pokersBack.add(p);
-//            pokersBack.add(box);
             temp--;
             for(int n = currentIndex-1;n>=0&&temp>=0;n--){
                 if(pokers.get(n).getSize() == box.getSize()){
                     Poker pLast = new Poker(pokers.get(n));
                     pokersBack.add(pLast);
-//                    pokersBack.add(pokers.get(n));
                     temp--;
                 }
             }
             return true;
         }
         return false;
+	}
+
+//	计算筹码
+	public static boolean CountChips(ArrayList chips,ArrayList callBack){
+	    if(!chips.isEmpty()){
+	        Collections.sort(chips);
+	        if(!callBack.isEmpty()){
+                callBack.clear();
+	        }
+	        
+	        for(int i = 0;i<chips.size();i++){
+	            if(Integer.parseInt(chips.get(i).toString())!=0){
+    	            callBack.add(Integer.parseInt(chips.get(i).toString())*(chips.size()-i));
+    	            for(int j = i;j<chips.size();j++){
+    	                chips.set(j, Integer.parseInt(chips.get(j).toString()) - 
+    	                        Integer.parseInt(chips.get(i).toString())); 
+    	            }
+	            }
+	            
+	        }
+	    }
+        return false;
+	    
 	}
 }
