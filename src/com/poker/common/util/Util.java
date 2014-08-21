@@ -114,7 +114,7 @@ public class Util {
 			    break;
 			}
 		}
-		if(temp > 5){
+		if(temp >= 5){
 //            Poker p = new Poker(box);
 //            pokersBack.add(p);
 //			temp--;
@@ -144,7 +144,7 @@ public class Util {
 	public static boolean chekcoutPokerSucceedingNumbers(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 //		包括1 13 12 11 10 9情况
 		int temp = 0;
-    		for(int i = pokers.size()-1;i>=5;i--){
+    		for(int i = pokers.size()-1;i>=4;i--){
         			for(int j = i;j>=1;j--){
         				if(pokers.get(j).getSize() == pokers.get(j-1).getSize()+1||
         				        (pokers.get(j).getSize() == 1&&pokers.get(j).getSize() == pokers.get(j-1).getSize()-12)){
@@ -168,7 +168,7 @@ public class Util {
         			}
         		}
 //    		1 2 3 4 5的情况
-    		if(pokers.get(pokers.size()-1).getSize() == 1&&pokers.get(0).getSize() == 2){
+    		if(pokers.get(pokers.size()-1).getSize() == 0&&pokers.get(0).getSize() == 1){
     		    pokersBack.add(pokers.get(pokers.size()-1));
     		    temp++;
     		    for(int i = 0;i<pokers.size()-1;i++){
@@ -329,7 +329,7 @@ public class Util {
 	    int temp = 0;
         Poker box = new Poker();
         int currentIndex = -1;
-        for(int i = pokers.size() - 1;i>=size;i--){
+        for(int i = pokers.size() - 1;i>=(size-1);i--){
             box = pokers.get(i);
             currentIndex = i;
             for(int j = i-1;j>=0;j--){

@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         
-       <activity
+        <activity
             android:name="com.poker.common.activity.testactivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
@@ -25,9 +25,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> 
         
-<!--         <activity
+<!--          <activity
             android:name="com.poker.common.activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
@@ -37,7 +37,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> -->
+        </activity>  -->
         <activity
             android:name="com.poker.common.activity.SendGameActivity"
             android:label="@string/app_name"
