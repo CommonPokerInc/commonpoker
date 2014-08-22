@@ -1,8 +1,12 @@
 
 package com.poker.common.activity;
 
+import java.net.ServerSocket;
+
 import com.google.gson.Gson;
 import com.poker.common.BaseApplication;
+import com.poker.common.wifi.Global;
+import com.poker.common.wifi.SocketServer;
 import com.poker.common.wifi.listener.CommunicationListener;
 import com.poker.common.wifi.listener.MessageListener;
 import com.poker.common.wifi.message.BaseMessage;
@@ -20,11 +24,12 @@ import android.util.Log;
  */
 public abstract class AbsGameActivity extends Activity implements CommunicationListener{
 	
-	private BaseApplication app = (BaseApplication) getApplication();
+	private BaseApplication app;
 	
 	private MessageListener listener;
 	
 	public void initMessageListener(MessageListener listener){
+		app = (BaseApplication) getApplication();
 		this.listener = listener;
 		if(app.isServer()){
 		}else{
@@ -75,8 +80,25 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 	}
 	
 	
-	private boolean checkEnvError(){
+	public boolean checkEnvError(){
 		return null==listener||null==app||app.isConnected==false;
+	}
+	
+	public void sendMessage(BaseMessage message){
+		String strMessage = null;
+		if(message instanceof PeopleMessage){
+			strMessage = new Gson().toJson(message,PeopleMessage.class);
+		}else if(message instanceof GameMessage){
+			strMessage = new Gson().toJson(message,GameMessage.class);
+		}else{
+			strMessage = "";
+		}
+		
+		if(app.isServer()){
+			app.getServer().sendMessageToAllClients(strMessage);
+		}else{
+			app.getClient().sendMessage(strMessage);
+		}
 	}
 }
 

@@ -10,7 +10,7 @@ public class Global {
 
 	public static int WIFI_CONNECT_FAILED = 2;
 
-	public static String SSID = "YRCCONNECTION";
+	public static String SSID = "abcde";
 
 	public static String PASSWORD = "2012110312123";
 

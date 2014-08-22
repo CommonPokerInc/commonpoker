@@ -3,6 +3,8 @@ package com.poker.common.wifi;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.poker.common.wifi.SocketServer.WifiCreateListener;
+
 import android.content.Context;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -39,13 +41,13 @@ public class WifiHotAdmin {
 		closeWifiAp(mWifiManager);
 	}
 
-	public void startWifiAp(String wifiName) {
+	public void startWifiAp(String wifiName,WifiCreateListener listener) {
 		Log.i(TAG, "into startWifiAp（）");
-		stratWifiAp(wifiName);
+		stratWifiAp(wifiName,listener);
 	}
 
 	// 啟動一個Wifi 熱點
-	private boolean stratWifiAp(String wifiName) {
+	private boolean stratWifiAp(String wifiName,WifiCreateListener listener) {
 
 		Log.i(TAG, "into startWifiAp（） 启动一个Wifi 热点！");
 		Method method1 = null;
@@ -57,20 +59,26 @@ public class WifiHotAdmin {
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 			Log.d(TAG, "stratWifiAp() IllegalArgumentException e");
+			listener.OnCreateFailure(e.getMessage());
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			Log.d(TAG, "stratWifiAp() IllegalAccessException e");
+			listener.OnCreateFailure(e.getMessage());
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 			Log.d(TAG, "stratWifiAp() InvocationTargetException e");
+			listener.OnCreateFailure(e.getMessage());
 		} catch (SecurityException e) {
 			e.printStackTrace();
 			Log.d(TAG, "stratWifiAp() SecurityException e");
+			listener.OnCreateFailure(e.getMessage());
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 			Log.d(TAG, "stratWifiAp() NoSuchMethodException e");
+			listener.OnCreateFailure(e.getMessage());
 		}
 		Log.i(TAG, "out startWifiAp（） 启动一个Wifi 热点！");
+		listener.onCreateSuccess();
 		return ret;
 
 	}

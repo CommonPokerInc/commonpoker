@@ -16,5 +16,6 @@
     <string name="autopq">让或弃</string>
     <string name="autofollow">跟任何注</string>
     <string name="sidepool_txt">2000</string>
+    <string name="title_activity_room_create">RoomCreateActivity</string>
 
 </resources>

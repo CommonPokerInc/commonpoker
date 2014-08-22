@@ -9,6 +9,7 @@ import com.poker.common.R;
 import com.poker.common.adapter.RoomAdapter;
 import com.poker.common.wifi.Global;
 import com.poker.common.wifi.SocketClient;
+import com.poker.common.wifi.SocketClient.ClientConnectListener;
 import com.poker.common.wifi.SocketServer;
 import com.poker.common.wifi.WifiHotManager;
 import com.poker.common.wifi.WifiHotManager.OpretionsType;
@@ -18,10 +19,9 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,10 +48,6 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 	
 	private SocketClient client;
 	
-	private SocketServer server;
-	
-	private Handler clientHandler;
-	
 	private BaseApplication app;
 
 	private String mSSID;
@@ -63,7 +59,6 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		setContentView(R.layout.activity_room);
 		app = (BaseApplication)getApplication();
 		initView();
-		initClientHandler();
 		beginScan();
 	}
 	
@@ -99,52 +94,12 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		});
 	}
 	
-//	// client 初始化
-//		private void initClient(String IP) {
-//			client = SocketClient.newInstance("192.168.43.1", Global.WIFI_PORT, new ClientMsgListener() {
-//
-//				Message msg = null;
-//
-//				@Override
-//				public void handlerErorMsg(String errorMsg) {
-//					app.isConnected = false;
-//					Log.d(TAG, "client 初始化失败！");
-//					msg = clientHandler.obtainMessage();
-//					msg.obj = errorMsg;
-//					msg.what = 0;
-//					clientHandler.sendMessage(msg);
-//
-//				}
-//
-//				@Override
-//				public void handlerHotMsg(String hotMsg) {
-//					app.isConnected = true;
-//					Log.i(TAG, "client 初始化成功！");
-//					msg = clientHandler.obtainMessage();
-//					msg.obj = hotMsg;
-//					msg.what = 1;
-//					clientHandler.sendMessage(msg);
-//
-//				}
-//			});
-//			client.connectServer();
-//		}
-	
-		private void initClientHandler() {
-			clientHandler = new Handler() {
-				@Override
-				public void handleMessage(Message msg) {
-					Log.i(TAG, "into initClientHandler() handleMessage(Message msg)");
-					if (msg.what == 0) {
-						Toast.makeText(RoomActivity.this, "连接失败", Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(RoomActivity.this, "连接成功", Toast.LENGTH_SHORT).show();
-						String text = (String) msg.obj;
-						Log.i(TAG, "into initClientHandler() handleMessage(Message msg) text =" + text);
-					}
-				}
-			};
-		}
+		// client 初始化
+	private void initClient(String IP) {
+		client = SocketClient.newInstance("192.168.43.1", Global.WIFI_PORT);
+		client.connectServer(new SocketListener());
+	}
+		
 	@Override
 	public void disPlayWifiScanResult(final List<ScanResult> wifiList) {
 		// TODO Auto-generated method stub
@@ -156,11 +111,11 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 	@Override
 	public boolean disPlayWifiConResult(boolean result, WifiInfo wifiInfo) {
 		// TODO Auto-generated method stub
-		String ip = "";
+		Log.i("frankchan", "连接热点成功");
 		app.wm.setConnectStatu(false);
 		app.wm.unRegisterWifiStateBroadCast();
 		app.wm.unRegisterWifiConnectBroadCast();
-		//initClient(ip);
+		initClient("");
 		return false;
 	}
 	@Override
@@ -180,6 +135,25 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		}
 		app.wm.scanWifiHot();
 		dialog.show();
+	}
+	
+	class SocketListener implements ClientConnectListener{
+
+		@Override
+		public void onSuccess() {
+			// TODO Auto-generated method stub
+			
+			Toast.makeText(RoomActivity.this, "连接服务器成功", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(RoomActivity.this,GameActivity.class);
+			startActivity(intent);
+		}
+
+		@Override
+		public void onFailure(String errorInfo) {
+			// TODO Auto-generated method stub
+			Log.e("frankchan", "连接服务器套接字失败");
+		}
+		
 	}
 	
 	private void refreshWifiList(ArrayList<ScanResult> results) {

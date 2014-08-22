@@ -31,13 +31,25 @@ public class SocketServer {
 	private CommunicationListener listener;
 	
 	private WifiClientListener clientListener;
-
+	
+	private WifiCreateListener createListener;
+	
+	public interface WifiCreateListener{
+		void onCreateSuccess();
+		void OnCreateFailure(String strError);
+	}
+	
+	
 	private boolean onGoinglistner = true;
 
 	public static synchronized SocketServer newInstance(int port) {
 		if (serverSocket == null) {
 			serverSocket = new SocketServer(port);
 		}
+		return serverSocket;
+	}
+	
+	public static synchronized SocketServer newInstance() {
 		return serverSocket;
 	}
 	
@@ -67,11 +79,32 @@ public class SocketServer {
 		this.mPort = port;
 	}
 
+	public interface SocketCreateListener{
+		void onSuccess();
+		void onFailure();
+	}
+	
+	
+	public void createServerSocket(SocketCreateListener cListener){
+		try {
+			server = new ServerSocket();
+			server.setReuseAddress(true);
+			InetSocketAddress address = new InetSocketAddress(mPort);
+			server.bind(address);
+			cListener.onSuccess();
+			Log.i(TAG, "server  =" + server);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			Log.d(TAG, "server int fail ");
+			cListener.onFailure();
+		}
+	}
+	
 	public void beginListen(final WifiClientListener clientListener) {
 		setClientListener(clientListener);
 		new Thread(new Runnable() {
 			@Override
-			public void run() {
+			public void run() {/*
 				try {
 					server = new ServerSocket();
 					server.setReuseAddress(true);
@@ -81,7 +114,7 @@ public class SocketServer {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 					Log.d(TAG, "server int fail ");
-				}
+				}*/
 				if (server != null) {
 					while (onGoinglistner) {
 						try {
@@ -171,5 +204,13 @@ public class SocketServer {
 
 	public void stopListner() {
 		onGoinglistner = false;
+	}
+
+	public WifiCreateListener getCreateListener() {
+		return createListener;
+	}
+
+	public void setCreateListener(WifiCreateListener createListener) {
+		this.createListener = createListener;
 	}
 }

@@ -1,12 +1,24 @@
 package com.poker.common.entity;
+
+import com.google.gson.Gson;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /*
  * author zkzhou
  * description 房间类
  * time 2014-7-29
  *
  */
-public class Room {
-
+public class Room implements Parcelable{
+	
+	//房间类型：有限局
+	public static final int TYPE_LIMIT = 1;
+	//房间类型，淘汰局
+	public static final int TYPE_RANK = 2;
+	
+	private int type;
 	//房间名字
 	private String name;
 	//密码
@@ -81,5 +93,40 @@ public class Room {
 	public void setNumber(int number) {
 		this.number = number;
 	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		dest.writeString(new Gson().toJson(this));
+	}
 	
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public final static Creator<Room>CREATOR = new Creator<Room>(){
+
+        @Override
+        public Room createFromParcel(Parcel parcel) {
+            // TODO Auto-generated method stub
+            return new Gson().fromJson(parcel.readString(), Room.class);
+        }
+
+        @Override
+        public Room[] newArray(int arg0) {
+            // TODO Auto-generated method stub
+            return null;
+        }
+        
+    };
 }

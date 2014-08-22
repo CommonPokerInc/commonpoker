@@ -2,6 +2,7 @@ package com.poker.common.wifi;
 
 import java.util.List;
 
+import com.poker.common.wifi.SocketServer.WifiCreateListener;
 import com.poker.common.wifi.receiver.WifiConnectBroadCast;
 import com.poker.common.wifi.receiver.WifiScanRsultBroadCast;
 import com.poker.common.wifi.receiver.WifiStateBroadCast;
@@ -183,13 +184,13 @@ public class WifiHotManager {
 	}
 
 	// 启动wifi一个Wifi热点
-	public void startAWifiHot(String wifiName) {
+	public void startAWifiHot(String wifiName,WifiCreateListener listener) {
 		Log.i(TAG, "into startAWifiHot(String wifiName) wifiName =" + wifiName);
 		if (mWifimanager.isWifiEnabled()) {
 			mWifimanager.setWifiEnabled(false);
 		}
 		if (wifiApadmin != null) {
-			wifiApadmin.startWifiAp(wifiName);
+			wifiApadmin.startWifiAp(wifiName,listener);
 		}
 		Log.i(TAG, "out startAWifiHot(String wifiName)");
 	}
