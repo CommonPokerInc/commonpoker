@@ -15,20 +15,22 @@ import com.poker.common.entity.Poker;
 public class MessageFactory {
 	
 	//产生游戏行为信息
-	public static GameMessage newGameMessage(){
+	public static GameMessage newGameMessage(boolean exit){
 		GameMessage msg = new GameMessage();
 		msg.setSource(BaseMessage.MESSAGE_SOURCE);
+		msg.setExit(exit);
 		return msg;
 	}
 	
 	//产生玩家信息
-	public static PeopleMessage newPeopleMessage(boolean start,
+	public static PeopleMessage newPeopleMessage(boolean start,boolean exit,
 			ArrayList<ClientPlayer>clientList,ArrayList<Poker>pokerList){
 		PeopleMessage msg = new PeopleMessage();
 		msg.setSource(BaseMessage.MESSAGE_SOURCE);
 		msg.setPlayerList(clientList);
 		msg.setPokerList(pokerList);
 		msg.setStart(start);
+		msg.setExit(exit);
 		return msg;
 	}
 }
