@@ -23,6 +23,7 @@ public class RightSeatView extends FrameLayout {
 	private TextView right_counter_text,card_type;
 	private Context mContext;
 	private ObjectAnimator pokerAnim1;
+	private PersonView personView;
 	public RightSeatView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
@@ -37,6 +38,7 @@ public class RightSeatView extends FrameLayout {
 		right_up = (ImageView)view.findViewById(R.id.right_up);
 		right_counter_img = (ImageView)view.findViewById(R.id.right_counter_img);
 		right_counter_text = (TextView)view.findViewById(R.id.right_counter_text);
+		personView = (PersonView)view.findViewById(R.id.right_seat_personView);
 		card_type = (TextView)view.findViewById(R.id.card_type);
 		right_seat_poker1 = (ImageView)view.findViewById(R.id.right_seat_poker1);
 		right_seat_poker2 = (ImageView)view.findViewById(R.id.right_seat_poker2);
@@ -57,6 +59,10 @@ public class RightSeatView extends FrameLayout {
 		        Log.i("pokerAnim1","end");
 		    }
 		});
+	}
+	
+	public PersonView getSeatView(){
+		return personView;
 	}
 	
 	@SuppressLint("NewApi")

@@ -21,7 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/person_title"
         android:background="#00000000"
-        android:src="@drawable/img_player_picture"
+        android:src="@drawable/img_player_picture1"
         android:padding="5dp" />
 
     <TextView
@@ -30,7 +30,6 @@
         android:layout_height="20dp"
         android:layout_below="@+id/person_image"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
         android:text="10000"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="10dip" />

@@ -424,7 +424,7 @@
         android:background="@drawable/back_btn"
         android:text="@string/add"
         android:textColor="@color/ivory"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/autofollow"
@@ -474,6 +474,7 @@
         android:visibility="invisible" />
 
     <RelativeLayout
+        android:id="@+id/allin_layout"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -487,12 +488,12 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="-12dp"
             android:src="@drawable/addnumber_allin"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/addnumber"
             android:layout_width="100dp"
-            android:layout_height="200dp"
+            android:layout_height="240dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:clickable="true"
@@ -500,14 +501,14 @@
 
         <com.poker.common.customcontrols.VerticalSeekBar
             android:id="@+id/seekbar"
-            android:layout_width="21dp"
-            android:layout_height="160dp"
+            android:layout_width="20dp"
+            android:layout_height="200dp"
             android:layout_below="@+id/allin"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:maxHeight="7dip"
-            android:minHeight="7dip"
+            android:maxHeight="9dip"
+            android:minHeight="9dip"
             android:progressDrawable="@drawable/bg_bar"
             android:thumb="@drawable/thumb_bar"
             android:thumbOffset="0dip" />
@@ -517,9 +518,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_below="@+id/seekbar"
             android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:text="2000"
             android:textColor="@color/white" />
+
     </RelativeLayout>
 
 </RelativeLayout>

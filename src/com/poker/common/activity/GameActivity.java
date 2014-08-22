@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,10 +24,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-
 import com.poker.common.R;
 import com.poker.common.customcontrols.VerticalSeekBar;
 import com.poker.common.entity.AbsPlayer;
@@ -39,9 +40,9 @@ public class GameActivity extends Activity implements OnClickListener {
 
     private Button follow, add, quit, tips, autopass, autopq, autofollow;
 
-    private TextView current_rank;
+    private TextView current_rank,chips;
 
-    private ImageView img_card_tip, checked1, checked2, checked3;
+    private ImageView img_card_tip, checked1, checked2, checked3,allin;
 
     // 座位一永远都是自己
     private LeftSeatView seat_two, seat_four, seat_six;
@@ -68,6 +69,11 @@ public class GameActivity extends Activity implements OnClickListener {
     private PopupWindow popWin = null; // 弹出窗口
     
     private VerticalSeekBar seekbar;
+    
+    private RelativeLayout allin_layout;
+    
+    private String max = "";
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +83,18 @@ public class GameActivity extends Activity implements OnClickListener {
 
         init();
         initPokerAnim();
+        initBar();
     }
 
-    private void init() {
+    private void initBar() {
+		// TODO Auto-generated method stub
+    	seekbar.setProgress(0);
+    	max = seat_one.getSeatView().getPersonMoney().getText().toString();
+    	Log.v("zkzhou",max);
+    	seekbar.setMax(Integer.valueOf(max));
+	}
+
+	private void init() {
         // TODO Auto-generated method stub
         reback = (ImageButton) findViewById(R.id.reback);
         follow = (Button) findViewById(R.id.follow);
@@ -92,6 +107,7 @@ public class GameActivity extends Activity implements OnClickListener {
         current_rank = (TextView) findViewById(R.id.player_current_rank);
         seat_one = (RightSeatView) findViewById(R.id.seat_one);
         seat_one.setPokerStyle(1);
+        
         seat_two = (LeftSeatView) findViewById(R.id.seat_two);
         seat_three = (RightSeatView) findViewById(R.id.seat_three);
         seat_three.setPokerStyle(1);
@@ -121,9 +137,36 @@ public class GameActivity extends Activity implements OnClickListener {
         setPublicPokerVisibility(View.INVISIBLE);
         
         seekbar = (VerticalSeekBar)findViewById(R.id.seekbar);
+        allin_layout = (RelativeLayout)findViewById(R.id.allin_layout);
+        chips = (TextView)findViewById(R.id.chips);
+        allin = (ImageView)findViewById(R.id.allin);
 //        seekbar.setMax();
 //        seekbar.setOnSeekBarChangeListener(this);
+        seekbar.setOnSeekBarChangeListener(mSeekbarListener);//添加事件监听
     }
+    
+    private OnSeekBarChangeListener mSeekbarListener = new OnSeekBarChangeListener() {
+    	
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        	chips.setText(""+progress);
+        	if(chips.getText().equals(max)){
+        		allin.setVisibility(View.VISIBLE);
+        	}
+        	else{
+        		allin.setVisibility(View.INVISIBLE);
+        	}
+        }
+    };
 
     public void initPokerAnim() {
         public_poker_anim = AnimationUtils.loadAnimation(getApplicationContext(),
@@ -194,8 +237,10 @@ public class GameActivity extends Activity implements OnClickListener {
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.add:
-                closeCardTip();
+//                closeCardTip();
                 bottomDeal();
+                allin_layout.setVisibility(View.VISIBLE);
+                add.setVisibility(View.INVISIBLE);
                 break;
             case R.id.reback:
                 Intent i = new Intent(GameActivity.this, MainActivity.class);
@@ -269,6 +314,15 @@ public class GameActivity extends Activity implements OnClickListener {
 //             popWin = null;
 //         }
 //     return true;
+    	 switch (event.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			allin_layout.setVisibility(View.INVISIBLE);
+			add.setVisibility(View.VISIBLE);
+			break;
+
+		default:
+			break;
+		}
      return super.onTouchEvent(event);
      }
 
