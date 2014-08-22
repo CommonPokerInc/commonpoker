@@ -31,12 +31,19 @@ public class BaseApplication extends Application{
 		wm.unRegisterWifiConnectBroadCast();
 		wm.unRegisterWifiScanBroadCast();
 		wm.unRegisterWifiStateBroadCast();
+		if(server!=null){
+			server.clearServer();
+		}
+		if(client!=null){
+			client.clearClient();
+		}
 	}
 	public SocketServer getServer(){
 		return server;
 	}
 	public void setServer(SocketServer server){
 		this.server = server;
+		this.isConnected = true;
 		setServer(true);
 	}
 	
@@ -46,6 +53,7 @@ public class BaseApplication extends Application{
 	
 	public void setClient(SocketClient client){
 		this.client = client;
+		this.isConnected = true;
 		setServer(false);
 	}
 

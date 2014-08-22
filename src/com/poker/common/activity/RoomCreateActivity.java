@@ -17,10 +17,13 @@ import com.poker.common.wifi.WifiHotManager.WifiBroadCastOperations;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -30,6 +33,10 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 	
 	private Room room;
 	
+	private final static int MSG_CREATE_SERVER_SOCKET = 1;
+	private final static int MSG_SHOW_CREATE_HOT_ERROR =2;
+	private final static int MSG_SHOW_CREATE_SOCKET_ERROR =3;
+	private final static int MSG_SUCCESS_JUMP_GAME =4;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,11 +46,49 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 		findViewById(R.id.btn_create_limit).setOnClickListener(this);
 	}
 
+	@SuppressLint("HandlerLeak")
+	private Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch(msg.what){
+			case MSG_CREATE_SERVER_SOCKET: 
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						Log.i("frankchan", "开始创建服务器套接字");
+						SocketServer server = SocketServer.newInstance(Global.WIFI_PORT);
+						server.createServerSocket(new SocketListener());
+					}
+				}).start();
+				break;
+			case MSG_SHOW_CREATE_SOCKET_ERROR:
+			case MSG_SHOW_CREATE_HOT_ERROR:
+				Toast.makeText(RoomCreateActivity.this, "创建房间失败", Toast.LENGTH_SHORT).show();
+				break;
+			case MSG_SUCCESS_JUMP_GAME:
+				Toast.makeText(RoomCreateActivity.this, "创建房间成功", Toast.LENGTH_SHORT).show();
+				gotoGameActivity();
+				break;
+			}
+		}
+		
+	};
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(app.wm==null){
 			app.wm = WifiHotManager.getInstance(app, this);
+		}
+		if(app.isConnected){
+			if(app.isServer())
+				app.getServer().clearServer();
+			else
+				app.getClient().clearClient();
 		}
 		switch(v.getId()){
 			case R.id.btn_create_limit:
@@ -73,14 +118,15 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 	public void onCreateSuccess() {
 		// TODO Auto-generated method stub
 		Log.i("frankchan", "热点创建成功");
-		SocketServer server = SocketServer.newInstance(Global.WIFI_PORT);
-		server.createServerSocket(new SocketListener());
+		handler.sendEmptyMessage(MSG_CREATE_SERVER_SOCKET);
+		
 	}
 
 	@Override
 	public void OnCreateFailure(String strError) {
 		// TODO Auto-generated method stub
-		Toast.makeText(this, "创建房间失败", Toast.LENGTH_SHORT).show();
+		Log.e("frankchan", "热点创建失败原因："+strError);
+		handler.sendEmptyMessage(MSG_SHOW_CREATE_HOT_ERROR);
 	}
 
 	private void gotoGameActivity(){
@@ -94,15 +140,16 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 		@Override
 		public void onSuccess() {
 			// TODO Auto-generated method stub
+			Log.i("frankchan", "创建服务器套接字成功");
 			app.setServer(SocketServer.newInstance());
-			Toast.makeText(RoomCreateActivity.this, "创建房间成功", Toast.LENGTH_SHORT).show();
-			gotoGameActivity();
+			handler.sendEmptyMessage(MSG_SUCCESS_JUMP_GAME);
 		}
 
 		@Override
 		public void onFailure() {
 			// TODO Auto-generated method stub
 			Log.i("frankchan", "创建服务器套接字失败");
+			handler.sendEmptyMessage(MSG_SHOW_CREATE_SOCKET_ERROR);
 		}
 		
 	}
