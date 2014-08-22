@@ -107,7 +107,7 @@
         </com.poker.common.activity.LeftSeatView>
 
         <com.poker.common.activity.RightSeatView
-            android:id="@+id/seat_three"
+            android:id="@+id/seat_four"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/player_height"
             android:layout_alignParentTop="true"
@@ -116,7 +116,7 @@
         </com.poker.common.activity.RightSeatView>
 
         <com.poker.common.activity.LeftSeatView
-            android:id="@+id/seat_four"
+            android:id="@+id/seat_three"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/player_height"
             android:layout_alignParentTop="true"
@@ -125,7 +125,7 @@
         </com.poker.common.activity.LeftSeatView>
 
         <com.poker.common.activity.RightSeatView
-            android:id="@+id/seat_one"
+            android:id="@+id/seat_six"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/player_height"
             android:layout_alignParentBottom="true"
@@ -134,7 +134,7 @@
         </com.poker.common.activity.RightSeatView>
 
         <com.poker.common.activity.LeftSeatView
-            android:id="@+id/seat_six"
+            android:id="@+id/seat_one"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/player_height"
             android:layout_alignParentBottom="true"
@@ -497,11 +497,11 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:clickable="true"
-            android:src="@drawable/addnumber_btn" />
+            android:src="@drawable/addnumber_normal" />
 
         <com.poker.common.customcontrols.VerticalSeekBar
             android:id="@+id/seekbar"
-            android:layout_width="20dp"
+            android:layout_width="21dp"
             android:layout_height="200dp"
             android:layout_below="@+id/allin"
             android:layout_centerHorizontal="true"

@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.poker.common.R;
@@ -108,4 +109,20 @@ public class LeftSeatView extends FrameLayout {
 
 	}
 	
+	public void setPokerStyle(int style){
+		RelativeLayout.LayoutParams mParams;
+		RelativeLayout.LayoutParams mParams2;
+		mParams = (RelativeLayout.LayoutParams)left_seat_poker1.getLayoutParams();
+		mParams2 = (RelativeLayout.LayoutParams)left_seat_poker2.getLayoutParams();
+		if(style == 0){
+			mParams.setMargins(-40, 0, 0, 0);
+//			mParams2.setMargins(100, 0, 0, 0);
+			mParams.width = mParams2.width = 100;
+			mParams.height = mParams2.height = 100;
+			left_seat_poker1.setImageResource(R.drawable.diamond10);
+			left_seat_poker2.setImageResource(R.drawable.diamond10);
+		}
+		left_seat_poker1.setLayoutParams(mParams);
+		left_seat_poker2.setLayoutParams(mParams2);
+	}
 }

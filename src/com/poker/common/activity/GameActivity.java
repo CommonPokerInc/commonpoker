@@ -45,9 +45,9 @@ public class GameActivity extends Activity implements OnClickListener {
     private ImageView img_card_tip, checked1, checked2, checked3,allin;
 
     // 座位一永远都是自己
-    private LeftSeatView seat_two, seat_four, seat_six;
+    private LeftSeatView seat_one, seat_two, seat_three;
 
-    private RightSeatView seat_one, seat_three, seat_five;
+    private RightSeatView seat_four, seat_five, seat_six;
 
     private ImageView public_poker1, public_poker2, public_poker3, public_poker4, public_poker5;
 
@@ -89,7 +89,7 @@ public class GameActivity extends Activity implements OnClickListener {
     private void initBar() {
 		// TODO Auto-generated method stub
     	seekbar.setProgress(0);
-    	max = seat_one.getSeatView().getPersonMoney().getText().toString();
+    	max = seat_one.getPersonView().getPersonMoney().getText().toString();
     	Log.v("zkzhou",max);
     	seekbar.setMax(Integer.valueOf(max));
 	}
@@ -105,16 +105,14 @@ public class GameActivity extends Activity implements OnClickListener {
         autopq = (Button) findViewById(R.id.autopq);
         autofollow = (Button) findViewById(R.id.autofollow);
         current_rank = (TextView) findViewById(R.id.player_current_rank);
-        seat_one = (RightSeatView) findViewById(R.id.seat_one);
-        seat_one.setPokerStyle(1);
+        seat_one = (LeftSeatView) findViewById(R.id.seat_one);
+        seat_one.setPokerStyle(0);
         
         seat_two = (LeftSeatView) findViewById(R.id.seat_two);
-        seat_three = (RightSeatView) findViewById(R.id.seat_three);
-        seat_three.setPokerStyle(1);
-        seat_four = (LeftSeatView) findViewById(R.id.seat_four);
+        seat_three = (LeftSeatView) findViewById(R.id.seat_three);
+        seat_four = (RightSeatView) findViewById(R.id.seat_four);
         seat_five = (RightSeatView) findViewById(R.id.seat_five);
-        seat_five.setPokerStyle(0);
-        seat_six = (LeftSeatView) findViewById(R.id.seat_six);
+        seat_six = (RightSeatView) findViewById(R.id.seat_six);
         public_poker1 = (ImageView) findViewById(R.id.poker1);
         public_poker2 = (ImageView) findViewById(R.id.poker2);
         public_poker3 = (ImageView) findViewById(R.id.poker3);
@@ -217,18 +215,18 @@ public class GameActivity extends Activity implements OnClickListener {
 
     // 重置状态
     public void resetAllPlayStatus() {
-        seat_one.getRight_seat_poker1().setVisibility(View.INVISIBLE);
-        seat_one.getRight_seat_poker2().setVisibility(View.INVISIBLE);
+        seat_one.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
+        seat_one.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
         seat_two.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
         seat_two.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
-        seat_three.getRight_seat_poker1().setVisibility(View.INVISIBLE);
-        seat_three.getRight_seat_poker2().setVisibility(View.INVISIBLE);
-        seat_four.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
-        seat_four.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
+        seat_three.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
+        seat_three.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
+        seat_four.getRight_seat_poker1().setVisibility(View.INVISIBLE);
+        seat_four.getRight_seat_poker2().setVisibility(View.INVISIBLE);
         seat_five.getRight_seat_poker1().setVisibility(View.INVISIBLE);
         seat_five.getRight_seat_poker2().setVisibility(View.INVISIBLE);
-        seat_six.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
-        seat_six.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
+        seat_six.getRight_seat_poker1().setVisibility(View.INVISIBLE);
+        seat_six.getRight_seat_poker2().setVisibility(View.INVISIBLE);
         setPublicPokerVisibility(View.INVISIBLE);
     }
 
