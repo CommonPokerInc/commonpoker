@@ -24,7 +24,7 @@ import android.util.Log;
  */
 public abstract class AbsGameActivity extends Activity implements CommunicationListener{
 	
-	private BaseApplication app;
+	protected BaseApplication app;
 	
 	private MessageListener listener;
 	

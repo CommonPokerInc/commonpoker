@@ -31,11 +31,16 @@ import android.widget.TextView;
 import com.poker.common.R;
 import com.poker.common.customcontrols.VerticalSeekBar;
 import com.poker.common.entity.AbsPlayer;
+import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.Poker;
 import com.poker.common.entity.Room;
+import com.poker.common.wifi.listener.MessageListener;
+import com.poker.common.wifi.message.GameMessage;
+import com.poker.common.wifi.message.MessageFactory;
+import com.poker.common.wifi.message.PeopleMessage;
 
 @SuppressLint("NewApi")
-public class GameActivity extends Activity implements OnClickListener {
+public class GameActivity extends AbsGameActivity implements OnClickListener,MessageListener{
     private ImageButton reback;
 
     private Button follow, add, quit, tips, autopass, autopq, autofollow;
@@ -60,6 +65,9 @@ public class GameActivity extends Activity implements OnClickListener {
 
     // 公共牌
     private ArrayList<Poker> public_poker;
+    
+//    玩家列表
+    private ArrayList<ClientPlayer> playerList;
 
     // 玩家列表抽象，因为存在clientplayer和serverplayer，到时再继续详细的实例
     private HashMap<String, AbsPlayer> playList;
@@ -81,6 +89,7 @@ public class GameActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamelayout);
 
+        initMessageListener(this);
         init();
         initPokerAnim();
         initBar();
@@ -138,9 +147,17 @@ public class GameActivity extends Activity implements OnClickListener {
         allin_layout = (RelativeLayout)findViewById(R.id.allin_layout);
         chips = (TextView)findViewById(R.id.chips);
         allin = (ImageView)findViewById(R.id.allin);
-//        seekbar.setMax();
-//        seekbar.setOnSeekBarChangeListener(this);
         seekbar.setOnSeekBarChangeListener(mSeekbarListener);//添加事件监听
+        
+        room = getIntent().getParcelableExtra("Room");
+        
+        playerList = new ArrayList<ClientPlayer>();
+        if(!app.isServer()){
+        	playerList.add(app.cp);
+        	sendMessage(MessageFactory.newPeopleMessage(false, false, playerList, null));
+        }else{
+            playerList.add(app.sp);
+        }
     }
     
     private OnSeekBarChangeListener mSeekbarListener = new OnSeekBarChangeListener() {
@@ -350,5 +367,69 @@ public class GameActivity extends Activity implements OnClickListener {
             img_card_tip.setVisibility(View.INVISIBLE);
         }
     }
+
+	@Override
+	public void onSendSuccess() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onServerReceive(PeopleMessage msg) {
+		// TODO Auto-generated method stub
+		playerList.addAll(msg.getPlayerList());
+		msg.setPlayerList(playerList);
+		sendMessage(msg);
+	}
+
+	@Override
+	public void onServerReceive(GameMessage msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onClientReceive(PeopleMessage msg) {
+		// TODO Auto-generated method stub
+		if(msg.isExit()){
+
+		}if(msg.isStart()){
+//			开始游戏
+			
+		}else{
+			this.playerList.clear();
+			this.playerList.addAll(msg.getPlayerList());
+		}
+	}
+
+	@Override
+	public void onClientReceive(GameMessage msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onServerSendFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onServerSendSuccess() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onClientSendFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onClientSendSuccess() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -13,7 +13,7 @@ public class GameMessage extends BaseMessage{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	private static final String FAPAI = "fapai";
 }
 
 

@@ -94,7 +94,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 			case R.id.btn_create_limit:
 				room = new Room();
 				room.setType(Room.TYPE_LIMIT);
-				room.setCount(7);
+				room.setCount(6);
 				room.setInnings(10);
 				room.setMinStake(100);
 				room.setName("Godlike");
@@ -104,7 +104,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 			case R.id.btn_create_rank:
 				room = new Room();
 				room.setType(Room.TYPE_RANK);
-				room.setCount(7);
+				room.setCount(6);
 				//room.setInnings(10);
 				room.setMinStake(100);
 				room.setName("Godlike");
