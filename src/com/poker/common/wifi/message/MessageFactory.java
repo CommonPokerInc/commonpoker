@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.Poker;
+import com.poker.common.entity.Room;
 
 /*
  * author FrankChan
@@ -24,13 +25,14 @@ public class MessageFactory {
 	
 	//产生玩家信息
 	public static PeopleMessage newPeopleMessage(boolean start,boolean exit,
-			ArrayList<ClientPlayer>clientList,ArrayList<Poker>pokerList){
+			ArrayList<ClientPlayer>clientList,ArrayList<Poker>pokerList,Room room){
 		PeopleMessage msg = new PeopleMessage();
 		msg.setSource(BaseMessage.MESSAGE_SOURCE);
 		msg.setPlayerList(clientList);
 		msg.setPokerList(pokerList);
 		msg.setStart(start);
 		msg.setExit(exit);
+		msg.setRoom(room);
 		return msg;
 	}
 }

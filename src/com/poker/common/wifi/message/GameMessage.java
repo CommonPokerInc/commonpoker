@@ -13,7 +13,37 @@ public class GameMessage extends BaseMessage{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final String FAPAI = "fapai";
+	//ÆúÅÆ
+	public final static int ACTION_ABANDOM = 1;
+	//ÈÃÅÆ
+	public final static int ACTION_GIVE_IN = 2;
+	//¸ú×¢
+	public final static int ACTION_FOLLOW =3;
+	//¼Ó×¢
+	public final static int ACTION_ADD_BET =4;
+	//·¢ÅÆ
+	public final static int ACTION_SEND_POKER =5;
+	
+	private int id;
+	
+	private int action;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getAction() {
+		return action;
+	}
+
+	public void setAction(int action) {
+		this.action = action;
+	}
+	
 }
 
 

@@ -10,7 +10,6 @@ import com.poker.common.adapter.RoomAdapter;
 import com.poker.common.wifi.Global;
 import com.poker.common.wifi.SocketClient;
 import com.poker.common.wifi.SocketClient.ClientConnectListener;
-import com.poker.common.wifi.SocketServer;
 import com.poker.common.wifi.WifiHotManager;
 import com.poker.common.wifi.WifiHotManager.OpretionsType;
 import com.poker.common.wifi.WifiHotManager.WifiBroadCastOperations;
@@ -19,6 +18,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -52,6 +52,9 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 
 	private String mSSID;
 	
+	private final static int MSG_CONNECT_SUCCESS = 1;
+	
+	private final static int MSG_CONNECT_FAILURE = 2;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -93,6 +96,25 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 			}
 		});
 	}
+	
+	private Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch(msg.what){
+			case MSG_CONNECT_FAILURE:
+				Toast.makeText(RoomActivity.this, "连接失败，房间满员", Toast.LENGTH_SHORT).show();
+				break;
+			case MSG_CONNECT_SUCCESS:
+				Toast.makeText(RoomActivity.this, "连接服务器成功", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(RoomActivity.this,GameActivity.class);
+				startActivity(intent);
+				break;
+			}
+		}
+		
+	};
 	
 		// client 初始化
 	private void initClient(String IP) {
@@ -142,16 +164,14 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		@Override
 		public void onSuccess() {
 			// TODO Auto-generated method stub
-			
-			Toast.makeText(RoomActivity.this, "连接服务器成功", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(RoomActivity.this,GameActivity.class);
-			startActivity(intent);
+			handler.sendEmptyMessage(MSG_CONNECT_SUCCESS);
 		}
 
 		@Override
 		public void onFailure(String errorInfo) {
 			// TODO Auto-generated method stub
 			Log.e("frankchan", "连接服务器套接字失败");
+			handler.sendEmptyMessage(MSG_CONNECT_FAILURE);
 		}
 		
 	}

@@ -186,7 +186,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         playerList = new ArrayList<ClientPlayer>();
         if (!app.isServer()) {
             currentPlay = app.cp;
-            sendMessage(MessageFactory.newPeopleMessage(false, false, playerList, null));
+            sendMessage(MessageFactory.newPeopleMessage(false, false, playerList, null,null));
         } else {
             currentPlay = app.sp;
             initRoom(room);

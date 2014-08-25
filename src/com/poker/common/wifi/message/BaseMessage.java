@@ -3,6 +3,8 @@ package com.poker.common.wifi.message;
 
 import java.io.Serializable;
 
+import com.poker.common.entity.Room;
+
 /*
  * author FrankChan
  * description 基础通信载体类
@@ -24,6 +26,7 @@ public abstract class BaseMessage implements Serializable{
 	//是否马上退出
 	private boolean exit;
 	
+	private Room room;
 	public String getSource() {
 		return source;
 	}
@@ -38,6 +41,14 @@ public abstract class BaseMessage implements Serializable{
 
 	public void setExit(boolean exit) {
 		this.exit = exit;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 	
 	
