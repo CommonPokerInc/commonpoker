@@ -84,8 +84,8 @@
         android:layout_above="@+id/follow"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/reback"
-        android:layout_marginTop="-10dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="-10dp"
         android:background="@drawable/img_desk" >
 
         <com.poker.common.activity.RightSeatView
@@ -234,71 +234,68 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp" >
-                
-            <ImageView
-                android:id="@+id/sidepool1"
-                android:layout_width="@dimen/sidepool_width"
-                android:layout_height="@dimen/sidepool_height"
-                android:src="@drawable/sidepool" />
 
-            <TextView
-                android:id="@+id/sidepool1_txt"
-                android:layout_width="@dimen/sidepool_txt_width"
-                android:layout_height="@dimen/sidepool_txt_height"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="right|center_vertical"
-                android:text="@string/sidepool_txt"
-                android:textColor="@color/deepyellow" />
+                <ImageView
+                    android:id="@+id/sidepool1"
+                    android:layout_width="@dimen/sidepool_width"
+                    android:layout_height="@dimen/sidepool_height"
+                    android:src="@drawable/sidepool" />
 
+                <TextView
+                    android:id="@+id/sidepool1_txt"
+                    android:layout_width="@dimen/sidepool_txt_width"
+                    android:layout_height="@dimen/sidepool_txt_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/sidepool_txt"
+                    android:textColor="@color/deepyellow" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/sidepool_layout2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:layout_marginLeft="7dp">
-                
-            <ImageView
-                android:id="@+id/sidepool2"
-                android:layout_width="@dimen/sidepool_width"
-                android:layout_height="@dimen/sidepool_height"
-                android:src="@drawable/sidepool" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp" >
 
-            <TextView
-                android:id="@+id/sidepool2_txt"
-                android:layout_width="@dimen/sidepool_txt_width"
-                android:layout_height="@dimen/sidepool_txt_height"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="right|center_vertical"
-                android:text="@string/sidepool_txt"
-                android:textColor="@color/deepyellow" />
+                <ImageView
+                    android:id="@+id/sidepool2"
+                    android:layout_width="@dimen/sidepool_width"
+                    android:layout_height="@dimen/sidepool_height"
+                    android:src="@drawable/sidepool" />
 
+                <TextView
+                    android:id="@+id/sidepool2_txt"
+                    android:layout_width="@dimen/sidepool_txt_width"
+                    android:layout_height="@dimen/sidepool_txt_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/sidepool_txt"
+                    android:textColor="@color/deepyellow" />
             </RelativeLayout>
 
-               <RelativeLayout
+            <RelativeLayout
                 android:id="@+id/sidepool_layout3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp" >
-                
-            <ImageView
-                android:id="@+id/sidepool3"
-                android:layout_width="@dimen/sidepool_width"
-                android:layout_height="@dimen/sidepool_height"
-                android:src="@drawable/sidepool" />
 
-            <TextView
-                android:id="@+id/sidepool3_txt"
-                android:layout_width="@dimen/sidepool_txt_width"
-                android:layout_height="@dimen/sidepool_txt_height"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="right|center_vertical"
-                android:text="@string/sidepool_txt"
-                android:textColor="@color/deepyellow" />
+                <ImageView
+                    android:id="@+id/sidepool3"
+                    android:layout_width="@dimen/sidepool_width"
+                    android:layout_height="@dimen/sidepool_height"
+                    android:src="@drawable/sidepool" />
 
+                <TextView
+                    android:id="@+id/sidepool3_txt"
+                    android:layout_width="@dimen/sidepool_txt_width"
+                    android:layout_height="@dimen/sidepool_txt_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/sidepool_txt"
+                    android:textColor="@color/deepyellow" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -306,68 +303,61 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp" >
-                
-            <ImageView
-                android:id="@+id/sidepool4"
-                android:layout_width="@dimen/sidepool_width"
-                android:layout_height="@dimen/sidepool_height"
-                android:src="@drawable/sidepool" />
 
-            <TextView
-                android:id="@+id/sidepool4_txt"
-                android:layout_width="@dimen/sidepool_txt_width"
-                android:layout_height="@dimen/sidepool_txt_height"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="right|center_vertical"
-                android:text="@string/sidepool_txt"
-                android:textColor="@color/deepyellow" />
+                <ImageView
+                    android:id="@+id/sidepool4"
+                    android:layout_width="@dimen/sidepool_width"
+                    android:layout_height="@dimen/sidepool_height"
+                    android:src="@drawable/sidepool" />
 
+                <TextView
+                    android:id="@+id/sidepool4_txt"
+                    android:layout_width="@dimen/sidepool_txt_width"
+                    android:layout_height="@dimen/sidepool_txt_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/sidepool_txt"
+                    android:textColor="@color/deepyellow" />
             </RelativeLayout>
-            
-            
-                        <RelativeLayout
+
+            <RelativeLayout
                 android:id="@+id/sidepool_layout5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp" >
-                
-            <ImageView
-                android:id="@+id/sidepool5"
-                android:layout_width="@dimen/sidepool_width"
-                android:layout_height="@dimen/sidepool_height"
-                android:src="@drawable/sidepool" />
 
-            <TextView
-                android:id="@+id/sidepool5_txt"
-                android:layout_width="@dimen/sidepool_txt_width"
-                android:layout_height="@dimen/sidepool_txt_height"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="right|center_vertical"
-                android:text="@string/sidepool_txt"
-                android:textColor="@color/deepyellow" />
+                <ImageView
+                    android:id="@+id/sidepool5"
+                    android:layout_width="@dimen/sidepool_width"
+                    android:layout_height="@dimen/sidepool_height"
+                    android:src="@drawable/sidepool" />
 
+                <TextView
+                    android:id="@+id/sidepool5_txt"
+                    android:layout_width="@dimen/sidepool_txt_width"
+                    android:layout_height="@dimen/sidepool_txt_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/sidepool_txt"
+                    android:textColor="@color/deepyellow" />
             </RelativeLayout>
         </LinearLayout>
 
-
-        
-                    <RelativeLayout
-                        
-                android:id="@+id/mainpool_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                            android:layout_above="@+id/sidepool_layout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp" >
-                
-        <ImageView
-            android:id="@+id/mainpool"
+        <RelativeLayout
+            android:id="@+id/mainpool_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/sidepool_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp" >
 
-            android:src="@drawable/mainpool" />
+            <ImageView
+                android:id="@+id/mainpool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mainpool" />
 
             <TextView
                 android:id="@+id/mainpool_txt"
@@ -377,11 +367,9 @@
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:text="@string/sidepool_txt"
-                android:textSize="15dp"
-                android:textColor="@color/deepyellow" />
-
-            </RelativeLayout>
-
+                android:textColor="@color/deepyellow"
+                android:textSize="15dp" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <ImageButton
@@ -500,7 +488,7 @@
             android:src="@drawable/addnumber_normal" />
 
         <com.poker.common.customcontrols.VerticalSeekBar
-            android:id="@+id/seekbar"
+            android:id="@+id/ChipSeekbar"
             android:layout_width="21dp"
             android:layout_height="200dp"
             android:layout_below="@+id/allin"
@@ -518,12 +506,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_below="@+id/seekbar"
+            android:layout_below="@+id/ChipSeekbar"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="2000"
             android:textColor="@color/white" />
-
     </RelativeLayout>
 
 </RelativeLayout>

@@ -89,6 +89,14 @@ public class LeftSeatView extends FrameLayout {
 		this.personView = personView;
 	}
 	
+	public void setPersonViewTitle(String str){
+	    this.getPersonView().setTitle(str);
+	}
+	
+	public void setPersonViewPersonMoney(String money){
+	    this.getPersonView().setPersonMoney(money);
+	}
+	
 	public void initAnim(){
 		pokerAnim1 = ObjectAnimator.ofFloat(left_seat_poker1,"rotation", 0, -15);
 		pokerAnim1.setDuration(150);

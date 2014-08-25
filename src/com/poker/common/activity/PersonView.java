@@ -39,8 +39,8 @@ public class PersonView extends FrameLayout{
 		return title;
 	}
 
-	public void setTitle(TextView title) {
-		this.title = title;
+	public void setTitle(String title) {
+		this.title.setText(title);
 	}
 
 	public ImageButton getPersonImg() {
@@ -55,8 +55,8 @@ public class PersonView extends FrameLayout{
 		return personMoney;
 	}
 
-	public void setPersonMoney(TextView personMoney) {
-		this.personMoney = personMoney;
+	public void setPersonMoney(String personMoney) {
+		this.personMoney.setText(personMoney);
 	}
 	
 
