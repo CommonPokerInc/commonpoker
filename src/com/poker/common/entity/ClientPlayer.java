@@ -1,6 +1,8 @@
 
 package com.poker.common.entity;
 
+import java.io.Serializable;
+
 import com.poker.common.wifi.SocketClient;
 
 /*
@@ -9,11 +11,16 @@ import com.poker.common.wifi.SocketClient;
  * time 2014-7-29
  *
  */
-public class ClientPlayer extends AbsPlayer implements ImpPlayer {
+public class ClientPlayer extends AbsPlayer implements ImpPlayer,Serializable{
 
-	private UserInfo info;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected UserInfo info;
 	
-	private SocketClient socket;
+	private transient SocketClient socket;
 	
 	public ClientPlayer(UserInfo info,SocketClient socket){
 		this.setInfo(info);

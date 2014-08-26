@@ -1,4 +1,4 @@
-
+ï»¿
 package com.poker.common.activity;
 
 import java.text.Bidi;
@@ -61,7 +61,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
     private LinearLayout desk_tips;
     
-    // ×ùÎ»Ò»ÓÀÔ¶¶¼ÊÇ×Ô¼º
+    // ï¿½ï¿½Î»Ò»ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½
     private LeftSeatView seat_one, seat_two, seat_three;
 
     private RightSeatView seat_four, seat_five, seat_six;
@@ -72,21 +72,21 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
     private Boolean autopass_checked = false, autopq_checked = false, autofollow_checked = false;
 
-    // ·¿¼äÐÅÏ¢
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     private Room room;
 
-    // ¹«¹²ÅÆ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private ArrayList<Poker> public_poker;
 
-    // Íæ¼ÒÁÐ±í
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
     private ArrayList<ClientPlayer> playerList;
 
-    // Íæ¼ÒÁÐ±í³éÏó£¬ÒòÎª´æÔÚclientplayerºÍserverplayer£¬µ½Ê±ÔÙ¼ÌÐøÏêÏ¸µÄÊµÀý
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½clientplayerï¿½ï¿½serverplayerï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ù¼ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½Êµï¿½ï¿½
     private HashMap<String, AbsPlayer> playList;
 
-    private View popView = null;// ±£´æµ¯³ö´°¿Ú²¼¾Ö
+    private View popView = null;// ï¿½ï¿½ï¿½æµ¯ï¿½ï¿½Ú²ï¿½ï¿½ï¿½
 
-    private PopupWindow popWin = null; // µ¯³ö´°¿Ú
+    private PopupWindow popWin = null; // ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private VerticalSeekBar seekbar;
 
@@ -187,22 +187,22 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         allin_layout.setVisibility(View.INVISIBLE);
         chips = (TextView) findViewById(R.id.chips);
         allin = (ImageView) findViewById(R.id.allin);
-        seekbar.setOnSeekBarChangeListener(mSeekbarListener);// Ìí¼ÓÊÂ¼þ¼àÌý
+        seekbar.setOnSeekBarChangeListener(mSeekbarListener);// ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
 
         room = getIntent().getParcelableExtra("Room");
 
         playerList = new ArrayList<ClientPlayer>();
         if (!app.isServer()) {
             currentPlay = app.cp;
+            playerList.add(currentPlay);
             sendMessage(MessageFactory.newPeopleMessage(false, false, playerList, null,null));
             desk_tips_text.setText(R.string.throw_people);
         } else {
             currentPlay = app.sp;
             initRoom(room);
             desk_tips_text.setText(R.string.waiting_people);
+            playerList.add(currentPlay);
         }
-        playerList.add(currentPlay);
-        
     }
 
     private OnSeekBarChangeListener mSeekbarListener = new OnSeekBarChangeListener() {
@@ -260,7 +260,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         public_poker5.setImageResource(pokers.get(4).getPokerImageId());
     }
 
-    // ·¢¹«¹²ÅÆ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void showPublicPoker() {
         if (public_poker1.getVisibility() != View.VISIBLE) {
             public_poker1.setVisibility(View.VISIBLE);
@@ -283,7 +283,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         }
     }
 
-    // ·¢µ×ÅÆ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void bottomDeal() {
         seat_one.ownPokerAnim();
         seat_two.ownPokerAnim();
@@ -293,7 +293,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         seat_six.ownPokerAnim();
     }
     
-    // ÖØÖÃ×´Ì¬
+    // ï¿½ï¿½ï¿½ï¿½×´Ì¬
     public void resetAllPlayStatus() {
         seat_one.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
         seat_one.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
@@ -360,10 +360,10 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 break;
             case R.id.desk_tips_start_game_btn:
                 if(this.playerList.size()>=2){
-//                    ¿ªÊ¼ÓÎÏ·
+//                    ï¿½ï¿½Ê¼ï¿½ï¿½Ï·
                     desk_tips.setVisibility(View.GONE);
                 }else{
-                    Toast.makeText(getApplicationContext(), "Ã»ÈËÆë°¡ÆË½Ö", 1000).show();
+                    Toast.makeText(getApplicationContext(), "Ã»ï¿½ï¿½ï¿½ë°¡ï¿½Ë½ï¿½", 1000).show();
                 }
             default:
                 break;
@@ -422,14 +422,14 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     private void showImageCard() {
         // TODO Auto-generated method stub
         LayoutInflater inflater = LayoutInflater.from(GameActivity.this);
-        popView = inflater.inflate(R.layout.card_tip, null); // ¶ÁÈ¡²¼¾Ö¹ÜÀíÆ÷
+        popView = inflater.inflate(R.layout.card_tip, null); // ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½
         popWin = new PopupWindow(popView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
-                true); // ÊµÀý»¯
+                true); // Êµï¿½ï¿½ï¿½ï¿½
         popWin.setBackgroundDrawable(new BitmapDrawable());
         popWin.setOutsideTouchable(true);
         popWin.setFocusable(true);
         popWin.setAnimationStyle(R.style.popupAnimation);
-        popWin.showAtLocation(GameActivity.this.tips, Gravity.LEFT, 0, 0); // ÏÔÊ¾µ¯³ö´°¿Ú
+        popWin.showAtLocation(GameActivity.this.tips, Gravity.LEFT, 0, 0); // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½
         popWin.update();
     }
 
@@ -448,9 +448,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     @Override
     public void onServerReceive(PeopleMessage msg) {
         // TODO Auto-generated method stub
-        playerList.add(msg.getPlayerList().get(0));
-        msg.setPlayerList(playerList);
-        sendMessage(msg);
+		if (msg.getPlayerList() != null && msg.getPlayerList().get(0) != null) {
+			playerList.add(msg.getPlayerList().get(0));
+			msg.setPlayerList(playerList);
+			sendMessage(msg);
+		}
     }
 
     @Override
@@ -466,7 +468,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
         }
         if (msg.isStart()) {
-            // ¿ªÊ¼ÓÎÏ·
+            // ï¿½ï¿½Ê¼ï¿½ï¿½Ï·
             desk_tips.setVisibility(View.GONE);
         } else {
             this.playerList.clear();

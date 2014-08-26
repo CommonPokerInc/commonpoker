@@ -7,6 +7,8 @@ import com.poker.common.BaseApplication;
 import com.poker.common.Constant;
 import com.poker.common.R;
 import com.poker.common.adapter.RoomAdapter;
+import com.poker.common.entity.ClientPlayer;
+import com.poker.common.entity.UserInfo;
 import com.poker.common.wifi.Global;
 import com.poker.common.wifi.SocketClient;
 import com.poker.common.wifi.SocketClient.ClientConnectListener;
@@ -108,6 +110,9 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 				break;
 			case MSG_CONNECT_SUCCESS:
 				app.setClient(client);
+				UserInfo info = new UserInfo();
+				info.setName("client1");
+				app.cp = new ClientPlayer(info,app.getClient());
 				Toast.makeText(RoomActivity.this, "连接服务器成功", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(RoomActivity.this,GameActivity.class);
 				startActivity(intent);

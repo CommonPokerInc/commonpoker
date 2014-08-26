@@ -52,7 +52,7 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 		
 		if(app.isGameStarted){
 			GameMessage gm = new Gson().fromJson(strInfo, GameMessage.class);
-			if(gm.getSource()==BaseMessage.MESSAGE_SOURCE){
+			if(BaseMessage.MESSAGE_SOURCE.equals(gm.getSource())){
 				if(app.isServer()){
 					listener.onServerReceive(gm);
 				}else{
@@ -61,7 +61,7 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 			}
 		}else{
 			PeopleMessage pm = new Gson().fromJson(strInfo, PeopleMessage.class);
-			if(pm.getSource()==BaseMessage.MESSAGE_SOURCE){
+			if(BaseMessage.MESSAGE_SOURCE.equals(pm.getSource())){
 				if(app.isServer()){
 					listener.onServerReceive(pm);
 				}else{

@@ -12,15 +12,10 @@ import com.poker.common.wifi.SocketServer;
  */
 public class ServerPlayer extends ClientPlayer{
 
-	private UserInfo info;
-	
-	public UserInfo getInfo() {
-		return info;
-	}
-
-	public void setInfo(UserInfo info) {
-		this.info = info;
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public SocketServer getServer() {
 		return server;
@@ -30,7 +25,7 @@ public class ServerPlayer extends ClientPlayer{
 		this.server = server;
 	}
 
-	private SocketServer server;
+	private transient SocketServer server;
 	
 	//forbidden
 	public ServerPlayer(UserInfo info, SocketClient socket) {
