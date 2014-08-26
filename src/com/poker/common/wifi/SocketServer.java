@@ -61,6 +61,7 @@ public class SocketServer {
 	private void closeConnection() {
 		Log.i(TAG, "into closeConnection()...................................");
 		if (server != null) {
+			onGoinglistner=false;
 			try {
 				server.close();
 				server = null;
@@ -104,17 +105,7 @@ public class SocketServer {
 		setClientListener(clientListener);
 		new Thread(new Runnable() {
 			@Override
-			public void run() {/*
-				try {
-					server = new ServerSocket();
-					server.setReuseAddress(true);
-					InetSocketAddress address = new InetSocketAddress(mPort);
-					server.bind(address);
-					Log.i(TAG, "server  =" + server);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-					Log.d(TAG, "server int fail ");
-				}*/
+			public void run() {
 				if (server != null) {
 					while (onGoinglistner) {
 						try {
@@ -162,6 +153,14 @@ public class SocketServer {
 			}
 		}
 		Log.i(TAG, "out sendMsg(final Socket client,final ChatMessage msg) msg = " + msg);
+	}
+
+	public CommunicationListener getListener() {
+		return listener;
+	}
+
+	public void setListener(CommunicationListener listener) {
+		this.listener = listener;
 	}
 
 	public void sendMessageToAllClients(final String msg) {

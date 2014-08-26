@@ -1,12 +1,9 @@
 
 package com.poker.common.activity;
 
-import java.net.ServerSocket;
 
 import com.google.gson.Gson;
 import com.poker.common.BaseApplication;
-import com.poker.common.wifi.Global;
-import com.poker.common.wifi.SocketServer;
 import com.poker.common.wifi.listener.CommunicationListener;
 import com.poker.common.wifi.listener.MessageListener;
 import com.poker.common.wifi.message.BaseMessage;
@@ -32,11 +29,19 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 		app = (BaseApplication) getApplication();
 		this.listener = listener;
 		if(app.isServer()){
+			app.getServer().setListener(this);
+			app.getServer().beginListen(null);
 		}else{
 			app.getClient().beganAcceptMessage(this);
 		}
 	}
 	
+	@Override
+	public void onSendSuccess() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public void onStringReceive(String strInfo) {
 		// TODO Auto-generated method stub
@@ -80,11 +85,11 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 	}
 	
 	
-	public boolean checkEnvError(){
+	protected boolean checkEnvError(){
 		return null==listener||null==app||app.isConnected==false;
 	}
 	
-	public void sendMessage(BaseMessage message){
+	protected void sendMessage(BaseMessage message){
 		String strMessage = null;
 		if(message instanceof PeopleMessage){
 			strMessage = new Gson().toJson(message,PeopleMessage.class);
@@ -99,6 +104,19 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 		}else{
 			app.getClient().sendMessage(strMessage);
 		}
+	}
+	
+
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(app.isServer()){
+			app.getServer().clearServer();
+		}else{
+			app.getClient().clearClient();
+		}
+		super.onDestroy();
 	}
 }
 

@@ -104,9 +104,10 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 			// TODO Auto-generated method stub
 			switch(msg.what){
 			case MSG_CONNECT_FAILURE:
-				Toast.makeText(RoomActivity.this, "连接失败，房间满员", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RoomActivity.this, "连接失败，房间满员或者关闭了", Toast.LENGTH_SHORT).show();
 				break;
 			case MSG_CONNECT_SUCCESS:
+				app.setClient(client);
 				Toast.makeText(RoomActivity.this, "连接服务器成功", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(RoomActivity.this,GameActivity.class);
 				startActivity(intent);
