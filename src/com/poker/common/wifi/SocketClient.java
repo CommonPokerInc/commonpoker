@@ -108,6 +108,7 @@ public class SocketClient {
 	private void closeConnection() {
 		try {
 			if (client != null && client.isConnected()) {
+				onGoinglistner =false;
 				client.close();
 				client = null;
 			}
