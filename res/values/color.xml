@@ -295,5 +295,8 @@
  <!-- 黑色 -->
  
     <color name="deepyellow">#f6bb43</color>
+    
+    <!-- 游戏页面 -->
+    <color name="desk_tips_text_color">#eac80d</color>
 
 </resources>

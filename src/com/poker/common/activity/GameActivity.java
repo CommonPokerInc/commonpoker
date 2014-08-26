@@ -23,9 +23,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
@@ -46,9 +48,9 @@ import com.poker.common.wifi.message.PeopleMessage;
 public class GameActivity extends AbsGameActivity implements OnClickListener, MessageListener {
     private ImageButton reback;
 
-    private Button follow, add, quit, tips, autopass, autopq, autofollow;
+    private Button follow, add, quit, tips, autopass, autopq, autofollow,startGame;
 
-    private TextView current_rank, chips;
+    private TextView current_rank, chips,desk_tips_text;
     
     private TextView roomName,dealText,roomRound;
 
@@ -57,6 +59,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     private RelativeLayout sidepool_layout1, sidepool_layout2, sidepool_layout3, sidepool_layout4,
             sidepool_layout5,mainpool_layout;
 
+    private LinearLayout desk_tips;
+    
     // 座位一永远都是自己
     private LeftSeatView seat_one, seat_two, seat_three;
 
@@ -121,6 +125,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         tips = (Button) findViewById(R.id.tips);
         autopass = (Button) findViewById(R.id.autopass);
         autopq = (Button) findViewById(R.id.autopq);
+        startGame = (Button) findViewById(R.id.desk_tips_start_game_btn);
         autofollow = (Button) findViewById(R.id.autofollow);
         current_rank = (TextView) findViewById(R.id.player_current_rank);
         seat_one = (LeftSeatView) findViewById(R.id.seat_one);
@@ -136,9 +141,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         sidepool_layout4 = (RelativeLayout)findViewById(R.id.sidepool_layout4);
         sidepool_layout5 = (RelativeLayout)findViewById(R.id.sidepool_layout5);
         mainpool_layout = (RelativeLayout)findViewById(R.id.mainpool_layout);
+        desk_tips = (LinearLayout)findViewById(R.id.desk_tips);
         roomName = (TextView)findViewById(R.id.room_name);
         dealText = (TextView)findViewById(R.id.deal_text);
         roomRound = (TextView)findViewById(R.id.room_round_text);
+        desk_tips_text = (TextView)findViewById(R.id.desk_tips_text);
         roomName.setVisibility(View.INVISIBLE);
         dealText.setVisibility(View.INVISIBLE);
         roomRound.setVisibility(View.INVISIBLE);
@@ -148,11 +155,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         sidepool_layout4.setVisibility(View.INVISIBLE);
         sidepool_layout5.setVisibility(View.INVISIBLE);
         mainpool_layout.setVisibility(View.INVISIBLE);
-//        seat_two.setVisibility(View.INVISIBLE);
-//        seat_three.setVisibility(View.INVISIBLE);
-//        seat_four.setVisibility(View.INVISIBLE);
-//        seat_five.setVisibility(View.INVISIBLE);
-//        seat_six.setVisibility(View.INVISIBLE);
+        seat_two.setVisibility(View.INVISIBLE);
+        seat_three.setVisibility(View.INVISIBLE);
+        seat_four.setVisibility(View.INVISIBLE);
+        seat_five.setVisibility(View.INVISIBLE);
+        seat_six.setVisibility(View.INVISIBLE);
         public_poker1 = (ImageView) findViewById(R.id.poker1);
         public_poker2 = (ImageView) findViewById(R.id.poker2);
         public_poker3 = (ImageView) findViewById(R.id.poker3);
@@ -172,6 +179,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         checked1.setOnClickListener(this);
         checked2.setOnClickListener(this);
         checked3.setOnClickListener(this);
+        startGame.setOnClickListener(this);
         setPublicPokerVisibility(View.INVISIBLE);
 
         seekbar = (VerticalSeekBar) findViewById(R.id.ChipSeekbar);
@@ -187,9 +195,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         if (!app.isServer()) {
             currentPlay = app.cp;
             sendMessage(MessageFactory.newPeopleMessage(false, false, playerList, null,null));
+            desk_tips_text.setText(R.string.throw_people);
         } else {
             currentPlay = app.sp;
             initRoom(room);
+            desk_tips_text.setText(R.string.waiting_people);
         }
         playerList.add(currentPlay);
         
@@ -348,6 +358,13 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 }
                 setAutoChecked(autopass_checked, autopq_checked, autofollow_checked);
                 break;
+            case R.id.desk_tips_start_game_btn:
+                if(this.playerList.size()>=2){
+//                    开始游戏
+                    desk_tips.setVisibility(View.GONE);
+                }else{
+                    Toast.makeText(getApplicationContext(), "没人齐啊扑街", 1000).show();
+                }
             default:
                 break;
         }
@@ -431,7 +448,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     @Override
     public void onServerReceive(PeopleMessage msg) {
         // TODO Auto-generated method stub
-        playerList.addAll(msg.getPlayerList());
+        playerList.add(msg.getPlayerList().get(0));
         msg.setPlayerList(playerList);
         sendMessage(msg);
     }
@@ -450,7 +467,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         }
         if (msg.isStart()) {
             // 开始游戏
-
+            desk_tips.setVisibility(View.GONE);
         } else {
             this.playerList.clear();
             this.playerList.addAll(msg.getPlayerList());

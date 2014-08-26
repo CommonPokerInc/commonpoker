@@ -17,5 +17,9 @@
     <string name="autofollow">跟任何注</string>
     <string name="sidepool_txt">2000</string>
     <string name="title_activity_room_create">RoomCreateActivity</string>
+    <string name="waiting_people">等待其他玩家进入...</string>
+    <string name="start_game">开始游戏</string>
+    <string name="fill_people">人满喇，开台啦扑街</string>
+    <string name="throw_people">要开台就要向房主扔肥皂喔</string>
 
 </resources>
