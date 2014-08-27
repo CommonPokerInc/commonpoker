@@ -315,7 +315,21 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     }
     
     public void chairUpdate(ArrayList<ClientPlayer> playerList){
-        findIndexWithIPinList(playerList);
+        int index = findIndexWithIPinList(playerList);
+        int chairIndex = 0;
+        if(index!=-1){
+            updateChairByPlayer(chairIndex++,playerList.get(index));
+//            更新自己后面的玩家桌位
+            for(int i = index+1;i<playerList.size();i++){
+                updateChairByPlayer(chairIndex++,playerList.get(i));
+            }
+            
+//            更新自己前面的玩家桌位
+            for(int i = 0;i<index;i++){
+                updateChairByPlayer(chairIndex++,playerList.get(i));
+            }
+        }
+        
     }
     
     public void updateChairByPlayer(int index,ClientPlayer play){
@@ -354,11 +368,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     }
     
     public int findIndexWithIPinList(ArrayList<ClientPlayer> playerList){
-//        for(int i = playerList.size()-1;i>=0;i--){
-//            if(currentPlay.getInfo().getIPAddress().equals(playerList.get(i).getInfo().getIPAddress())){
-//                return i;
-//            }
-//        }
+        for(int i = playerList.size()-1;i>=0;i--){
+            if(currentPlay.getInfo().getId().equals(playerList.get(i).getInfo().getId())){
+                return i;
+            }
+        }
         return -1;
     }
 
@@ -506,6 +520,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 			playerList.add(msg.getPlayerList().get(0));
 			msg.setPlayerList(playerList);
 			sendMessage(msg);
+			chairUpdate(playerList);
 		}
     }
 
@@ -527,6 +542,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         } else {
             this.playerList.clear();
             this.playerList.addAll(msg.getPlayerList());
+            chairUpdate(playerList);
         }
     }
 
