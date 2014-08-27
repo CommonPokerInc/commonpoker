@@ -54,9 +54,6 @@ public class MainActivity extends Activity implements OnClickListener{
         joinGameBtn = (ImageButton)findViewById(R.id.join_home_btn);
         createRoomBtn = (ImageButton)findViewById(R.id.create_home_btn);
         settingBtn = (ImageButton)findViewById(R.id.mainpage_setting_btn);
-        
-
-        
         sendGameBtn.setOnClickListener(this);
         joinGameBtn.setOnClickListener(this);
         createRoomBtn.setOnClickListener(this);

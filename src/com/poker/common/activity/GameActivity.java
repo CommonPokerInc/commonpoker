@@ -425,8 +425,6 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 setAutoChecked(autopass_checked, autopq_checked, autofollow_checked);
                 break;
             case R.id.desk_tips_start_game_btn:
-                wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
-                wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
                 if(this.playerList.size()>=2){
                     desk_tips.setVisibility(View.GONE);
                     sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, null,null));
@@ -520,7 +518,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 			playerList.add(msg.getPlayerList().get(0));
 			msg.setPlayerList(playerList);
 			sendMessage(msg);
-			chairUpdate(playerList);
+//			chairUpdate(playerList);
+            wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
 		}
     }
 
@@ -542,7 +542,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         } else {
             this.playerList.clear();
             this.playerList.addAll(msg.getPlayerList());
-            chairUpdate(playerList);
+//            chairUpdate(playerList);
+            wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
         }
     }
 
@@ -592,7 +594,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_CHAIR_UPDATE:
-                    findIndexWithIPinList(playerList);
+                    chairUpdate(playerList);
                     break;
                 default:
                     break;
