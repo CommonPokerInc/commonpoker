@@ -419,6 +419,10 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 }else{
                     Toast.makeText(getApplicationContext(), "还没人齐啊扑街", 1000).show();
                 }
+                break;
+            case R.id.allin_layout:
+                allin_layout.setVisibility(View.INVISIBLE);
+                add.setVisibility(View.VISIBLE);
             default:
                 break;
         }
@@ -455,10 +459,6 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         // }
         // return true;
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                allin_layout.setVisibility(View.INVISIBLE);
-                add.setVisibility(View.VISIBLE);
-                break;
 
             default:
                 break;

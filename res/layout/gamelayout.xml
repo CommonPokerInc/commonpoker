@@ -509,7 +509,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:clickable="true"
-            android:src="@drawable/addnumber_normal" />
+            android:src="@drawable/addnumber_btn" />
 
         <com.poker.common.customcontrols.VerticalSeekBar
             android:id="@+id/ChipSeekbar"

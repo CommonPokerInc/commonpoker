@@ -21,5 +21,18 @@
         <item name="android:windowEnterAnimation">@anim/pop_in</item>  
         <item name="android:windowExitAnimation">@anim/pop_out</item>  
     </style>
+    
+      <style name="settingAnimation" parent="android:Animation">  
+        <item name="android:windowEnterAnimation">@anim/setting_in</item>  
+        <item name="android:windowExitAnimation">@anim/setting_out</item>  
+    </style>
 
+    
+   
+<style name="setting_items_checkbox" parent="@android:style/Widget.CompoundButton.CheckBox"> 
+        <item name="android:button">@drawable/setting_items_checkbox</item> 
+        <item name="android:paddingLeft">25.0dip</item>
+        <item name="android:maxHeight">10.0dip</item>
+    </style>
+    
 </resources>

@@ -21,5 +21,11 @@
     <string name="start_game">开始游戏</string>
     <string name="fill_people">人满喇，开台啦扑街</string>
     <string name="throw_people">要开台就要向房主扔肥皂喔</string>
+    
+    <!-- 设置 -->
+    <string name="voice">声音</string>
+    <string name="shock">震动</string>
+    <string name="help">帮助</string>
+    <string name="about">关于</string>
 
 </resources>
