@@ -55,24 +55,13 @@ public class MainActivity extends Activity implements OnClickListener{
         createRoomBtn = (ImageButton)findViewById(R.id.create_home_btn);
         settingBtn = (ImageButton)findViewById(R.id.mainpage_setting_btn);
         
-        voice_item_layout = (RelativeLayout)findViewById(R.id.voice_item_layout);
-        shock_item_layout = (RelativeLayout)findViewById(R.id.shock_item_layout);
-        help_item_layout = (RelativeLayout)findViewById(R.id.help_item_layout);
-        about_item_layout = (RelativeLayout)findViewById(R.id.about_item_layout);
-        
-        voice_switch = (ImageView)findViewById(R.id.voice_switch_img);
-        shock_switch = (ImageView)findViewById(R.id.shock_switch_img);
+
         
         sendGameBtn.setOnClickListener(this);
         joinGameBtn.setOnClickListener(this);
         createRoomBtn.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
-        voice_item_layout.setOnClickListener(this);
-        shock_item_layout.setOnClickListener(this);
-        help_item_layout.setOnClickListener(this);
-        about_item_layout.setOnClickListener(this);
-        voice_switch.setOnClickListener(this);
-        shock_switch.setOnClickListener(this);
+
     }
 
     
@@ -121,7 +110,20 @@ public class MainActivity extends Activity implements OnClickListener{
     	  LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
           settingView = inflater.inflate(R.layout.activity_setting, null); 
           setting_close = (ImageView)settingView.findViewById(R.id.setting_close);
+          voice_item_layout = (RelativeLayout)settingView.findViewById(R.id.voice_item_layout);
+          shock_item_layout = (RelativeLayout)settingView.findViewById(R.id.shock_item_layout);
+          help_item_layout = (RelativeLayout)settingView.findViewById(R.id.help_item_layout);
+          about_item_layout = (RelativeLayout)settingView.findViewById(R.id.about_item_layout);
+          
+          voice_switch = (ImageView)settingView.findViewById(R.id.voice_switch_img);
+          shock_switch = (ImageView)settingView.findViewById(R.id.shock_switch_img);
           setting_close.setOnClickListener(MainActivity.this);
+          voice_item_layout.setOnClickListener(this);
+          shock_item_layout.setOnClickListener(this);
+          help_item_layout.setOnClickListener(this);
+          about_item_layout.setOnClickListener(this);
+          voice_switch.setOnClickListener(this);
+          shock_switch.setOnClickListener(this);
           settingWin = new PopupWindow(settingView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
                   true); 
           settingWin.setBackgroundDrawable(new BitmapDrawable());
