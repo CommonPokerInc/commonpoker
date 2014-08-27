@@ -2,25 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    android:background="@drawable/img_background"  >
     <TextView
         android:id="@+id/hotName"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/hotLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hotName"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp">
-    </TextView>
+        android:textColor="@color/white"
+        android:text="天天德州狗"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/room_item_btn"
+        android:clickable="true"/>
 
 </RelativeLayout>

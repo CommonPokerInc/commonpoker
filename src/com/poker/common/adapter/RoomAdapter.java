@@ -56,11 +56,9 @@ public class RoomAdapter extends BaseAdapter {
 			convertView = View.inflate(mContext, R.layout.adapter_room_item, null);
 		}
 		nameTxt = (TextView) convertView.findViewById(R.id.hotName);
-		levelTxt = (TextView) convertView.findViewById(R.id.hotLevel);
 		String strSSID = mResults.get(position).SSID;
 		Log.i("frankchan", "筛选房间名："+strSSID);
 		nameTxt.setText(strSSID);
-		levelTxt.setText("Level :" + mResults.get(position).level);
 		
 		return convertView;
 	}
