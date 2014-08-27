@@ -8,6 +8,7 @@ import com.poker.common.R;
 import com.poker.common.entity.Room;
 import com.poker.common.entity.ServerPlayer;
 import com.poker.common.entity.UserInfo;
+import com.poker.common.util.SystemUtil;
 import com.poker.common.wifi.Global;
 import com.poker.common.wifi.SocketServer;
 import com.poker.common.wifi.SocketServer.SocketCreateListener;
@@ -134,8 +135,9 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 	private void gotoGameActivity(){
 		app.setServer(SocketServer.newInstance());
 		UserInfo info = new UserInfo();
-		info.setName("Server123");
+		info.setName("Server");
 		app.sp = new ServerPlayer(info, app.getServer());
+		info.setId(SystemUtil.getID(getApplicationContext()));
 		Intent intent = new Intent(this,GameActivity.class);
 		intent.putExtra("Room", room);
 		startActivity(intent);

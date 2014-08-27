@@ -75,6 +75,21 @@ public class RightSeatView extends FrameLayout {
 		pokerAnim1.start();
 	}
 	
+	public PersonView getPersonView() {
+        return personView;
+    }
+    public void setPersonView(PersonView personView) {
+        this.personView = personView;
+    }
+	
+	public void setPersonViewTitle(String str){
+        this.getPersonView().setTitle(str);
+    }
+    
+    public void setPersonViewPersonMoney(String money){
+        this.getPersonView().setPersonMoney(money);
+    }
+	
 	public void setPokerStyle(int style){
 		RelativeLayout.LayoutParams mParams;
 		RelativeLayout.LayoutParams mParams2;

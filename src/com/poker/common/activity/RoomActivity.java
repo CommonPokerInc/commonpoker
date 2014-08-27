@@ -9,6 +9,7 @@ import com.poker.common.R;
 import com.poker.common.adapter.RoomAdapter;
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.UserInfo;
+import com.poker.common.util.SystemUtil;
 import com.poker.common.wifi.Global;
 import com.poker.common.wifi.SocketClient;
 import com.poker.common.wifi.SocketClient.ClientConnectListener;
@@ -112,6 +113,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 				app.setClient(client);
 				UserInfo info = new UserInfo();
 				info.setName("client1");
+				info.setId(SystemUtil.getID(getApplicationContext()));
 				app.cp = new ClientPlayer(info,app.getClient());
 				Toast.makeText(RoomActivity.this, "连接服务器成功", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(RoomActivity.this,GameActivity.class);

@@ -204,8 +204,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             currentPlay = app.sp;
             initRoom(room);
             desk_tips_text.setText(R.string.waiting_people);
-            playerList.add(currentPlay);
+            playerList.add(currentPlay); 
         }
+        updateChairByPlayer(0,currentPlay);
     }
 
     private OnSeekBarChangeListener mSeekbarListener = new OnSeekBarChangeListener() {
@@ -238,7 +239,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     
     public void initRoom(Room room) {
         if (room != null) {
-            roomName.setText(room.getName().trim());
+            roomName.setText("房間 : "+room.getName().trim());
             dealText.setText((int)room.getMinStake()/2+"/"+(int)room.getMinStake());
             roomRound.setText(String.valueOf(room.getInnings()));
             roomName.setVisibility(View.VISIBLE);
@@ -315,6 +316,41 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     
     public void chairUpdate(ArrayList<ClientPlayer> playerList){
         findIndexWithIPinList(playerList);
+    }
+    
+    public void updateChairByPlayer(int index,ClientPlayer play){
+        switch (index) {
+           case 0:
+               seat_one.setPersonViewTitle(play.getInfo().getName());
+               if(seat_one.getVisibility()!=View.VISIBLE)
+                   seat_one.setVisibility(View.VISIBLE);
+               break;
+           case 1:
+               seat_two.setPersonViewTitle(play.getInfo().getName());
+               if(seat_two.getVisibility()!=View.VISIBLE)
+                   seat_two.setVisibility(View.VISIBLE);
+               break;
+           case 2:
+               seat_three.setPersonViewTitle(play.getInfo().getName());
+               if(seat_three.getVisibility()!=View.VISIBLE)
+                   seat_three.setVisibility(View.VISIBLE);
+               break;
+           case 3:
+               seat_four.setPersonViewTitle(play.getInfo().getName());
+               if(seat_four.getVisibility()!=View.VISIBLE)
+                   seat_four.setVisibility(View.VISIBLE);
+               break;
+           case 4:
+               seat_five.setPersonViewTitle(play.getInfo().getName());
+               if(seat_five.getVisibility()!=View.VISIBLE)
+                   seat_five.setVisibility(View.VISIBLE);
+               break;
+           case 5:
+               seat_six.setPersonViewTitle(play.getInfo().getName());
+               if(seat_six.getVisibility()!=View.VISIBLE)
+                   seat_six.setVisibility(View.VISIBLE);
+               break;
+        }
     }
     
     public int findIndexWithIPinList(ArrayList<ClientPlayer> playerList){
