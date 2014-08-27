@@ -7,6 +7,7 @@ import com.poker.common.BaseApplication;
 import com.poker.common.Constant;
 import com.poker.common.R;
 import com.poker.common.adapter.RoomAdapter;
+import com.poker.common.adapter.RoomAdapter.OnItemListener;
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.UserInfo;
 import com.poker.common.util.SystemUtil;
@@ -75,7 +76,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		ltvRoom = (ListView)findViewById(R.id.list_room);
 		btnRefresh = (Button)findViewById(R.id.btn_refresh_room);
 		txtNoRoom = (TextView)findViewById(R.id.txt_no_room);
-		ltvRoom.setOnItemClickListener(new OnItemClickListener() {
+		/*ltvRoom.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -89,7 +90,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 				app.wm.connectToHotpot(result.SSID, wifiList, Global.PASSWORD);
 				Log.i(TAG, "out  onItemClick() SSID= " + result.SSID);
 			}
-		});
+		});*/
 		btnRefresh.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -99,6 +100,20 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 			}
 		});
 	}
+	
+	private class MyItemListener implements OnItemListener{
+
+		@Override
+		public void onItemClick(String SSID) {
+			// TODO Auto-generated method stub
+			if(app.isServer()){
+				Toast.makeText(RoomActivity.this, "您已经建立wifi请关闭后再连接其他热点", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			app.wm.connectToHotpot(SSID, wifiList, Global.PASSWORD);
+		}
+		
+	} 
 	
 	private Handler handler = new Handler(){
 
@@ -195,7 +210,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		}
 		if (null == adapter) {
 			Log.i(TAG, "into 刷新wifi热点列表 adapter is null！");
-			adapter = new RoomAdapter(results, this);
+			adapter = new RoomAdapter(results, this,new MyItemListener());
 			ltvRoom.setAdapter(adapter);
 		} else {
 			Log.i(TAG, "into 刷新wifi热点列表 adapter is not null！");

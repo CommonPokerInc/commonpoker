@@ -10,6 +10,7 @@ import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
@@ -20,10 +21,13 @@ public class RoomAdapter extends BaseAdapter {
 
 	private Context mContext;
 
-	public RoomAdapter(ArrayList<ScanResult> results, Context mContext) {
+	private OnItemListener listener; 
+	
+	public RoomAdapter(ArrayList<ScanResult> results, Context mContext,OnItemListener listener) {
 
 		this.mResults = results;
 		this.mContext = mContext;
+		this.listener = listener;
 		System.out.println("into  WifiHotAdapter results =" + this.mResults);
 
 	}
@@ -56,7 +60,17 @@ public class RoomAdapter extends BaseAdapter {
 			convertView = View.inflate(mContext, R.layout.adapter_room_item, null);
 		}
 		nameTxt = (TextView) convertView.findViewById(R.id.hotName);
-		String strSSID = mResults.get(position).SSID;
+		final String strSSID = mResults.get(position).SSID;
+		nameTxt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(null!=listener){
+					listener.onItemClick(strSSID);
+				}
+			}
+		});
 		Log.i("frankchan", "筛选房间名："+strSSID);
 		nameTxt.setText(strSSID);
 		
@@ -76,4 +90,7 @@ public class RoomAdapter extends BaseAdapter {
 		}
 	}
 	
+	public interface OnItemListener{
+		void onItemClick(String SSID);
+	}
 }
