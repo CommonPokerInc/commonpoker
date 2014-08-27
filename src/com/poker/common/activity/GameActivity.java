@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -61,7 +64,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
     private LinearLayout desk_tips;
     
-    // ��λһ��Զ�����Լ�
+    // 座位一永远都是自己
     private LeftSeatView seat_one, seat_two, seat_three;
 
     private RightSeatView seat_four, seat_five, seat_six;
@@ -72,16 +75,16 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
     private Boolean autopass_checked = false, autopq_checked = false, autofollow_checked = false;
 
-    // ������Ϣ
+    // 房间信息
     private Room room;
 
-    // ������
+    // 公共牌
     private ArrayList<Poker> public_poker;
 
-    // �����б�
+    // 
     private ArrayList<ClientPlayer> playerList;
 
-    // �����б���������Ϊ����clientplayer��serverplayer����ʱ�ټ�����ϸ��ʵ��
+    // 玩家列表
     private HashMap<String, AbsPlayer> playList;
 
     private View popView = null;// ���浯��ڲ���
@@ -95,6 +98,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     private String max = "";
     
     private ClientPlayer currentPlay;
+    
+    private WorkHandler wHandler = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,16 +192,17 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         allin_layout.setVisibility(View.INVISIBLE);
         chips = (TextView) findViewById(R.id.chips);
         allin = (ImageView) findViewById(R.id.allin);
-        seekbar.setOnSeekBarChangeListener(mSeekbarListener);// �����¼�����
+        seekbar.setOnSeekBarChangeListener(mSeekbarListener);
 
         room = getIntent().getParcelableExtra("Room");
-
+        wHandler = new WorkHandler(getMainLooper());
         playerList = new ArrayList<ClientPlayer>();
         if (!app.isServer()) {
             currentPlay = app.cp;
             playerList.add(currentPlay);
             sendMessage(MessageFactory.newPeopleMessage(false, false, playerList, null,null));
             desk_tips_text.setText(R.string.throw_people);
+            startGame.setVisibility(View.GONE);
         } else {
             currentPlay = app.sp;
             initRoom(room);
@@ -260,7 +266,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         public_poker5.setImageResource(pokers.get(4).getPokerImageId());
     }
 
-    // ��������
+    // 发公共牌
     public void showPublicPoker() {
         if (public_poker1.getVisibility() != View.VISIBLE) {
             public_poker1.setVisibility(View.VISIBLE);
@@ -283,7 +289,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         }
     }
 
-    // ������
+    // 发底牌
     public void bottomDeal() {
         seat_one.ownPokerAnim();
         seat_two.ownPokerAnim();
@@ -292,8 +298,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         seat_five.ownPokerAnim();
         seat_six.ownPokerAnim();
     }
-    
-    // ����״̬
+   
+//    重置所有玩家
     public void resetAllPlayStatus() {
         seat_one.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
         seat_one.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
@@ -308,6 +314,19 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         seat_six.getRight_seat_poker1().setVisibility(View.INVISIBLE);
         seat_six.getRight_seat_poker2().setVisibility(View.INVISIBLE);
         setPublicPokerVisibility(View.INVISIBLE);
+    }
+    
+    public void chairUpdate(ArrayList<ClientPlayer> playerList){
+        findIndexWithIPinList(playerList);
+    }
+    
+    public int findIndexWithIPinList(ArrayList<ClientPlayer> playerList){
+//        for(int i = playerList.size()-1;i>=0;i--){
+//            if(currentPlay.getInfo().getIPAddress().equals(playerList.get(i).getInfo().getIPAddress())){
+//                return i;
+//            }
+//        }
+        return -1;
     }
 
     @Override
@@ -359,11 +378,13 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 setAutoChecked(autopass_checked, autopq_checked, autofollow_checked);
                 break;
             case R.id.desk_tips_start_game_btn:
+                wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
+                wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
                 if(this.playerList.size()>=2){
-//                    ��ʼ��Ϸ
                     desk_tips.setVisibility(View.GONE);
+                    sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, null,null));
                 }else{
-                    Toast.makeText(getApplicationContext(), "û���밡�˽�", 1000).show();
+                    Toast.makeText(getApplicationContext(), "还没人齐啊扑街", 1000).show();
                 }
             default:
                 break;
@@ -422,14 +443,14 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     private void showImageCard() {
         // TODO Auto-generated method stub
         LayoutInflater inflater = LayoutInflater.from(GameActivity.this);
-        popView = inflater.inflate(R.layout.card_tip, null); // ��ȡ���ֹ�����
+        popView = inflater.inflate(R.layout.card_tip, null); 
         popWin = new PopupWindow(popView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
-                true); // ʵ����
+                true); 
         popWin.setBackgroundDrawable(new BitmapDrawable());
         popWin.setOutsideTouchable(true);
         popWin.setFocusable(true);
         popWin.setAnimationStyle(R.style.popupAnimation);
-        popWin.showAtLocation(GameActivity.this.tips, Gravity.LEFT, 0, 0); // ��ʾ�����
+        popWin.showAtLocation(GameActivity.this.tips, Gravity.LEFT, 0, 0); 
         popWin.update();
     }
 
@@ -468,7 +489,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
         }
         if (msg.isStart()) {
-            // ��ʼ��Ϸ
+//          游戏开始
             desk_tips.setVisibility(View.GONE);
         } else {
             this.playerList.clear();
@@ -511,5 +532,22 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
-
+	
+	private class WorkHandler extends Handler {
+        
+	    private static final int MSG_CHAIR_UPDATE = 1;
+	    public WorkHandler(Looper looper) {
+            super(looper);
+        }
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_CHAIR_UPDATE:
+                    findIndexWithIPinList(playerList);
+                    break;
+                default:
+                    break;
+            }
+        }
+	}
 }
