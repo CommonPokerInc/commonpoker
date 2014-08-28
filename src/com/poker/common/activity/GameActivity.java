@@ -432,7 +432,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                     Toast.makeText(getApplicationContext(), "还没人齐啊扑街", 1000).show();
                 }
                 break;
-            case R.id.allin_layout:
+            case R.id.addnumber:
                 allin_layout.setVisibility(View.INVISIBLE);
                 add.setVisibility(View.VISIBLE);
             default:
