@@ -333,6 +333,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             for(int i = 0;i<index;i++){
                 updateChairByPlayer(chairIndex++,playerList.get(i));
             }
+            for(int i = chairIndex;i<6;i++){
+                hideChairByPlayer(chairIndex);
+            }
         }
         
     }
@@ -372,9 +375,41 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         }
     }
     
+    public void hideChairByPlayer(int index){
+        switch (index) {
+           case 0:
+               seat_one.setVisibility(View.INVISIBLE);
+               break;
+           case 1:
+               seat_two.setVisibility(View.INVISIBLE);
+               break;
+           case 2:
+               seat_three.setVisibility(View.INVISIBLE);
+               break;
+           case 3:
+               seat_four.setVisibility(View.INVISIBLE);
+               break;
+           case 4:
+               seat_five.setVisibility(View.INVISIBLE);
+               break;
+           case 5:
+               seat_six.setVisibility(View.INVISIBLE);
+               break;
+        }
+    }
+    
     public int findIndexWithIPinList(ArrayList<ClientPlayer> playerList){
         for(int i = playerList.size()-1;i>=0;i--){
             if(currentPlay.getInfo().getId().equals(playerList.get(i).getInfo().getId())){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public int findPlayer(ClientPlayer player){
+        for(int i = playerList.size()-1;i>=0;i--){
+            if(player.getInfo().getId().equals(playerList.get(i).getInfo().getId())){
                 return i;
             }
         }
@@ -391,6 +426,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 add.setVisibility(View.INVISIBLE);
                 break;
             case R.id.reback:
+                playerList.clear();
+                playerList.add(currentPlay);
+                sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,null));
                 Intent i = new Intent(GameActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
@@ -512,7 +550,14 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     @Override
     public void onServerReceive(PeopleMessage msg) {
         // TODO Auto-generated method stub
-		if (msg.getPlayerList() != null && msg.getPlayerList().get(0) != null) {
+        if(msg.isExit()){
+            int exitIndex = findPlayer(msg.getPlayerList().get(0));
+            if(exitIndex!=-1){
+                playerList.remove(exitIndex);
+                wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
+                wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
+            }
+        }else if (msg.getPlayerList() != null && msg.getPlayerList().get(0) != null) {
 			playerList.add(msg.getPlayerList().get(0));
 			msg.setPlayerList(playerList);
 			sendMessage(msg);
@@ -532,7 +577,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     public void onClientReceive(PeopleMessage msg) {
         // TODO Auto-generated method stub
         if (msg.isExit()) {
-
+            playerList.remove(msg.getPlayerList().get(0));
+            wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
         }
         if (msg.isStart()) {
 //          游戏开始
