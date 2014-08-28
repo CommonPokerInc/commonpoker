@@ -23,6 +23,7 @@ import android.net.wifi.WifiInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -31,7 +32,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.*;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class RoomActivity extends Activity implements WifiBroadCastOperations{
 	
@@ -59,6 +59,8 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 	private final static int MSG_CONNECT_SUCCESS = 1;
 	
 	private final static int MSG_CONNECT_FAILURE = 2;
+	
+	private boolean allowEntry = true;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -106,15 +108,27 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		@Override
 		public void onItemClick(String SSID) {
 			// TODO Auto-generated method stub
+			if(!allowEntry){
+				if(mSSID.equals(SSID)){
+					Toast.makeText(RoomActivity.this, "正在为您连接该房间", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					Toast.makeText(RoomActivity.this, "正在为您连接别的房间，请稍后再试", Toast.LENGTH_SHORT).show();
+				}
+				return;
+			}
 			if(app.isServer()){
 				Toast.makeText(RoomActivity.this, "您已经建立wifi请关闭后再连接其他热点", Toast.LENGTH_SHORT).show();
 				return;
 			}
+			mSSID = SSID;
+			allowEntry = false;
 			app.wm.connectToHotpot(SSID, wifiList, Global.PASSWORD);
 		}
 		
 	} 
 	
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler(){
 
 		@Override
@@ -123,8 +137,10 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 			switch(msg.what){
 			case MSG_CONNECT_FAILURE:
 				Toast.makeText(RoomActivity.this, "连接失败，房间满员或者关闭了", Toast.LENGTH_SHORT).show();
+				allowEntry = true;
 				break;
 			case MSG_CONNECT_SUCCESS:
+				allowEntry =true;
 				app.setClient(client);
 				UserInfo info = new UserInfo();
 				info.setName("client1");
@@ -133,6 +149,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 				Toast.makeText(RoomActivity.this, "连接服务器成功", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(RoomActivity.this,GameActivity.class);
 				startActivity(intent);
+				RoomActivity.this.finish();
 				break;
 			}
 		}
@@ -177,6 +194,8 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 	private void beginScan(){
 		if(app.wm==null){
 			app.wm = WifiHotManager.getInstance(app,RoomActivity.this);
+		}else{
+			app.wm.changeWifiOperation(this);
 		}
 		app.wm.scanWifiHot();
 		dialog.show();

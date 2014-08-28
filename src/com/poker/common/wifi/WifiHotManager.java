@@ -84,6 +84,11 @@ public class WifiHotManager {
 		mWifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 	}
 
+	public void changeWifiOperation(WifiBroadCastOperations operations){
+		this.operations = operations;
+	}
+	
+	
 	// ¼ì²âWifiÊÇ·ñ´ò¿ª
 	public boolean wifiIsOpen() {
 		if (mWifimanager == null) {
@@ -306,7 +311,7 @@ public class WifiHotManager {
 	}
 
 	public void disconnectWifi(String SSID) {
-		// mWifimanager.disconnect();
+		mWifimanager.disconnect();
 	}
 	
 	

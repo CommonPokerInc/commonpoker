@@ -61,7 +61,6 @@ public class SocketServer {
 	private void closeConnection() {
 		Log.i(TAG, "into closeConnection()...................................");
 		if (server != null) {
-			onGoinglistner=false;
 			try {
 				server.close();
 				server = null;

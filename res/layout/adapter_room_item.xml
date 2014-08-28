@@ -16,6 +16,7 @@
         android:layout_centerInParent="true"
         android:background="@drawable/room_item_btn"
         android:clickable="true"
-        android:layout_margin="20dp"/>
+        android:focusable="false"
+        android:layout_margin="10dp"/>
 
 </RelativeLayout>

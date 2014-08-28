@@ -159,6 +159,7 @@ public class MainActivity extends Activity implements OnClickListener{
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
+    	System.exit(0);
         super.onDestroy();
     }
 }

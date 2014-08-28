@@ -3,6 +3,7 @@ package com.poker.common.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.poker.common.Constant;
 import com.poker.common.R;
 
 
@@ -72,7 +73,8 @@ public class RoomAdapter extends BaseAdapter {
 			}
 		});
 		Log.i("frankchan", "筛选房间名："+strSSID);
-		nameTxt.setText(strSSID);
+		String result = strSSID.substring(0, strSSID.lastIndexOf(Constant.WIFI_SUFFIX));
+		nameTxt.setText(result);
 		
 		return convertView;
 	}

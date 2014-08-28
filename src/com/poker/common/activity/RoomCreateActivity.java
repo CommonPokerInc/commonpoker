@@ -36,6 +36,10 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 	
 	private Room room;
 	
+	private String mSSID;
+	
+	private boolean allowCreate = true;
+	
 	private final static int MSG_CREATE_SERVER_SOCKET = 1;
 	private final static int MSG_SHOW_CREATE_HOT_ERROR =2;
 	private final static int MSG_SHOW_CREATE_SOCKET_ERROR =3;
@@ -70,6 +74,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 				break;
 			case MSG_SHOW_CREATE_SOCKET_ERROR:
 			case MSG_SHOW_CREATE_HOT_ERROR:
+				allowCreate = true;
 				Toast.makeText(RoomCreateActivity.this, "创建房间失败", Toast.LENGTH_SHORT).show();
 				break;
 			case MSG_SUCCESS_JUMP_GAME:
@@ -93,8 +98,14 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 			else
 				app.getClient().clearClient();
 		}
+
+		if(!allowCreate){
+			Toast.makeText(RoomCreateActivity.this, "创建房间中，请勿重复创建", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		switch(v.getId()){
 			case R.id.btn_create_limit:
+				allowCreate =false;
 				room = new Room();
 				room.setType(Room.TYPE_LIMIT);
 				room.setCount(6);
@@ -102,9 +113,11 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 				room.setMinStake(100);
 				room.setName("Godlike");
 				room.setBasicChips(10000);
-				app.wm.startAWifiHot("Godlike"+Constant.WIFI_SUFFIX,this);
+				mSSID = "Godlike"+Constant.WIFI_SUFFIX;
+				app.wm.startAWifiHot(mSSID,this);
 				break;
 			case R.id.btn_create_rank:
+				allowCreate =false;
 				room = new Room();
 				room.setType(Room.TYPE_RANK);
 				room.setCount(6);
@@ -112,7 +125,8 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 				room.setMinStake(100);
 				room.setName("Godlike");
 				room.setBasicChips(10000);
-				app.wm.startAWifiHot("Godlike"+Constant.WIFI_SUFFIX,this);
+				mSSID = "Godlike"+Constant.WIFI_SUFFIX;
+				app.wm.startAWifiHot(mSSID,this);
 				break;
 		}
 	}
@@ -140,6 +154,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 		info.setId(SystemUtil.getID(getApplicationContext()));
 		Intent intent = new Intent(this,GameActivity.class);
 		intent.putExtra("Room", room);
+		intent.putExtra("SSID", mSSID);
 		startActivity(intent);
 	}
 	

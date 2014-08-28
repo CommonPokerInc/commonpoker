@@ -11,6 +11,7 @@ import com.poker.common.wifi.message.GameMessage;
 import com.poker.common.wifi.message.PeopleMessage;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
 /*
@@ -25,8 +26,11 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 	
 	private MessageListener listener;
 	
+	private String mSSID ;
+	
 	public void initMessageListener(MessageListener listener){
 		app = (BaseApplication) getApplication();
+		mSSID = getIntent().getStringExtra("SSID");
 		this.listener = listener;
 		if(app.isServer()){
 			app.getServer().setListener(this);
@@ -112,9 +116,17 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		if(app.isServer()){
+			app.getServer().stopListner();
 			app.getServer().clearServer();
+			app.setServer(null);
+			app.wm.disableWifiHot();
 		}else{
+			app.getClient().stopAcceptMessage();
 			app.getClient().clearClient();
+			app.setClient(null);
+			if(null!=mSSID){
+				app.wm.deleteMoreCon(mSSID);
+			}
 		}
 		super.onDestroy();
 	}
