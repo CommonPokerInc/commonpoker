@@ -28,6 +28,9 @@ public class GameMessage extends BaseMessage{
 	
 	private int action;
 
+	//½ğÇ®
+	private int amount;
+	
 	public int getId() {
 		return id;
 	}
@@ -42,6 +45,14 @@ public class GameMessage extends BaseMessage{
 
 	public void setAction(int action) {
 		this.action = action;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 	
 }

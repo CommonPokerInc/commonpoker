@@ -16,16 +16,18 @@ import com.poker.common.entity.Room;
 public class MessageFactory {
 	
 	//产生游戏行为信息
-	public static GameMessage newGameMessage(boolean exit){
+	public static GameMessage newGameMessage(boolean exit,int type,int money,String extra){
 		GameMessage msg = new GameMessage();
 		msg.setSource(BaseMessage.MESSAGE_SOURCE);
 		msg.setExit(exit);
+		msg.setAmount(money);
+		msg.setExtra(extra);
 		return msg;
 	}
 	
 	//产生玩家信息
 	public static PeopleMessage newPeopleMessage(boolean start,boolean exit,
-			ArrayList<ClientPlayer>clientList,ArrayList<Poker>pokerList,Room room){
+			ArrayList<ClientPlayer>clientList,ArrayList<Poker>pokerList,Room room,String extra){
 		PeopleMessage msg = new PeopleMessage();
 		msg.setSource(BaseMessage.MESSAGE_SOURCE);
 		msg.setPlayerList(clientList);
@@ -33,6 +35,7 @@ public class MessageFactory {
 		msg.setStart(start);
 		msg.setExit(exit);
 		msg.setRoom(room);
+		msg.setExtra(extra);
 		return msg;
 	}
 }

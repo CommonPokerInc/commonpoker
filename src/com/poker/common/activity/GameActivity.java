@@ -202,7 +202,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         if (!app.isServer()) {
             currentPlay = app.cp;
             playerList.add(currentPlay);
-            sendMessage(MessageFactory.newPeopleMessage(false, false, playerList, null,null));
+            sendMessage(MessageFactory.newPeopleMessage(false, false, playerList, null,null,null));
             desk_tips_text.setText(R.string.throw_people);
             startGame.setVisibility(View.GONE);
         } else {
@@ -430,7 +430,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             case R.id.desk_tips_start_game_btn:
                 if(this.playerList.size()>=2){
                     desk_tips.setVisibility(View.GONE);
-                    sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, null,null));
+                    sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, null,null,null));
                 }else{
                     Toast.makeText(getApplicationContext(), "还没人齐啊扑街", 1000).show();
                 }

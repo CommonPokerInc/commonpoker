@@ -26,7 +26,10 @@ public abstract class BaseMessage implements Serializable{
 	//是否马上退出
 	private boolean exit;
 	
+	private String extra;
+	
 	private Room room;
+	
 	public String getSource() {
 		return source;
 	}
@@ -49,6 +52,14 @@ public abstract class BaseMessage implements Serializable{
 
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+
+	public String getExtra() {
+		return extra;
+	}
+
+	public void setExtra(String extra) {
+		this.extra = extra;
 	}
 	
 	
