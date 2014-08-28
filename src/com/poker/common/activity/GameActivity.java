@@ -84,9 +84,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     // 玩家列表
     private HashMap<String, AbsPlayer> playList;
 
-    private View popView = null;// ���浯��ڲ���
+    private View CardTypeView = null;// 
 
-    private PopupWindow popWin = null; // �����
+    private PopupWindow CardTypeWin = null; // 牌型弹窗
 
     private VerticalSeekBar seekbar;
 
@@ -114,7 +114,6 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         // TODO Auto-generated method stub
         seekbar.setProgress(0);
         max = seat_one.getPersonView().getPersonMoney().getText().toString();
-        Log.v("zkzhou", max);
         seekbar.setMax(Integer.valueOf(max));
     }
 
@@ -129,6 +128,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         autopq = (Button) findViewById(R.id.autopq);
         startGame = (Button) findViewById(R.id.desk_tips_start_game_btn);
         autofollow = (Button) findViewById(R.id.autofollow);
+        
         current_rank = (TextView) findViewById(R.id.player_current_rank);
         seat_one = (LeftSeatView) findViewById(R.id.seat_one);
         seat_one.setPokerStyle(0);
@@ -137,17 +137,20 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         seat_four = (RightSeatView) findViewById(R.id.seat_four);
         seat_five = (RightSeatView) findViewById(R.id.seat_five);
         seat_six = (RightSeatView) findViewById(R.id.seat_six);
+        
         sidepool_layout1 = (RelativeLayout)findViewById(R.id.sidepool_layout1);
         sidepool_layout2 = (RelativeLayout)findViewById(R.id.sidepool_layout2);
         sidepool_layout3 = (RelativeLayout)findViewById(R.id.sidepool_layout3);
         sidepool_layout4 = (RelativeLayout)findViewById(R.id.sidepool_layout4);
         sidepool_layout5 = (RelativeLayout)findViewById(R.id.sidepool_layout5);
         mainpool_layout = (RelativeLayout)findViewById(R.id.mainpool_layout);
+        
         desk_tips = (LinearLayout)findViewById(R.id.desk_tips);
         roomName = (TextView)findViewById(R.id.room_name);
         dealText = (TextView)findViewById(R.id.deal_text);
         roomRound = (TextView)findViewById(R.id.room_round_text);
         desk_tips_text = (TextView)findViewById(R.id.desk_tips_text);
+        
         roomName.setVisibility(View.INVISIBLE);
         dealText.setVisibility(View.INVISIBLE);
         roomRound.setVisibility(View.INVISIBLE);
@@ -162,6 +165,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         seat_four.setVisibility(View.INVISIBLE);
         seat_five.setVisibility(View.INVISIBLE);
         seat_six.setVisibility(View.INVISIBLE);
+        
         public_poker1 = (ImageView) findViewById(R.id.poker1);
         public_poker2 = (ImageView) findViewById(R.id.poker2);
         public_poker3 = (ImageView) findViewById(R.id.poker3);
@@ -170,6 +174,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         checked1 = (ImageView) findViewById(R.id.checked1);
         checked2 = (ImageView) findViewById(R.id.checked2);
         checked3 = (ImageView) findViewById(R.id.checked3);
+
         reback.setOnClickListener(this);
         follow.setOnClickListener(this);
         add.setOnClickListener(this);
@@ -381,8 +386,6 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.add:
-                // closeCardTip();
-//                bottomDeal();
                 showPublicPoker();
                 allin_layout.setVisibility(View.VISIBLE);
                 add.setVisibility(View.INVISIBLE);
@@ -479,30 +482,25 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     }
 
     public void setCardTip(int i) {
-        // img_card_tip.setVisibility(i);
-        // img_card_tip.setAnimation(tip_anim);
-        // tip_anim.setFillAfter(true);
         showImageCard();
     }
 
     private void showImageCard() {
         // TODO Auto-generated method stub
         LayoutInflater inflater = LayoutInflater.from(GameActivity.this);
-        popView = inflater.inflate(R.layout.card_tip, null); 
-        popWin = new PopupWindow(popView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
+        CardTypeView = inflater.inflate(R.layout.card_tip, null); 
+        CardTypeWin = new PopupWindow(CardTypeView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
                 true); 
-        popWin.setBackgroundDrawable(new BitmapDrawable());
-        popWin.setOutsideTouchable(true);
-        popWin.setFocusable(true);
-        popWin.setAnimationStyle(R.style.popupAnimation);
-        popWin.showAtLocation(GameActivity.this.tips, Gravity.LEFT, 0, 0); 
-        popWin.update();
+        CardTypeWin.setBackgroundDrawable(new BitmapDrawable());
+        CardTypeWin.setOutsideTouchable(true);
+        CardTypeWin.setFocusable(true);
+        CardTypeWin.setAnimationStyle(R.style.cardTypeAnimation);
+        CardTypeWin.showAtLocation(GameActivity.this.tips, Gravity.LEFT, 0, 0); 
+        CardTypeWin.update();
     }
 
     public void closeCardTip() {
-        if (img_card_tip.getVisibility() == View.VISIBLE) {
-            img_card_tip.setVisibility(View.INVISIBLE);
-        }
+    	
     }
 
     @Override
