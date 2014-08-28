@@ -127,7 +127,9 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 			if(null!=mSSID){
 				app.wm.deleteMoreCon(mSSID);
 			}
+			app.wm.disconnectWifi(mSSID);
 		}
+		app.isConnected = false;
 		super.onDestroy();
 	}
 }
