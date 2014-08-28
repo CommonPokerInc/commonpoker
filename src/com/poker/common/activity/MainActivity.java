@@ -2,6 +2,7 @@ package com.poker.common.activity;
 
 import com.poker.common.BaseApplication;
 import com.poker.common.R;
+import com.poker.common.util.SettingHelper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -40,6 +41,8 @@ public class MainActivity extends Activity implements OnClickListener{
     private ImageView setting_close;
     private RelativeLayout voice_item_layout,shock_item_layout,help_item_layout,about_item_layout;//ÉùÒô£¬Õð¶¯£¬°ïÖú£¬¹ØÓÚ
     private ImageView voice_switch,shock_switch;
+    private SettingHelper settingHelper;
+    private boolean voice_switch_state = false,shock_switch_state = false;//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -47,9 +50,11 @@ public class MainActivity extends Activity implements OnClickListener{
         setContentView(R.layout.mainactivity);
         app = (BaseApplication) getApplication();
         init();
+
     }
-    
-    public void init(){
+
+
+	public void init(){
         sendGameBtn = (ImageButton)findViewById(R.id.send_game_btn);
         joinGameBtn = (ImageButton)findViewById(R.id.join_home_btn);
         createRoomBtn = (ImageButton)findViewById(R.id.create_home_btn);
@@ -95,9 +100,13 @@ public class MainActivity extends Activity implements OnClickListener{
 		}else if(v.getId() == R.id.about_item_layout){
 			
 		}else if(v.getId() == R.id.shock_switch_img){
-			
+			shock_switch_state = !settingHelper.getVoiceStatus();
+			shock_switch.setImageResource(shock_switch_state?R.drawable.setting_switch_on:R.drawable.setting_switch_off);
+			settingHelper.setVibrationStatus(shock_switch_state);
 		}else if(v.getId() == R.id.voice_switch_img){
-			
+			voice_switch_state = !settingHelper.getVoiceStatus();
+			voice_switch.setImageResource(voice_switch_state?R.drawable.setting_switch_on:R.drawable.setting_switch_off);
+			settingHelper.setVoiceStatus(voice_switch_state);
 		}
         
     }
@@ -129,6 +138,16 @@ public class MainActivity extends Activity implements OnClickListener{
           settingWin.setAnimationStyle(R.style.settingAnimation);
           settingWin.showAtLocation(MainActivity.this.settingBtn, Gravity.BOTTOM, 0, 0); 
           settingWin.update();
+          
+          initSetting();
+	}
+    
+    
+    private void initSetting() {
+		// TODO Auto-generated method stub
+		settingHelper = new SettingHelper(getApplicationContext());
+		voice_switch.setImageResource(settingHelper.getVoiceStatus()?R.drawable.setting_switch_on:R.drawable.setting_switch_off);
+		shock_switch.setImageResource(settingHelper.getVibrationStatus()?R.drawable.setting_switch_on:R.drawable.setting_switch_off);
 	}
 
 	@Override
