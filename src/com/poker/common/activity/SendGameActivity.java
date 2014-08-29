@@ -35,8 +35,6 @@ public class SendGameActivity extends Activity{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent it = new Intent(SendGameActivity.this,MainActivity.class);
-                startActivity(it);
                 finish();
             }
         });

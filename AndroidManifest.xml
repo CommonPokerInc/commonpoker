@@ -67,6 +67,7 @@
             android:label="@string/title_activity_room_create"
             android:screenOrientation="landscape" >
         </activity>
+        <service android:name="com.poker.common.wifi.transfer.WebService"></service>
     </application>
     <!-- 手机权限定义 -->
     <uses-permission android:name="android.permission.INTERNET" />
