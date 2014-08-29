@@ -117,6 +117,11 @@ public class LeftSeatView extends FrameLayout {
 
 	}
 	
+	public void setPokerImage(int poker1,int poker2){
+		left_seat_poker1.setImageResource(poker1);
+		left_seat_poker2.setImageResource(poker2);
+	}
+	
 	public void setPokerStyle(int style){
 		RelativeLayout.LayoutParams mParams;
 		RelativeLayout.LayoutParams mParams2;

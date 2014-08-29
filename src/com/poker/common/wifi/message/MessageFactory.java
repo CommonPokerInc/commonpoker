@@ -19,6 +19,7 @@ public class MessageFactory {
 	public static GameMessage newGameMessage(boolean exit,int type,int money,String extra){
 		GameMessage msg = new GameMessage();
 		msg.setSource(BaseMessage.MESSAGE_SOURCE);
+		msg.setAction(type);
 		msg.setExit(exit);
 		msg.setAmount(money);
 		msg.setExtra(extra);

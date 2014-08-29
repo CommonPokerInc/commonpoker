@@ -21,8 +21,15 @@ public class GameMessage extends BaseMessage{
 	public final static int ACTION_FOLLOW =3;
 	//加注
 	public final static int ACTION_ADD_BET =4;
-	//发牌
+	//发3张牌
 	public final static int ACTION_SEND_POKER =5;
+//	发底牌
+	public final static int ACTION_SEND_BOOL = 6;
+//	发4张牌
+	public final static int ACTION_SEND_FOUR = 7;
+//	发5张牌
+	public final static int ACTION_SEND_FIVE = 8;
+
 	
 	private int id;
 	

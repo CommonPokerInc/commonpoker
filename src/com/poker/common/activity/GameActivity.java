@@ -76,7 +76,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     private Room room;
 
     // 公共牌
-    private ArrayList<Poker> public_poker;
+//    private ArrayList<Poker> public_poker;
+    
+    private ArrayList<Poker> All_poker;
 
     // 
     private ArrayList<ClientPlayer> playerList;
@@ -291,9 +293,15 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             return;
         }
     }
+    
+    public void startGame(){
+        desk_tips.setVisibility(View.GONE);
+    }
 
     // 发底牌
     public void bottomDeal() {
+    	int index = findIndexWithIPinList(this.playerList);
+    	seat_one.setPokerImage(All_poker.get(index).getPokerImageId(), All_poker.get(index+1).getPokerImageId());
         seat_one.ownPokerAnim();
         seat_two.ownPokerAnim();
         seat_three.ownPokerAnim();
@@ -428,7 +436,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             case R.id.reback:
                 playerList.clear();
                 playerList.add(currentPlay);
-                sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,null));
+                sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
                 Intent i = new Intent(GameActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
@@ -468,7 +476,10 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             case R.id.desk_tips_start_game_btn:
                 if(this.playerList.size()>=2){
                     desk_tips.setVisibility(View.GONE);
-                    sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, null,null,null));
+                    All_poker = Util.getPokers(playerList.size());
+                    sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, All_poker,null,null));
+                    wHandler.removeMessages(WorkHandler.MSG_SEND_BOOL);
+                    wHandler.sendEmptyMessage(WorkHandler.MSG_SEND_BOOL);
                 }else{
                     Toast.makeText(getApplicationContext(), "还没人齐啊扑街", 1000).show();
                 }
@@ -577,13 +588,22 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     public void onClientReceive(PeopleMessage msg) {
         // TODO Auto-generated method stub
         if (msg.isExit()) {
+        	if("server exit".equals(msg.getExtra())){
+        		Toast.makeText(getApplicationContext(), "Server exit", 1000).show();
+                finish();
+        	}
             playerList.remove(msg.getPlayerList().get(0));
             wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
             wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
         }
         if (msg.isStart()) {
 //          游戏开始
-            desk_tips.setVisibility(View.GONE);
+        	app.isGameStarted = true;
+        	this.All_poker = msg.getPokerList();
+        	wHandler.removeMessages(WorkHandler.MSG_START_GAME);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_START_GAME);
+            wHandler.removeMessages(WorkHandler.MSG_SEND_BOOL);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_SEND_BOOL);
         } else {
             this.playerList.clear();
             this.playerList.addAll(msg.getPlayerList());
@@ -596,7 +616,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     @Override
     public void onClientReceive(GameMessage msg) {
         // TODO Auto-generated method stub
-
+    	int cmd = msg.getAction();
+    	if(GameMessage.ACTION_SEND_BOOL == cmd){
+    		wHandler.removeMessages(WorkHandler.MSG_SEND_BOOL);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_SEND_BOOL);
+    	}
     }
 
     @Override
@@ -632,6 +656,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 	private class WorkHandler extends Handler {
         
 	    private static final int MSG_CHAIR_UPDATE = 1;
+	    private static final int MSG_SEND_BOOL = 2;
+	    private static final int MSG_START_GAME = 3;
+	    
 	    public WorkHandler(Looper looper) {
             super(looper);
         }
@@ -641,6 +668,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 case MSG_CHAIR_UPDATE:
                     chairUpdate(playerList);
                     break;
+                case MSG_SEND_BOOL:
+                	bottomDeal();
+                	break;
+                case MSG_START_GAME:
+                	startGame();
                 default:
                     break;
             }
