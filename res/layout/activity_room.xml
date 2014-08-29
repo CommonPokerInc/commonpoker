@@ -48,7 +48,8 @@
             android:id="@+id/list_room"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:scrollbars="none" >
+            android:scrollbars="none"
+            android:background="#2b2937" >
         </ListView>
         <TextView android:id="@+id/txt_no_room"
             android:layout_centerInParent="true"

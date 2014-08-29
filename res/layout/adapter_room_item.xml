@@ -1,19 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="90dp"
-    android:orientation="vertical"
-    android:background="@drawable/img_background"  >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"  >
     <TextView
         android:id="@+id/hotName"
         android:gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:layout_marginLeft="20dp"
         android:textColor="@color/white"
         android:text="天天德州狗"
         android:textSize="20sp"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:background="@drawable/room_item_btn"
         android:clickable="true"
         android:focusable="false"
