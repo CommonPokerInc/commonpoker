@@ -1,8 +1,17 @@
 ﻿
 package com.poker.common.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.poker.common.R;
+import com.poker.common.customcontrols.VerticalSeekBar;
+import com.poker.common.entity.AbsPlayer;
+import com.poker.common.entity.ClientPlayer;
+import com.poker.common.entity.Poker;
+import com.poker.common.entity.Room;
+import com.poker.common.util.Util;
+import com.poker.common.wifi.listener.MessageListener;
+import com.poker.common.wifi.message.GameMessage;
+import com.poker.common.wifi.message.MessageFactory;
+import com.poker.common.wifi.message.PeopleMessage;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -42,6 +51,9 @@ import com.poker.common.wifi.listener.MessageListener;
 import com.poker.common.wifi.message.GameMessage;
 import com.poker.common.wifi.message.MessageFactory;
 import com.poker.common.wifi.message.PeopleMessage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 @SuppressLint("NewApi")
 public class GameActivity extends AbsGameActivity implements OnClickListener, MessageListener {
@@ -53,7 +65,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     
     private TextView roomName,dealText,roomRound;
 
-    private ImageView img_card_tip, checked1, checked2, checked3, allin;
+    private ImageView img_card_tip, autofollow_check, autopass_check, autopq_check, allin;
 
     private RelativeLayout sidepool_layout1, sidepool_layout2, sidepool_layout3, sidepool_layout4,
             sidepool_layout5,mainpool_layout;
@@ -101,6 +113,12 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     
     private RelativeLayout img_card_tip_layout;
 
+    private boolean isInOrOut = false;
+    
+    private int bigBlindIndex = -1;
+    
+    private int currentOptionPerson = -1;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -174,9 +192,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         public_poker3 = (ImageView) findViewById(R.id.poker3);
         public_poker4 = (ImageView) findViewById(R.id.poker4);
         public_poker5 = (ImageView) findViewById(R.id.poker5);
-        checked1 = (ImageView) findViewById(R.id.checked1);
-        checked2 = (ImageView) findViewById(R.id.checked2);
-        checked3 = (ImageView) findViewById(R.id.checked3);
+        autofollow_check = (ImageView) findViewById(R.id.autofollow_checked);
+        autopass_check = (ImageView) findViewById(R.id.autopass_checked);
+        autopq_check = (ImageView) findViewById(R.id.autopq_checked);
 
         reback.setOnClickListener(this);
         follow.setOnClickListener(this);
@@ -186,9 +204,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         autopass.setOnClickListener(this);
         autopq.setOnClickListener(this);
         autofollow.setOnClickListener(this);
-        checked1.setOnClickListener(this);
-        checked2.setOnClickListener(this);
-        checked3.setOnClickListener(this);
+//        autofollow_check.setOnClickListener(this);
+//        autopass_check.setOnClickListener(this);
+//        autopq_check.setOnClickListener(this);
         startGame.setOnClickListener(this);
         setPublicPokerVisibility(View.INVISIBLE);
 
@@ -210,7 +228,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             startGame.setVisibility(View.GONE);
         } else {
             currentPlay = app.sp;
-            initRoom(room);
+            updateRoom(room);
             desk_tips_text.setText(R.string.waiting_people);
             playerList.add(currentPlay); 
         }
@@ -245,7 +263,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         tip_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.tip_enter);
     }
     
-    public void initRoom(Room room) {
+    public void updateRoom(Room room) {
         if (room != null) {
             roomName.setText("房間 : "+room.getName().trim());
             dealText.setText((int)room.getMinStake()/2+"/"+(int)room.getMinStake());
@@ -297,18 +315,102 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     
     public void startGame(){
         desk_tips.setVisibility(View.GONE);
+        if(app.isServer()){
+            if(isInOrOut||bigBlindIndex == -1){
+    //            重新生成大盲
+                newBigBlind();
+            }else {
+                bigBlindIndex++;
+            }
+            
+            if(bigBlindIndex>=playerList.size()){
+                bigBlindIndex = 0;
+            }
+    //      每次生成大盲之后都会发底牌
+            sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_SEND_BOOL, -1, String.valueOf(bigBlindIndex)));
+            wHandler.removeMessages(WorkHandler.MSG_SEND_BOOL);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_SEND_BOOL);
+//            sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_CURRENT_PERSON, -1, String.valueOf(bigBlindIndex)));
+        }
+    }
+    
+    public void newBigBlind(){
+        Random r = new Random();
+        bigBlindIndex = r.nextInt(playerList.size());
     }
 
     // 发底牌
     public void bottomDeal() {
     	int index = findIndexWithIPinList(this.playerList);
-    	seat_one.setPokerImage(All_poker.get(index).getPokerImageId(), All_poker.get(index+1).getPokerImageId());
+    	setBigBlind(bigBlindIndex);
+    	this.currentOptionPerson = bigBlindIndex;
+    	seat_one.setPokerImage(All_poker.get(index*2).getPokerImageId(), All_poker.get(index*2+1).getPokerImageId());
         seat_one.ownPokerAnim();
         seat_two.ownPokerAnim();
         seat_three.ownPokerAnim();
         seat_four.ownPokerAnim();
         seat_five.ownPokerAnim();
         seat_six.ownPokerAnim();
+        checkIsMeOption();
+    }
+    
+    public void checkIsMeOption(){
+        if(playerList.get(currentOptionPerson).getInfo().getId().equals(currentPlay.getInfo().getId())){
+            optionChoice(true);
+        }else{
+            optionChoice(false);;
+        }
+    }
+    
+    public void optionChoice(boolean choice){
+        if(choice){
+            follow.setVisibility(View.VISIBLE);
+            add.setVisibility(View.VISIBLE);
+            quit.setVisibility(View.VISIBLE);
+            autofollow.setVisibility(View.INVISIBLE);
+            autopass.setVisibility(View.INVISIBLE);
+            autopq.setVisibility(View.INVISIBLE);
+            autofollow_check.setVisibility(View.INVISIBLE);
+            autopass_check.setVisibility(View.INVISIBLE);
+            autopq_check.setVisibility(View.INVISIBLE);
+        }else{
+            follow.setVisibility(View.INVISIBLE);
+            add.setVisibility(View.INVISIBLE);
+            quit.setVisibility(View.INVISIBLE);
+            autofollow.setVisibility(View.VISIBLE);
+            autofollow_check.setVisibility(View.VISIBLE);
+            autopass.setVisibility(View.VISIBLE);
+            autopass_check.setVisibility(View.VISIBLE);
+            autopq.setVisibility(View.VISIBLE);
+            autopq_check.setVisibility(View.VISIBLE);
+        }
+    }
+    
+    public void setBigBlind(int index){
+        if(bigBlindIndex == Integer.parseInt(seat_one.getTag().toString()))
+            seat_one.setBigBlindvisibility(View.VISIBLE);
+        else
+            seat_one.setBigBlindvisibility(View.INVISIBLE);
+        if(bigBlindIndex == Integer.parseInt(seat_two.getTag().toString()))
+            seat_two.setBigBlindvisibility(View.VISIBLE);
+        else
+            seat_two.setBigBlindvisibility(View.INVISIBLE);
+        if(bigBlindIndex == Integer.parseInt(seat_three.getTag().toString()))
+            seat_three.setBigBlindvisibility(View.VISIBLE);
+        else
+            seat_three.setBigBlindvisibility(View.INVISIBLE);
+        if(bigBlindIndex == Integer.parseInt(seat_four.getTag().toString()))
+            seat_four.setBigBlindvisibility(View.VISIBLE);
+        else
+            seat_four.setBigBlindvisibility(View.INVISIBLE);
+        if(bigBlindIndex == Integer.parseInt(seat_five.getTag().toString()))
+            seat_five.setBigBlindvisibility(View.VISIBLE);
+        else
+            seat_five.setBigBlindvisibility(View.INVISIBLE);
+        if(bigBlindIndex == Integer.parseInt(seat_six.getTag().toString()))
+            seat_six.setBigBlindvisibility(View.VISIBLE);
+        else
+            seat_six.setBigBlindvisibility(View.INVISIBLE);
     }
    
 //    重置所有玩家
@@ -343,7 +445,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 updateChairByPlayer(chairIndex++,playerList.get(i));
             }
             for(int i = chairIndex;i<6;i++){
-                hideChairByPlayer(chairIndex);
+                hideChairByPlayer(chairIndex++);
             }
         }
         
@@ -353,31 +455,37 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         switch (index) {
            case 0:
                seat_one.setPersonViewTitle(play.getInfo().getName());
+               seat_one.setTag(findPlayer(play));
                if(seat_one.getVisibility()!=View.VISIBLE)
                    seat_one.setVisibility(View.VISIBLE);
                break;
            case 1:
                seat_two.setPersonViewTitle(play.getInfo().getName());
+               seat_two.setTag(findPlayer(play));
                if(seat_two.getVisibility()!=View.VISIBLE)
                    seat_two.setVisibility(View.VISIBLE);
                break;
            case 2:
                seat_three.setPersonViewTitle(play.getInfo().getName());
+               seat_three.setTag(findPlayer(play));
                if(seat_three.getVisibility()!=View.VISIBLE)
                    seat_three.setVisibility(View.VISIBLE);
                break;
            case 3:
                seat_four.setPersonViewTitle(play.getInfo().getName());
+               seat_four.setTag(findPlayer(play));
                if(seat_four.getVisibility()!=View.VISIBLE)
                    seat_four.setVisibility(View.VISIBLE);
                break;
            case 4:
                seat_five.setPersonViewTitle(play.getInfo().getName());
+               seat_five.setTag(findPlayer(play));
                if(seat_five.getVisibility()!=View.VISIBLE)
                    seat_five.setVisibility(View.VISIBLE);
                break;
            case 5:
                seat_six.setPersonViewTitle(play.getInfo().getName());
+               seat_six.setTag(findPlayer(play));
                if(seat_six.getVisibility()!=View.VISIBLE)
                    seat_six.setVisibility(View.VISIBLE);
                break;
@@ -388,21 +496,27 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         switch (index) {
            case 0:
                seat_one.setVisibility(View.INVISIBLE);
+               seat_one.setTag(-1);
                break;
            case 1:
                seat_two.setVisibility(View.INVISIBLE);
+               seat_two.setTag(-1);
                break;
            case 2:
                seat_three.setVisibility(View.INVISIBLE);
+               seat_three.setTag(-1);
                break;
            case 3:
                seat_four.setVisibility(View.INVISIBLE);
+               seat_four.setTag(-1);
                break;
            case 4:
                seat_five.setVisibility(View.INVISIBLE);
+               seat_five.setTag(-1);
                break;
            case 5:
                seat_six.setVisibility(View.INVISIBLE);
+               seat_six.setTag(-1);
                break;
         }
     }
@@ -453,21 +567,21 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             case R.id.tips:
                 setCardTip(View.VISIBLE);
                 break;
-            case R.id.checked1:
+            case R.id.autopass:
                 autopass_checked = !autopass_checked;
                 if (autopass_checked) {
                     autopq_checked = autofollow_checked = false;
                 }
                 setAutoChecked(autopass_checked, autopq_checked, autofollow_checked);
                 break;
-            case R.id.checked2:
+            case R.id.autopq:
                 autopq_checked = !autopq_checked;
                 if (autopq_checked) {
                     autopass_checked = autofollow_checked = false;
                 }
                 setAutoChecked(autopass_checked, autopq_checked, autofollow_checked);
                 break;
-            case R.id.checked3:
+            case R.id.autofollow:
                 autofollow_checked = !autofollow_checked;
                 if (autofollow_checked) {
                     autopq_checked = autopass_checked = false;
@@ -479,8 +593,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                     desk_tips.setVisibility(View.GONE);
                     All_poker = Util.getPokers(playerList.size());
                     sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, All_poker,null,null));
-                    wHandler.removeMessages(WorkHandler.MSG_SEND_BOOL);
-                    wHandler.sendEmptyMessage(WorkHandler.MSG_SEND_BOOL);
+                    wHandler.removeMessages(WorkHandler.MSG_START_GAME);
+                    wHandler.sendEmptyMessage(WorkHandler.MSG_START_GAME);
                 }else{
                     Toast.makeText(getApplicationContext(), "还没人齐啊扑街", 1000).show();
                 }
@@ -496,19 +610,19 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     private void setAutoChecked(boolean a, boolean b, boolean c) {
         // TODO Auto-generated method stub
         if (a) {
-            checked1.setImageResource(R.drawable.img_auto_checked);
+            autopass_check.setImageResource(R.drawable.img_auto_checked);
         } else {
-            checked1.setImageResource(R.drawable.img_auto_uncheck);
+            autopass_check.setImageResource(R.drawable.img_auto_uncheck);
         }
         if (b) {
-            checked2.setImageResource(R.drawable.img_auto_checked);
+            autopq_check.setImageResource(R.drawable.img_auto_checked);
         } else {
-            checked2.setImageResource(R.drawable.img_auto_uncheck);
+            autopq_check.setImageResource(R.drawable.img_auto_uncheck);
         }
         if (c) {
-            checked3.setImageResource(R.drawable.img_auto_checked);
+            autofollow_check.setImageResource(R.drawable.img_auto_checked);
         } else {
-            checked3.setImageResource(R.drawable.img_auto_uncheck);
+            autofollow_check.setImageResource(R.drawable.img_auto_uncheck);
         }
     }
 
@@ -573,6 +687,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         }else if (msg.getPlayerList() != null && msg.getPlayerList().get(0) != null) {
 			playerList.add(msg.getPlayerList().get(0));
 			msg.setPlayerList(playerList);
+			msg.setRoom(room);
 			sendMessage(msg);
 //			chairUpdate(playerList);
             wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
@@ -604,12 +719,14 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         	this.All_poker = msg.getPokerList();
         	wHandler.removeMessages(WorkHandler.MSG_START_GAME);
             wHandler.sendEmptyMessage(WorkHandler.MSG_START_GAME);
-            wHandler.removeMessages(WorkHandler.MSG_SEND_BOOL);
-            wHandler.sendEmptyMessage(WorkHandler.MSG_SEND_BOOL);
         } else {
             this.playerList.clear();
             this.playerList.addAll(msg.getPlayerList());
-//            chairUpdate(playerList);
+            if(this.room == null){
+            this.room = msg.getRoom();
+                wHandler.removeMessages(WorkHandler.MSG_ROOM_UPDATE);
+                wHandler.sendEmptyMessage(WorkHandler.MSG_ROOM_UPDATE);
+            }   
             wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
             wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
         }
@@ -620,6 +737,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         // TODO Auto-generated method stub
     	int cmd = msg.getAction();
     	if(GameMessage.ACTION_SEND_BOOL == cmd){
+    	    if(msg.getExtra()!=null){
+    	        this.bigBlindIndex = Integer.parseInt(msg.getExtra());
+    	    }
     		wHandler.removeMessages(WorkHandler.MSG_SEND_BOOL);
             wHandler.sendEmptyMessage(WorkHandler.MSG_SEND_BOOL);
     	}
@@ -660,6 +780,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 	    private static final int MSG_CHAIR_UPDATE = 1;
 	    private static final int MSG_SEND_BOOL = 2;
 	    private static final int MSG_START_GAME = 3;
+	    private static final int MSG_ROOM_UPDATE = 4;
 	    
 	    public WorkHandler(Looper looper) {
             super(looper);
@@ -675,6 +796,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 	break;
                 case MSG_START_GAME:
                 	startGame();
+                case MSG_ROOM_UPDATE:
+                    updateRoom(room);
                 default:
                     break;
             }

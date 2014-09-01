@@ -106,12 +106,10 @@ public class RightSeatView extends FrameLayout {
 		right_seat_poker2.setLayoutParams(mParams2);
 	}
 	
-	public ImageView getRight_up() {
-		return right_up;
+	public void setBigBlindvisibility(int visibility){
+        this.right_up.setVisibility(visibility);
 	}
-	public void setRight_up(ImageView right_up) {
-		this.right_up = right_up;
-	}
+	   
 	public ImageView getRight_counter_img() {
 		return right_counter_img;
 	}

@@ -29,6 +29,8 @@ public class GameMessage extends BaseMessage{
 	public final static int ACTION_SEND_FOUR = 7;
 //	发5张牌
 	public final static int ACTION_SEND_FIVE = 8;
+//	当前操作的人
+	public final static int ACTION_CURRENT_PERSON = 9;
 
 	
 	private int id;

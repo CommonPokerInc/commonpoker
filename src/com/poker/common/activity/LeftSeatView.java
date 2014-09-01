@@ -49,13 +49,11 @@ public class LeftSeatView extends FrameLayout {
 		left_up.setVisibility(View.INVISIBLE);
 		initAnim();
 	}
-	public ImageView getLeft_up() {
-		return left_up;
-	}
-	public void setLeft_up(ImageView left_up) {
-		this.left_up = left_up;
-	}
 
+	public void setBigBlindvisibility(int visibility){
+	    this.left_up.setVisibility(visibility);
+	}
+	
 	public ImageView getLeft_counter_img() {
 		return left_counter_img;
 	}
