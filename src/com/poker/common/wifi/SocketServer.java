@@ -8,6 +8,8 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import android.util.Log;
@@ -23,13 +25,13 @@ public class SocketServer {
 
 	public static List<Socket> socketQueue = new ArrayList<Socket>();
 
+	public static HashMap<String,Socket>socketMap = new HashMap<String,Socket>();
+	
 	private static final String TAG = "SocketServer";
 
 	private int mPort;
 
 	private CommunicationListener listener;
-	
-	private WifiClientListener clientListener;
 	
 	private WifiCreateListener createListener;
 	
@@ -54,7 +56,6 @@ public class SocketServer {
 	
 	//设置热点接入人数变化监听器
 	public void setClientListener(WifiClientListener clientListener){
-		this.clientListener = clientListener;
 	}
 	
 	private void closeConnection() {
@@ -112,6 +113,7 @@ public class SocketServer {
 								//监听到客户端接入
 								if (!socketQueue.contains(socket)) {
 									socketQueue.add(socket);
+									socketMap.put(socket.getInetAddress().getHostName(), socket);
 									if(null!=clientListener){
 										clientListener.clientIncrease(socket.getInetAddress().getHostName());
 									}
@@ -165,8 +167,10 @@ public class SocketServer {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i = 0; i < socketQueue.size(); i++) {
-					sendMessage(socketQueue.get(i), msg);
+				if(socketMap.size()>0){
+					for(String str:socketMap.keySet()){
+						sendMessage(socketMap.get(str),msg);
+					}
 				}
 			}
 		}).start();
@@ -195,8 +199,21 @@ public class SocketServer {
 		}).start();
 	}
 
+	public void sendAcktoAllClients(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if(socketMap.size()>0){
+					for(String str:socketMap.keySet()){
+						sendMessage(socketMap.get(str),str);
+					}
+				}
+			}
+		}).start();
+	}
+	
 	public int getConnectNumber() {
-		return socketQueue.size();
+		return socketMap.size();
 	}
 
 	public void stopListner() {

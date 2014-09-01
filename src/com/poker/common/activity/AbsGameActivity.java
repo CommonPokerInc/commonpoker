@@ -1,9 +1,10 @@
-
+ï»¿
 package com.poker.common.activity;
 
 
 import android.app.Activity;
 import android.util.Log;
+import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.poker.common.BaseApplication;
@@ -13,9 +14,17 @@ import com.poker.common.wifi.message.BaseMessage;
 import com.poker.common.wifi.message.GameMessage;
 import com.poker.common.wifi.message.PeopleMessage;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
+
 /*
  * author FrankChan
- * description ÓÎÏ·Í¨ÐÅ³éÏóÀà
+ * description ï¿½ï¿½Ï·Í¨ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½
  * time 2014-8-16
  *
  */
@@ -27,6 +36,31 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 	
 	private String mSSID ;
 	
+	private BackHandler mHandler;
+
+	private HandlerThread mThread;
+	
+	private final static int MSG_SEND_ACK = 1;
+	
+	private final static int MSG_RECEIVE_ACK = 2;
+	
+	//È·ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½
+	private final static int INTERVAL_SEND_MSG = 5000;
+	
+	//È·ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½É½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	private final static int INTERVAL_MAX_ACK = 8000;
+	
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½æµ½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½È·ï¿½Ï°ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+	private final static int INTERVAL_AFTER_START = 1000;
+	
+	private final static int INTERVAL_AFTER_SEND = 5000;
+	
+	private boolean allowSend = true;
+	
+	private boolean allowAck =true;
+	
+	private HashMap<String, Integer>timeMap = new HashMap<String,Integer>();
+	
 	public void initMessageListener(MessageListener listener){
 		app = (BaseApplication) getApplication();
 		mSSID = getIntent().getStringExtra("SSID");
@@ -34,9 +68,33 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 		if(app.isServer()){
 			app.getServer().setListener(this);
 			app.getServer().beginListen(null);
+			//initTimeMap();
 		}else{
 			app.getClient().beganAcceptMessage(this);
 		}
+		//initBackHandler();
+	}
+	
+	@SuppressLint("HandlerLeak")
+	class BackHandler extends Handler{
+		
+		public BackHandler(Looper looper) {
+			// TODO Auto-generated constructor stub
+			super(looper);
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch(msg.what){
+			case MSG_RECEIVE_ACK:
+				String mapKey = (String) msg.obj; 
+				break;
+			case MSG_SEND_ACK:
+				break;
+			}
+		}
+		
 	}
 	
 	@Override
@@ -49,10 +107,15 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 	public void onStringReceive(String strInfo) {
 		// TODO Auto-generated method stub
 		if(checkEnvError()){
-			Log.e("frankchan", "ÓÎÏ·»·¾³±äÁ¿Î´ÅäÖÃÍê³É");
+			Log.e("frankchan", "ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			return;
 		}
-		
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½15Î»ï¿½ï¿½ï¿½ï¿½ÎªÈ·ï¿½ï¿½ï¿½ï¿½Ï¢
+		if(strInfo.length()<=15){
+			Message msg = mHandler.obtainMessage(MSG_RECEIVE_ACK, strInfo);
+			mHandler.sendMessage(msg);
+			return;
+		}
 		if(app.isGameStarted){
 			GameMessage gm = new Gson().fromJson(strInfo, GameMessage.class);
 			if(BaseMessage.MESSAGE_SOURCE.equals(gm.getSource())){
@@ -77,7 +140,7 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 	public void onSendFailure(String errInfo) {
 		// TODO Auto-generated method stub
 		if(checkEnvError()){
-			Log.e("frankchan", "ÓÎÏ·»·¾³±äÁ¿Î´ÅäÖÃÍê³É");
+			Log.e("frankchan", "ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			return;
 		}
 		if(app.isServer()){
@@ -101,7 +164,6 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 		}else{
 			strMessage = "";
 		}
-		
 		if(app.isServer()){
 			app.getServer().sendMessageToAllClients(strMessage);
 		}else{
@@ -109,11 +171,59 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 		}
 	}
 	
+	private void initBackHandler(){
+		mThread = new HandlerThread("BeatDetector"){
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½BackHandlerï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Í¼ï¿½ï¿½ï¿½
+				if(app.isServer()){
+					mHandler.postDelayed(new SendRunnable(),INTERVAL_AFTER_START);
+				}
+				mHandler.postDelayed(new AckRunnable(), INTERVAL_AFTER_SEND);
+			}
+		};
+		mThread.start();
+		mHandler = new BackHandler(mThread.getLooper());
+	}
 
+	private void initTimeMap(){
+		for(String key :app.getServer().socketMap.keySet()){
+			timeMap.put(key, new Integer(INTERVAL_AFTER_START/1000));
+		}
+	
+	}
+	
+	class SendRunnable implements Runnable{
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	class AckRunnable implements Runnable{
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
 
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
+		stopCheckAck();
+		stopSendAck();
+		if(null!=mThread){
+			mThread.quit();
+		}
 		if(app.isServer()){
 			app.getServer().stopListner();
 			app.getServer().clearServer();
@@ -129,7 +239,18 @@ public abstract class AbsGameActivity extends Activity implements CommunicationL
 			app.wm.disconnectWifi(mSSID);
 		}
 		app.isConnected = false;
+		app.isGameStarted =false;
 		super.onDestroy();
+	}
+	
+	//Í£Ö¹ï¿½ï¿½ï¿½ï¿½È·ï¿½Ï°ï¿½
+	protected void stopSendAck(){
+		allowSend = false;
+	}
+	
+	//Í£Ö¹ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	protected void stopCheckAck(){
+		allowAck = false;
 	}
 }
 
