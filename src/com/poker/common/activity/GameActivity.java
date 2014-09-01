@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -36,6 +37,7 @@ import com.poker.common.entity.AbsPlayer;
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.Poker;
 import com.poker.common.entity.Room;
+import com.poker.common.util.Util;
 import com.poker.common.wifi.listener.MessageListener;
 import com.poker.common.wifi.message.GameMessage;
 import com.poker.common.wifi.message.MessageFactory;
@@ -59,9 +61,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     private LinearLayout desk_tips;
     
     // 座位一永远都是自己
-    private LeftSeatView seat_one, seat_two, seat_three;
+    private LeftSeatView seat_one, seat_five, seat_six;
 
-    private RightSeatView seat_four, seat_five, seat_six;
+    private RightSeatView seat_four, seat_two, seat_three;
 
     private ImageView public_poker1, public_poker2, public_poker3, public_poker4, public_poker5;
 
@@ -96,6 +98,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     private ClientPlayer currentPlay;
     
     private WorkHandler wHandler = null;
+    
+    private RelativeLayout img_card_tip_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,11 +135,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         current_rank = (TextView) findViewById(R.id.player_current_rank);
         seat_one = (LeftSeatView) findViewById(R.id.seat_one);
         seat_one.setPokerStyle(0);
-        seat_two = (LeftSeatView) findViewById(R.id.seat_two);
-        seat_three = (LeftSeatView) findViewById(R.id.seat_three);
+        seat_two = (RightSeatView) findViewById(R.id.seat_two);
+        seat_three = (RightSeatView) findViewById(R.id.seat_three);
         seat_four = (RightSeatView) findViewById(R.id.seat_four);
-        seat_five = (RightSeatView) findViewById(R.id.seat_five);
-        seat_six = (RightSeatView) findViewById(R.id.seat_six);
+        seat_five = (LeftSeatView) findViewById(R.id.seat_five);
+        seat_six = (LeftSeatView) findViewById(R.id.seat_six);
         
         sidepool_layout1 = (RelativeLayout)findViewById(R.id.sidepool_layout1);
         sidepool_layout2 = (RelativeLayout)findViewById(R.id.sidepool_layout2);
@@ -311,16 +315,16 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     public void resetAllPlayStatus() {
         seat_one.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
         seat_one.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
-        seat_two.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
-        seat_two.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
-        seat_three.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
-        seat_three.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
+        seat_two.getRight_seat_poker1().setVisibility(View.INVISIBLE);
+        seat_two.getRight_seat_poker2().setVisibility(View.INVISIBLE);
+        seat_three.getRight_seat_poker1().setVisibility(View.INVISIBLE);
+        seat_three.getRight_seat_poker2().setVisibility(View.INVISIBLE);
         seat_four.getRight_seat_poker1().setVisibility(View.INVISIBLE);
         seat_four.getRight_seat_poker2().setVisibility(View.INVISIBLE);
-        seat_five.getRight_seat_poker1().setVisibility(View.INVISIBLE);
-        seat_five.getRight_seat_poker2().setVisibility(View.INVISIBLE);
-        seat_six.getRight_seat_poker1().setVisibility(View.INVISIBLE);
-        seat_six.getRight_seat_poker2().setVisibility(View.INVISIBLE);
+        seat_five.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
+        seat_five.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
+        seat_six.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
+        seat_six.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
         setPublicPokerVisibility(View.INVISIBLE);
     }
     
@@ -510,20 +514,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // TODO Auto-generated method stub
-        // if(img_card_tip.getVisibility() == View.VISIBLE){
-        // setCardTip(View.INVISIBLE);
-        // }
-        // if(popWin.isShowing()){
-        // popWin.dismiss();
-        // popWin = null;
-        // }
-        // return true;
-        switch (event.getAction()) {
 
-            default:
-                break;
-        }
         return super.onTouchEvent(event);
     }
 
@@ -534,7 +525,21 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     private void showImageCard() {
         // TODO Auto-generated method stub
         LayoutInflater inflater = LayoutInflater.from(GameActivity.this);
+        
         CardTypeView = inflater.inflate(R.layout.card_tip, null); 
+        img_card_tip_layout = (RelativeLayout)CardTypeView.findViewById(R.id.img_card_tip_layout);
+        img_card_tip_layout.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				if (event.getAction() == MotionEvent.ACTION_UP) {
+					if(CardTypeView != null && CardTypeView.isShown())
+						CardTypeWin.dismiss();
+				}
+				return true;
+			}
+		});
         CardTypeWin = new PopupWindow(CardTypeView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
                 true); 
         CardTypeWin.setBackgroundDrawable(new BitmapDrawable());

@@ -113,7 +113,7 @@
         </LinearLayout>
 
         <com.poker.common.activity.RightSeatView
-            android:id="@+id/seat_five"
+            android:id="@+id/seat_three"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/player_height"
             android:layout_alignParentLeft="true"
@@ -122,7 +122,7 @@
         </com.poker.common.activity.RightSeatView>
 
         <com.poker.common.activity.LeftSeatView
-            android:id="@+id/seat_two"
+            android:id="@+id/seat_six"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/player_height"
             android:layout_alignParentRight="true"
@@ -136,25 +136,25 @@
             android:layout_height="@dimen/player_height"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@+id/seat_five" >
+            android:layout_toRightOf="@+id/seat_three" >
         </com.poker.common.activity.RightSeatView>
 
         <com.poker.common.activity.LeftSeatView
-            android:id="@+id/seat_three"
+            android:id="@+id/seat_five"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/player_height"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/seat_two" >
+            android:layout_toLeftOf="@+id/seat_six" >
         </com.poker.common.activity.LeftSeatView>
 
         <com.poker.common.activity.RightSeatView
-            android:id="@+id/seat_six"
+            android:id="@+id/seat_two"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/player_height"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@+id/seat_five" >
+            android:layout_toRightOf="@+id/seat_three" >
         </com.poker.common.activity.RightSeatView>
 
         <com.poker.common.activity.LeftSeatView
@@ -163,14 +163,14 @@
             android:layout_height="@dimen/player_height"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/seat_two" >
+            android:layout_toLeftOf="@+id/seat_six" >
         </com.poker.common.activity.LeftSeatView>
 
         <LinearLayout
             android:id="@+id/pokers_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/seat_five"
+            android:layout_alignBottom="@+id/seat_three"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="-15dp"
             android:gravity="center"

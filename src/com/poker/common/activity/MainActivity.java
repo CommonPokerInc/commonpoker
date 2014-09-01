@@ -6,8 +6,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -51,6 +53,7 @@ public class MainActivity extends Activity implements OnClickListener{
     private int[] head_img;
     private ImageView me_right,me_left,me_head_img;
     private int whichImg;
+    private RelativeLayout setting_dialog_layout ,me_dialog_layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -157,6 +160,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
 		meView = inflater.inflate(R.layout.activity_me, null);
+		me_dialog_layout = (RelativeLayout)meView.findViewById(R.id.me_dialog_layout);
 		me_close = (ImageView)meView.findViewById(R.id.me_close);
 		confirm_edit_btn = (ImageView)meView.findViewById(R.id.confirm_edit_btn);
 		edit_or_confirm = (TextView)meView.findViewById(R.id.confirm_edit_txt);
@@ -167,6 +171,18 @@ public class MainActivity extends Activity implements OnClickListener{
 		confirm_edit_btn.setOnClickListener(this);
 		me_left.setOnClickListener(this);
 		me_right.setOnClickListener(this);
+		me_dialog_layout.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				if (event.getAction() == MotionEvent.ACTION_UP) {
+					if(meView != null && meView.isShown())
+						meWin.dismiss();
+				}
+				return true;
+			}
+		});
 		
 		meWin = new PopupWindow(meView,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT,true);
 		meWin.setBackgroundDrawable(new BitmapDrawable());
@@ -200,7 +216,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	private void showSettingDialog() {
 		// TODO Auto-generated method stub
     	  LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-          settingView = inflater.inflate(R.layout.activity_setting, null); 
+          settingView = inflater.inflate(R.layout.activity_setting, null);
+          setting_dialog_layout = (RelativeLayout)settingView.findViewById(R.id.setting_dialog_layout);
           setting_close = (ImageView)settingView.findViewById(R.id.setting_close);
           voice_item_layout = (RelativeLayout)settingView.findViewById(R.id.voice_item_layout);
           shock_item_layout = (RelativeLayout)settingView.findViewById(R.id.shock_item_layout);
@@ -216,6 +233,18 @@ public class MainActivity extends Activity implements OnClickListener{
           about_item_layout.setOnClickListener(this);
           voice_switch.setOnClickListener(this);
           shock_switch.setOnClickListener(this);
+          setting_dialog_layout.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				if (event.getAction() == MotionEvent.ACTION_UP) {
+					if(settingView != null && settingView.isShown())
+						settingWin.dismiss();
+				}
+				return true;
+			}
+		});
           settingWin = new PopupWindow(settingView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
                   true); 
           settingWin.setBackgroundDrawable(new BitmapDrawable());
@@ -247,5 +276,22 @@ public class MainActivity extends Activity implements OnClickListener{
         // TODO Auto-generated method stub
     	System.exit(0);
         super.onDestroy();
+    }
+    
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+    	switch (event.getAction()) {
+		case MotionEvent.ACTION_UP:
+//			if(settingWin != null && settingWin.isShowing())
+				settingWin.dismiss();
+			if(meView != null && meView.isShown())
+				meWin.dismiss();
+			break;
+			
+
+		default:
+			break;
+		}
+    	return super.onTouchEvent(event);
     }
 }
