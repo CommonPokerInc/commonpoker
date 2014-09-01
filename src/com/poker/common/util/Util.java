@@ -1,4 +1,6 @@
-package com.poker.common.util;
+ï»¿package com.poker.common.util;
+
+import com.poker.common.entity.Poker;
 
 import com.poker.common.R;
 import com.poker.common.entity.Poker;
@@ -7,35 +9,37 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import com.poker.common.entity.Poker;
+
 public class Util {
 	
 //	public static ArrayList<Poker> currentPokers = new ArrayList<Poker>();
     
-//    Í¬»¨Ë³
+//    Í¬ï¿½ï¿½Ë³
     public static final int FLUSH = 9;
     
-//  ½ð¸Õ
+//  ï¿½ï¿½ï¿½ï¿½
     public static final int KING_KONG = 8;
   
-//  ºùÂ«
+//  ï¿½ï¿½Â«
     public static final int GOURD = 7;
 
-//  Í¬»¨
+//  Í¬ï¿½ï¿½
     public static final int ROYAL_FLUSH = 6;
 
-//  Ë³×Ó
+//  Ë³ï¿½ï¿½
     public static final int STRAIGHT = 5;
 
-//  ÈýÌõ
+//  ï¿½ï¿½ï¿½ï¿½
     public static final int THREE = 4;
 
-//  Á½¶Ô
+//  ï¿½ï¿½ï¿½
     public static final int TWO_PAIR = 3;
 
-//  Ò»¶Ô
+//  Ò»ï¿½ï¿½
     public static final int PAIR = 2;
 
-//  ¸ßÅÆ
+//  ï¿½ï¿½ï¿½ï¿½
     public static final int HIGH_CARD = 1;
     
     public static int[] pokersImg = {
@@ -54,7 +58,7 @@ public class Util {
         R.drawable.spade10, R.drawable.spade11, R.drawable.spade12, R.drawable.spade13
 };
 	
-//	Ëæ»úÉú³É¸ù¾ÝÈËÊýÀ´¶¨µÄÆË¿ËÅÆ
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 	public static ArrayList<Poker> getPokers(int personsCount){
 	    ArrayList<Poker> pokers = new ArrayList(); 
 		int pokerLenght = personsCount*2+5;
@@ -72,7 +76,7 @@ public class Util {
 		return pokers;
 	}
 
-//	¸ù¾ÝÍæ¼ÒµÄ7ÕÅÅÆµÃµ½×î´óµÄÅÆÐÍ£¬Êý×ÖÔ½´ó£¬ÅÆÐÍÔ½´ó¡£
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½7ï¿½ï¿½ï¿½ÆµÃµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½
 	public static int getPokerType(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 		insertSort(pokers);
 //		pokersBack = new ArrayList<Poker>();
@@ -109,7 +113,7 @@ public class Util {
 		}
 	}
 	
-//	ÅÐ¶ÏÊÇ·ñ´æÔÚ5ÕÅ»¨É«ÏàÍ¬
+//	ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½Å»ï¿½É«ï¿½ï¿½Í¬
 	public static boolean checkoutFivePokerColorSame(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 		int temp = 0;
 		Poker box = new Poker();
@@ -144,9 +148,9 @@ public class Util {
 		return false;
 	}
 	
-//	ÅÐ¶ÏÊÇ·ñ´æÔÚ5ÕÅÅÆÊý×ÖÁ¬Ðø
+//	ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public static boolean chekcoutPokerSucceedingNumbers(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
-//		°üÀ¨1 13 12 11 10 9Çé¿ö
+//		ï¿½ï¿½ï¿½1 13 12 11 10 9ï¿½ï¿½ï¿½ï¿½
 		int temp = 0;
     		for(int i = pokers.size()-1;i>=4;i--){
         			for(int j = i;j>=1;j--){
@@ -171,7 +175,7 @@ public class Util {
         			    pokersBack.clear();
         			}
         		}
-//    		1 2 3 4 5µÄÇé¿ö
+//    		1 2 3 4 5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     		if(pokers.get(pokers.size()-1).getSize() == 0&&pokers.get(0).getSize() == 1){
     		    pokersBack.add(pokers.get(pokers.size()-1));
     		    temp++;
@@ -199,26 +203,26 @@ public class Util {
 		return false;
 	}
 	
-//	ÅÐ¶ÏÊÇ·ñ´æÔÚ4ÕÅÅÆÊý×ÖÏàÍ¬
+//	ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬
 	public static boolean chekcoutFourPokerNumber(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 	    
 	    return checkNumberSame(pokers,4,pokersBack);
 	}
 	
-//	ÅÐ¶ÏÊÇ·ñ´æÔÚ3ÕÅÅÆÊý×ÖÏàÍ¬
+//	ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬
 	public static boolean checkoutThreePokerNumber(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 
 	    return checkNumberSame(pokers,3,pokersBack);
 	}
 	
-//	ÅÐ¶ÏÊÇ·ñ´æÔÚ2ÕÅÅÆÊý×ÖÏàÍ¬
+//	ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬
 	public static boolean checkoutTwoPokerNumber(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
 
 	    return checkNumberSame(pokers,2,pokersBack);
 	}
 	
-	public static ArrayList<Poker> insertSort(ArrayList<Poker> pokers){//²åÈëÅÅÐòËã·¨
-//	             °ÑËùÓÐ1¶¼±ä³É14,½øÐÐÅÅÐò
+	public static ArrayList<Poker> insertSort(ArrayList<Poker> pokers){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨
+//	             ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½14,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    for(int i = pokers.size()-1;i>=0;i--){
 	        if(pokers.get(i).getSize() == 0){
 	            pokers.get(i).setSize(14);
@@ -235,7 +239,7 @@ public class Util {
                 }
         }
         
-//      »Ö¸´ËùÓÐµÄ14
+//      ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ðµï¿½14
         for(int i = pokers.size()-1;i>=0;i--){
             if(pokers.get(i).getSize() == 14){
                 pokers.get(i).setSize(0);
@@ -281,7 +285,7 @@ public class Util {
         return false;
 	}
 
-//	¼ÆËã³ïÂë
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public static boolean CountChips(ArrayList chips,ArrayList callBack){
 	    if(!chips.isEmpty()){
 	        Collections.sort(chips);

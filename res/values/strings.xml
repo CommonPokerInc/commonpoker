@@ -27,5 +27,13 @@
     <string name="shock">震动</string>
     <string name="help">帮助</string>
     <string name="about">关于</string>
+    
+    <!-- wo -->
+    <string name="best_cardtype">最牛牌型</string>
+    <string name="nickname">昵称</string>
+    <string name="victory">胜局</string>
+    <string name="combat">战斗力</string>
+    <string name="confirm">确定</string>
+    <string name="edit">编辑</string>
 
 </resources>

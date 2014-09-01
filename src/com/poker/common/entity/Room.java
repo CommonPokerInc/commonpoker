@@ -1,9 +1,9 @@
 package com.poker.common.entity;
 
-import com.google.gson.Gson;
-
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.gson.Gson;
 
 /*
  * author zkzhou

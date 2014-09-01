@@ -3,13 +3,13 @@ package com.poker.common.wifi;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.poker.common.wifi.SocketServer.WifiCreateListener;
-
 import android.content.Context;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+
+import com.poker.common.wifi.SocketServer.WifiCreateListener;
 
 /**
  * 热点搜索，创建，关闭

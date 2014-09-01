@@ -3,6 +3,24 @@ package com.poker.common.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.poker.common.BaseApplication;
 import com.poker.common.Constant;
 import com.poker.common.R;
@@ -17,21 +35,6 @@ import com.poker.common.wifi.SocketClient.ClientConnectListener;
 import com.poker.common.wifi.WifiHotManager;
 import com.poker.common.wifi.WifiHotManager.OpretionsType;
 import com.poker.common.wifi.WifiHotManager.WifiBroadCastOperations;
-
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.*;
 
 public class RoomActivity extends Activity implements WifiBroadCastOperations{
 	

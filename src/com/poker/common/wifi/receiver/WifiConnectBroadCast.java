@@ -1,9 +1,6 @@
 package com.poker.common.wifi.receiver;
 
 
-import com.poker.common.wifi.Global;
-import com.poker.common.wifi.WifiHotManager.WifiBroadCastOperations;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +9,9 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Parcelable;
 import android.util.Log;
+
+import com.poker.common.wifi.Global;
+import com.poker.common.wifi.WifiHotManager.WifiBroadCastOperations;
 
 /**
  * 

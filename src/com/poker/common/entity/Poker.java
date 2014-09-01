@@ -4,8 +4,6 @@ package com.poker.common.entity;
 import com.poker.common.R;
 import com.poker.common.util.Util;
 
-import android.R.bool;
-
 /*
  * author zkzhou
  * description ÆË¿ËÅÆÀà

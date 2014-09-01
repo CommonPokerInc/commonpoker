@@ -2,6 +2,9 @@
 package com.poker.common.activity;
 
 
+import android.app.Activity;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.poker.common.BaseApplication;
 import com.poker.common.wifi.listener.CommunicationListener;
@@ -9,10 +12,6 @@ import com.poker.common.wifi.listener.MessageListener;
 import com.poker.common.wifi.message.BaseMessage;
 import com.poker.common.wifi.message.GameMessage;
 import com.poker.common.wifi.message.PeopleMessage;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
 
 /*
  * author FrankChan

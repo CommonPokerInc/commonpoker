@@ -2,19 +2,18 @@ package com.poker.common.wifi;
 
 import java.util.List;
 
-import com.poker.common.wifi.SocketServer.WifiCreateListener;
-import com.poker.common.wifi.receiver.WifiConnectBroadCast;
-import com.poker.common.wifi.receiver.WifiScanRsultBroadCast;
-import com.poker.common.wifi.receiver.WifiStateBroadCast;
-
 import android.content.Context;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Handler;
 import android.util.Log;
+
+import com.poker.common.wifi.SocketServer.WifiCreateListener;
+import com.poker.common.wifi.receiver.WifiConnectBroadCast;
+import com.poker.common.wifi.receiver.WifiScanRsultBroadCast;
+import com.poker.common.wifi.receiver.WifiStateBroadCast;
 
 public class WifiHotManager {
 	public static String TAG = WifiHotManager.class.getName();

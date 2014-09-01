@@ -2,6 +2,19 @@ package com.poker.common.activity;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
+
 import com.poker.common.BaseApplication;
 import com.poker.common.Constant;
 import com.poker.common.R;
@@ -16,19 +29,6 @@ import com.poker.common.wifi.SocketServer.WifiCreateListener;
 import com.poker.common.wifi.WifiHotManager;
 import com.poker.common.wifi.WifiHotManager.OpretionsType;
 import com.poker.common.wifi.WifiHotManager.WifiBroadCastOperations;
-
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Toast;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
 
 public class RoomCreateActivity extends Activity implements OnClickListener,WifiCreateListener, WifiBroadCastOperations{
 	

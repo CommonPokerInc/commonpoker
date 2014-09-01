@@ -1,13 +1,13 @@
 package com.poker.common;
 
 
+import android.app.Application;
+
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.ServerPlayer;
 import com.poker.common.wifi.SocketClient;
 import com.poker.common.wifi.SocketServer;
 import com.poker.common.wifi.WifiHotManager;
-
-import android.app.Application;
 
 public class BaseApplication extends Application{
 	public ServerPlayer sp;

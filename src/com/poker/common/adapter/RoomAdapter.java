@@ -1,11 +1,6 @@
 package com.poker.common.adapter;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.poker.common.Constant;
-import com.poker.common.R;
-
 
 import android.content.Context;
 import android.net.wifi.ScanResult;
@@ -15,6 +10,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.poker.common.Constant;
+import com.poker.common.R;
 
 public class RoomAdapter extends BaseAdapter {
 

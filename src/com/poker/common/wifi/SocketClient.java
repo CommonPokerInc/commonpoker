@@ -7,9 +7,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import com.poker.common.wifi.listener.CommunicationListener;
-
 import android.util.Log;
+
+import com.poker.common.wifi.listener.CommunicationListener;
 
 public class SocketClient {
 	static Socket client;

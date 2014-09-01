@@ -10,11 +10,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
 import com.poker.common.wifi.listener.CommunicationListener;
 import com.poker.common.wifi.listener.WifiClientListener;
-import com.poker.common.wifi.listener.WifiMessageListener;
-
-import android.util.Log;
 
 public class SocketServer {
 
