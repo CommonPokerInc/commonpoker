@@ -10,6 +10,36 @@ public class UserInfo {
 	private String name;
 	
 	private String id;
+	
+	private boolean isQuit ;
+	
+	private int baseMoney;
+	
+	private int aroundChip;
+
+	public boolean isQuit() {
+		return isQuit;
+	}
+
+	public void setQuit(boolean isQuit) {
+		this.isQuit = isQuit;
+	}
+
+	public int getBaseMoney() {
+		return baseMoney;
+	}
+
+	public void setBaseMoney(int baseMoney) {
+		this.baseMoney = baseMoney;
+	}
+
+	public int getAroundChip() {
+		return aroundChip;
+	}
+
+	public void setAroundChip(int aroundChip) {
+		this.aroundChip = aroundChip;
+	}
 
 	public String getId() {
         return id;

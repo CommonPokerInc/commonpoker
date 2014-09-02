@@ -109,6 +109,12 @@ public class RightSeatView extends FrameLayout {
 	public void setBigBlindvisibility(int visibility){
         this.right_up.setVisibility(visibility);
 	}
+	
+	public void setCurrentChip(int money,int isShow){
+		right_counter_text.setText(String.valueOf(money));
+		right_counter_text.setVisibility(isShow);
+		right_counter_img.setVisibility(isShow);
+	}
 	   
 	public ImageView getRight_counter_img() {
 		return right_counter_img;

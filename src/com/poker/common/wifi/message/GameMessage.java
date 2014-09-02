@@ -21,8 +21,8 @@ public class GameMessage extends BaseMessage{
 	public final static int ACTION_FOLLOW =3;
 	//加注
 	public final static int ACTION_ADD_BET =4;
-	//发3张牌
-	public final static int ACTION_SEND_POKER =5;
+	//发公共牌
+	public final static int ACTION_SHOW_PUBLIC_POKER =5;
 //	发底牌
 	public final static int ACTION_SEND_BOOL = 6;
 //	发4张牌
@@ -31,6 +31,8 @@ public class GameMessage extends BaseMessage{
 	public final static int ACTION_SEND_FIVE = 8;
 //	当前操作的人
 	public final static int ACTION_CURRENT_PERSON = 9;
+//	当前操作的人完成操作，提示下一家进行操作
+	public final static int ACTION_FINISH_OPTIOIN = 10;
 
 	
 	private int id;

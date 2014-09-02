@@ -54,6 +54,12 @@ public class LeftSeatView extends FrameLayout {
 	    this.left_up.setVisibility(visibility);
 	}
 	
+	public void setCurrentChip(int money,int isShow){
+		left_counter_text.setText(String.valueOf(money));
+		left_counter_text.setVisibility(isShow);
+		left_counter_img.setVisibility(isShow);
+	}
+	
 	public ImageView getLeft_counter_img() {
 		return left_counter_img;
 	}

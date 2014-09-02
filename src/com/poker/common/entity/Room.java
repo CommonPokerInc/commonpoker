@@ -28,9 +28,9 @@ public class Room implements Parcelable{
 	//局数
 	private int innings;
 	//最小注额
-	private double minStake;
+	private int minStake;
 	//基本筹码
-	private double basicChips;
+	private int basicChips;
 	//位置编号
 	private int number;
 	
@@ -70,19 +70,19 @@ public class Room implements Parcelable{
 		this.innings = innings;
 	}
 
-	public double getMinStake() {
+	public int getMinStake() {
 		return minStake;
 	}
 
-	public void setMinStake(double minStake) {
+	public void setMinStake(int minStake) {
 		this.minStake = minStake;
 	}
 
-	public double getBasicChips() {
+	public int getBasicChips() {
 		return basicChips;
 	}
 
-	public void setBasicChips(double basicChips) {
+	public void setBasicChips(int basicChips) {
 		this.basicChips = basicChips;
 	}
 
