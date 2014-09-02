@@ -12,7 +12,7 @@ public class Global {
 
 	public static String SSID = "abcde";
 
-	public static String PASSWORD = "2012110312123";
+	public static String PASSWORD = "12345678";
 
 	public static int WIFICIPHER_NOPASS = 1;
 
