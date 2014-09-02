@@ -123,6 +123,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     
     private int currentOptionPerson = -1;
     
+	private int currentPlayIndex = -1;
+	
     private boolean isEnd = false;
     
     @Override
@@ -327,8 +329,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     
     public void startGame(){
         desk_tips.setVisibility(View.GONE);
+        currentPlayIndex  = findIndexWithIPinList(playerList);
         app.isGameStarted = true;
-        currentPlay.getInfo().setBaseMoney(room.getBasicChips());
+//        currentPlay.getInfo().setBaseMoney(room.getBasicChips());
         currentPlay.getInfo().setQuit(false);
         if(app.isServer()){
             if(isInOrOut||DIndex == -1){
@@ -460,6 +463,10 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     	 
     	 playerList.get(playerIndex).getInfo().setBaseMoney(playerList.get(playerIndex).getInfo().getBaseMoney() - money);
     	 playerList.get(bigBlindIndex).getInfo().setAroundChip(money);
+    	 
+    	 if(playerIndex == currentPlayIndex){
+    		 currentPlay.setInfo(playerList.get(playerIndex).getInfo());
+    	 }
     }
     
     public void setDIndex(int index){
