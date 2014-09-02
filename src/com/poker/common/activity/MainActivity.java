@@ -277,21 +277,4 @@ public class MainActivity extends Activity implements OnClickListener{
     	System.exit(0);
         super.onDestroy();
     }
-    
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-    	switch (event.getAction()) {
-		case MotionEvent.ACTION_UP:
-//			if(settingWin != null && settingWin.isShowing())
-				settingWin.dismiss();
-			if(meView != null && meView.isShown())
-				meWin.dismiss();
-			break;
-			
-
-		default:
-			break;
-		}
-    	return super.onTouchEvent(event);
-    }
 }
