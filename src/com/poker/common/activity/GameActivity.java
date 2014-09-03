@@ -394,12 +394,28 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     	if(!currentPlay.getInfo().isQuit()){
     		if(currentPlay.getInfo().getBaseMoney()>0){
     			if(cmd == R.id.follow){
+    			    int money = 0;
+    			    if(currentPlay.getInfo().getAroundChip()<playerList.get(maxChipIndex).getInfo().getAroundChip()){
+    			        if(currentPlay.getInfo().getBaseMoney()<(playerList.get(maxChipIndex).getInfo().getAroundChip()
+    			                -currentPlay.getInfo().getAroundChip())){
+    			            money = currentPlay.getInfo().getBaseMoney();
+    			        }else{
+    			            money = playerList.get(maxChipIndex).getInfo().getAroundChip();
+    			        }
+    			        sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_UPDATE_MONEY, 
+    			                money, String.valueOf(currentOptionPerson)));
+    			    }
     				if(isEnd){
     					sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_SHOW_PUBLIC_POKER,
     							-1,  String.valueOf(DIndex)));
     					if(app.isServer()){
     						currentOptionPerson = (DIndex+1)%playerList.size();
     			    		maxChipIndex = DIndex;
+    			    		Message message = new Message();
+    			            message.what = WorkHandler.MSG_ADD_BET;
+    			            message.arg1 = currentOptionPerson;
+    			            message.arg2 = money;
+    			            wHandler.sendMessage(message);
     			    		wHandler.removeMessages(WorkHandler.MSG_SHOW_PUBLIC_POKER);
     			            wHandler.sendEmptyMessage(WorkHandler.MSG_SHOW_PUBLIC_POKER);
     			    		wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
@@ -410,12 +426,24 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     							-1, null));
     					if(app.isServer()){
     						currentOptionPerson = (currentOptionPerson+1)%playerList.size();
-    			    		wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
+    						Message message = new Message();
+                            message.what = WorkHandler.MSG_ADD_BET;
+                            message.arg1 = currentOptionPerson;
+                            message.arg2 = money;
+    						wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
     			            wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
     					}
     				}
     			}else if(cmd == R.id.addnumber){
-    				
+    				int money = Integer.parseInt(chips.getText().toString());
+    				money += playerList.get(maxChipIndex).getInfo().getAroundChip();
+    				maxChipIndex = currentOptionPerson;
+    				sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ADD_BET, money, String.valueOf(maxChipIndex)));
+    				if(app.isServer()){
+    				    currentOptionPerson = (currentOptionPerson+1)%playerList.size();
+                        wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
+                        wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
+    				}
     			}else if(cmd == R.id.quit){
     				
     			}
@@ -462,7 +490,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     		 seat_six.setCurrentChip(money, isShow);
     	 
     	 playerList.get(playerIndex).getInfo().setBaseMoney(playerList.get(playerIndex).getInfo().getBaseMoney() - money);
-    	 playerList.get(bigBlindIndex).getInfo().setAroundChip(money);
+    	 playerList.get(playerIndex).getInfo().setAroundChip(money);
     	 
     	 if(playerIndex == currentPlayIndex){
     		 currentPlay.setInfo(playerList.get(playerIndex).getInfo());
@@ -511,6 +539,12 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         seat_six.getLeft_seat_poker1().setVisibility(View.INVISIBLE);
         seat_six.getLeft_seat_poker2().setVisibility(View.INVISIBLE);
         setPublicPokerVisibility(View.INVISIBLE);
+    }
+    
+    public void resetAllPlayerAroundChaip(){
+        for(int i = 0;i<playerList.size();i++){
+            setChairChip(i, 0, View.INVISIBLE);
+        }
     }
     
     public void chairUpdate(ArrayList<ClientPlayer> playerList){
@@ -800,6 +834,31 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     		wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
             wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
     		break;
+    	case GameMessage.ACTION_ADD_BET:
+    	    maxChipIndex = Integer.parseInt(msg.getExtra());
+    	    sendMessage(msg);
+    	    Message message = new Message();
+    	    message.what = WorkHandler.MSG_ADD_BET;
+    	    message.arg1 = maxChipIndex;
+    	    message.arg2 = msg.getAmount();
+            wHandler.sendMessage(message);
+            
+//            加注后继续判断下一家
+            currentOptionPerson = (currentOptionPerson+1)%playerList.size();
+            sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_CURRENT_PERSON,
+                    -1, String.valueOf(currentOptionPerson)));
+            wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
+    	    break;
+    	case GameMessage.ACTION_UPDATE_MONEY:
+    	    sendMessage(msg);
+    	    
+    	    Message message2 = new Message();
+    	    message2.what = WorkHandler.MSG_ADD_BET;
+    	    message2.arg1 = Integer.parseInt(msg.getExtra());
+    	    message2.arg2 = msg.getAmount();
+            wHandler.sendMessage(message2);
+            break;
     	}
 
     }
@@ -818,6 +877,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         }
         if (msg.isStart()) {
 //          游戏开始
+            app.isGameStarted = true;
         	this.All_poker = msg.getPokerList();
         	wHandler.removeMessages(WorkHandler.MSG_START_GAME);
             wHandler.sendEmptyMessage(WorkHandler.MSG_START_GAME);
@@ -865,14 +925,23 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 			wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
 	        wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
 			break;
+    	case GameMessage.ACTION_ADD_BET:
+    	    maxChipIndex = Integer.parseInt(msg.getExtra());
+            Message message = new Message();
+            message.what = WorkHandler.MSG_ADD_BET;
+            message.arg1 = maxChipIndex;
+            message.arg2 = msg.getAmount();
+            wHandler.sendMessage(message);
+    	    break;
+        case GameMessage.ACTION_UPDATE_MONEY:
+            Message message2 = new Message();
+            message2.what = WorkHandler.MSG_ADD_BET;
+            message2.arg1 = Integer.parseInt(msg.getExtra());
+            message2.arg2 = msg.getAmount();
+            wHandler.sendMessage(message2);
+            break;
     	}
-//    	if(GameMessage.ACTION_SEND_BOOL == cmd){
-//    	    if(msg.getExtra()!=null){
-//    	        this.DIndex = Integer.parseInt(msg.getExtra());
-//    	    }
-//    		wHandler.removeMessages(WorkHandler.MSG_SEND_BOOL);
-//            wHandler.sendEmptyMessage(WorkHandler.MSG_SEND_BOOL);
-//    	}
+
     }
 
     @Override
@@ -913,6 +982,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 	    private static final int MSG_ROOM_UPDATE = 4;
 	    private static final int MSG_CHECKISME = 5;
 	    private static final int MSG_SHOW_PUBLIC_POKER = 6;
+	    private static final int MSG_ADD_BET =7;
+//	    private static final int MSG_UPDATE_MONEY =8;
 	    
 	    public WorkHandler(Looper looper) {
             super(looper);
@@ -936,8 +1007,12 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                     checkIsMeOption();
                     break;
                 case MSG_SHOW_PUBLIC_POKER:
+                    resetAllPlayerAroundChaip();
                 	showPublicPoker();
                 	break;
+                case MSG_ADD_BET:
+                    setChairChip(msg.arg1, msg.arg2, View.VISIBLE);
+                    break;
                 default:
                     break;
             }

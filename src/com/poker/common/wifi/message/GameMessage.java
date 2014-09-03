@@ -33,6 +33,8 @@ public class GameMessage extends BaseMessage{
 	public final static int ACTION_CURRENT_PERSON = 9;
 //	当前操作的人完成操作，提示下一家进行操作
 	public final static int ACTION_FINISH_OPTIOIN = 10;
+//	更新指定下标的玩家的钱
+	public final static int ACTION_UPDATE_MONEY = 11;
 
 	
 	private int id;
