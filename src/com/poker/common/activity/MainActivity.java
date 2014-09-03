@@ -1,9 +1,17 @@
 package com.poker.common.activity;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -61,9 +69,12 @@ public class MainActivity extends Activity implements OnClickListener{
         setContentView(R.layout.mainactivity);
         app = (BaseApplication) getApplication();
         init();
-
+        if(Environment.getExternalStorageState()
+        		.equals(android.os.Environment.MEDIA_MOUNTED)){
+        	new Thread(copyRunnable).start();
+        }
     }
-
+    
 
 	public void init(){
         sendGameBtn = (ImageButton)findViewById(R.id.send_game_btn);
@@ -256,7 +267,59 @@ public class MainActivity extends Activity implements OnClickListener{
           
           initSetting();
 	}
-    
+	private Runnable copyRunnable = new Runnable() {
+		
+		@Override
+		public void run() {
+			String strDir = Environment.getExternalStorageDirectory().getPath()
+					+"/.poker";
+			String strFile = strDir +"/commonpoker.apk";
+			File target =new File(strFile);
+			
+			if(settingHelper.isFirstStart()||(!settingHelper.isFirstStart()&&!target.exists())){
+				settingHelper.setFirstStart(false);
+				List<PackageInfo> packs = getPackageManager().getInstalledPackages(0);
+				String path = "";
+				for(PackageInfo info:packs){
+					if(info.applicationInfo.packageName.contains("com.poker.common")){
+						path = info.applicationInfo.publicSourceDir;
+						break;
+					}
+				}
+				File file = new File(path);
+				new File(strDir).mkdirs();
+				if(file.exists()&&!target.exists()){
+					copyFile(file.getPath(), target.getPath());
+				}
+			}
+		}
+	};
+	
+	 public void copyFile(String oldPath, String newPath) { 
+	       try { 
+	           int bytesum = 0; 
+	           int byteread = 0; 
+	           File oldfile = new File(oldPath); 
+	           if (oldfile.exists()) { //文件存在时 
+	               InputStream inStream = new FileInputStream(oldPath); //读入原文件 
+	               FileOutputStream fs = new FileOutputStream(newPath); 
+	               byte[] buffer = new byte[1444]; 
+	               while ( (byteread = inStream.read(buffer)) != -1) { 
+	                   bytesum += byteread; //字节数 文件大小 
+	                   System.out.println(bytesum); 
+	                   fs.write(buffer, 0, byteread); 
+	               } 
+	               inStream.close(); 
+	           } 
+	           settingHelper.setCopied(true);
+	       } 
+	       catch (Exception e) { 
+	           System.out.println("复制单个文件操作出错"); 
+	           e.printStackTrace(); 
+	           settingHelper.setCopied(false);
+	       } 
+
+	   } 
     
     private void initSetting() {
 		// TODO Auto-generated method stub

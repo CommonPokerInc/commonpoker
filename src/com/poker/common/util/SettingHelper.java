@@ -12,6 +12,10 @@ import android.content.Context;
  */
 public class SettingHelper {
 	
+	private final static String COPY_DONE = "copy_done";
+	
+	private final static String FIRST_START = "first_start";
+	
 	private final static String NICKNAME = "nickname";
 	
 	private final static String AVATAR_NUMBER = "avatar_number";
@@ -32,6 +36,22 @@ public class SettingHelper {
 	
 	public SettingHelper(Context ctx){
 		helper = new PreferenceHelper(ctx);
+	}
+	
+	public boolean hasCopy(){
+		return helper.getBoolean(COPY_DONE);
+	}
+	
+	public synchronized void setCopied(boolean value){
+		helper.setBoolean(COPY_DONE, value);
+	}
+	
+	public boolean isFirstStart(){
+		return helper.getBoolean(FIRST_START,true);
+	}
+	
+	public void setFirstStart(boolean first){
+		helper.setBoolean(FIRST_START, first);
 	}
 	
 	public String getNickname(){

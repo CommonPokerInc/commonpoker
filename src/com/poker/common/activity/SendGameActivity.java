@@ -9,11 +9,13 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -22,6 +24,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.poker.common.BaseApplication;
 import com.poker.common.R;
+import com.poker.common.util.SettingHelper;
 import com.poker.common.wifi.WifiHotManager;
 import com.poker.common.wifi.SocketServer.WifiCreateListener;
 import com.poker.common.wifi.transfer.CopyUtil;
@@ -47,9 +50,11 @@ public class SendGameActivity extends Activity implements WifiCreateListener{
     
     private Intent intent;
     
-	private static final int QR_WIDTH = 100;
+    private SettingHelper helper;
+    
+	private static final int QR_WIDTH = 150;
 	
-	private static final int QR_HEIGHT = 100;
+	private static final int QR_HEIGHT = 150;
 
 	private static final String TAG = "QRCode";
 	
@@ -61,6 +66,7 @@ public class SendGameActivity extends Activity implements WifiCreateListener{
         app = (BaseApplication) getApplication();
         imgQR = (ImageView) findViewById(R.id.img_qr);
         backBtn = (ImageButton)findViewById(R.id.send_game_back_btn);
+        helper = new SettingHelper(this);
         initFiles();
         intent = new Intent(this, WebService.class);
         startService(intent);
@@ -95,7 +101,22 @@ public class SendGameActivity extends Activity implements WifiCreateListener{
 		new CopyUtil(this).assetsCopy();
 	}
     
-    private Runnable runnable = new Runnable() {
+    
+    private Runnable runWithSDCard = new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+
+			String strDir = Environment.getExternalStorageDirectory().getPath()
+					+"/.poker";
+			String strFile = strDir +"/commonpoker.apk";
+			File target =new File(strFile);
+			createImage("http://192.168.43.1:"+WebService.PORT+target.getPath());
+		}
+	};
+    
+    private Runnable runNoSDCard = new Runnable() {
 		
 		@Override
 		public void run() {
@@ -109,8 +130,9 @@ public class SendGameActivity extends Activity implements WifiCreateListener{
 				}
 			}
 			File file = new File(path);
+			
 			if(file.exists()){
-				createImage("192.168.43.1:"+WebService.PORT+path);
+				createImage("http://192.168.43.1:"+WebService.PORT+path);
 			}
 		}
 	};
@@ -173,7 +195,23 @@ public class SendGameActivity extends Activity implements WifiCreateListener{
 	public void onCreateSuccess() {
 		// TODO Auto-generated method stub
 		Log.i("SendGameActivity", "热点创建成功，开始生成二维码");
-        new Thread(runnable).start();
+        if(Environment.getExternalStorageState()
+        		.equals(android.os.Environment.MEDIA_MOUNTED)){
+
+			String strDir = Environment.getExternalStorageDirectory().getPath()
+					+"/.poker";
+			String strFile = strDir +"/commonpoker.apk";
+			File target =new File(strFile);
+        	if(helper.hasCopy()&&target.exists()){
+        		new Thread(runWithSDCard).start();
+        	}else{
+        		Toast.makeText(this, "正在为您生成apk包，稍后请刷新", Toast.LENGTH_SHORT).show();
+        		//FrankChan:maybe we need a refresh button
+        	}
+        }else{
+        	Toast.makeText(this, "检测到您没SD卡，如果手机没有root二维码可能无效", Toast.LENGTH_SHORT).show();
+        	new Thread(runNoSDCard).start();
+        }
 	}
 
 	@Override

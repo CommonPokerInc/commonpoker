@@ -10,6 +10,7 @@ public class Constant {
 	
 	//ÈÈµãÍøÂçºó×º
 	public final static String WIFI_SUFFIX = "abcde";
+
 }
 
 
