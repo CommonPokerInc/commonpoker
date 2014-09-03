@@ -409,13 +409,13 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     					sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_SHOW_PUBLIC_POKER,
     							-1,  String.valueOf(DIndex)));
     					if(app.isServer()){
+    					    Message message = new Message();
+                            message.what = WorkHandler.MSG_ADD_BET;
+                            message.arg1 = currentOptionPerson;
+                            message.arg2 = money;
+                            wHandler.sendMessage(message);
     						currentOptionPerson = (DIndex+1)%playerList.size();
     			    		maxChipIndex = DIndex;
-    			    		Message message = new Message();
-    			            message.what = WorkHandler.MSG_ADD_BET;
-    			            message.arg1 = currentOptionPerson;
-    			            message.arg2 = money;
-    			            wHandler.sendMessage(message);
     			    		wHandler.removeMessages(WorkHandler.MSG_SHOW_PUBLIC_POKER);
     			            wHandler.sendEmptyMessage(WorkHandler.MSG_SHOW_PUBLIC_POKER);
     			    		wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
@@ -425,11 +425,12 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     					sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_FINISH_OPTIOIN,
     							-1, null));
     					if(app.isServer()){
-    						currentOptionPerson = (currentOptionPerson+1)%playerList.size();
-    						Message message = new Message();
-                            message.what = WorkHandler.MSG_ADD_BET;
-                            message.arg1 = currentOptionPerson;
-                            message.arg2 = money;
+    					    Message message2 = new Message();
+                            message2.what = WorkHandler.MSG_ADD_BET;
+                            message2.arg1 = currentOptionPerson;
+                            message2.arg2 = money;
+                            wHandler.sendMessage(message2);
+    						currentOptionPerson = (currentOptionPerson+1)%playerList.size(); 						
     						wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
     			            wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
     					}
@@ -674,13 +675,15 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 break;
             case R.id.follow:
                 closeCardTip();
+                setAddSeekBar(false);
                 doOption(R.id.follow);
                 break;
             case R.id.quit:
                 closeCardTip();
-                showPublicPoker();
+                setAddSeekBar(false);
                 break;
             case R.id.tips:
+                setAddSeekBar(false);
                 setCardTip(View.VISIBLE);
                 break;
             case R.id.autopass:
@@ -705,6 +708,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 setAutoChecked(autopass_checked, autopq_checked, autofollow_checked);
                 break;
             case R.id.desk_tips_start_game_btn:
+                setAddSeekBar(false);
                 if(this.playerList.size()>=2){
                     desk_tips.setVisibility(View.GONE);
                     All_poker = Util.getPokers(playerList.size());
@@ -716,7 +720,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 }
                 break;
             case R.id.addnumber:
-                allin_layout.setVisibility(View.INVISIBLE);
+                setAddSeekBar(false);
                 add.setVisibility(View.VISIBLE);
                 doOption(R.id.addnumber);
             default:
@@ -784,6 +788,16 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     public void closeCardTip() {
     	
     }
+    
+    public void setAddSeekBar(boolean isShow){
+        if(isShow){
+            allin_layout.setVisibility(View.VISIBLE);
+            return ;
+        }
+        allin_layout.setVisibility(View.INVISIBLE);
+        return ;
+    }
+    
 
     @Override
     public void onSendSuccess() {
@@ -972,6 +986,10 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+	}
+	
+	public void showToast(String str){
+	    Toast.makeText(getApplicationContext(), str, 1000);
 	}
 	
 	private class WorkHandler extends Handler {
