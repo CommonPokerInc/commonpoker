@@ -301,6 +301,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
     // 发公共牌
     public void showPublicPoker() {
+        if(public_poker5.getVisibility() == View.VISIBLE&&app.isServer()){
+//            sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_FINISH_OPTIOIN, money, extra))
+        }
         if (public_poker1.getVisibility() != View.VISIBLE) {
         	public_poker1.setImageResource(All_poker.get(All_poker.size()-5).getPokerImageId());
         	public_poker2.setImageResource(All_poker.get(All_poker.size()-4).getPokerImageId());
@@ -404,19 +407,24 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     }
     
     public void addChipAction(){
+        isEnd = false;
     	int money = Integer.parseInt(chips.getText().toString());
-		money += playerList.get(maxChipIndex).getInfo().getAroundChip();
-		if(playerList.get(currentOptionPerson).getInfo().getBaseMoney()<money){
-			money = playerList.get(maxChipIndex).getInfo().getAroundChip() + playerList.get(currentOptionPerson).getInfo().getBaseMoney();
-		}else{
-			maxChipIndex = currentOptionPerson;
-		}
-		sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ADD_BET, money, String.valueOf(maxChipIndex)));
-		if(app.isServer()){
-		    currentOptionPerson = (currentOptionPerson+1)%playerList.size();
-            wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
-            wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
-		}
+    	if(money == 0){
+    	    followAction();
+    	}else{
+    	    money += playerList.get(maxChipIndex).getInfo().getAroundChip();
+            if(playerList.get(currentOptionPerson).getInfo().getBaseMoney()<=money){
+                money = playerList.get(maxChipIndex).getInfo().getAroundChip() + playerList.get(currentOptionPerson).getInfo().getBaseMoney();
+            }else{
+                maxChipIndex = currentOptionPerson;
+            }
+            sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ADD_BET, money, String.valueOf(maxChipIndex)));
+            if(app.isServer()){
+                currentOptionPerson = (currentOptionPerson+1)%playerList.size();
+                wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
+                wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
+            }
+    	}
     }
     
     public void followAction(){
@@ -486,22 +494,33 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     }
     
     public void setChairChip(int playerIndex,int money,int isShow){
-    	 if(playerIndex == Integer.parseInt(seat_one.getTag().toString()))
+        playerList.get(playerIndex).getInfo().setBaseMoney(playerList.get(playerIndex).getInfo().getBaseMoney()
+                +playerList.get(playerIndex).getInfo().getAroundChip() - money);
+        playerList.get(playerIndex).getInfo().setAroundChip(money);
+    	 if(playerIndex == Integer.parseInt(seat_one.getTag().toString())){
              seat_one.setCurrentChip(money, isShow);
-    	 if(playerIndex == Integer.parseInt(seat_two.getTag().toString()))
+             seat_one.getPersonView().setPersonMoney(String.valueOf(playerList.get(playerIndex).getInfo().getBaseMoney()));
+         }
+    	 if(playerIndex == Integer.parseInt(seat_two.getTag().toString())){
     		 seat_two.setCurrentChip(money, isShow);
-    	 if(playerIndex == Integer.parseInt(seat_three.getTag().toString()))
+    		 seat_two.getPersonView().setPersonMoney(String.valueOf(playerList.get(playerIndex).getInfo().getBaseMoney()));
+    	 }
+    	 if(playerIndex == Integer.parseInt(seat_three.getTag().toString())){
     		 seat_three.setCurrentChip(money, isShow);
-    	 if(playerIndex == Integer.parseInt(seat_four.getTag().toString()))
+    		 seat_three.getPersonView().setPersonMoney(String.valueOf(playerList.get(playerIndex).getInfo().getBaseMoney()));
+    	 }
+    	 if(playerIndex == Integer.parseInt(seat_four.getTag().toString())){
     		 seat_four.setCurrentChip(money, isShow);
-    	 if(playerIndex == Integer.parseInt(seat_five.getTag().toString()))
+    		 seat_four.getPersonView().setPersonMoney(String.valueOf(playerList.get(playerIndex).getInfo().getBaseMoney()));
+    	 }
+    	 if(playerIndex == Integer.parseInt(seat_five.getTag().toString())){
     		 seat_five.setCurrentChip(money, isShow);
-    	 if(playerIndex == Integer.parseInt(seat_six.getTag().toString()))
-    		 seat_six.setCurrentChip(money, isShow);
-    	 
-    	 playerList.get(playerIndex).getInfo().setBaseMoney(playerList.get(playerIndex).getInfo().getBaseMoney() - money);
-    	 playerList.get(playerIndex).getInfo().setAroundChip(money);
-    	 
+    		 seat_five.getPersonView().setPersonMoney(String.valueOf(playerList.get(playerIndex).getInfo().getBaseMoney()));
+    	 }
+    	 if(playerIndex == Integer.parseInt(seat_six.getTag().toString())){
+    	     seat_six.setCurrentChip(money, isShow);
+    	     seat_six.getPersonView().setPersonMoney(String.valueOf(playerList.get(playerIndex).getInfo().getBaseMoney()));
+    	 }
     	 if(playerIndex == currentPlayIndex){
     		 currentPlay.setInfo(playerList.get(playerIndex).getInfo());
     	 }
