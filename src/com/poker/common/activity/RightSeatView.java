@@ -110,6 +110,16 @@ public class RightSeatView extends FrameLayout {
         this.right_up.setVisibility(visibility);
 	}
 	
+	public void setPokerVisibility(boolean isShow){
+        if(isShow){
+            right_seat_poker1.setVisibility(View.VISIBLE);
+            right_seat_poker2.setVisibility(View.VISIBLE);
+        }else{
+            right_seat_poker1.setVisibility(View.INVISIBLE);
+            right_seat_poker2.setVisibility(View.INVISIBLE);
+        }
+    }
+	
 	public void setCurrentChip(int money,int isShow){
 		right_counter_text.setText(String.valueOf(money));
 		right_counter_text.setVisibility(isShow);

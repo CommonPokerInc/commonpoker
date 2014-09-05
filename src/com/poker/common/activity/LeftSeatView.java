@@ -124,6 +124,16 @@ public class LeftSeatView extends FrameLayout {
 		left_seat_poker2.setImageResource(poker2);
 	}
 	
+	public void setPokerVisibility(boolean isShow){
+	    if(isShow){
+            left_seat_poker1.setVisibility(View.VISIBLE);
+            left_seat_poker2.setVisibility(View.VISIBLE);
+        }else{
+            left_seat_poker1.setVisibility(View.INVISIBLE);
+            left_seat_poker2.setVisibility(View.INVISIBLE);
+        }
+	}
+	
 	public void setPokerStyle(int style){
 		RelativeLayout.LayoutParams mParams;
 		RelativeLayout.LayoutParams mParams2;

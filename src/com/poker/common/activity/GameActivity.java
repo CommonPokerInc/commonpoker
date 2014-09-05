@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -51,6 +52,7 @@ import com.poker.common.wifi.listener.MessageListener;
 import com.poker.common.wifi.message.GameMessage;
 import com.poker.common.wifi.message.MessageFactory;
 import com.poker.common.wifi.message.PeopleMessage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -302,6 +304,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     // 发公共牌
     public void showPublicPoker() {
         if(public_poker5.getVisibility() == View.VISIBLE&&app.isServer()){
+//            一轮结束，进行下一轮
 //            sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_FINISH_OPTIOIN, money, extra))
         }
         if (public_poker1.getVisibility() != View.VISIBLE) {
@@ -400,14 +403,28 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     			}else if(cmd == R.id.addnumber){
     				addChipAction();
     			}else if(cmd == R.id.quit){
-    				
+    				doQuit();
     			}
     		}
     	}
     }
     
+    public void doQuit(){
+        Log.i("Rinfon", currentOptionPerson+"");
+        sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ABANDOM, -1, String.valueOf(currentOptionPerson)));
+        if(app.isServer()){
+            Message message = new Message();
+            message.what = WorkHandler.MSG_ACTION_ABANDOM;
+            message.arg1 = findPlayer(currentPlay);
+            wHandler.sendMessage(message);
+            
+            currentOptionPerson = (currentOptionPerson+1)%playerList.size();
+            wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
+        }
+    }
+    
     public void addChipAction(){
-        isEnd = false;
     	int money = Integer.parseInt(chips.getText().toString());
     	if(money == 0){
     	    followAction();
@@ -417,6 +434,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 money = playerList.get(maxChipIndex).getInfo().getAroundChip() + playerList.get(currentOptionPerson).getInfo().getBaseMoney();
             }else{
                 maxChipIndex = currentOptionPerson;
+                isEnd = false;
             }
             sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ADD_BET, money, String.valueOf(maxChipIndex)));
             if(app.isServer()){
@@ -709,6 +727,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             case R.id.quit:
                 closeCardTip();
                 setAddSeekBar(false);
+                doOption(R.id.quit);
                 break;
             case R.id.tips:
                 setAddSeekBar(false);
@@ -812,6 +831,34 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         CardTypeWin.showAtLocation(GameActivity.this.tips, Gravity.LEFT, 0, 0); 
         CardTypeWin.update();
     }
+    
+    public void playerAbandom(int playerIndex){
+        
+        if(playerIndex == Integer.parseInt(seat_one.getTag().toString())){
+            seat_one.setPersonViewTitle("弃牌");
+            seat_one.setPokerVisibility(false);
+        }
+        else if(playerIndex == Integer.parseInt(seat_two.getTag().toString())){
+            seat_two.setPersonViewTitle("弃牌");
+            seat_two.setPokerVisibility(false);
+        }
+        else if(playerIndex == Integer.parseInt(seat_three.getTag().toString())){
+            seat_three.setPersonViewTitle("弃牌");
+            seat_three.setPokerVisibility(false);
+        }
+        else if(playerIndex == Integer.parseInt(seat_four.getTag().toString())){
+            seat_four.setPersonViewTitle("弃牌");
+            seat_four.setPokerVisibility(false);
+        }
+        else if(playerIndex == Integer.parseInt(seat_five.getTag().toString())){
+            seat_five.setPersonViewTitle("弃牌");
+            seat_five.setPokerVisibility(false);
+        }
+        else if(playerIndex == Integer.parseInt(seat_six.getTag().toString())){
+            seat_six.setPersonViewTitle("弃牌");
+            seat_six.setPokerVisibility(false);
+        }
+    }
 
     public void closeCardTip() {
     	
@@ -901,6 +948,20 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     	    message2.arg2 = msg.getAmount();
             wHandler.sendMessage(message2);
             break;
+        case GameMessage.ACTION_ABANDOM:
+            sendMessage(msg);
+            Message message3 = new Message();
+            message3.what = WorkHandler.MSG_ACTION_ABANDOM;
+            message3.arg1 = Integer.parseInt(msg.getExtra());
+            wHandler.sendMessage(message3);
+            
+//          弃牌后继续判断下一家
+          currentOptionPerson = (currentOptionPerson+1)%playerList.size();
+          sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_CURRENT_PERSON,
+                  -1, String.valueOf(currentOptionPerson)));
+          wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
+          wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
+            break;
     	}
 
     }
@@ -982,8 +1043,13 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             message2.arg2 = msg.getAmount();
             wHandler.sendMessage(message2);
             break;
-    	}
-
+        case GameMessage.ACTION_ABANDOM:
+            Message message3 = new Message();
+            message3.what = WorkHandler.MSG_ACTION_ABANDOM;
+            message3.arg1 = Integer.parseInt(msg.getExtra());
+            wHandler.sendMessage(message3);
+            break;
+        }
     }
 
     @Override
@@ -1030,6 +1096,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 	    private static final int MSG_SHOW_PUBLIC_POKER = 6;
 	    private static final int MSG_ADD_BET =7;
 //	    private static final int MSG_UPDATE_MONEY =8;
+	    private static final int MSG_ACTION_ABANDOM = 8;
 	    
 	    public WorkHandler(Looper looper) {
             super(looper);
@@ -1058,6 +1125,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                 	break;
                 case MSG_ADD_BET:
                     setChairChip(msg.arg1, msg.arg2, View.VISIBLE);
+                    break;
+                case MSG_ACTION_ABANDOM:
+                    playerAbandom(msg.arg1);
                     break;
                 default:
                     break;
