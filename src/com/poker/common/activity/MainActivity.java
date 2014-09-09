@@ -247,47 +247,6 @@ public class MainActivity extends Activity implements OnClickListener {
         me_head_img.setImageResource(head_img[settingHelper.getAvatarNumber()]);
     }
 
-    private void showSettingDialog() {
-        // TODO Auto-generated method stub
-        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-        settingView = inflater.inflate(R.layout.activity_setting, null);
-        setting_dialog_layout = (RelativeLayout) settingView
-                .findViewById(R.id.setting_dialog_layout);
-        setting_close = (ImageView) settingView.findViewById(R.id.setting_close);
-        voice_item_layout = (RelativeLayout) settingView.findViewById(R.id.voice_item_layout);
-        shock_item_layout = (RelativeLayout) settingView.findViewById(R.id.shock_item_layout);
-        help_item_layout = (RelativeLayout) settingView.findViewById(R.id.help_item_layout);
-        about_item_layout = (RelativeLayout) settingView.findViewById(R.id.about_item_layout);
-
-        voice_switch = (ImageView) settingView.findViewById(R.id.voice_switch_img);
-        shock_switch = (ImageView) settingView.findViewById(R.id.shock_switch_img);
-        setting_close.setOnClickListener(MainActivity.this);
-        voice_item_layout.setOnClickListener(this);
-        shock_item_layout.setOnClickListener(this);
-        help_item_layout.setOnClickListener(this);
-        about_item_layout.setOnClickListener(this);
-        voice_switch.setOnClickListener(this);
-        shock_switch.setOnClickListener(this);
-        setting_dialog_layout.setOnTouchListener(new OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // TODO Auto-generated method stub
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (settingView != null && settingView.isShown())
-                        settingWin.dismiss();
-                }
-                return true;
-            }
-        });
-        settingWin = new PopupWindow(settingView, LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT, true);
-        settingWin.setBackgroundDrawable(new BitmapDrawable());
-        settingWin.setOutsideTouchable(true);
-        settingWin.setFocusable(true);
-        settingWin.setAnimationStyle(R.style.settingAnimation);
-        settingWin.showAtLocation(MainActivity.this.settingBtn, Gravity.BOTTOM, 0, 0);
-        settingWin.update();
 
 	private void showSettingDialog() {
 		// TODO Auto-generated method stub
