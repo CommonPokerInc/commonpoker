@@ -21,13 +21,13 @@
     <string name="start_game">开始游戏</string>
     <string name="fill_people">人满喇，开台啦扑街</string>
     <string name="throw_people">要开台就要向房主扔肥皂喔</string>
-
+    
     <!-- 设置 -->
     <string name="voice">声音</string>
     <string name="shock">震动</string>
     <string name="help">帮助</string>
     <string name="about">关于</string>
-
+    
     <!-- wo -->
     <string name="best_cardtype">最牛牌型</string>
     <string name="nickname">昵称</string>
@@ -35,19 +35,5 @@
     <string name="combat">战斗力</string>
     <string name="confirm">确定</string>
     <string name="edit">编辑</string>
-    <string name="title_activity_rank">RankActivity</string>
-    <string name="snapshot_txt">截图保存</string>
-    <string name="close_txt">关闭</string>
-    <string name="innings_txt">限时局：50/50局</string>
-    <string name="rank_player_name_txt">呵呵呵呵呵</string>
-    <string name="rank_player_money_txt">筹码：99999</string>
-    <string name="good_cards_each_title_txt">葫芦赢</string>
-    <string name="good_cards_each_money_txt">3600</string>
-    <string name="good_cards_snapshot_txt">截图保存</string>
-    <string name="good_cards_close_txt">关闭</string>
-    <string name="title_activity_punish">PunishActivity</string>
-    <string name="punishment_txt">你这么聪明，你爸妈造吗？滚粗。。。。。。</string>
-    <string name="punishment_begin_txt">开始</string>
-    <string name="punishment_close_txt">关闭</string>
 
 </resources>

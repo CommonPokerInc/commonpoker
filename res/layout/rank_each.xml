@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rank_each_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rank_which_img_height" >
+
+        <ImageView
+            android:id="@+id/rank_which_img"
+            android:layout_width="@dimen/rank_which_img_width"
+            android:layout_height="@dimen/rank_which_img_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/rank_which_img_marginleft"
+            android:src="@drawable/no1" />
+
+        <TextView
+            android:id="@+id/rank_player_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/rank_player_name_txt_marginleft"
+            android:layout_toRightOf="@+id/rank_which_img"
+            android:text="@string/rank_player_name_txt"
+            android:textColor="@color/white"
+            android:textSize="@dimen/rank_player_name_txt_size" />
+
+        <TextView
+            android:id="@+id/rank_player_money_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/rank_player_money_txt_marginright"
+            android:text="@string/rank_player_money_txt"
+            android:textColor="@color/white"
+            android:textSize="@dimen/rank_player_money_txt_size" />
+
+        <ImageView
+            android:id="@+id/line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" 
+            android:src="@drawable/line"/>"
+    </RelativeLayout>
+
+</RelativeLayout>

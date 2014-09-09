@@ -1,0 +1,132 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/punishment_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/punishment_bg"
+    android:orientation="vertical"
+    tools:context=".PunishActivity" >
+
+    <ImageView
+        android:id="@+id/punishment_title_img"
+        android:layout_width="@dimen/punishment_title_img_width"
+        android:layout_height="@dimen/punishment_title_img_height"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/punishment_title_img_margintop"
+        android:src="@drawable/huangjia" />
+
+    <LinearLayout
+        android:id="@+id/punishment_player_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/punishment_player_layout_margintop"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/punishment_player_img1"
+            android:layout_width="@dimen/punishment_player_width"
+            android:layout_height="@dimen/punishment_player_height"
+            android:src="@drawable/img_player_picture6"
+            android:layout_marginRight="@dimen/punishment_player_img_marginright"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/punishment_player_img2"
+            android:layout_width="@dimen/punishment_player_width"
+            android:layout_height="@dimen/punishment_player_height"
+            android:layout_marginRight="@dimen/punishment_player_img_marginright"
+            android:src="@drawable/img_player_picture6"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/punishment_player_img3"
+            android:layout_width="@dimen/punishment_player_width"
+            android:layout_height="@dimen/punishment_player_height"
+            android:layout_marginRight="@dimen/punishment_player_img_marginright"
+            android:src="@drawable/img_player_picture6"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/punishment_player_img4"
+            android:layout_width="@dimen/punishment_player_width"
+            android:layout_height="@dimen/punishment_player_height"
+            android:layout_marginRight="@dimen/punishment_player_img_marginright"
+            android:src="@drawable/img_player_picture6"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/punishment_player_img5"
+            android:layout_width="@dimen/punishment_player_width"
+            android:layout_height="@dimen/punishment_player_height"
+            android:layout_marginRight="@dimen/punishment_player_img_marginright"
+            android:src="@drawable/img_player_picture6"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/punishment_txt"
+        android:layout_width="@dimen/punishment_txt_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/punishment_txt_margintop"
+        android:gravity="center"
+        android:text="@string/punishment_txt"
+        android:textColor="@color/white"
+        android:textSize="@dimen/punishment_txt_size" />
+
+    <LinearLayout
+        android:id="@+id/punishment_bottom_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/punishment_bottom_layout_margintop"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/punishment_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/punishment_layout_marginright" >
+
+            <ImageView
+                android:id="@+id/punishment_img"
+                android:layout_width="@dimen/punishment_snapshot_img_width"
+                android:layout_height="@dimen/punishment_snapshot_img_height"
+                android:src="@drawable/rank_snapshot_btn" />
+
+            <TextView
+                android:id="@+id/punishment_begin_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/punishment_begin_txt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/punishment_snapshot_txt_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/punishment_close_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/punishment_close_img"
+                android:layout_width="@dimen/punishment_snapshot_img_width"
+                android:layout_height="@dimen/punishment_snapshot_img_height"
+                android:src="@drawable/rank_close_btn" />
+
+            <TextView
+                android:id="@+id/punishment_close_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/punishment_close_txt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/punishment_snapshot_txt_size" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

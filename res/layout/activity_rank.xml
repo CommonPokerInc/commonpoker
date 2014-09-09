@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rank_bg"
+    tools:context=".RankActivity" >
+
+    <RelativeLayout
+        android:id="@+id/rank_bottom_layout"
+        android:layout_width="@dimen/rank_bottom_layout_width"
+        android:layout_height="@dimen/rank_bottom_layout_height"
+        android:layout_below="@+id/rank_middle_layout"
+        android:layout_centerHorizontal="true" >
+
+        <RelativeLayout
+            android:id="@+id/close_layout"
+            android:layout_width="@dimen/close_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp" >
+
+            <ImageView
+                android:id="@+id/close_img"
+                android:layout_width="@dimen/close_width"
+                android:layout_height="@dimen/close_height"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/rank_close_btn" />
+
+            <TextView
+                android:id="@+id/close_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/close_txt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/snapshot_txt_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/snapshot_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp" >
+
+            <ImageView
+                android:id="@+id/snapshot_img"
+                android:layout_width="@dimen/snapshot_width"
+                android:layout_height="@dimen/snapshot_height"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/rank_snapshot_btn" />
+
+            <TextView
+                android:id="@+id/snapshot_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/snapshot_txt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/snapshot_txt_size" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rank_middle_layout"
+        android:layout_width="@dimen/rank_middle_layout_width"
+        android:layout_height="@dimen/rank_middle_layout_height"
+        android:layout_below="@+id/rank_head_img"
+        android:layout_marginTop="@dimen/rank_middle_layout_margintop"
+        android:background="@drawable/rank_frame"
+        android:layout_centerHorizontal="true" >
+
+        <ListView
+            android:id="@+id/rank_list"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/rank_list_height"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            tools:listitem="@android:layout/simple_list_item_1" >
+        </ListView>
+    </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/rank_head_img"
+            android:layout_width="@dimen/rank_head_img_width"
+            android:layout_height="@dimen/rank_head_img_height"    
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rank_head" >
+
+            <TextView
+                android:id="@+id/innings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:layout_marginBottom="@dimen/innings_marginbottom"
+                android:text="@string/innings_txt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/innings_txt_size" />
+
+        </RelativeLayout>
+
+</RelativeLayout>

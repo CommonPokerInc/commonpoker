@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/good_cards_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/good_cards_bg"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/good_cards_title_img"
+        android:layout_width="@dimen/good_cards_title_img_width"
+        android:layout_height="@dimen/good_cards_title_img_height"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/good_cards_title_img_margintop"
+        android:src="@drawable/huangjia" />
+
+    <LinearLayout
+        android:id="@+id/good_cards_card_layout"
+        android:layout_width="@dimen/good_cards_card_layout_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/good_cards_card_layout_margintop"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/good_cards_poker1_img"
+            android:layout_width="@dimen/good_cards_poker1_img_width"
+            android:layout_height="@dimen/good_cards_poker1_img_height"
+            android:src="@drawable/club8" />
+
+        <ImageView
+            android:id="@+id/good_cards_poker2_img"
+            android:layout_width="@dimen/good_cards_poker1_img_width"
+            android:layout_height="@dimen/good_cards_poker1_img_height"
+            android:src="@drawable/club8" />
+
+        <ImageView
+            android:id="@+id/good_cards_poker3_img"
+            android:layout_width="@dimen/good_cards_poker1_img_width"
+            android:layout_height="@dimen/good_cards_poker1_img_height"
+            android:src="@drawable/club8" />
+
+        <ImageView
+            android:id="@+id/good_cards_poker4_img"
+            android:layout_width="@dimen/good_cards_poker1_img_width"
+            android:layout_height="@dimen/good_cards_poker1_img_height"
+            android:src="@drawable/club8" />
+
+        <ImageView
+            android:id="@+id/good_cards_poker5_img"
+            android:layout_width="@dimen/good_cards_poker1_img_width"
+            android:layout_height="@dimen/good_cards_poker1_img_height"
+            android:src="@drawable/club8" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/good_cards_bottom_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/good_cards_bottom_layout_margintop"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/good_cards_snapshot_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" >
+
+            <ImageView
+                android:id="@+id/good_cards_snapshot_img"
+                android:layout_width="@dimen/good_cards_snapshot_img_width"
+                android:layout_height="@dimen/good_cards_snapshot_img_height"
+                android:clickable="true"
+                android:src="@drawable/rank_snapshot_btn" />
+
+            <TextView
+                android:id="@+id/good_cards_snapshot_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/good_cards_snapshot_txt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/good_cards_snapshot_txt_size" />
+        </RelativeLayout>
+
+        <com.poker.common.activity.EachGoodCardsView
+            android:id="@+id/good_cards_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/good_cards_view_marginleft"
+            android:layout_marginRight="@dimen/good_cards_view_marginright"
+            android:layout_marginBottom="@dimen/good_cards_view_marginbottom" >
+        </com.poker.common.activity.EachGoodCardsView>
+        
+        <RelativeLayout
+            android:id="@+id/good_cards_close_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" >
+
+            <ImageView
+                android:id="@+id/good_cards_close_img"
+                android:layout_width="@dimen/good_cards_snapshot_img_width"
+                android:layout_height="@dimen/good_cards_snapshot_img_height"
+                
+                android:src="@drawable/rank_close_btn" />
+
+            <TextView
+                android:id="@+id/good_cards_close_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/good_cards_close_txt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/good_cards_snapshot_txt_size" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

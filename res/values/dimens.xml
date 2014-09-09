@@ -18,38 +18,118 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="mainpage_girl_width">300dp</dimen>
     <dimen name="mainpage_girl_height">330dp</dimen>
-    
     <dimen name="mainpage_title_width">300dp</dimen>
     <dimen name="mainpage_title_height">100dp</dimen>
-    
-<!--     游戏界面 -->
+
+    <!-- 游戏界面 -->
     <dimen name="poker_back_height">25dp</dimen>
     <dimen name="poker_back_width">20dp</dimen>
     <dimen name="setview_height">85dp</dimen>
-    
-    <dimen name="public_poker_width">50dp</dimen>
-    <dimen name="public_poker_height">60dp</dimen>
+    <dimen name="public_poker_width">25dp</dimen>
+    <dimen name="public_poker_height">35dp</dimen>
     <dimen name="public_poker_padding">2dp</dimen>
-    
     <dimen name="player_width">90dp</dimen>
-    <dimen name="player_height">95dp</dimen>
-    
+    <dimen name="player_height">75dp</dimen>
     <dimen name="img_card_tip_width">250dp</dimen>
-    
-    
+
     <!-- 字体大小 -->
     <dimen name="card_type">12dp</dimen>
-    
-    <!-- 边池宽高度 -->
-    <dimen name="sidepool_height">40dp</dimen>
-    <dimen name="sidepool_width">80dp</dimen>
-    <dimen name="sidepool_txt_width">60dp</dimen>
-    <dimen name="sidepool_txt_height">30dp</dimen>
-    
-    <!-- 主池字体宽高度 -->
-    <dimen name="mainpool_txt_height">40dp</dimen>
-    <dimen name="mainpool_txt_width">110dp</dimen>
-    
-    
 
+    <!-- 边池宽高度 -->
+
+
+    <!-- 主池字体宽高度 -->
+
+    <dimen name="pokers_layout_marginbottom">-15dp</dimen>
+    <dimen name="room_name_marginbottom">-10dp</dimen>
+    <dimen name="sidepool_height">20dp</dimen>
+    <dimen name="sidepool_width">40dp</dimen>
+    <dimen name="sidepool_txt_width">30dp</dimen>
+    <dimen name="sidepool_txt_height">15dp</dimen>
+    <dimen name="sidepool_txt_size">9dp</dimen>
+
+    <!-- 主池字体宽高度 -->
+    <dimen name="mainpool_txt_height">30dp</dimen>
+    <dimen name="mainpool_txt_width">50dp</dimen>
+    <dimen name="mainpool_height">30dp</dimen>
+    <dimen name="mainpool_width">70dp</dimen>
+    <dimen name="desk_tips_txt_size">10dp</dimen>
+    <dimen name="person_current_money_txt_size">8dip</dimen>
+    <dimen name="person_title_txt_size">10dip</dimen>
+    <dimen name="person_image_height">50dp</dimen>
+    <dimen name="person_image_width">55dp</dimen>
+    <dimen name="desk_tips_start_game_btn_width">100dp</dimen>
+    <dimen name="desk_tips_start_game_btn_height">25dp</dimen>
+    <dimen name="mainpool_layout_marginbottom">5dp</dimen>
+    <dimen name="room_name_txt_size">10dip</dimen>
+    <dimen name="mainpool_layout_margintop">-25dp</dimen>
+    <dimen name="mainpool_txt_size">12dp</dimen>
+    <dimen name="snapshot_width">130dp</dimen>
+    <dimen name="snapshot_height">40dp</dimen>
+    <dimen name="close_width">130dp</dimen>
+    <dimen name="close_height">40dp</dimen>
+    <dimen name="snapshot_txt_size">13dp</dimen>
+    <dimen name="innings_txt_size">14dp</dimen>
+    <dimen name="rank_which_img_width">35dp</dimen>
+    <dimen name="rank_which_img_height">50dp</dimen>
+    <dimen name="rank_which_img_marginleft">5dp</dimen>
+    <dimen name="rank_player_name_txt_size">13dp</dimen>
+    <dimen name="rank_player_name_txt_marginleft">28dp</dimen>
+    <dimen name="rank_player_money_txt_marginright">14dp</dimen>
+    <dimen name="rank_player_money_txt_size">15dp</dimen>
+    <dimen name="seat_marginright">0dp</dimen>
+    <dimen name="seat_marginleft">0dp</dimen>
+    <dimen name="card_type_size">10dp</dimen>
+    <dimen name="counter_img_width">70dp</dimen>
+    <dimen name="counter_img_height">30dp</dimen>
+    <dimen name="rank_middle_layout_width">330dp</dimen>
+    <dimen name="rank_middle_layout_height">240dp</dimen>
+    <dimen name="rank_list_height">215dp</dimen>
+    <dimen name="rank_bottom_layout_width">340dp</dimen>
+    <dimen name="rank_bottom_layout_height">40dp</dimen>
+    <dimen name="rank_head_img_width">200dp</dimen>
+    <dimen name="rank_head_img_height">100dp</dimen>
+    <dimen name="rank_head_img_marginbottom">-25dp</dimen>
+    <dimen name="rank_middle_layout_margintop">-25dp</dimen>
+    <dimen name="innings_marginbottom">18dp</dimen>
+    
+    <!-- 好牌 -->
+    <dimen name="good_cards_title_img_margintop">40dp</dimen>
+    <dimen name="good_cards_title_img_width">270dp</dimen>
+    <dimen name="good_cards_title_img_height">60dp</dimen>
+    <dimen name="good_cards_poker1_img_width">40dp</dimen>
+    <dimen name="good_cards_poker1_img_height">45dp</dimen>
+    <dimen name="good_cards_card_layout_margintop">10dp</dimen>
+    <dimen name="good_cards_card_layout_width">200dp</dimen>
+    <dimen name="good_cards_bottom_layout_margintop">20dp</dimen>
+    <dimen name="good_cards_snapshot_img_width">130dp</dimen>
+    <dimen name="good_cards_snapshot_img_height">40dp</dimen>
+    <dimen name="good_cards_each_title_txt_margintop">3dp</dimen>
+    <dimen name="good_cards_each_title_txt_size">13dp</dimen>
+    <dimen name="good_cards_each_layout_width">60dp</dimen>
+    <dimen name="good_cards_each_layout_height">85dp</dimen>
+    <dimen name="good_cards_each_poker1_img_maringleft">-10dp</dimen>
+    <dimen name="good_cards_each_poker1_img_maringright">-10dp</dimen>
+    <dimen name="good_cards_snapshot_txt_size">15dp</dimen>
+    <dimen name="good_cards_view_marginleft">5dp</dimen>
+    <dimen name="good_cards_view_marginright">5dp</dimen>
+    <dimen name="good_cards_view_marginbottom">25dp</dimen>
+    
+    <!-- 惩罚 -->
+    <dimen name="punishment_title_img_width">270dp</dimen>
+    <dimen name="punishment_title_img_height">60dp</dimen>
+    <dimen name="punishment_title_img_margintop">30dp</dimen>
+    <dimen name="punishment_player_width">60dp</dimen>
+    <dimen name="punishment_player_height">60dp</dimen>
+    <dimen name="punishment_txt_margintop">15dp</dimen>
+    <dimen name="punishment_txt_width">270dp</dimen>
+    <dimen name="punishment_txt_size">20dp</dimen>
+    <dimen name="punishment_bottom_layout_margintop">20dp</dimen>
+    <dimen name="punishment_snapshot_img_width">130dp</dimen>
+    <dimen name="punishment_snapshot_img_height">40dp</dimen>
+    <dimen name="punishment_snapshot_txt_size">15dp</dimen>
+    <dimen name="punishment_layout_marginright">10dp</dimen>
+    <dimen name="punishment_player_layout_margintop">15dp</dimen>
+    <dimen name="punishment_player_img_marginright">8dp</dimen>
+        
 </resources>

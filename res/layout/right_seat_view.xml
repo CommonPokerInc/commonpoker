@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/right_seat_personView"
-        android:textSize="@dimen/card_type"
+        android:textSize="@dimen/card_type_size"
         android:text="@string/tips" />
             
     <ImageView
@@ -67,8 +67,8 @@
 
     <ImageView
         android:id="@+id/right_counter_img"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/counter_img_width"
+        android:layout_height="@dimen/counter_img_height"
         android:layout_toRightOf="@+id/right_seat_personView"
         android:layout_centerVertical="true"
         android:src="@drawable/img_bet" />
