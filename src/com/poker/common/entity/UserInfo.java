@@ -16,8 +16,18 @@ public class UserInfo {
 	private int baseMoney;
 	
 	private int aroundChip;
+	
+	private int aroundSumChip = 0;
 
-	public boolean isQuit() {
+	public int getAroundSumChip() {
+        return aroundSumChip;
+    }
+
+    public void setAroundSumChip(int aroundSumChip) {
+        this.aroundSumChip = aroundSumChip;
+    }
+
+    public boolean isQuit() {
 		return isQuit;
 	}
 

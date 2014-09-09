@@ -35,7 +35,8 @@ public class GameMessage extends BaseMessage{
 	public final static int ACTION_FINISH_OPTIOIN = 10;
 //	更新指定下标的玩家的钱
 	public final static int ACTION_UPDATE_MONEY = 11;
-
+	
+	public final static int ACTION_NEXT_ROUND = 12;
 	
 	private int id;
 	

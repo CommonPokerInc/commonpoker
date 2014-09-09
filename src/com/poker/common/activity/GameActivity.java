@@ -69,9 +69,13 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
     private ImageView img_card_tip, autofollow_check, autopass_check, autopq_check, allin,addnumber;
 
-    private RelativeLayout sidepool_layout1, sidepool_layout2, sidepool_layout3, sidepool_layout4,
-            sidepool_layout5,mainpool_layout;
-
+//    private RelativeLayout sidepool_layout1, sidepool_layout2, sidepool_layout3, sidepool_layout4,
+//            sidepool_layout5,mainpool_layout;
+    
+    private RelativeLayout pools[];
+    
+    private TextView poolsText[];
+    
     private LinearLayout desk_tips;
     
     // 座位一永远都是自己
@@ -98,6 +102,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
     // 玩家列表
     private HashMap<String, AbsPlayer> playList;
+    
+    private ArrayList chipList;
 
     private View CardTypeView = null;// 
 
@@ -170,13 +176,23 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         seat_five = (LeftSeatView) findViewById(R.id.seat_five);
         seat_six = (LeftSeatView) findViewById(R.id.seat_six);
         
-        sidepool_layout1 = (RelativeLayout)findViewById(R.id.sidepool_layout1);
-        sidepool_layout2 = (RelativeLayout)findViewById(R.id.sidepool_layout2);
-        sidepool_layout3 = (RelativeLayout)findViewById(R.id.sidepool_layout3);
-        sidepool_layout4 = (RelativeLayout)findViewById(R.id.sidepool_layout4);
-        sidepool_layout5 = (RelativeLayout)findViewById(R.id.sidepool_layout5);
-        mainpool_layout = (RelativeLayout)findViewById(R.id.mainpool_layout);
+        pools = new RelativeLayout[6];
+        pools[1] = (RelativeLayout)findViewById(R.id.sidepool_layout1);
+        pools[2] = (RelativeLayout)findViewById(R.id.sidepool_layout2);
+        pools[3] = (RelativeLayout)findViewById(R.id.sidepool_layout3);
+        pools[4] = (RelativeLayout)findViewById(R.id.sidepool_layout4);
+        pools[5] = (RelativeLayout)findViewById(R.id.sidepool_layout5);
+        pools[0] = (RelativeLayout)findViewById(R.id.mainpool_layout);
         
+        poolsText = new TextView[6];
+        poolsText[0] = (TextView)findViewById(R.id.mainpool_txt);
+        poolsText[1] = (TextView)findViewById(R.id.sidepool1_txt);
+        poolsText[2] = (TextView)findViewById(R.id.sidepool2_txt);
+        poolsText[3] = (TextView)findViewById(R.id.sidepool3_txt);
+        poolsText[4] = (TextView)findViewById(R.id.sidepool4_txt);
+        poolsText[5] = (TextView)findViewById(R.id.sidepool5_txt);
+        
+        chipList = new ArrayList();
         desk_tips = (LinearLayout)findViewById(R.id.desk_tips);
         roomName = (TextView)findViewById(R.id.room_name);
         dealText = (TextView)findViewById(R.id.deal_text);
@@ -186,12 +202,12 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         roomName.setVisibility(View.INVISIBLE);
         dealText.setVisibility(View.INVISIBLE);
         roomRound.setVisibility(View.INVISIBLE);
-        sidepool_layout1.setVisibility(View.INVISIBLE);
-        sidepool_layout2.setVisibility(View.INVISIBLE);
-        sidepool_layout3.setVisibility(View.INVISIBLE);
-        sidepool_layout4.setVisibility(View.INVISIBLE);
-        sidepool_layout5.setVisibility(View.INVISIBLE);
-        mainpool_layout.setVisibility(View.INVISIBLE);
+        pools[1].setVisibility(View.INVISIBLE);
+        pools[2].setVisibility(View.INVISIBLE);
+        pools[3].setVisibility(View.INVISIBLE);
+        pools[4].setVisibility(View.INVISIBLE);
+        pools[5].setVisibility(View.INVISIBLE);
+        pools[0].setVisibility(View.INVISIBLE);
         seat_two.setVisibility(View.INVISIBLE);
         seat_three.setVisibility(View.INVISIBLE);
         seat_four.setVisibility(View.INVISIBLE);
@@ -303,9 +319,16 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 
     // 发公共牌
     public void showPublicPoker() {
-        if(public_poker5.getVisibility() == View.VISIBLE&&app.isServer()){
+        
+        if(public_poker5.getVisibility() == View.VISIBLE){
+            if(app.isServer()){
 //            一轮结束，进行下一轮
-//            sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_FINISH_OPTIOIN, money, extra))
+                sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_NEXT_ROUND, -1, null));
+                wHandler.removeMessages(WorkHandler.MSG_NEXT_ROUND);
+                wHandler.sendEmptyMessage(WorkHandler.MSG_NEXT_ROUND);
+            }else{
+                return;
+            }
         }
         if (public_poker1.getVisibility() != View.VISIBLE) {
         	public_poker1.setImageResource(All_poker.get(All_poker.size()-5).getPokerImageId());
@@ -354,7 +377,6 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_SEND_BOOL, -1, String.valueOf(DIndex)));
             wHandler.removeMessages(WorkHandler.MSG_SEND_BOOL);
             wHandler.sendEmptyMessage(WorkHandler.MSG_SEND_BOOL);
-//            sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_CURRENT_PERSON, -1, String.valueOf(DIndex)));
         }
     }
     
@@ -384,18 +406,34 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     
     public void checkIsMeOption(){
         if(playerList.get(currentOptionPerson).getInfo().getId().equals(currentPlay.getInfo().getId())){
-            optionChoice(true);
+            if(currentOptionPerson == maxChipIndex){
+                isEnd = true;
+            }else{
+                isEnd = false;
+            }
+            if(isEnd&&currentPlayCount() == 1){
+//              所有玩家都弃牌，只剩一个玩家，进行分钱
+                showToast("一轮游戏结束");
+                return;
+            }else{
+                optionChoice(true);
+            }
         }else{
-            optionChoice(false);;
+            optionChoice(false);
         }
     }
     
     public void doOption(int cmd){
-    	if(currentOptionPerson == maxChipIndex){
-    		isEnd = true;
-    	}else{
-    		isEnd = false;
-    	}
+//    	if(currentOptionPerson == maxChipIndex){
+//    		isEnd = true;
+//    	}else{
+//    		isEnd = false;
+//    	}
+//    	if(isEnd&&currentPlayCount() == 1){
+////    	    所有玩家都弃牌，只剩一个玩家，进行分钱
+//    	    showToast("一轮游戏结束");
+//    	    return;
+//    	}
     	if(!currentPlay.getInfo().isQuit()){
     		if(currentPlay.getInfo().getBaseMoney()>0){
     			if(cmd == R.id.follow){
@@ -409,6 +447,16 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     	}
     }
     
+    public int currentPlayCount(){
+        int j = 0;
+        for(int i = playerList.size()-1;i>=0;i--){
+            if(playerList.get(i).getInfo().isQuit()){
+                j++;
+            }
+        }
+        return playerList.size() - j;
+    }
+    
     public void doQuit(){
         Log.i("Rinfon", currentOptionPerson+"");
         sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ABANDOM, -1, String.valueOf(currentOptionPerson)));
@@ -419,6 +467,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             wHandler.sendMessage(message);
             
             currentOptionPerson = (currentOptionPerson+1)%playerList.size();
+            sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_CURRENT_PERSON,
+                    -1, String.valueOf(currentOptionPerson)));
             wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
             wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
         }
@@ -833,7 +883,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     }
     
     public void playerAbandom(int playerIndex){
-        
+        playerList.get(playerIndex).getInfo().setQuit(true);
         if(playerIndex == Integer.parseInt(seat_one.getTag().toString())){
             seat_one.setPersonViewTitle("弃牌");
             seat_one.setPokerVisibility(false);
@@ -857,6 +907,27 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
         else if(playerIndex == Integer.parseInt(seat_six.getTag().toString())){
             seat_six.setPersonViewTitle("弃牌");
             seat_six.setPokerVisibility(false);
+        }
+    }
+    
+    public void countMoney(){
+//        ArrayList chips = new ArrayList();
+        ArrayList callBack = new ArrayList();
+        chipList.clear();
+        for(int i = playerList.size()-1;i>=0;i--){
+            chipList.add(playerList.get(i).getInfo().getAroundSumChip());
+            
+        }
+        Util.CountChips(chipList, callBack);
+        setChipPool(callBack);
+        
+    }
+    
+    public void setChipPool(ArrayList chips){
+        for(int i = 0;i<chips.size();i++){
+            pools[i].setVisibility(View.VISIBLE);
+            poolsText[i].setText(chips.get(i).toString());
+            poolsText[i].setVisibility(View.VISIBLE);
         }
     }
 
@@ -1049,6 +1120,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
             message3.arg1 = Integer.parseInt(msg.getExtra());
             wHandler.sendMessage(message3);
             break;
+        case GameMessage.ACTION_NEXT_ROUND:
+//            showToast("游戏结束");
+            wHandler.removeMessages(WorkHandler.MSG_NEXT_ROUND);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_NEXT_ROUND);
+            break;
         }
     }
 
@@ -1083,7 +1159,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 	}
 	
 	public void showToast(String str){
-	    Toast.makeText(getApplicationContext(), str, 1000);
+	    Toast.makeText(getApplicationContext(), str, 1000).show();;
 	}
 	
 	private class WorkHandler extends Handler {
@@ -1097,6 +1173,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
 	    private static final int MSG_ADD_BET =7;
 //	    private static final int MSG_UPDATE_MONEY =8;
 	    private static final int MSG_ACTION_ABANDOM = 8;
+	    private static final int MSG_NEXT_ROUND = 9;
+	    
 	    
 	    public WorkHandler(Looper looper) {
             super(looper);
@@ -1120,6 +1198,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                     checkIsMeOption();
                     break;
                 case MSG_SHOW_PUBLIC_POKER:
+                    for(int i = 0;i<playerList.size();i++){
+                        int ar = playerList.get(i).getInfo().getAroundChip();
+                        int asr = playerList.get(i).getInfo().getAroundSumChip();
+                        playerList.get(i).getInfo().setAroundSumChip(asr+ar);
+                    }
                 	resetAllPlayerAroundChaip();
                 	showPublicPoker();
                 	break;
@@ -1128,6 +1211,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                     break;
                 case MSG_ACTION_ABANDOM:
                     playerAbandom(msg.arg1);
+                    break;
+                case MSG_NEXT_ROUND:
+                    countMoney();
                     break;
                 default:
                     break;
