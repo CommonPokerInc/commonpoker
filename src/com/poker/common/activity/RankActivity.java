@@ -32,7 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RankActivity extends Activity implements OnClickListener {
+public class RankActivity extends AbsBaseActivity implements OnClickListener {
 
 	private Intent intent;
 	private RankAdapter rankAdapter;

@@ -1,6 +1,7 @@
 package com.poker.common.activity;
 
 import com.poker.common.R;
+import com.poker.common.custom.EachGoodCardsView;
 import com.poker.common.util.ScreenShot;
 
 import android.annotation.SuppressLint;
@@ -14,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class GoodCardsActivity extends Activity implements OnClickListener{
+public class GoodCardsActivity extends AbsBaseActivity implements OnClickListener{
 
     private EachGoodCardsView eachGoodCardsView;
     private ImageView poker1,poker2,poker3,poker4,poker5;

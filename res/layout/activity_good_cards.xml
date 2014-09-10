@@ -85,14 +85,14 @@
                 android:textSize="@dimen/good_cards_snapshot_txt_size" />
         </RelativeLayout>
 
-        <com.poker.common.activity.EachGoodCardsView
+        <com.poker.common.custom.EachGoodCardsView
             android:id="@+id/good_cards_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/good_cards_view_marginleft"
             android:layout_marginRight="@dimen/good_cards_view_marginright"
             android:layout_marginBottom="@dimen/good_cards_view_marginbottom" >
-        </com.poker.common.activity.EachGoodCardsView>
+        </com.poker.common.custom.EachGoodCardsView>
         
         <RelativeLayout
             android:id="@+id/good_cards_close_layout"

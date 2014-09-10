@@ -5,14 +5,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <com.poker.common.activity.PersonView
+    <com.poker.common.custom.PersonView
         android:id="@+id/left_seat_personView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/left_couter_text" >
 
-    </com.poker.common.activity.PersonView>
+    </com.poker.common.custom.PersonView>
 
     <ImageView
         android:id="@+id/left_counter_img"

@@ -3,7 +3,6 @@ package com.poker.common.activity;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
@@ -13,6 +12,14 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.poker.common.BaseApplication;
@@ -30,15 +37,41 @@ import com.poker.common.wifi.WifiHotManager;
 import com.poker.common.wifi.WifiHotManager.OpretionsType;
 import com.poker.common.wifi.WifiHotManager.WifiBroadCastOperations;
 
-public class RoomCreateActivity extends Activity implements OnClickListener,WifiCreateListener, WifiBroadCastOperations{
+public class RoomCreateActivity extends AbsBaseActivity implements OnClickListener,WifiCreateListener, WifiBroadCastOperations{
 	
 	private BaseApplication app;
 	
 	private Room room;
 	
+	private EditText edtWifi;
+	
+	private RadioGroup rGroup;
+	
+	private SeekBar seekRounds;
+	
+	private TextView tipsView;
+	
+	private RadioButton rBtnLimit,rBtnRank;
+	
+	private String strWifi;
+	
+	private int[]bets = {800,8000,80000,800000};
+	
+	private int[]stakes ={5,40,250,2000};
+	
+	private int mBet = bets[0];
+	
+	private int mStakes = stakes[0];
+	
+	private int mRounds = 5;
+	
+	private int mType = Room.TYPE_LIMIT;
+	
 	private String mSSID;
 	
 	private boolean allowCreate = true;
+	
+	private final static int MAX_COUNT = 6;
 	
 	private final static int MSG_CREATE_SERVER_SOCKET = 1;
 	private final static int MSG_SHOW_CREATE_HOT_ERROR =2;
@@ -51,6 +84,77 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 		app = (BaseApplication) getApplication();
 		findViewById(R.id.btn_create_rank).setOnClickListener(this);
 		findViewById(R.id.btn_create_limit).setOnClickListener(this);
+		findViewById(R.id.btn_create_room).setOnClickListener(this);
+		rBtnLimit = (RadioButton) findViewById(R.id.radio_limit_rounds);
+		rBtnRank = (RadioButton) findViewById(R.id.radio_rank_rounds);
+		rBtnRank.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				rBtnLimit.setChecked(!arg1);
+			}
+		});
+		rBtnLimit.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				rBtnRank.setChecked(!arg1);
+			}
+		});
+		rGroup = (RadioGroup) findViewById(R.id.radio_group);
+		rGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				// TODO Auto-generated method stub
+				switch(checkedId){
+				case R.id.radio_diors:
+					mBet = bets[0];
+					break;
+				case R.id.radio_normal:
+					mBet = bets[1];
+					break;
+				case R.id.radio_rich:
+					mBet = bets[2];
+					break;
+				case R.id.radio_millionaire:
+					mBet = bets[3];
+					break;
+				}
+			}
+		});
+		edtWifi = (EditText) findViewById(R.id.edit_room_name);
+		seekRounds = (SeekBar) findViewById(R.id.seek_rounds);
+		tipsView = (TextView) findViewById(R.id.txt_tips);
+		seekRounds.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				if(tipsView.getVisibility()==View.VISIBLE){
+					tipsView.setVisibility(View.GONE);
+				}
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				if(tipsView.getVisibility()==View.GONE){
+					tipsView.setVisibility(View.VISIBLE);
+				}
+			}
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				// TODO Auto-generated method stub
+				if(fromUser){
+					tipsView.setText(progress);
+				}
+			}
+		});
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -66,7 +170,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						Log.i("frankchan", "ø™ º¥¥Ω®∑˛ŒÒ∆˜Ã◊Ω”◊÷");
+						Log.i("frankchan", "ÂºÄÂßãÂàõÂª∫ÊúçÂä°Âô®socket");
 						SocketServer server = SocketServer.newInstance(Global.WIFI_PORT);
 						server.createServerSocket(new SocketListener());
 					}
@@ -75,10 +179,10 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 			case MSG_SHOW_CREATE_SOCKET_ERROR:
 			case MSG_SHOW_CREATE_HOT_ERROR:
 				allowCreate = true;
-				Toast.makeText(RoomCreateActivity.this, "¥¥Ω®∑øº‰ ß∞‹", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RoomCreateActivity.this, "ÂàõÂª∫ÊàøÈó¥Â§±Ë¥•", Toast.LENGTH_SHORT).show();
 				break;
 			case MSG_SUCCESS_JUMP_GAME:
-				Toast.makeText(RoomCreateActivity.this, "¥¥Ω®∑øº‰≥…π¶", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RoomCreateActivity.this, "ÂàõÂª∫ÊàøÈó¥ÊàêÂäü", Toast.LENGTH_SHORT).show();
 				gotoGameActivity();
 				break;
 			}
@@ -100,7 +204,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 		}
 
 		if(!allowCreate){
-			Toast.makeText(RoomCreateActivity.this, "¥¥Ω®∑øº‰÷–£¨«ÎŒ÷ÿ∏¥¥¥Ω®", Toast.LENGTH_SHORT).show();
+			Toast.makeText(RoomCreateActivity.this, "Ê≠£Âú®ÂàõÂª∫ÊàøÈó¥ÔºåËØ∑ÂãøÈáçÂ§çÁÇπÂáª", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		switch(v.getId()){
@@ -108,7 +212,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 				allowCreate =false;
 				room = new Room();
 				room.setType(Room.TYPE_LIMIT);
-				room.setCount(6);
+				room.setCount(MAX_COUNT);
 				room.setInnings(10);
 				room.setMinStake(100);
 				room.setName("Godlike");
@@ -120,12 +224,33 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 				allowCreate =false;
 				room = new Room();
 				room.setType(Room.TYPE_RANK);
-				room.setCount(6);
+				room.setCount(MAX_COUNT);
 				//room.setInnings(10);
 				room.setMinStake(100);
 				room.setName("Godlike");
 				room.setBasicChips(10000);
 				mSSID = "Godlike"+Constant.WIFI_SUFFIX;
+				app.wm.startAWifiHot(mSSID,this);
+				break;
+			case R.id.btn_create_room:
+				if(edtWifi.getText().toString().equals("")){
+					Toast.makeText(this, "WifiÂêç‰∏çËÉΩ‰∏∫Á©∫", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				if(seekRounds.getProgress()==0){
+					Toast.makeText(this, "Á≠πÁ†Å‰∏çËÉΩ‰∏∫Èõ∂", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				allowCreate = false;
+				room = new Room();
+				room.setType(mType);
+				room.setCount(MAX_COUNT);
+				room.setInnings(mRounds);
+				room.setMinStake(mStakes);
+				room.setBasicChips(mBet);
+				room.setName(edtWifi.getText().toString());
+				strWifi = edtWifi.getText().toString();
+				mSSID = strWifi+Constant.WIFI_SUFFIX;
 				app.wm.startAWifiHot(mSSID,this);
 				break;
 		}
@@ -134,7 +259,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 	@Override
 	public void onCreateSuccess() {
 		// TODO Auto-generated method stub
-		Log.i("frankchan", "»»µ„¥¥Ω®≥…π¶");
+		Log.i("frankchan", "ÂàõÂª∫ÁÉ≠ÁÇπÊàêÂäü");
 		handler.sendEmptyMessage(MSG_CREATE_SERVER_SOCKET);
 		
 	}
@@ -142,7 +267,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 	@Override
 	public void OnCreateFailure(String strError) {
 		// TODO Auto-generated method stub
-		Log.e("frankchan", "»»µ„¥¥Ω® ß∞‹‘≠“Ú£∫"+strError);
+		Log.e("frankchan", "ÂàõÂª∫ÁÉ≠ÁÇπÂ§±Ë¥•Ôºö"+strError);
 		handler.sendEmptyMessage(MSG_SHOW_CREATE_HOT_ERROR);
 	}
 
@@ -163,7 +288,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 		@Override
 		public void onSuccess() {
 			// TODO Auto-generated method stub
-			Log.i("frankchan", "¥¥Ω®∑˛ŒÒ∆˜Ã◊Ω”◊÷≥…π¶");
+			Log.i("frankchan", "ÂàõÂª∫SocketÊàêÂäü");
 			app.setServer(SocketServer.newInstance());
 			handler.sendEmptyMessage(MSG_SUCCESS_JUMP_GAME);
 		}
@@ -171,7 +296,7 @@ public class RoomCreateActivity extends Activity implements OnClickListener,Wifi
 		@Override
 		public void onFailure() {
 			// TODO Auto-generated method stub
-			Log.i("frankchan", "¥¥Ω®∑˛ŒÒ∆˜Ã◊Ω”◊÷ ß∞‹");
+			Log.i("frankchan", "ÂàõÂª∫socketÂ§±Ë¥•");
 			handler.sendEmptyMessage(MSG_SHOW_CREATE_SOCKET_ERROR);
 		}
 		

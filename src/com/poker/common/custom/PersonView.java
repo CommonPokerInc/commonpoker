@@ -1,4 +1,4 @@
-package com.poker.common.activity;
+package com.poker.common.custom;
 
 import android.content.Context;
 import android.util.AttributeSet;

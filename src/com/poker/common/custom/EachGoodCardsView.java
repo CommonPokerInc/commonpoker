@@ -1,4 +1,4 @@
-package com.poker.common.activity;
+package com.poker.common.custom;
 
 import com.poker.common.R;
 

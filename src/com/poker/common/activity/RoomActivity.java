@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
@@ -36,7 +35,7 @@ import com.poker.common.wifi.WifiHotManager;
 import com.poker.common.wifi.WifiHotManager.OpretionsType;
 import com.poker.common.wifi.WifiHotManager.WifiBroadCastOperations;
 
-public class RoomActivity extends Activity implements WifiBroadCastOperations{
+public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperations{
 	
 
 	private final static String TAG = RoomActivity.class.getSimpleName();
@@ -76,8 +75,8 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 	
 	private void initView(){
 		dialog =new ProgressDialog(this);
-		dialog.setMessage("ÇëÉÔºó£¬ÕýÔÚÎªÄú¼ì²â¸½·¿¼ä");
-		dialog.setTitle("µÂÖÝÃæ¶ÔÃæ");
+		dialog.setMessage("ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½â¸½ï¿½ï¿½ï¿½ï¿½");
+		dialog.setTitle("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		ltvRoom = (ListView)findViewById(R.id.list_room);
 		btnRefresh = (Button)findViewById(R.id.btn_refresh_room);
 		txtNoRoom = (TextView)findViewById(R.id.txt_no_room);
@@ -85,9 +84,9 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				//×÷Îª·þÎñÆ÷²»¿É¼ÓÈëÆäËûwifi
+				//ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wifi
 				if(app.isServer()){
-					Toast.makeText(RoomActivity.this, "ÄúÒÑ¾­½¨Á¢wifiÇë¹Ø±ÕºóÔÙÁ¬½ÓÆäËûÈÈµã", Toast.LENGTH_SHORT).show();
+					Toast.makeText(RoomActivity.this, "ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½wifiï¿½ï¿½Ø±Õºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				ScanResult result = wifiList.get(position);
@@ -113,15 +112,15 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 			// TODO Auto-generated method stub
 			if(!allowEntry){
 				if(mSSID.equals(SSID)){
-					Toast.makeText(RoomActivity.this, "ÕýÔÚÎªÄúÁ¬½Ó¸Ã·¿¼ä", Toast.LENGTH_SHORT).show();
+					Toast.makeText(RoomActivity.this, "ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ó¸Ã·ï¿½ï¿½ï¿½", Toast.LENGTH_SHORT).show();
 				}
 				else{
-					Toast.makeText(RoomActivity.this, "ÕýÔÚÎªÄúÁ¬½Ó±ðµÄ·¿¼ä£¬ÇëÉÔºóÔÙÊÔ", Toast.LENGTH_SHORT).show();
+					Toast.makeText(RoomActivity.this, "ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ó±ï¿½Ä·ï¿½ï¿½ä£¬ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_SHORT).show();
 				}
 				return;
 			}
 			if(app.isServer()){
-				Toast.makeText(RoomActivity.this, "ÄúÒÑ¾­½¨Á¢wifiÇë¹Ø±ÕºóÔÙÁ¬½ÓÆäËûÈÈµã", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RoomActivity.this, "ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½wifiï¿½ï¿½Ø±Õºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			mSSID = SSID;
@@ -139,7 +138,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 			// TODO Auto-generated method stub
 			switch(msg.what){
 			case MSG_CONNECT_FAILURE:
-				Toast.makeText(RoomActivity.this, "Á¬½ÓÊ§°Ü£¬·¿¼äÂúÔ±»òÕß¹Ø±ÕÁË", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RoomActivity.this, "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ß¹Ø±ï¿½ï¿½ï¿½", Toast.LENGTH_SHORT).show();
 				allowEntry = true;
 				break;
 			case MSG_CONNECT_SUCCESS:
@@ -149,7 +148,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 				info.setName("client1");
 				info.setId(SystemUtil.getID(getApplicationContext()));
 				app.cp = new ClientPlayer(info,app.getClient());
-				Toast.makeText(RoomActivity.this, "Á¬½Ó·þÎñÆ÷³É¹¦", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RoomActivity.this, "ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(RoomActivity.this,GameActivity.class);
 				startActivity(intent);
 				RoomActivity.this.finish();
@@ -159,7 +158,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		
 	};
 	
-		// client ³õÊ¼»¯
+		// client ï¿½ï¿½Ê¼ï¿½ï¿½
 	private void initClient(String IP) {
 		client = SocketClient.newInstance("192.168.43.1", Global.WIFI_PORT);
 		client.connectServer(new SocketListener());
@@ -168,7 +167,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 	@Override
 	public void disPlayWifiScanResult(final List<ScanResult> wifiList) {
 		// TODO Auto-generated method stub
-		Log.e("frankchan", "É¨Ãè½á¹û»Øµ÷");
+		Log.e("frankchan", "É¨ï¿½ï¿½ï¿½ï¿½Øµï¿½");
 		refreshWifiList(filterResult(wifiList));
 		app.wm.unRegisterWifiScanBroadCast();
 		dialog.cancel();
@@ -176,7 +175,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 	@Override
 	public boolean disPlayWifiConResult(boolean result, WifiInfo wifiInfo) {
 		// TODO Auto-generated method stub
-		Log.i("frankchan", "Á¬½ÓÈÈµã³É¹¦");
+		Log.i("frankchan", "ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½É¹ï¿½");
 		app.wm.setConnectStatu(false);
 		app.wm.unRegisterWifiStateBroadCast();
 		app.wm.unRegisterWifiConnectBroadCast();
@@ -186,7 +185,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 	@Override
 	public void operationByType(OpretionsType type, String SSID) {
 		// TODO Auto-generated method stub
-		Log.i(TAG, "into operationByType£¡type = " + type);
+		Log.i(TAG, "into operationByTypeï¿½ï¿½type = " + type);
 		if (type == OpretionsType.CONNECT) {
 			app.wm.connectToHotpot(SSID, wifiList, Global.PASSWORD);
 		} else if (type == OpretionsType.SCAN) {
@@ -215,7 +214,7 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 		@Override
 		public void onFailure(String errorInfo) {
 			// TODO Auto-generated method stub
-			Log.e("frankchan", "Á¬½Ó·þÎñÆ÷Ì×½Ó×ÖÊ§°Ü");
+			Log.e("frankchan", "ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			handler.sendEmptyMessage(MSG_CONNECT_FAILURE);
 		}
 		
@@ -231,17 +230,17 @@ public class RoomActivity extends Activity implements WifiBroadCastOperations{
 			ltvRoom.setVisibility(View.VISIBLE);
 		}
 		if (null == adapter) {
-			Log.i(TAG, "into Ë¢ÐÂwifiÈÈµãÁÐ±í adapter is null£¡");
+			Log.i(TAG, "into Ë¢ï¿½ï¿½wifiï¿½Èµï¿½ï¿½Ð±ï¿½ adapter is nullï¿½ï¿½");
 			adapter = new RoomAdapter(results, this,new MyItemListener());
 			ltvRoom.setAdapter(adapter);
 		} else {
-			Log.i(TAG, "into Ë¢ÐÂwifiÈÈµãÁÐ±í adapter is not null£¡");
+			Log.i(TAG, "into Ë¢ï¿½ï¿½wifiï¿½Èµï¿½ï¿½Ð±ï¿½ adapter is not nullï¿½ï¿½");
 			adapter.refreshData(results);
 		}
-		Log.i(TAG, "out Ë¢ÐÂwifiÈÈµãÁÐ±í");
+		Log.i(TAG, "out Ë¢ï¿½ï¿½wifiï¿½Èµï¿½ï¿½Ð±ï¿½");
 	}
 	
-	//¹ýÂË·Ç±¾Ó¦ÓÃ½¨Á¢µÄÈÈµãÁÐ±í
+	//ï¿½ï¿½ï¿½Ë·Ç±ï¿½Ó¦ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½ï¿½Ð±ï¿½
 	private ArrayList<ScanResult> filterResult(List<ScanResult> target){
 		ArrayList<ScanResult>result = new ArrayList<ScanResult>();
 		for(ScanResult sc:target){

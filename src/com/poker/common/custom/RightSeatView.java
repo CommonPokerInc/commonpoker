@@ -1,4 +1,4 @@
-package com.poker.common.activity;
+package com.poker.common.custom;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

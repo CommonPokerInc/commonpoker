@@ -39,7 +39,7 @@ import com.poker.common.util.SettingHelper;
  * @Time ����2:44:40
  * @Declaration :
  */
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private ImageButton sendGameBtn;
 
@@ -47,16 +47,16 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private BaseApplication app;
 
-    private View settingView;// ����ҳ����ͼ
+    private View settingView;
 
-    private View meView;// wo
+    private View meView;
 
     private PopupWindow settingWin, meWin;
 
     private ImageView setting_close, me_close;
 
     private RelativeLayout voice_item_layout, shock_item_layout, help_item_layout,
-            about_item_layout;// �������𶯣�����������
+            about_item_layout;
 
     private ImageView confirm_edit_btn;
 
@@ -66,7 +66,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private boolean voice_switch_state = false, shock_switch_state = false;//
 
-    private boolean editable = false;// ���ɱ༭״̬���༭��ť�����ɱ༭״̬���༭��ť���ɼ���
+    private boolean editable = false;
 
     private TextView edit_or_confirm;
 
@@ -82,7 +82,7 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mainactivity);
+        setContentView(R.layout.activity_name);
         app = (BaseApplication) getApplication();
         init();
         if(Environment.getExternalStorageState()
@@ -153,14 +153,14 @@ public class MainActivity extends Activity implements OnClickListener {
             shock_switch_state = !settingHelper.getVibrationStatus();
             shock_switch.setImageResource(shock_switch_state ? R.drawable.setting_switch_on
                     : R.drawable.setting_switch_off);
-            String message = shock_switch_state ? "��������" : "�ر�����";
+            String message = shock_switch_state ? "开启震动" : "关闭震动";
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             settingHelper.setVibrationStatus(shock_switch_state);
         } else if (v.getId() == R.id.voice_switch_img) {
             voice_switch_state = !settingHelper.getVoiceStatus();
             voice_switch.setImageResource(voice_switch_state ? R.drawable.setting_switch_on
                     : R.drawable.setting_switch_off);
-            String message = voice_switch_state ? "������Ч" : "�ر���Ч";
+            String message = voice_switch_state ? "开启音效" : "关闭音效";
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             settingHelper.setVoiceStatus(voice_switch_state);
         } else if (v.getId() == R.id.me_close) {
@@ -338,7 +338,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	           settingHelper.setCopied(true);
 	       } 
 	       catch (Exception e) { 
-	           System.out.println("���Ƶ����ļ���������"); 
+	           System.out.println("copy single file faliure"); 
 	           e.printStackTrace(); 
 	           settingHelper.setCopied(false);
 	       } 

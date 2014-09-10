@@ -1,22 +1,246 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2b2937"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".RoomCreateActivity"
-    android:background="@color/antiquewhite" >
-	<Button android:id="@+id/btn_create_rank"
-	    android:text="创建淘汰局"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_centerInParent="true"/>
-	<Button android:id="@+id/btn_create_limit"
-	    android:text="创建有限局"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_centerInParent="true"
-	    android:layout_below="@id/btn_create_rank"/>
-</RelativeLayout>
+    android:scrollbars="none"
+    tools:context=".RoomCreateActivity" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/room_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_create_rank"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="创建淘汰局" />
+
+            <Button
+                android:id="@+id/btn_create_limit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="80dp"
+                android:layout_weight="1"
+                android:text="创建有限局" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/reback"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="13dp"
+            android:background="@drawable/img_back_btn" />
+
+        <RelativeLayout
+            android:id="@+id/room_layer"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/room_title"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/txt_room_name"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                android:text="房间名"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/edit_room_name"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/txt_room_name"
+                android:hint="这是一个WIFI名"
+                android:maxHeight="35dp"
+                android:maxWidth="300dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="#2b2937"
+                android:textSize="13sp"
+                android:background="@drawable/input_room_name" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/room_bet"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/room_layer">
+            <TextView
+                android:id="@+id/txt_room_bet"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                android:text="初始筹码"
+                android:textSize="17sp" />
+            <RadioGroup android:id="@+id/radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/txt_room_bet"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/radio_diors"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="42dp"
+                    android:background="@drawable/radio_bet"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="10dp"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="屌丝局\n800"
+                    android:textSize="12sp"
+                    android:checked="true"/>
+                 <RadioButton android:id="@+id/radio_normal"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="42dp"
+                    android:background="@drawable/radio_bet"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="10dp"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="小康局\n8000"
+                    android:textSize="12sp"/>
+                  <RadioButton android:id="@+id/radio_rich"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="42dp"
+                    android:background="@drawable/radio_bet"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="10dp"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="土豪局\n8W"
+                    android:textSize="12sp"/>
+                   <RadioButton android:id="@+id/radio_millionaire"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="42dp"
+                    android:background="@drawable/radio_bet"
+                    android:layout_gravity="bottom"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="土豪局\n80W"
+                    android:textSize="12sp"/>
+            </RadioGroup>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/room_rounds"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/room_bet"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/txt_room_rounds"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="局数"
+                android:textSize="17sp"
+                android:layout_centerVertical="true" />
+			<RadioButton
+                    android:id="@+id/radio_limit_rounds"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/radio_rounds"
+                    android:button="@null"
+                    android:checked="true"
+                    android:layout_toRightOf="@+id/txt_room_rounds"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_centerVertical="true"  />
+			<SeekBar
+			    android:id="@+id/seek_rounds"
+			    android:layout_width="200dp"
+			    android:layout_height="wrap_content"
+			    android:maxHeight="1dp"
+			    android:minHeight="1dp"
+			    android:layout_marginLeft="30dp"
+			    android:layout_toRightOf="@+id/radio_limit_rounds"
+			    android:layout_centerVertical="true"
+			    android:max = "20"
+			    android:progress="5"
+			    android:thumb="@drawable/a_thumb"/>
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/room_rounds_extra"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/room_rounds" >
+			<RadioButton
+                    android:id="@+id/radio_rank_rounds"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/radio_rounds"
+                    android:button="@null"
+                    android:checked="false"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_centerVertical="true"  />
+			<TextView
+                android:id="@+id/txt_rank_rounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="淘汰赛（无限局）"
+                android:textSize="17sp"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/radio_rank_rounds"
+                android:layout_centerVertical="true" />
+		</RelativeLayout>
+		<Button android:id="@+id/btn_create_room"
+		    android:layout_width="170dp"
+		    android:layout_height="45dp"
+		    android:layout_below="@+id/room_rounds_extra"
+		    android:layout_marginTop="10dp"
+		    android:layout_alignParentRight="true"
+		    android:gravity="center"
+		    android:text="创建房间"
+		    android:textColor="@color/white"
+		    android:textSize="17sp"
+		    android:background="@drawable/btn_create_room"/>
+		<TextView android:id="@+id/txt_tips"
+		    android:layout_width="80dp"
+		    android:layout_height="60dp"
+		    android:textSize="30sp"
+		    android:text="10"
+		    android:layout_centerHorizontal="true"
+		    android:layout_above="@+id/room_rounds"
+		    android:gravity="center"
+		    android:background="#e0000000"
+		    android:textColor="@color/mistyrose"
+		    android:visibility="gone"/>
+    </RelativeLayout>
+
+</ScrollView>

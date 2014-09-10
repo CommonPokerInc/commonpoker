@@ -32,15 +32,15 @@ import com.poker.common.wifi.transfer.WebService;
 
 /**
  *
- * ÀàËµÃ÷
+ * ï¿½ï¿½Ëµï¿½ï¿½
  *
  * @author RinfonChen:
- * @Day 2014Äê8ÔÂ4ÈÕ 
- * @Time ÏÂÎç7:16:39
+ * @Day 2014ï¿½ï¿½8ï¿½ï¿½4ï¿½ï¿½ 
+ * @Time ï¿½ï¿½ï¿½ï¿½7:16:39
  * @Declaration :
  *
  */
-public class SendGameActivity extends Activity implements WifiCreateListener{
+public class SendGameActivity extends AbsBaseActivity implements WifiCreateListener{
 
     private ImageButton backBtn;
     
@@ -139,15 +139,14 @@ public class SendGameActivity extends Activity implements WifiCreateListener{
     
     private void createImage(String text) {
         try {
-            // ĞèÒªÒıÈëcore°ü
             QRCodeWriter writer = new QRCodeWriter();
 
-            Log.i(TAG, "Éú³ÉµÄÎÄ±¾£º" + text);
+            Log.i(TAG, "åˆ›å»ºäºŒç»´ç å†…å®¹ï¼š" + text);
             if (text == null || "".equals(text) || text.length() < 1) {
                 return;
             }
 
-            // °ÑÊäÈëµÄÎÄ±¾×ªÎª¶şÎ¬Âë
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½×ªÎªï¿½ï¿½Î¬ï¿½ï¿½
             BitMatrix martix = writer.encode(text, BarcodeFormat.QR_CODE,
                     QR_WIDTH, QR_HEIGHT);
 
@@ -194,7 +193,7 @@ public class SendGameActivity extends Activity implements WifiCreateListener{
 	@Override
 	public void onCreateSuccess() {
 		// TODO Auto-generated method stub
-		Log.i("SendGameActivity", "ÈÈµã´´½¨³É¹¦£¬¿ªÊ¼Éú³É¶şÎ¬Âë");
+		Log.i("SendGameActivity", "çƒ­ç‚¹åˆ›å»ºæˆåŠŸ");
         if(Environment.getExternalStorageState()
         		.equals(android.os.Environment.MEDIA_MOUNTED)){
 
@@ -202,14 +201,14 @@ public class SendGameActivity extends Activity implements WifiCreateListener{
 					+"/.poker";
 			String strFile = strDir +"/commonpoker.apk";
 			File target =new File(strFile);
-        	if(helper.hasCopy()&&target.exists()){
+        	if(target.exists()){
         		new Thread(runWithSDCard).start();
         	}else{
-        		Toast.makeText(this, "ÕıÔÚÎªÄúÉú³Éapk°ü£¬ÉÔºóÇëË¢ĞÂ", Toast.LENGTH_SHORT).show();
+        		Toast.makeText(this, "WTF", Toast.LENGTH_SHORT).show();
         		//FrankChan:maybe we need a refresh button
         	}
         }else{
-        	Toast.makeText(this, "¼ì²âµ½ÄúÃ»SD¿¨£¬Èç¹ûÊÖ»úÃ»ÓĞroot¶şÎ¬Âë¿ÉÄÜÎŞĞ§", Toast.LENGTH_SHORT).show();
+        	Toast.makeText(this, "æ£€æµ‹åˆ°æ‚¨æ²¡æœ‰SDå¡ï¼Œä¼ åŒ…å¯èƒ½å¤±è´¥", Toast.LENGTH_SHORT).show();
         	new Thread(runNoSDCard).start();
         }
 	}
@@ -217,7 +216,7 @@ public class SendGameActivity extends Activity implements WifiCreateListener{
 	@Override
 	public void OnCreateFailure(String strError) {
 		// TODO Auto-generated method stub
-		Log.i("SendGameActivity", "ÈÈµã´´½¨Ê§°Ü£¬ÎŞ·¨Éú³É¶şÎ¬Âë");
+		Log.i("SendGameActivity", "åˆ›å»ºçƒ­ç‚¹å¤±è´¥");
 	}
 
 

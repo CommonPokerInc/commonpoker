@@ -2,7 +2,9 @@
 package com.poker.common.activity;
 
 import com.poker.common.R;
-import com.poker.common.customcontrols.VerticalSeekBar;
+import com.poker.common.custom.LeftSeatView;
+import com.poker.common.custom.RightSeatView;
+import com.poker.common.custom.VerticalSeekBar;
 import com.poker.common.entity.AbsPlayer;
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.Poker;
@@ -42,7 +44,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.poker.common.R;
-import com.poker.common.customcontrols.VerticalSeekBar;
 import com.poker.common.entity.AbsPlayer;
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.Poker;
@@ -58,7 +59,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 @SuppressLint("NewApi")
-public class GameActivity extends AbsGameActivity implements OnClickListener, MessageListener {
+public class GameActivity extends AbsGameActivity implements OnClickListener{
     private ImageButton reback;
 
     private Button follow, add, quit, tips, autopass, autopq, autofollow,startGame;
@@ -139,9 +140,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gamelayout);
+        setContentView(R.layout.game_layout);
 
-        initMessageListener(this);
+        registerListener();
         init();
         initPokerAnim();
         initBar();
@@ -1219,5 +1220,17 @@ public class GameActivity extends AbsGameActivity implements OnClickListener, Me
                     break;
             }
         }
+	}
+
+	@Override
+	public void clientDecrease(String clientName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void disconnectFromServer(int sec) {
+		// TODO Auto-generated method stub
+		
 	}
 }

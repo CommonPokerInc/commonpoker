@@ -27,14 +27,14 @@
 
     
 
-    <com.poker.common.activity.PersonView
+    <com.poker.common.custom.PersonView
         android:id="@+id/right_seat_personView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true" >
 
-    </com.poker.common.activity.PersonView>
+    </com.poker.common.custom.PersonView>
     
             <TextView
         android:id="@+id/card_type"

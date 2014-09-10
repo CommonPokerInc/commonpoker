@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PunishActivity extends Activity implements OnClickListener {
+public class PunishActivity extends AbsBaseActivity implements OnClickListener {
 
     private ImageView punishmentBegin,close;
     private LinearLayout punishmentLayout;

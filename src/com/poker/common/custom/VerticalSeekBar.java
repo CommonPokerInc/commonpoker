@@ -193,7 +193,7 @@ public class VerticalSeekBar extends AbsSeekBar {
 
 */
 
-package com.poker.common.customcontrols;
+package com.poker.common.custom;
 
 import android.content.Context;
 import android.graphics.Canvas;
