@@ -292,13 +292,14 @@ public class Util {
 	        if(!callBack.isEmpty()){
                 callBack.clear();
 	        }
-	        
+	        int box = 0;
 	        for(int i = 0;i<chips.size();i++){
 	            if(Integer.parseInt(chips.get(i).toString())!=0){
     	            callBack.add(Integer.parseInt(chips.get(i).toString())*(chips.size()-i));
-    	            for(int j = i;j<chips.size();j++){
+    	            box = Integer.parseInt(chips.get(i).toString());
+    	            for(int j = 0;j<chips.size();j++){
     	                chips.set(j, Integer.parseInt(chips.get(j).toString()) - 
-    	                        Integer.parseInt(chips.get(i).toString())); 
+    	                		box); 
     	            }
 	            }
 	            

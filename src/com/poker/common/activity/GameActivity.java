@@ -251,7 +251,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
             playerList.add(currentPlay);
             sendMessage(MessageFactory.newPeopleMessage(false, false, playerList, null,null,null));
             desk_tips_text.setText(R.string.throw_people);
-            startGame.setVisibility(View.GONE);
+            startGame.setVisibility(View.INVISIBLE);
         } else {
             currentPlay = app.sp;
             updateRoom(room);
@@ -320,7 +320,6 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 
     // 发公共牌
     public void showPublicPoker() {
-        
         if(public_poker5.getVisibility() == View.VISIBLE){
             if(app.isServer()){
 //            一轮结束，进行下一轮
@@ -341,16 +340,22 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
             public_poker1.setAnimation(public_poker_anim);
             public_poker2.setAnimation(public_poker_anim);
             public_poker3.setAnimation(public_poker_anim);
+            wHandler.removeMessages(WorkHandler.MSG_COUNT_POOL);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_COUNT_POOL);
             return;
         } else if (public_poker4.getVisibility() != View.VISIBLE) {
         	public_poker4.setImageResource(All_poker.get(All_poker.size()-2).getPokerImageId());
             public_poker4.setVisibility(View.VISIBLE);
             public_poker4.startAnimation(public_poker_anim);
+            wHandler.removeMessages(WorkHandler.MSG_COUNT_POOL);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_COUNT_POOL);
             return;
         } else if (public_poker5.getVisibility() != View.VISIBLE) {
         	public_poker5.setImageResource(All_poker.get(All_poker.size()-1).getPokerImageId());
             public_poker5.setVisibility(View.VISIBLE);
             public_poker5.startAnimation(public_poker_anim);
+            wHandler.removeMessages(WorkHandler.MSG_COUNT_POOL);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_COUNT_POOL);
             return;
         } else {
             return;
@@ -358,7 +363,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     }
     
     public void startGame(){
-        desk_tips.setVisibility(View.GONE);
+        desk_tips.setVisibility(View.INVISIBLE);
         currentPlayIndex  = findIndexWithIPinList(playerList);
         app.isGameStarted = true;
 //        currentPlay.getInfo().setBaseMoney(room.getBasicChips());
@@ -489,6 +494,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
             }
             sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ADD_BET, money, String.valueOf(maxChipIndex)));
             if(app.isServer()){
+         	    Message message = new Message();
+         	    message.what = WorkHandler.MSG_ADD_BET;
+         	    message.arg1 = maxChipIndex;
+         	    message.arg2 = money;
+                wHandler.sendMessage(message);
                 currentOptionPerson = (currentOptionPerson+1)%playerList.size();
                 wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
                 wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
@@ -521,6 +531,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 		    		maxChipIndex = DIndex;
 		    		wHandler.removeMessages(WorkHandler.MSG_SHOW_PUBLIC_POKER);
 		            wHandler.sendEmptyMessage(WorkHandler.MSG_SHOW_PUBLIC_POKER);
+		            wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
+		            wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
 				}
 			}else{
 				sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_FINISH_OPTIOIN,
@@ -563,9 +575,13 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     }
     
     public void setChairChip(int playerIndex,int money,int isShow){
-        playerList.get(playerIndex).getInfo().setBaseMoney(playerList.get(playerIndex).getInfo().getBaseMoney()
-                +playerList.get(playerIndex).getInfo().getAroundChip() - money);
-        playerList.get(playerIndex).getInfo().setAroundChip(money);
+    	if(money == 0){
+    		playerList.get(playerIndex).getInfo().setAroundChip(0);
+    	}else{
+	        playerList.get(playerIndex).getInfo().setBaseMoney(playerList.get(playerIndex).getInfo().getBaseMoney()
+	                +playerList.get(playerIndex).getInfo().getAroundChip() - money);
+	        playerList.get(playerIndex).getInfo().setAroundChip(money);
+    	}
     	 if(playerIndex == Integer.parseInt(seat_one.getTag().toString())){
              seat_one.setCurrentChip(money, isShow);
              seat_one.getPersonView().setPersonMoney(String.valueOf(playerList.get(playerIndex).getInfo().getBaseMoney()));
@@ -808,7 +824,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
             case R.id.desk_tips_start_game_btn:
                 setAddSeekBar(false);
                 if(this.playerList.size()>=2){
-                    desk_tips.setVisibility(View.GONE);
+                    desk_tips.setVisibility(View.INVISIBLE);
                     All_poker = Util.getPokers(playerList.size());
                     sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, All_poker,null,null));
                     wHandler.removeMessages(WorkHandler.MSG_START_GAME);
@@ -1107,6 +1123,10 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
             message.arg1 = maxChipIndex;
             message.arg2 = msg.getAmount();
             wHandler.sendMessage(message);
+            
+            currentOptionPerson = (currentOptionPerson+1)%playerList.size();
+            wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
+	        wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
     	    break;
         case GameMessage.ACTION_UPDATE_MONEY:
             Message message2 = new Message();
@@ -1176,6 +1196,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 	    private static final int MSG_ACTION_ABANDOM = 8;
 	    private static final int MSG_NEXT_ROUND = 9;
 	    
+	    private static final int MSG_COUNT_POOL = 10;
+	    
 	    
 	    public WorkHandler(Looper looper) {
             super(looper);
@@ -1215,6 +1237,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
                     break;
                 case MSG_NEXT_ROUND:
                     countMoney();
+                    break;
+                case MSG_COUNT_POOL:
+                	countMoney();
                     break;
                 default:
                     break;
