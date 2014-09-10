@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setting_dialog_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:clickable="true"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/first_bg"
+        android:layout_width="400dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/setting_bg" />
+
+    <RelativeLayout
+        android:id="@+id/head_img_layout"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_alignTop="@+id/first_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" >
+
+        <ImageButton
+            android:id="@+id/btn_change_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/left"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:background="@drawable/bg_btn" />
+
+        <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_player_picture5" />
+
+        <ImageButton
+            android:id="@+id/btn_change_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:src="@drawable/right"
+            android:background="@drawable/bg_btn" />
+    </RelativeLayout>
+	<EditText android:id="@+id/edt_name"
+	    android:layout_height="30dp"
+	    android:layout_width="250dp"
+	    android:paddingLeft="10dp"
+	    android:paddingRight="10dp"
+	    android:hint="请输入您的姓名"
+	    android:textSize="17sp"
+	    android:textColor="#2b2937"
+	    android:layout_below="@+id/head_img_layout"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="20dp"
+	    android:background="@drawable/bg_edt"/>
+	<Button android:id="@+id/btn_go"
+	    android:layout_height="wrap_content"
+	    android:layout_width="160dp"
+	    android:background="@drawable/btn_go_btn"
+	    android:layout_below="@+id/edt_name"
+	    android:layout_centerHorizontal="true"
+	    android:layout_alignBottom="@+id/first_bg"
+	    android:layout_margin="15dp"
+	    android:textSize="20sp"
+	    android:text="马上开始"
+	    android:textColor="@color/white"
+	    android:gravity="center"/>
+</RelativeLayout>

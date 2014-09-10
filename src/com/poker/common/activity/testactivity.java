@@ -16,15 +16,15 @@ import com.poker.common.util.Util;
 
 /**
  *
- * ÀàËµÃ÷
+ * ï¿½ï¿½Ëµï¿½ï¿½
  *
  * @author RinfonChen:
- * @Day 2014Äê8ÔÂ20ÈÕ 
- * @Time ÏÂÎç5:46:12
- * @Declaration :²âÊÔËã·¨
+ * @Day 2014ï¿½ï¿½8ï¿½ï¿½20ï¿½ï¿½ 
+ * @Time ï¿½ï¿½ï¿½ï¿½5:46:12
+ * @Declaration :ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨
  *
  */
-public class testactivity extends Activity{
+public class TestActivity extends Activity{
 
     Button ok ;
     EditText a,b,c,d,e,f,g;
@@ -63,7 +63,7 @@ public class testactivity extends Activity{
                 }
                 int result = Util.getPokerType(pokers,pokersBack);
                 t.setText(result+"");
-                str += "---->"+result+": »ñÊ¤ÅÆÐÍ: ";
+                str += "---->"+result+": ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½: ";
                 for(int i = 0;i<pokersBack.size();i++){
                     str += pokersBack.get(i).getNumber()+" ";
                 }

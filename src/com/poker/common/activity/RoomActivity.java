@@ -75,26 +75,11 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 	
 	private void initView(){
 		dialog =new ProgressDialog(this);
-		dialog.setMessage("���Ժ�����Ϊ���⸽����");
-		dialog.setTitle("���������");
+		dialog.setMessage("正在为您扫描附近的房间");
+		dialog.setTitle("德州面对面");
 		ltvRoom = (ListView)findViewById(R.id.list_room);
 		btnRefresh = (Button)findViewById(R.id.btn_refresh_room);
 		txtNoRoom = (TextView)findViewById(R.id.txt_no_room);
-		/*ltvRoom.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				//��Ϊ���������ɼ�������wifi
-				if(app.isServer()){
-					Toast.makeText(RoomActivity.this, "���Ѿ�����wifi��رպ������������ȵ�", Toast.LENGTH_SHORT).show();
-					return;
-				}
-				ScanResult result = wifiList.get(position);
-				Log.i(TAG, "into  onItemClick() SSID= " + result.SSID);
-				app.wm.connectToHotpot(result.SSID, wifiList, Global.PASSWORD);
-				Log.i(TAG, "out  onItemClick() SSID= " + result.SSID);
-			}
-		});*/
 		btnRefresh.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -112,15 +97,15 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 			// TODO Auto-generated method stub
 			if(!allowEntry){
 				if(mSSID.equals(SSID)){
-					Toast.makeText(RoomActivity.this, "����Ϊ�����Ӹ÷���", Toast.LENGTH_SHORT).show();
+					Toast.makeText(RoomActivity.this, "正在为您连接此房间", Toast.LENGTH_SHORT).show();
 				}
 				else{
-					Toast.makeText(RoomActivity.this, "����Ϊ�����ӱ�ķ��䣬���Ժ�����", Toast.LENGTH_SHORT).show();
+					Toast.makeText(RoomActivity.this, "已经在连接房间", Toast.LENGTH_SHORT).show();
 				}
 				return;
 			}
 			if(app.isServer()){
-				Toast.makeText(RoomActivity.this, "���Ѿ�����wifi��رպ������������ȵ�", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RoomActivity.this, "您已经创建了房间", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			mSSID = SSID;
@@ -138,7 +123,7 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 			// TODO Auto-generated method stub
 			switch(msg.what){
 			case MSG_CONNECT_FAILURE:
-				Toast.makeText(RoomActivity.this, "����ʧ�ܣ�������Ա���߹ر���", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RoomActivity.this, "加入房间失败", Toast.LENGTH_SHORT).show();
 				allowEntry = true;
 				break;
 			case MSG_CONNECT_SUCCESS:
@@ -148,7 +133,7 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 				info.setName("client1");
 				info.setId(SystemUtil.getID(getApplicationContext()));
 				app.cp = new ClientPlayer(info,app.getClient());
-				Toast.makeText(RoomActivity.this, "���ӷ������ɹ�", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RoomActivity.this, "加入成功", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(RoomActivity.this,GameActivity.class);
 				startActivity(intent);
 				RoomActivity.this.finish();
@@ -167,7 +152,7 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 	@Override
 	public void disPlayWifiScanResult(final List<ScanResult> wifiList) {
 		// TODO Auto-generated method stub
-		Log.e("frankchan", "ɨ����ص�");
+		Log.e("frankchan", "扫描结果回调");
 		refreshWifiList(filterResult(wifiList));
 		app.wm.unRegisterWifiScanBroadCast();
 		dialog.cancel();
@@ -175,7 +160,7 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 	@Override
 	public boolean disPlayWifiConResult(boolean result, WifiInfo wifiInfo) {
 		// TODO Auto-generated method stub
-		Log.i("frankchan", "�����ȵ�ɹ�");
+		Log.i("frankchan", "连接结果回调");
 		app.wm.setConnectStatu(false);
 		app.wm.unRegisterWifiStateBroadCast();
 		app.wm.unRegisterWifiConnectBroadCast();
@@ -214,7 +199,7 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 		@Override
 		public void onFailure(String errorInfo) {
 			// TODO Auto-generated method stub
-			Log.e("frankchan", "���ӷ������׽���ʧ��");
+			Log.e("frankchan", "连接socket失败");
 			handler.sendEmptyMessage(MSG_CONNECT_FAILURE);
 		}
 		
@@ -230,17 +215,14 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 			ltvRoom.setVisibility(View.VISIBLE);
 		}
 		if (null == adapter) {
-			Log.i(TAG, "into ˢ��wifi�ȵ��б� adapter is null��");
 			adapter = new RoomAdapter(results, this,new MyItemListener());
 			ltvRoom.setAdapter(adapter);
 		} else {
-			Log.i(TAG, "into ˢ��wifi�ȵ��б� adapter is not null��");
 			adapter.refreshData(results);
 		}
-		Log.i(TAG, "out ˢ��wifi�ȵ��б�");
 	}
 	
-	//���˷Ǳ�Ӧ�ý������ȵ��б�
+	//过滤非本应用的WIFI
 	private ArrayList<ScanResult> filterResult(List<ScanResult> target){
 		ArrayList<ScanResult>result = new ArrayList<ScanResult>();
 		for(ScanResult sc:target){
