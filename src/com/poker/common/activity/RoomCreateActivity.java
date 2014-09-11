@@ -151,7 +151,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 					boolean fromUser) {
 				// TODO Auto-generated method stub
 				if(fromUser){
-					tipsView.setText(progress);
+					tipsView.setText(progress+"");
 				}
 			}
 		});

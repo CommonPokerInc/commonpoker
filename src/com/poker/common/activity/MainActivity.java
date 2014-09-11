@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -49,9 +51,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private View settingView;
 
-    private View meView;
+    private View meView,firstView;
 
-    private PopupWindow settingWin, meWin;
+    private PopupWindow settingWin, meWin,firstWin;
 
     private ImageView setting_close, me_close;
 
@@ -60,23 +62,35 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private ImageView confirm_edit_btn;
 
-    private ImageView voice_switch, shock_switch;
+    private ImageView voice_switch, shock_switch,first_head_img;
 
+    private ImageButton firstLeft,firstRight;
+    
     private SettingHelper settingHelper;
 
+    private EditText edtFirstName;
+    
+    private Button btnGo;
+    
     private boolean voice_switch_state = false, shock_switch_state = false;//
 
     private boolean editable = false;
 
     private TextView edit_or_confirm;
 
-    private int[] head_img;
+    private int[] head_img = {R.drawable.img_player_picture1,
+    		R.drawable.img_player_picture2,R.drawable.img_player_picture3,
+    		R.drawable.img_player_picture4,R.drawable.img_player_picture5,
+    		R.drawable.img_player_picture6,R.drawable.img_player_picture7,
+    		R.drawable.img_player_picture8};
 
     private ImageView me_right, me_left, me_head_img;
 
     private int whichImg;
 
     private RelativeLayout setting_dialog_layout, me_dialog_layout;
+
+	private int resId =-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +121,10 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         settingHelper = new SettingHelper(getApplicationContext());
     }
 
+    private boolean userExists(){
+    	return null == settingHelper.getNickname();
+    }
+    
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
@@ -114,6 +132,10 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             Intent it = new Intent(MainActivity.this, SendGameActivity.class);
             startActivity(it);
         } else if (v.getId() == R.id.join_home_btn) {
+        	if(userExists()){
+        		showFirstDialog();
+        		return;
+        	}
             if (app.isConnected && app.isServer()) {
                 app.getServer().clearServer();
                 app.isConnected = false;
@@ -124,11 +146,19 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             Intent it = new Intent(MainActivity.this, RoomActivity.class);
             startActivity(it);
         } else if (v.getId() == R.id.create_home_btn) {
+        	if(userExists()){
+        		showFirstDialog();
+        		return;
+        	}
             Intent it = new Intent(MainActivity.this, RoomCreateActivity.class);
             startActivity(it);
         } else if (v.getId() == R.id.mainpage_setting_btn) {
             showSettingDialog();
         } else if (v.getId() == R.id.mainpage_me_btn) {
+        	if(userExists()){
+        		showFirstDialog();
+        		return;
+        	}
             showMeDialog();
         } else if (v.getId() == R.id.setting_close) {
             if (settingView != null && settingView.isShown())
@@ -190,7 +220,25 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
                 me_head_img.setImageResource(head_img[whichImg]);
             }
             settingHelper.setAvatarNumber(whichImg);
-        }
+        }else if(v.getId()==R.id.btn_change_left){
+			resId = (resId-1)%head_img.length;
+			first_head_img.setImageResource(head_img[Math.abs(resId)]);
+		}else if(v.getId()==R.id.btn_change_right){
+			resId = (resId+1)%head_img.length;
+			first_head_img.setImageResource(head_img[resId]);
+		}else if(v.getId()==R.id.btn_go){
+			String strName = edtFirstName.getText().toString();
+			if(strName.equals("")){
+				Toast.makeText(this, "姓名不能为空", Toast.LENGTH_SHORT).show();
+				return;
+			}else{
+				settingHelper.setNickname(strName);
+				settingHelper.setAvatarNumber(Math.abs(resId));
+				Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
+				firstWin.dismiss();
+			}
+		}
+        
     }
 
     private void showMeDialog() {
@@ -228,26 +276,37 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         meWin.setAnimationStyle(R.style.settingAnimation);
         meWin.showAtLocation(MainActivity.this.meBtn, Gravity.BOTTOM, 0, 0);
         meWin.update();
-
-        initImg();
-    }
-
-    private void initImg() {
-        // TODO Auto-generated method stub
-        head_img = new int[8];
-        head_img[0] = R.drawable.img_player_picture1;
-        head_img[1] = R.drawable.img_player_picture2;
-        head_img[2] = R.drawable.img_player_picture3;
-        head_img[3] = R.drawable.img_player_picture4;
-        head_img[4] = R.drawable.img_player_picture5;
-        head_img[5] = R.drawable.img_player_picture6;
-        head_img[6] = R.drawable.img_player_picture7;
-        head_img[7] = R.drawable.img_player_picture8;
-
         me_head_img.setImageResource(head_img[settingHelper.getAvatarNumber()]);
     }
 
-
+    private void showFirstDialog(){
+    	if(settingHelper.getNickname()!=null){
+    		return;
+    	}
+    	if(null==firstWin){
+    		LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+    		firstView = inflater.inflate(R.layout.activity_first, null);
+    		firstLeft = (ImageButton) firstView.findViewById(R.id.btn_change_left);
+    		firstRight = (ImageButton) firstView.findViewById(R.id.btn_change_right);
+    		first_head_img = (ImageView) firstView.findViewById(R.id.img_avatar);
+    		edtFirstName = (EditText) firstView.findViewById(R.id.edt_name);
+    		btnGo = (Button) firstView.findViewById(R.id.btn_go);
+    		firstLeft.setOnClickListener(this);
+    		firstRight.setOnClickListener(this);
+    		btnGo.setOnClickListener(this);
+    		firstWin = new PopupWindow(firstView,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT,true);
+    		firstWin.setBackgroundDrawable(new BitmapDrawable());
+    		firstWin.setFocusable(true);
+    		firstWin.setOutsideTouchable(false);
+    		firstWin.setAnimationStyle(R.style.settingAnimation);
+    	}
+		resId  = settingHelper.getAvatarNumber();
+		first_head_img.setImageResource(head_img[resId]);
+    	firstWin.showAtLocation(meBtn,Gravity.BOTTOM,0,0);
+		firstWin.update();
+    }
+    
+    
 	private void showSettingDialog() {
 		// TODO Auto-generated method stub
     	  LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
