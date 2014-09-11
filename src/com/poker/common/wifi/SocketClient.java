@@ -31,7 +31,7 @@ public class SocketClient {
 	private ClientConnectListener connListener;
 
 	
-	//连接服务器回调接口
+	//锟斤拷锟接凤拷锟斤拷锟斤拷锟截碉拷锟接匡拷
 	public static interface ClientConnectListener {
 		public void onSuccess();
 		public void onFailure(String errorInfo);
@@ -61,7 +61,7 @@ public class SocketClient {
 				try {
 					client = new Socket(site, port);
 					Log.i(TAG, "Client is created! site:" + site + " port:" + port);
-					//进入房间给服务器发送消息后再开始监听
+					//锟斤拷锟诫房锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷息锟斤拷锟劫匡拷始锟斤拷锟斤拷
 					//acceptMsg();
 					connListener.onSuccess();
 				} catch (UnknownHostException e) {
@@ -78,7 +78,7 @@ public class SocketClient {
 		Log.i(TAG, "out connectServer()");
 	}
 
-	//发送消息必须要在接受信息行为之后
+	//锟斤拷锟斤拷锟斤拷息锟斤拷锟斤拷要锟节斤拷锟斤拷锟斤拷息锟斤拷为之锟斤拷
 	public String sendMessage(final String msg) {
 		Log.i(TAG, "into sendMsgsendMsg(final ChatMessage msg)  msg =" + msg);
 		new Thread(new Runnable() {
@@ -116,7 +116,7 @@ public class SocketClient {
 		}
 	}
 
-	//开始接受信息
+	//锟斤拷始锟斤拷锟斤拷锟斤拷息
 	public void beganAcceptMessage(final CommunicationListener listener) {
 		setCommunicationListener(listener);
 		new Thread(new Runnable() {
@@ -144,6 +144,10 @@ public class SocketClient {
 		}).start();
 	}
 
+	public String getLocalAddress(){
+		return client.getLocalAddress().toString();
+	}
+	
 	public void clearClient() {
 		closeConnection();
 	}

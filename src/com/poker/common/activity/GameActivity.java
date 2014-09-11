@@ -9,7 +9,7 @@ import com.poker.common.entity.AbsPlayer;
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.Poker;
 import com.poker.common.entity.Room;
-import com.poker.common.util.Util;
+import com.poker.common.util.PokerUtil;
 import com.poker.common.wifi.listener.MessageListener;
 import com.poker.common.wifi.message.GameMessage;
 import com.poker.common.wifi.message.MessageFactory;
@@ -48,7 +48,7 @@ import com.poker.common.entity.AbsPlayer;
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.Poker;
 import com.poker.common.entity.Room;
-import com.poker.common.util.Util;
+import com.poker.common.util.PokerUtil;
 import com.poker.common.wifi.listener.MessageListener;
 import com.poker.common.wifi.message.GameMessage;
 import com.poker.common.wifi.message.MessageFactory;
@@ -411,7 +411,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     }
     
     public void checkIsMeOption(){
-        if(playerList.get(currentOptionPerson).getInfo().getId().equals(currentPlay.getInfo().getId())){
+        if(playerList.get(currentOptionPerson).getInfo().getIp().equals(currentPlay.getInfo().getIp())){
             if(currentOptionPerson == maxChipIndex){
                 isEnd = true;
             }else{
@@ -754,7 +754,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     
     public int findIndexWithIPinList(ArrayList<ClientPlayer> playerList){
         for(int i = playerList.size()-1;i>=0;i--){
-            if(currentPlay.getInfo().getId().equals(playerList.get(i).getInfo().getId())){
+            if(currentPlay.getInfo().getIp().equals(playerList.get(i).getInfo().getIp())){
                 return i;
             }
         }
@@ -763,7 +763,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     
     public int findPlayer(ClientPlayer player){
         for(int i = playerList.size()-1;i>=0;i--){
-            if(player.getInfo().getId().equals(playerList.get(i).getInfo().getId())){
+            if(player.getInfo().getIp().equals(playerList.get(i).getInfo().getIp())){
                 return i;
             }
         }
@@ -825,7 +825,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
                 setAddSeekBar(false);
                 if(this.playerList.size()>=2){
                     desk_tips.setVisibility(View.INVISIBLE);
-                    All_poker = Util.getPokers(playerList.size());
+                    All_poker = PokerUtil.getPokers(playerList.size());
                     sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, All_poker,null,null));
                     wHandler.removeMessages(WorkHandler.MSG_START_GAME);
                     wHandler.sendEmptyMessage(WorkHandler.MSG_START_GAME);
@@ -935,7 +935,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
             chipList.add(playerList.get(i).getInfo().getAroundSumChip());
             
         }
-        Util.CountChips(chipList, callBack);
+        PokerUtil.CountChips(chipList, callBack);
         setChipPool(callBack);
         
     }

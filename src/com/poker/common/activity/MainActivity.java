@@ -64,11 +64,11 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private ImageView voice_switch, shock_switch,first_head_img;
 
-    private ImageButton firstLeft,firstRight;
+    private ImageButton firstLeft,firstRight,me_right, me_left;
     
     private SettingHelper settingHelper;
 
-    private EditText edtFirstName;
+    private EditText edtFirstName,nickname_edt;
     
     private Button btnGo;
     
@@ -84,7 +84,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     		R.drawable.img_player_picture6,R.drawable.img_player_picture7,
     		R.drawable.img_player_picture8};
 
-    private ImageView me_right, me_left, me_head_img;
+    private ImageView me_head_img;
 
     private int whichImg;
 
@@ -197,29 +197,41 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             if (meView != null && meView.isShown())
                 meWin.dismiss();
         } else if (v.getId() == R.id.confirm_edit_btn) {
+        	if(nickname_edt.getText().toString().equals("")){
+            	Toast.makeText(this, "不能为空", Toast.LENGTH_SHORT).show();
+            	return;
+        	}
             editable = !editable;
-            confirm_edit_btn.setImageResource(editable ? R.drawable.img_confirm_btn
-                    : R.drawable.img_edit_btn);
-            edit_or_confirm.setText(editable ? R.string.confirm : R.string.edit);
-
+            if(!editable){
+            	Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
+            	settingHelper.setAvatarNumber(whichImg);
+            	settingHelper.setNickname(nickname_edt.getText().toString());
+            	confirm_edit_btn.setImageResource(R.drawable.img_edit_btn);
+            	edit_or_confirm.setText(R.string.edit);
+            }else{
+            	confirm_edit_btn.setImageResource(R.drawable.img_confirm_btn);
+                edit_or_confirm.setText(R.string.confirm);
+            }
+            nickname_edt.setEnabled(editable);
+            
         } else if (v.getId() == R.id.left) {
-            whichImg = settingHelper.getAvatarNumber();
+        	if(!editable)
+        		return;
             if (whichImg <= 0) {
                 me_head_img.setImageResource(head_img[whichImg]);
             } else {
                 whichImg--;
                 me_head_img.setImageResource(head_img[whichImg]);
             }
-            settingHelper.setAvatarNumber(whichImg);
         } else if (v.getId() == R.id.right) {
-            whichImg = settingHelper.getAvatarNumber();
+        	if(!editable)
+        		return;
             if (whichImg >= 7) {
                 me_head_img.setImageResource(head_img[whichImg]);
             } else {
                 whichImg++;
                 me_head_img.setImageResource(head_img[whichImg]);
             }
-            settingHelper.setAvatarNumber(whichImg);
         }else if(v.getId()==R.id.btn_change_left){
 			resId = (resId-1)%head_img.length;
 			first_head_img.setImageResource(head_img[Math.abs(resId)]);
@@ -243,15 +255,17 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private void showMeDialog() {
         // TODO Auto-generated method stub
+    	if(null==meWin){
         LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
         meView = inflater.inflate(R.layout.activity_me, null);
         me_dialog_layout = (RelativeLayout) meView.findViewById(R.id.me_dialog_layout);
         me_close = (ImageView) meView.findViewById(R.id.me_close);
         confirm_edit_btn = (ImageView) meView.findViewById(R.id.confirm_edit_btn);
         edit_or_confirm = (TextView) meView.findViewById(R.id.confirm_edit_txt);
-        me_right = (ImageView) meView.findViewById(R.id.right);
-        me_left = (ImageView) meView.findViewById(R.id.left);
+        me_right = (ImageButton) meView.findViewById(R.id.right);
+        me_left = (ImageButton) meView.findViewById(R.id.left);
         me_head_img = (ImageView) meView.findViewById(R.id.head_img);
+        nickname_edt = (EditText) meView.findViewById(R.id.nickname_edt);
         me_close.setOnClickListener(this);
         confirm_edit_btn.setOnClickListener(this);
         me_left.setOnClickListener(this);
@@ -274,9 +288,12 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         meWin.setFocusable(true);
         meWin.setOutsideTouchable(true);
         meWin.setAnimationStyle(R.style.settingAnimation);
+    	}
         meWin.showAtLocation(MainActivity.this.meBtn, Gravity.BOTTOM, 0, 0);
         meWin.update();
+        whichImg = settingHelper.getAvatarNumber();
         me_head_img.setImageResource(head_img[settingHelper.getAvatarNumber()]);
+        nickname_edt.setText(settingHelper.getNickname());
     }
 
     private void showFirstDialog(){
@@ -309,6 +326,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     
 	private void showSettingDialog() {
 		// TODO Auto-generated method stub
+		if(null!=settingWin){
     	  LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
           settingView = inflater.inflate(R.layout.activity_setting, null);
           setting_dialog_layout = (RelativeLayout)settingView.findViewById(R.id.setting_dialog_layout);
@@ -345,6 +363,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
           settingWin.setOutsideTouchable(true);
           settingWin.setFocusable(true);
           settingWin.setAnimationStyle(R.style.settingAnimation);
+		}
           settingWin.showAtLocation(MainActivity.this.settingBtn, Gravity.BOTTOM, 0, 0); 
           settingWin.update();
           

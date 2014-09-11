@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.poker.common.R;
 import com.poker.common.entity.Poker;
 import com.poker.common.util.FileUtil;
-import com.poker.common.util.Util;
+import com.poker.common.util.PokerUtil;
 
 /**
  *
@@ -54,14 +54,14 @@ public class TestActivity extends Activity{
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                pokers = Util.getPokers(1);
+                pokers = PokerUtil.getPokers(1);
                 pokersBack = new ArrayList<Poker>();
                 String str = "";
                 StringBuffer sb = new StringBuffer();
                 for(int i = 0;i<pokers.size();i++){
                     str += pokers.get(i).getNumber()+" ";
                 }
-                int result = Util.getPokerType(pokers,pokersBack);
+                int result = PokerUtil.getPokerType(pokers,pokersBack);
                 t.setText(result+"");
                 str += "---->"+result+": ��ʤ����: ";
                 for(int i = 0;i<pokersBack.size();i++){

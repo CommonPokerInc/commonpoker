@@ -2,88 +2,88 @@
 package com.poker.common.entity;
 
 import com.poker.common.R;
-import com.poker.common.util.Util;
+import com.poker.common.util.PokerUtil;
 
 /*
  * author zkzhou
- * description ÆË¿ËÅÆÀà
+ * description ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½
  * time 2014-7-29
  *
  */
 public class Poker {
 
-    // ÆË¿ËÅÆ»¨É«
-    // 0£º·½¿é
-    // 1£ºÃ·»¨
-    // 2£ººìÌÒ
-    // 3£ººÚÌÒ
+    // ï¿½Ë¿ï¿½ï¿½Æ»ï¿½É«
+    // 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // 1ï¿½ï¿½Ã·ï¿½ï¿½
+    // 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // 3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private int color;
 
-    // ´óÐ¡
+    // ï¿½ï¿½Ð¡
     private int size;
 
-    // ±àºÅ
+    // ï¿½ï¿½ï¿½
     private int number;
 
-    // ÆË¿ËÅÆÍ¼Æ¬ID
+    // ï¿½Ë¿ï¿½ï¿½ï¿½Í¼Æ¬ID
     private int PokerImageId;
 
     public Poker() {
 
     }
 
-    // ¸ù¾ÝnumberÀ´³õÊ¼»¯ÆË¿ËÅÆ
-    // 0-12·½¿é
-    // 13-25Ã·»¨
-    // 26-38ºìÌÒ
-    // 39-51ºÚÌÒ
+    // ï¿½ï¿½ï¿½numberï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
+    // 0-12ï¿½ï¿½ï¿½ï¿½
+    // 13-25Ã·ï¿½ï¿½
+    // 26-38ï¿½ï¿½ï¿½ï¿½
+    // 39-51ï¿½ï¿½ï¿½ï¿½
     public Poker(int number) {
         this.number = number;
         this.color = number / 13;
         this.size = number % 13;
-        PokerImageId = Util.pokersImg[number];
+        PokerImageId = PokerUtil.pokersImg[number];
     }
 
     public Poker(Poker p) {
         this.number = p.getNumber();
         this.color = p.getColor();
         this.size = p.getSize();
-        PokerImageId = Util.pokersImg[this.number];
+        PokerImageId = PokerUtil.pokersImg[this.number];
     }
 
     public void setPoker(Poker p) {
         this.number = p.getNumber();
         this.color = p.getColor();
         this.size = p.getSize();
-        PokerImageId = Util.pokersImg[this.number];
+        PokerImageId = PokerUtil.pokersImg[this.number];
     }
 
     // private void initNum(String color, int size) {
     // TODO Auto-generated method stub
     // int c=0;
-    // if("·½¿é".equals(color)){
+    // if("ï¿½ï¿½ï¿½ï¿½".equals(color)){
     // c=1;
-    // }else if("Ã·»¨".equals(color)){
+    // }else if("Ã·ï¿½ï¿½".equals(color)){
     // c=2;
-    // }else if("ºìÌÒ".equals(color)){
+    // }else if("ï¿½ï¿½ï¿½ï¿½".equals(color)){
     // c=3;
     // }else{
     // c=4;
     // }
     // switch(Integer.valueOf(c)){
-    // //·½¿é
+    // //ï¿½ï¿½ï¿½ï¿½
     // case 1:
     // number = (size%14)*4-3;
     // break;
-    // //Ã·»¨
+    // //Ã·ï¿½ï¿½
     // case 2:
     // number = (size%14)*4-2;
     // break;
-    // //ºìÌÒ
+    // //ï¿½ï¿½ï¿½ï¿½
     // case 3:
     // number = (size%14)*4-1;
     // break;
-    // //ºÚÌÒ
+    // //ï¿½ï¿½ï¿½ï¿½
     // case 4:
     // number = (size%14)*4;
     // break;

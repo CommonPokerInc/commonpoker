@@ -72,12 +72,12 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		if(app.isServer()){
 			app.getServer().setListener(this);
 			app.getServer().beginListen(this);
-			//initTimeMap();
+			initTimeMap();
 		}else{
 			app.getClient().beganAcceptMessage(this);
-			//mReceiveTime = System.currentTimeMillis();
+			mReceiveTime = System.currentTimeMillis();
 		}
-		//initBackHandler();
+		initBackHandler();
 	}
 	
 	@SuppressLint("HandlerLeak")
@@ -191,6 +191,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 				// TODO Auto-generated method stub
 				super.run();
 				mTimer =new Timer();
+				mHandler = new BackHandler(this.getLooper());
 				if(app.isServer()){
 					mHandler.postDelayed(new SendRunnable(),INTERVAL_AFTER_START);
 				}
@@ -198,7 +199,6 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 			}
 		};
 		mThread.start();
-		mHandler = new BackHandler(mThread.getLooper());
 	}
 
 	private void initTimeMap(){
@@ -287,6 +287,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 							removeClientByTag(key);
 							clientDecrease(key);
 						}else{
+							Log.i("frankchan", key+"back");
 							timeMap.put(key, Long.valueOf(System.currentTimeMillis()));
 						}
 					}
@@ -296,6 +297,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 						Log.e("frankchan", "没有及时收到服务器的消息");
 						disconnectFromServer((int)mInterval/1000);
 					}else{
+						Log.i("frankchan", "Server back");
 						mReceiveTime = System.currentTimeMillis();
 					}
 				}

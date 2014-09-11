@@ -30,6 +30,7 @@ import com.poker.common.entity.ServerPlayer;
 import com.poker.common.entity.UserInfo;
 import com.poker.common.util.SettingHelper;
 import com.poker.common.util.SystemUtil;
+import com.poker.common.util.WifiUtil;
 import com.poker.common.wifi.Global;
 import com.poker.common.wifi.SocketServer;
 import com.poker.common.wifi.SocketServer.SocketCreateListener;
@@ -280,8 +281,8 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 		UserInfo info = new UserInfo();
 		info.setAvatar(helper.getAvatarNumber());
 		info.setName("房主:"+helper.getNickname());
+		info.setIp("192.168.43.1");
 		app.sp = new ServerPlayer(info, app.getServer());
-		info.setId(SystemUtil.getID(getApplicationContext()));
 		Intent intent = new Intent(this,GameActivity.class);
 		intent.putExtra("Room", room);
 		intent.putExtra("SSID", mSSID);

@@ -9,7 +9,7 @@ package com.poker.common.entity;
 public class UserInfo {
 	private String name;
 	
-	private String id;
+	private String ip;
 	
 	private int avatar;
 	
@@ -53,12 +53,12 @@ public class UserInfo {
 		this.aroundChip = aroundChip;
 	}
 
-	public String getId() {
-        return id;
+	public String getIp() {
+        return ip;
     }
 
-    public void setId(String iD) {
-        id = iD;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public String getName() {
