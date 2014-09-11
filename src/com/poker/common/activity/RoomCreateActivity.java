@@ -282,6 +282,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 		info.setAvatar(helper.getAvatarNumber());
 		info.setName("房主:"+helper.getNickname());
 		info.setIp("192.168.43.1");
+		info.setId(SystemUtil.getIMEI(getApplicationContext()));
 		app.sp = new ServerPlayer(info, app.getServer());
 		Intent intent = new Intent(this,GameActivity.class);
 		intent.putExtra("Room", room);

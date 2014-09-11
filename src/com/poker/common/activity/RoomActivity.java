@@ -138,9 +138,11 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 				info.setAvatar(helper.getAvatarNumber());
 				info.setName(helper.getNickname());
 				info.setIp(client.getLocalAddress().toString().substring(1));
+				info.setId(SystemUtil.getIMEI(getApplicationContext()));
 				app.cp = new ClientPlayer(info,app.getClient());
 				Toast.makeText(RoomActivity.this, "加入成功", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(RoomActivity.this,GameActivity.class);
+				intent.putExtra("IpAddress", info.getIp());
 				startActivity(intent);
 				RoomActivity.this.finish();
 				break;

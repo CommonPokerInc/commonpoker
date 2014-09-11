@@ -68,7 +68,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 	protected void registerListener(){
 		app = (BaseApplication) getApplication();
 		mSSID = getIntent().getStringExtra("SSID");
-		mClientIpAddress = getIntent().getStringExtra("");
+		mClientIpAddress = getIntent().getStringExtra("IpAddress");
 		if(app.isServer()){
 			app.getServer().setListener(this);
 			app.getServer().beginListen(this);
@@ -185,20 +185,14 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 	}
 	
 	private void initBackHandler(){
-		mThread = new HandlerThread("BeatDetector"){
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				super.run();
-				mTimer =new Timer();
-				mHandler = new BackHandler(this.getLooper());
-				if(app.isServer()){
-					mHandler.postDelayed(new SendRunnable(),INTERVAL_AFTER_START);
-				}
-				mHandler.postDelayed(new AckRunnable(), INTERVAL_AFTER_SEND);
-			}
-		};
+		mThread = new HandlerThread("BeatDetector");
 		mThread.start();
+		mHandler = new BackHandler(mThread.getLooper());
+		mTimer =new Timer();
+		if(app.isServer()){
+			mHandler.postDelayed(new SendRunnable(),INTERVAL_AFTER_START);
+		}
+		mHandler.postDelayed(new AckRunnable(), INTERVAL_AFTER_SEND);
 	}
 
 	private void initTimeMap(){
@@ -227,7 +221,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			mTimer.schedule(mSendTask, INTERVAL_SEND_MSG);
+			mTimer.schedule(mSendTask, 0,INTERVAL_SEND_MSG);
 		}
 		
 	}
@@ -237,7 +231,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			mTimer.schedule(mCheckTask, INTERVAL_MAX_ACK);
+			mTimer.schedule(mCheckTask, 0,INTERVAL_MAX_ACK);
 		}
 		
 	}
@@ -255,8 +249,6 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 			if(allowSend){
 				if(app.isServer()){
 					app.getServer().sendAcktoAllClients();
-				}else{
-					app.getClient().sendMessage(mClientIpAddress);
 				}
 			}
 		}
@@ -287,7 +279,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 							removeClientByTag(key);
 							clientDecrease(key);
 						}else{
-							Log.i("frankchan", key+"back");
+							Log.i("frankchan", key+"客户端按时应答");
 							timeMap.put(key, Long.valueOf(System.currentTimeMillis()));
 						}
 					}
@@ -297,7 +289,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 						Log.e("frankchan", "没有及时收到服务器的消息");
 						disconnectFromServer((int)mInterval/1000);
 					}else{
-						Log.i("frankchan", "Server back");
+						Log.i("frankchan", "Server及时应答");
 						mReceiveTime = System.currentTimeMillis();
 					}
 				}

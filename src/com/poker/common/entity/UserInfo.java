@@ -11,6 +11,8 @@ public class UserInfo {
 	
 	private String ip;
 	
+	private String id;
+	
 	private int avatar;
 	
 	private boolean isQuit ;
@@ -75,6 +77,14 @@ public class UserInfo {
 
 	public void setAvatar(int avatar) {
 		this.avatar = avatar;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }
 

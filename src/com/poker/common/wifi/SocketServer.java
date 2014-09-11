@@ -54,7 +54,7 @@ public class SocketServer {
 		return serverSocket;
 	}
 	
-	//ÉèÖÃÈÈµã½ÓÈëÈËÊı±ä»¯¼àÌıÆ÷
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void setClientListener(WifiClientListener clientListener){
 	}
 	
@@ -110,7 +110,6 @@ public class SocketServer {
 						try {
 							final Socket socket = server.accept();
 							if (socket != null) {
-								//¼àÌıµ½¿Í»§¶Ë½ÓÈë
 								if (!socketQueue.contains(socket)) {
 									socketQueue.add(socket);
 									socketMap.put(socket.getInetAddress().getHostName(), socket);
@@ -129,7 +128,7 @@ public class SocketServer {
 		}).start();
 	}
 
-	//¶Ôµ¥¸ö¿Í»§¶Ë·¢³öÏûÏ¢,±ØĞëÔÚ¿ªÊ¼¼àÌıĞĞÎªºó²Å¿ÉÖ´ĞĞ
+	//ï¿½Ôµï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Å¿ï¿½Ö´ï¿½ï¿½
 	public void sendMessage(final Socket client, final String msg) {
 		Log.i(TAG, "into sendMsg(final Socket client,final ChatMessage msg) msg = " + msg);
 		PrintWriter out = null;

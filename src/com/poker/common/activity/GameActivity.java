@@ -411,7 +411,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     }
     
     public void checkIsMeOption(){
-        if(playerList.get(currentOptionPerson).getInfo().getIp().equals(currentPlay.getInfo().getIp())){
+        if(playerList.get(currentOptionPerson).getInfo().getId().equals(currentPlay.getInfo().getId())){
             if(currentOptionPerson == maxChipIndex){
                 isEnd = true;
             }else{
@@ -754,7 +754,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     
     public int findIndexWithIPinList(ArrayList<ClientPlayer> playerList){
         for(int i = playerList.size()-1;i>=0;i--){
-            if(currentPlay.getInfo().getIp().equals(playerList.get(i).getInfo().getIp())){
+            if(currentPlay.getInfo().getId().equals(playerList.get(i).getInfo().getId())){
                 return i;
             }
         }
@@ -763,7 +763,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     
     public int findPlayer(ClientPlayer player){
         for(int i = playerList.size()-1;i>=0;i--){
-            if(player.getInfo().getIp().equals(playerList.get(i).getInfo().getIp())){
+            if(player.getInfo().getId().equals(playerList.get(i).getInfo().getId())){
                 return i;
             }
         }
@@ -1250,7 +1250,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 	@Override
 	public void clientDecrease(String clientName) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
