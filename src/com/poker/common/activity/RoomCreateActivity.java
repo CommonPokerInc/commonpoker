@@ -28,6 +28,7 @@ import com.poker.common.R;
 import com.poker.common.entity.Room;
 import com.poker.common.entity.ServerPlayer;
 import com.poker.common.entity.UserInfo;
+import com.poker.common.util.SettingHelper;
 import com.poker.common.util.SystemUtil;
 import com.poker.common.wifi.Global;
 import com.poker.common.wifi.SocketServer;
@@ -71,6 +72,8 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 	
 	private boolean allowCreate = true;
 	
+	private SettingHelper helper;
+	
 	private final static int MAX_COUNT = 6;
 	
 	private final static int MSG_CREATE_SERVER_SOCKET = 1;
@@ -85,6 +88,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 		findViewById(R.id.btn_create_rank).setOnClickListener(this);
 		findViewById(R.id.btn_create_limit).setOnClickListener(this);
 		findViewById(R.id.btn_create_room).setOnClickListener(this);
+		helper = new SettingHelper(this);
 		rBtnLimit = (RadioButton) findViewById(R.id.radio_limit_rounds);
 		rBtnRank = (RadioButton) findViewById(R.id.radio_rank_rounds);
 		rBtnRank.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -274,7 +278,8 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 	private void gotoGameActivity(){
 		app.setServer(SocketServer.newInstance());
 		UserInfo info = new UserInfo();
-		info.setName("Server");
+		info.setAvatar(helper.getAvatarNumber());
+		info.setName("房主:"+helper.getNickname());
 		app.sp = new ServerPlayer(info, app.getServer());
 		info.setId(SystemUtil.getID(getApplicationContext()));
 		Intent intent = new Intent(this,GameActivity.class);

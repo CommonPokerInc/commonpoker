@@ -11,6 +11,8 @@ public class UserInfo {
 	
 	private String id;
 	
+	private int avatar;
+	
 	private boolean isQuit ;
 	
 	private int baseMoney;
@@ -65,6 +67,14 @@ public class UserInfo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(int avatar) {
+		this.avatar = avatar;
 	}
 }
 

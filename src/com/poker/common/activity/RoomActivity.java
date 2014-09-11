@@ -27,6 +27,7 @@ import com.poker.common.adapter.RoomAdapter;
 import com.poker.common.adapter.RoomAdapter.OnItemListener;
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.UserInfo;
+import com.poker.common.util.SettingHelper;
 import com.poker.common.util.SystemUtil;
 import com.poker.common.wifi.Global;
 import com.poker.common.wifi.SocketClient;
@@ -63,12 +64,15 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 	private final static int MSG_CONNECT_FAILURE = 2;
 	
 	private boolean allowEntry = true;
+	
+	private SettingHelper helper;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_room);
 		app = (BaseApplication)getApplication();
+		helper = new SettingHelper(this);
 		initView();
 		beginScan();
 	}
@@ -130,7 +134,8 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 				allowEntry =true;
 				app.setClient(client);
 				UserInfo info = new UserInfo();
-				info.setName("client1");
+				info.setAvatar(helper.getAvatarNumber());
+				info.setName(helper.getNickname());
 				info.setId(SystemUtil.getID(getApplicationContext()));
 				app.cp = new ClientPlayer(info,app.getClient());
 				Toast.makeText(RoomActivity.this, "加入成功", Toast.LENGTH_SHORT).show();
