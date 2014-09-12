@@ -178,6 +178,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             startActivity(intent);
 
         } else if (v.getId() == R.id.about_item_layout) {
+        	
+            Intent intent = new Intent(this, zzkTestActivity.class);
+            startActivity(intent);
 
         } else if (v.getId() == R.id.shock_switch_img) {
             shock_switch_state = !settingHelper.getVibrationStatus();
@@ -326,7 +329,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     
 	private void showSettingDialog() {
 		// TODO Auto-generated method stub
-		if(null!=settingWin){
+		if(null==settingWin){
     	  LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
           settingView = inflater.inflate(R.layout.activity_setting, null);
           setting_dialog_layout = (RelativeLayout)settingView.findViewById(R.id.setting_dialog_layout);

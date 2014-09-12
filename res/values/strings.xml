@@ -49,5 +49,9 @@
     <string name="punishment_txt">你这么聪明，你爸妈造吗？滚粗。。。。。。</string>
     <string name="punishment_begin_txt">开始</string>
     <string name="punishment_close_txt">关闭</string>
+    
+    <string name="player_name">逗比</string>
+    <string name="player_action_txt">投注2000</string>
+    <string name="bet_txt">3000</string>
 
 </resources>

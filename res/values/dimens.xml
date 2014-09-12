@@ -131,5 +131,20 @@
     <dimen name="punishment_layout_marginright">10dp</dimen>
     <dimen name="punishment_player_layout_margintop">15dp</dimen>
     <dimen name="punishment_player_img_marginright">8dp</dimen>
+    
+    <dimen name="player_name_size">14dp</dimen>
+   
+    
+    <!--  玩家行为toast-->
+    <dimen name="player_layout_marginright">8dp</dimen>
+    <dimen name="player_action_txt_size">16dp</dimen>
+    <dimen name="player_action_layout">15dp</dimen>
+    <dimen name="player_layouy_margintop">8dp</dimen>
+    <dimen name="player_layout_marginleft">8dp</dimen>
+    <dimen name="player_layouy_marginbottom">8dp</dimen>
+    <dimen name="player_action_layout_margintop">15dp</dimen>
+    
+    <!-- bet -->
+     <dimen name="bet_txt">14dp</dimen>
         
 </resources>

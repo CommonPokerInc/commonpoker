@@ -88,6 +88,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize" 
             android:label="@string/title_activity_punish" >
         </activity>
+                <activity
+            android:name="com.poker.common.activity.zzkTestActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden|screenSize"  >
+        </activity>
     </application>
     <!-- 手机权限定义 -->
     <uses-permission android:name="android.permission.INTERNET" />
