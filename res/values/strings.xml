@@ -53,5 +53,6 @@
     <string name="player_name">逗比</string>
     <string name="player_action_txt">投注2000</string>
     <string name="bet_txt">3000</string>
+    <string name="me_action_txt">加注1000</string>
 
 </resources>

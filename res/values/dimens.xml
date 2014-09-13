@@ -132,19 +132,26 @@
     <dimen name="punishment_player_layout_margintop">15dp</dimen>
     <dimen name="punishment_player_img_marginright">8dp</dimen>
     
-    <dimen name="player_name_size">14dp</dimen>
+    <dimen name="player_name_size">25sp</dimen>
    
     
     <!--  玩家行为toast-->
     <dimen name="player_layout_marginright">8dp</dimen>
-    <dimen name="player_action_txt_size">16dp</dimen>
+    <dimen name="player_action_txt_size">30sp</dimen>
     <dimen name="player_action_layout">15dp</dimen>
     <dimen name="player_layouy_margintop">8dp</dimen>
     <dimen name="player_layout_marginleft">8dp</dimen>
     <dimen name="player_layouy_marginbottom">8dp</dimen>
-    <dimen name="player_action_layout_margintop">15dp</dimen>
+    <dimen name="player_action_layout_margintop">40dp</dimen>
+    <dimen name="player_action_view_layout_width">500dp</dimen>
+    <dimen name="player_action_view_layout_height">250dp</dimen>
+    <dimen name="bet_txt">20sp</dimen>
+    <dimen name="player_img_width">150dp</dimen>
+    <dimen name="player_img_height">150dp</dimen>
     
-    <!-- bet -->
-     <dimen name="bet_txt">14dp</dimen>
+    <!-- 我行为toast -->
+    <dimen name="me_action_txt_size">50sp</dimen>
+    <dimen name="me_action_txt_width">500dp</dimen>
+    <dimen name="me_action_txt_height">100dp</dimen>
         
 </resources>
