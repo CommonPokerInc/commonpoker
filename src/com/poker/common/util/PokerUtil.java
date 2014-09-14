@@ -1,5 +1,6 @@
 ﻿package com.poker.common.util;
 
+import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.Poker;
 
 import com.poker.common.R;
@@ -7,6 +8,7 @@ import com.poker.common.entity.Poker;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 
 import com.poker.common.entity.Poker;
@@ -75,6 +77,42 @@ public class PokerUtil {
 		}
 		return pokers;
 	}
+	
+	public static ArrayList getWinner(ArrayList<ClientPlayer> playerList,ArrayList<Poker> poker){
+		HashMap<String,ArrayList<ClientPlayer>> players = new HashMap<String, ArrayList<ClientPlayer>>();
+		ArrayList pokersType = new ArrayList();
+		for(int i = 0;i<playerList.size();i++){
+			ArrayList<Poker> box = new ArrayList<Poker>();
+			Poker p1 = new Poker(poker.get(i*2));
+			Poker p2 = new Poker(poker.get(i*2+1));
+			Poker p3 = new Poker(poker.get(poker.size()-1));
+			Poker p4 = new Poker(poker.get(poker.size()-2));
+			Poker p5 = new Poker(poker.get(poker.size()-3));
+			Poker p6 = new Poker(poker.get(poker.size()-4));
+			Poker p7 = new Poker(poker.get(poker.size()-5));
+			box.add(p1);
+			box.add(p2);
+			box.add(p3);
+			box.add(p4);
+			box.add(p5);
+			box.add(p6);
+			box.add(p7);
+			playerList.get(i).getInfo().setCardType(getPokerType(box, null));
+			if(!pokersType.contains(playerList.get(i).getInfo().getCardType())){
+				pokersType.add(playerList.get(i).getInfo().getCardType());
+			}
+		}
+		for(int i = 0;i<pokersType.size();i++){
+			int max = Integer.parseInt(pokersType.get(i).toString());
+			for(int j = i;j<pokersType.size();j++){
+				if(Integer.parseInt(pokersType.get(j).toString())>max){
+					max = Integer.parseInt(pokersType.get(j).toString());
+				}
+			}
+		}
+		
+		return pokersType;
+	}
 
 //	�������ҵ�7���Ƶõ����������ͣ�����Խ��������Խ����
 	public static int getPokerType(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
@@ -84,34 +122,63 @@ public class PokerUtil {
 		if(checkoutFivePokerColorSame(pokers,pokersBack)){
 		    if(chekcoutPokerSucceedingNumbers(pokersBack,pokersBackUp)){
 		        pokersBack = pokersBackUp;
-		        return FLUSH;
+		        return FLUSH*1000+countPokerNumber(pokersBack);
 		    }else{
-		        return ROYAL_FLUSH;
+		        return ROYAL_FLUSH*1000+countPokerNumber(pokersBack);
 		    }
 		}else if(chekcoutPokerSucceedingNumbers(pokers,pokersBack)){
-		    return STRAIGHT;
+		    return STRAIGHT*1000+countPokerNumber(pokersBack);
 		}else if(chekcoutFourPokerNumber(pokers,pokersBack)){
-		    return KING_KONG;
+		    return KING_KONG*1000+countPokerNumber(pokersBack);
 		}else if(checkoutThreePokerNumber(pokers,pokersBack)){
 		    pokers.removeAll(pokersBack);
 		    if(checkoutTwoPokerNumber(pokers,pokersBackUp)){
 		        pokersBack.addAll(pokersBackUp);
-		        return GOURD;
+		        return GOURD*1000+countPokerNumber(pokersBack);
 		    }else{
-		        return THREE;
+		        return THREE*1000+countPokerNumber(pokersBack);
 		    }
 		}else if(checkoutTwoPokerNumber(pokers,pokersBack)){
 		    pokers.removeAll(pokersBack);
 		    if(checkoutTwoPokerNumber(pokers,pokersBackUp)){
 		        pokersBack.addAll(pokersBackUp);
-		        return TWO_PAIR;
+		        return TWO_PAIR*1000+countPokerNumber(pokersBack);
 		    }else{
-		        return PAIR;
+		        return PAIR*1000+countPokerNumber(pokersBack);
 		    }
 		}else{
-		    return HIGH_CARD;
+			
+		    return HIGH_CARD*1000+heighCardCount(pokers);
 		}
 	}
+	
+    public static int countPokerNumber(ArrayList<Poker> pokers){
+    	int sum = 0;
+    	for(int i = pokers.size()-1;i>=0;i--){
+    		sum +=pokers.get(i).getNumber();
+    	}
+    	return sum;
+    }
+    
+    public static int heighCardCount(ArrayList<Poker> pokers){
+    	int max = 0;
+    	if(pokers.get(0).getSize() == 0){
+			pokers.get(0).setSize(14);
+		}
+    	max = pokers.get(0).getSize()*7+pokers.get(0).getColor();
+    	for(int i = 0;i<pokers.size();i++){
+    		if(pokers.get(i).getSize() == 0){
+    			pokers.get(i).setSize(14);
+    		}
+    		if(pokers.get(i).getSize()*7+pokers.get(i).getColor()>max){
+    			max = pokers.get(i).getSize()*7+pokers.get(i).getColor();
+    		}
+    		if(pokers.get(i).getSize() == 14){
+    			pokers.get(i).setSize(0);
+    		}
+    	}
+    	return max;
+    }
 	
 //	�ж��Ƿ�����5�Ż�ɫ��ͬ
 	public static boolean checkoutFivePokerColorSame(ArrayList<Poker> pokers,ArrayList<Poker> pokersBack){
@@ -306,6 +373,20 @@ public class PokerUtil {
 	        }
 	    }
         return false;
-	    
+	}
+	
+	public static int getWinMoney(int winnerIndex,ArrayList<ClientPlayer> playerList){
+		int winner = playerList.get(winnerIndex).getInfo().getAroundSumChip();
+		int sum = 0;
+		for(int i = 0;i<playerList.size();i++){
+			if(winner>=playerList.get(i).getInfo().getAroundSumChip()){
+				sum += playerList.get(i).getInfo().getAroundSumChip();
+				playerList.get(i).getInfo().setAroundSumChip(0);
+			}else{
+				sum += (playerList.get(i).getInfo().getAroundSumChip() - winner);
+				playerList.get(i).getInfo().setAroundSumChip(playerList.get(i).getInfo().getAroundSumChip() - winner);
+			}
+		}
+		return sum;
 	}
 }

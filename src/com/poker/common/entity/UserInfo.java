@@ -22,6 +22,16 @@ public class UserInfo {
 	private int aroundChip;
 	
 	private int aroundSumChip = 0;
+	
+	private int cardType = 0;
+
+	public int getCardType() {
+		return cardType;
+	}
+
+	public void setCardType(int cardType) {
+		this.cardType = cardType;
+	}
 
 	public int getAroundSumChip() {
         return aroundSumChip;
