@@ -153,5 +153,34 @@
     <dimen name="me_action_txt_size">50sp</dimen>
     <dimen name="me_action_txt_width">500dp</dimen>
     <dimen name="me_action_txt_height">100dp</dimen>
-        
+    
+    <!-- 游戏界面 -->
+    
+    <!-- 我的action -->
+    <dimen name="me_dealer_img_width">25dp</dimen>
+    <dimen name="me_dealer_img_height">25dp</dimen>
+    <dimen name="me_image_img_width">100dp</dimen>
+    <dimen name="me_image_img_height">100dp</dimen>
+    <dimen name="me_name_txt_size">25sp</dimen>
+    <dimen name="me_money_txt_size">30sp</dimen>
+    <dimen name="relativeLayout1_marginright">20dp</dimen>
+    
+    <!-- 扑克牌 -->
+    <dimen name="game_poker_layout_widht">400dp</dimen>
+    <dimen name="game_poker_layout_margintop">10dp</dimen>
+    <dimen name="game_pokers_img_width">90dp</dimen>
+    <dimen name="game_pokers_img_height">120dp</dimen>
+    <dimen name="game_pokers_img_marginleft">-40dp</dimen>
+    <dimen name="game_mypoker_img_marginleft">20dp</dimen>
+    <dimen name="game_mypoker_type_txt_size">15sp</dimen>
+    <dimen name="game_mypoker_type_txt_margintop">10dp</dimen>
+    <dimen name="game_mypoker_type_txt_width">90dp</dimen>
+    <dimen name="game_mypoker_type_txt_height">30dp</dimen>
+    
+    <!-- 池 -->
+    <dimen name="game_cool_layout_height">45dp</dimen>
+    <dimen name="game_cool_layout_marintop">10dp</dimen>
+    <dimen name="game_cool_layout_marginleft">5dp</dimen>
+    <dimen name="game_cool_layout_marginright">5dp</dimen>
+    
 </resources>

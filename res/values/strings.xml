@@ -54,5 +54,8 @@
     <string name="player_action_txt">投注2000</string>
     <string name="bet_txt">3000</string>
     <string name="me_action_txt">加注1000</string>
+    <string name="me_name_txt">逗比</string>
+    <string name="me_money_txt">3500</string>
+    <string name="game_mypoker_type_txt">皇家同花順</string>
 
 </resources>

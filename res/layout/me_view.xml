@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/me_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/me_dealer_img"
+        android:layout_width="@dimen/me_dealer_img_width"
+        android:layout_height="@dimen/me_dealer_img_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/img_dealer" />
+
+    <RelativeLayout
+        android:id="@+id/me_view_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/me_dealer_img"
+        android:background="#e0000000" >
+
+        <ImageView
+            android:id="@+id/me_image_img"
+            android:layout_width="@dimen/me_image_img_width"
+            android:layout_height="@dimen/me_image_img_height"
+            android:src="@drawable/img_player_picture1" />
+
+        <TextView
+            android:id="@+id/me_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/me_image_img"
+            android:layout_centerHorizontal="true"
+            android:text="@string/me_name_txt"
+            android:textColor="@color/white"
+            android:textSize="@dimen/me_name_txt_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/relativeLayout1_marginright"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/me_view_layout" >
+
+        <ImageView
+            android:id="@+id/me_image_img1"
+            android:layout_width="@dimen/me_image_img_width"
+            android:layout_height="@dimen/me_image_img_height"
+            android:src="@drawable/img_player_picture1"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/me_name_txt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/me_image_img1"
+            android:layout_centerHorizontal="true"
+            android:text="@string/me_name_txt"
+            android:textColor="@color/white"
+            android:textSize="@dimen/me_name_txt_size"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/me_money_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/me_money_txt"
+            android:textColor="@color/white"
+            android:textSize="@dimen/me_money_txt_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/me_dealer_img"
+        android:layout_toRightOf="@+id/relativeLayout1" >
+
+        <com.poker.common.custom.BetView
+            android:id="@+id/player_bet_view"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content">
+        </com.poker.common.custom.BetView>
+    </RelativeLayout>
+
+</RelativeLayout>
