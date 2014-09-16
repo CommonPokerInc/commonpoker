@@ -574,6 +574,29 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
         }
     }
     
+    public void setBaseMoney(ClientPlayer player,int money){
+    	 int playerIndex = findPlayer(player);
+    	 if(playerIndex == Integer.parseInt(seat_one.getTag().toString())){
+             seat_one.getPersonView().setPersonMoney(String.valueOf(money));
+         }
+    	 if(playerIndex == Integer.parseInt(seat_two.getTag().toString())){
+    		 seat_two.getPersonView().setPersonMoney(String.valueOf(money));
+    	 }
+    	 if(playerIndex == Integer.parseInt(seat_three.getTag().toString())){
+    		 seat_three.getPersonView().setPersonMoney(String.valueOf(money));
+    	 }
+    	 if(playerIndex == Integer.parseInt(seat_four.getTag().toString())){
+    		 seat_four.getPersonView().setPersonMoney(String.valueOf(money));
+    	 }
+    	 if(playerIndex == Integer.parseInt(seat_five.getTag().toString())){
+    		 seat_five.getPersonView().setPersonMoney(String.valueOf(money));
+    	 }
+    	 if(playerIndex == Integer.parseInt(seat_six.getTag().toString())){
+    	     seat_six.getPersonView().setPersonMoney(String.valueOf(money));
+    	 }
+    	 playerList.get(playerIndex).getInfo().setBaseMoney(money);
+    }
+    
     public void setChairChip(int playerIndex,int money,int isShow){
     	if(money == 0){
     		playerList.get(playerIndex).getInfo().setAroundChip(0);
@@ -927,8 +950,20 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
         }
     }
     
+    public void shareMoney(){
+    	HashMap<String,ArrayList<ClientPlayer>> winSet = PokerUtil.getWinner(playerList, All_poker);
+    	for(int i = 0;i<winSet.size();i++){
+    		for(int j = 0;j<winSet.get(String.valueOf(i)).size();j++){
+    		   int sum = PokerUtil.getWinMoney(winSet.get(String.valueOf(i)).get(0).getInfo().getId(), playerList);
+    		   for(int n = 0;n<winSet.get(String.valueOf(i)).size();n++){
+    			   setBaseMoney(winSet.get(String.valueOf(i)).get(n), (sum/winSet.get(String.valueOf(i)).size())
+    					   +winSet.get(String.valueOf(i)).get(n).getInfo().getBaseMoney());
+    		   }
+    		}
+    	}
+    }
+    
     public void countMoney(){
-//        ArrayList chips = new ArrayList();
         ArrayList callBack = new ArrayList();
         chipList.clear();
         for(int i = playerList.size()-1;i>=0;i--){
@@ -1236,7 +1271,7 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
                     playerAbandom(msg.arg1);
                     break;
                 case MSG_NEXT_ROUND:
-                    countMoney();
+                	shareMoney();
                     break;
                 case MSG_COUNT_POOL:
                 	countMoney();

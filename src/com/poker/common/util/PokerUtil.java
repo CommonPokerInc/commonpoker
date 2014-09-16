@@ -78,9 +78,10 @@ public class PokerUtil {
 		return pokers;
 	}
 	
-	public static ArrayList getWinner(ArrayList<ClientPlayer> playerList,ArrayList<Poker> poker){
+	public static HashMap<String,ArrayList<ClientPlayer>> getWinner(ArrayList<ClientPlayer> playerList,ArrayList<Poker> poker){
 		HashMap<String,ArrayList<ClientPlayer>> players = new HashMap<String, ArrayList<ClientPlayer>>();
 		ArrayList pokersType = new ArrayList();
+		ArrayList<Poker> pokersBack = new ArrayList<Poker>();
 		for(int i = 0;i<playerList.size();i++){
 			ArrayList<Poker> box = new ArrayList<Poker>();
 			Poker p1 = new Poker(poker.get(i*2));
@@ -97,7 +98,7 @@ public class PokerUtil {
 			box.add(p5);
 			box.add(p6);
 			box.add(p7);
-			playerList.get(i).getInfo().setCardType(getPokerType(box, null));
+			playerList.get(i).getInfo().setCardType(getPokerType(box, pokersBack));
 			if(!pokersType.contains(playerList.get(i).getInfo().getCardType())){
 				pokersType.add(playerList.get(i).getInfo().getCardType());
 			}
@@ -106,12 +107,30 @@ public class PokerUtil {
 			int max = Integer.parseInt(pokersType.get(i).toString());
 			for(int j = i;j<pokersType.size();j++){
 				if(Integer.parseInt(pokersType.get(j).toString())>max){
-					max = Integer.parseInt(pokersType.get(j).toString());
+					int temp = Integer.parseInt(pokersType.get(j).toString());
+					pokersType.set(j, max);
+					max = temp;
 				}
 			}
 		}
 		
-		return pokersType;
+		for(int i = 0;i<playerList.size();i++){
+			for(int j = 0;j<pokersType.size();j++){
+				if(playerList.get(i).getInfo().getCardType() == Integer.parseInt(pokersType.get(j).toString())){
+					if(players.get(String.valueOf(j)) == null){
+						ArrayList<ClientPlayer> temp = new ArrayList<ClientPlayer>();
+						temp.add(playerList.get(i));
+						players.put(String.valueOf(j), temp);
+					}else{
+						players.get(String.valueOf(j)).add(playerList.get(i));
+						players.put(String.valueOf(j),players.get(String.valueOf(j)));
+					}
+				}
+			}
+			
+		}
+		
+		return players;
 	}
 
 //	�������ҵ�7���Ƶõ����������ͣ�����Խ��������Խ����
@@ -375,8 +394,13 @@ public class PokerUtil {
         return false;
 	}
 	
-	public static int getWinMoney(int winnerIndex,ArrayList<ClientPlayer> playerList){
-		int winner = playerList.get(winnerIndex).getInfo().getAroundSumChip();
+	public static int getWinMoney(String winnerId,ArrayList<ClientPlayer> playerList){
+		int winner = 0;
+		for(int i = 0;i<playerList.size();i++){
+			if(playerList.get(i).getInfo().getId().equals(winnerId)){
+				winner = playerList.get(i).getInfo().getAroundSumChip();
+			}
+		}
 		int sum = 0;
 		for(int i = 0;i<playerList.size();i++){
 			if(winner>=playerList.get(i).getInfo().getAroundSumChip()){
