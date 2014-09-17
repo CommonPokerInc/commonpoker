@@ -34,7 +34,6 @@ public class zzkTestActivity extends Activity implements OnTouchListener,OnGestu
 	private int verticalMinDistance = 5,horizontalMinDistance = 5;
     private int minVelocity         = 0;
     private RelativeLayout addBetLayout;
-    private VerticalSeekBar betSeekBar;
     private LinearLayout toastLayout;
     //玩家toast控件的元素
     private ImageView player,allInImg;
@@ -53,7 +52,6 @@ public class zzkTestActivity extends Activity implements OnTouchListener,OnGestu
 	        //增加赌注的滑动条初始化控件
 	        addBetLayout = (RelativeLayout)findViewById(R.id.addbet_layout);
 	        addBetLayout.setVisibility(View.INVISIBLE);
-	        betSeekBar = (VerticalSeekBar)findViewById(R.id.betseekbar);
 	        betTxt = (TextView)findViewById(R.id.bet_txt);
 	        allInImg = (ImageView)findViewById(R.id.allin);
 	        
@@ -127,41 +125,13 @@ public class zzkTestActivity extends Activity implements OnTouchListener,OnGestu
 //            showMyToast();
         }
         if(arg0.getY() - arg1.getY() > horizontalMinDistance && Math.abs(arg3) > minVelocity){
-        	showSeekBar(arg0.getY() - arg1.getY());
+//        	showSeekBar(arg0.getY() - arg1.getY());
         }else if(arg1.getY() - arg0.getY() > horizontalMinDistance && Math.abs(arg3) > minVelocity){
         	
         }
         return false;
     }
-
-    private void showSeekBar(float yDistance) {
-		// TODO Auto-generated method stub
-    	final int y = (int)yDistance;
-		addBetLayout.setVisibility(View.VISIBLE);
-		initSeekBar();
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				betSeekBar.setProgress(y);
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
-	}
     
-    private void initSeekBar() {
-        // TODO Auto-generated method stub
-        betSeekBar.setProgress(0);
-//        max = seat_one.getPersonView().getPersonMoney().getText().toString();
-        max = 10000;
-        betSeekBar.setMax(Integer.valueOf(max));
-    }
-
 	@Override
     public void onLongPress(MotionEvent arg0) {
         // TODO Auto-generated method stub

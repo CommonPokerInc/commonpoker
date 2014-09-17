@@ -145,7 +145,7 @@
     <dimen name="player_action_layout_margintop">40dp</dimen>
     <dimen name="player_action_view_layout_width">500dp</dimen>
     <dimen name="player_action_view_layout_height">250dp</dimen>
-    <dimen name="bet_txt">20sp</dimen>
+    <dimen name="bet_txt">25sp</dimen>
     <dimen name="player_img_width">150dp</dimen>
     <dimen name="player_img_height">150dp</dimen>
     
@@ -164,12 +164,20 @@
     <dimen name="me_name_txt_size">25sp</dimen>
     <dimen name="me_money_txt_size">30sp</dimen>
     <dimen name="relativeLayout1_marginright">20dp</dimen>
+    <dimen name="game_me_view_margintop">8dp</dimen>
+    <dimen name="game_me_view_layout_height">150dp</dimen>
+    <dimen name="bet_img_width">130dp</dimen>
+    <dimen name="bet_img_height">40dp</dimen>
+    <dimen name="bet_icon_width">30dp</dimen>
+    <dimen name="bet_icon_height">30dp</dimen>
+    <dimen name="bet_icon_marginleft">10dp</dimen>
+    <dimen name="bet_txt_marginleft">10dp</dimen>
     
     <!-- 扑克牌 -->
     <dimen name="game_poker_layout_widht">400dp</dimen>
     <dimen name="game_poker_layout_margintop">10dp</dimen>
-    <dimen name="game_pokers_img_width">90dp</dimen>
-    <dimen name="game_pokers_img_height">120dp</dimen>
+    <dimen name="game_pokers_img_width">100dp</dimen>
+    <dimen name="game_pokers_img_height">150dp</dimen>
     <dimen name="game_pokers_img_marginleft">-40dp</dimen>
     <dimen name="game_mypoker_img_marginleft">20dp</dimen>
     <dimen name="game_mypoker_type_txt_size">15sp</dimen>
@@ -182,5 +190,30 @@
     <dimen name="game_cool_layout_marintop">10dp</dimen>
     <dimen name="game_cool_layout_marginleft">5dp</dimen>
     <dimen name="game_cool_layout_marginright">5dp</dimen>
+    <dimen name="game_maincool_layout_width">95dp</dimen>
+    <dimen name="game_maincool_layout_height">33dp</dimen>
+    <dimen name="game_maincool_chip_img_width">20dp</dimen>
+    <dimen name="game_maincool_chip_img_height">24dp</dimen>
+    <dimen name="game_maincool_chip_img_marginleft">10dp</dimen>
+    <dimen name="game_maincool_chip_txt_marginleft">5dp</dimen>
+    <dimen name="game_sidecool_chip_txt_marginleft">4dp</dimen>
+    <dimen name="game_sidecool_layout_width">80dp</dimen>
+    <dimen name="game_sidecool_layout_height">29dp</dimen>
+    <dimen name="game_maincool_chip_txt_size">15sp</dimen>
+    <dimen name="game_sidecool_chip_txt_size">13sp</dimen>
+    <dimen name="game_sidecool_layout_marginleft">5dp</dimen>
+    <dimen name="game_sidecool_chip_img_width">17dp</dimen>
+    <dimen name="game_sidecool_chip_img_height">20dp</dimen>
+    <dimen name="game_sidecool_chip_img_marginleft">6dp</dimen>
+    <dimen name="game_sidecool_view_marginleft">6dp</dimen>
+    <dimen name="game_maincool_layout_marginleft">7dp</dimen>
+    
+    <dimen name="game_back_img_marginbottom">5dp</dimen>
+    <dimen name="game_back_img_marginleft">8dp</dimen>
+    <dimen name="game_help_img_marginright">8dp</dimen>
+    
+    <!-- 返回，帮助 -->
+    <dimen name="game_back_img_width">40dp</dimen>
+    <dimen name="game_back_img_height">40dp</dimen>
     
 </resources>

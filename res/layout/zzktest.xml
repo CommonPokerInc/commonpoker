@@ -24,45 +24,10 @@
             android:id="@+id/allin"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/addbet"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="-12dp"
             android:src="@drawable/addnumber_allin"
             android:visibility="invisible" />
-
-        <ImageView
-            android:id="@+id/addbet"
-            android:layout_width="100dp"
-            android:layout_height="240dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:clickable="true"
-            android:src="@drawable/addnumber_btn" />
-
-        <com.poker.common.custom.VerticalSeekBar
-            android:id="@+id/betseekbar"
-            android:layout_width="21dp"
-            android:layout_height="200dp"
-            android:layout_below="@+id/allin"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:maxHeight="9dip"
-            android:minHeight="9dip"
-            android:progressDrawable="@drawable/bg_bar"
-            android:thumb="@drawable/thumb_bar"
-            android:thumbOffset="0dip" />
-
-        <TextView
-            android:id="@+id/bet_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/betseekbar"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="2000"
-            android:textColor="@color/white" />
     </RelativeLayout>
     
 

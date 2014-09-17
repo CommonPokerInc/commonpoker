@@ -3,19 +3,27 @@
     android:id="@+id/setting_dialog_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e0000000"
+    android:background="#00000000"
     android:clickable="true"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:background="#000000" >
+    </RelativeLayout>
+
     <ImageView
         android:id="@+id/setting_bg"
-        android:layout_width="400dp"
-        android:layout_height="250dp"
+        android:layout_width="500dp"
+        android:layout_height="285dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="@drawable/setting_bg" />
 
-    <ImageView
+    <!--
+         <ImageView
         android:id="@+id/setting_close"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -24,11 +32,12 @@
         android:layout_marginLeft="-50dp"
         android:layout_toRightOf="@+id/setting_bg"
         android:background="@drawable/setting_close" />
+    -->
 
     <LinearLayout
         android:id="@+id/setting_items_layout"
-        android:layout_width="300dp"
-        android:layout_height="184dp"
+        android:layout_width="400dp"
+        android:layout_height="250dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="vertical" >
@@ -36,7 +45,7 @@
         <RelativeLayout
             android:id="@+id/voice_item_layout"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="0.5dp"
             android:background="@drawable/setting_items_bg_fillet_up"
             android:clickable="true" >
@@ -50,11 +59,11 @@
                 android:layout_marginLeft="20dp"
                 android:text="@string/voice"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:textSize="20dp" />
 
             <ImageView
                 android:id="@+id/voice_switch_img"
-                android:layout_width="50dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -66,7 +75,7 @@
         <RelativeLayout
             android:id="@+id/shock_item_layout"
             android:layout_width="fill_parent"
-            android:layout_height="45dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="0.5dp"
             android:background="@drawable/setting_items_bg_no_fillet"
             android:clickable="true" >
@@ -80,11 +89,11 @@
                 android:layout_marginLeft="20dp"
                 android:text="@string/shock"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:textSize="20dp" />
 
             <ImageView
                 android:id="@+id/shock_switch_img"
-                android:layout_width="50dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -96,7 +105,7 @@
         <RelativeLayout
             android:id="@+id/help_item_layout"
             android:layout_width="fill_parent"
-            android:layout_height="45dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="0.5dp"
             android:background="@drawable/setting_items_bg_no_fillet"
             android:clickable="true" >
@@ -104,7 +113,7 @@
             <ImageView
                 android:id="@+id/help_open_img"
                 android:layout_width="wrap_content"
-                android:layout_height="15dp"
+                android:layout_height="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -121,13 +130,13 @@
                 android:layout_marginLeft="20dp"
                 android:text="@string/help"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:textSize="20dp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/about_item_layout"
             android:layout_width="fill_parent"
-            android:layout_height="45dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="0.5dp"
             android:background="@drawable/setting_items_bg_fillet_bottom"
             android:clickable="true" >
@@ -141,12 +150,12 @@
                 android:layout_marginLeft="20dp"
                 android:text="@string/about"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:textSize="20dp" />
 
             <ImageView
                 android:id="@+id/about_open_img"
                 android:layout_width="wrap_content"
-                android:layout_height="15dp"
+                android:layout_height="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"

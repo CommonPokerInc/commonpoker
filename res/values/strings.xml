@@ -57,5 +57,7 @@
     <string name="me_name_txt">逗比</string>
     <string name="me_money_txt">3500</string>
     <string name="game_mypoker_type_txt">皇家同花順</string>
+    <string name="game_maincool_chip_txt">100000</string>
+    <string name="game_sidecool_chip_txt">100000</string>
 
 </resources>

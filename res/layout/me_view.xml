@@ -81,11 +81,59 @@
         android:layout_below="@+id/me_dealer_img"
         android:layout_toRightOf="@+id/relativeLayout1" >
 
-        <com.poker.common.custom.BetView
-            android:id="@+id/player_bet_view"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content">
-        </com.poker.common.custom.BetView>
+<LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+            <TextView
+                android:id="@+id/player_action_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/player_action_txt"
+                android:singleLine="true"
+                android:layout_gravity="center"
+                android:textColor="@color/player_action_txt_color"
+                android:textSize="@dimen/player_action_txt_size" />
+
+   <RelativeLayout 
+        android:id="@+id/bet_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        >
+     <ImageView
+        android:id="@+id/bet_img"
+        android:layout_width="@dimen/bet_img_width"
+        android:layout_height="@dimen/bet_img_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/chip_plate_l" />
+	
+    <TextView
+        android:id="@+id/bet_txt"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/bet_icon"
+        android:layout_marginLeft="@dimen/bet_txt_marginleft"
+        android:layout_centerVertical="true"
+        android:text="@string/bet_txt"
+        android:textColor="@color/game_sidecool_chip_txt_color"
+        android:textSize="@dimen/bet_txt" />
+
+    <ImageView
+        android:id="@+id/bet_icon"
+        android:layout_width="@dimen/bet_icon_width"
+        android:layout_height="@dimen/bet_icon_height"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/bet_icon_marginleft"
+        android:src="@drawable/chip_l" />
+
+    </RelativeLayout>
+    
+   </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>

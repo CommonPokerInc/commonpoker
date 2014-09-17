@@ -298,5 +298,10 @@
     
     <!-- 游戏页面 -->
     <color name="desk_tips_text_color">#eac80d</color>
+    
+    <!-- 主池，边池，赌注 -->
+    <color name="game_maincool_chip_txt_color">#feec00</color>
+    <color name="game_sidecool_chip_txt_color">#f5bd42</color>
+    <color name="player_action_txt_color">#feec00</color>
 
 </resources>

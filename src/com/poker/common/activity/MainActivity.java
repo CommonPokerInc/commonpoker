@@ -55,7 +55,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private PopupWindow settingWin, meWin,firstWin;
 
-    private ImageView setting_close, me_close;
+    private ImageView setting_close, me_close,setting_bg;
 
     private RelativeLayout voice_item_layout, shock_item_layout, help_item_layout,
             about_item_layout;
@@ -91,6 +91,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     private RelativeLayout setting_dialog_layout, me_dialog_layout;
 
 	private int resId =-1;
+	
+	private float x,y;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,17 +162,26 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         		return;
         	}
             showMeDialog();
-        } else if (v.getId() == R.id.setting_close) {
-            if (settingView != null && settingView.isShown())
-                settingWin.dismiss();
         } else if (v.getId() == R.id.voice_item_layout) {
-            Intent intent = new Intent(this, RankActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, RankActivity.class);
+//            startActivity(intent);
+            voice_switch_state = !settingHelper.getVoiceStatus();
+            voice_switch.setImageResource(voice_switch_state ? R.drawable.setting_switch_on
+                    : R.drawable.setting_switch_off);
+            String message = voice_switch_state ? "开启音效" : "关闭音效";
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            settingHelper.setVoiceStatus(voice_switch_state);
 
         } else if (v.getId() == R.id.shock_item_layout) {
 
-            Intent intent = new Intent(this, GoodCardsActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, GoodCardsActivity.class);
+//            startActivity(intent);
+            shock_switch_state = !settingHelper.getVibrationStatus();
+            shock_switch.setImageResource(shock_switch_state ? R.drawable.setting_switch_on
+                    : R.drawable.setting_switch_off);
+            String message = shock_switch_state ? "开启震动" : "关闭震动";
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            settingHelper.setVibrationStatus(shock_switch_state);
 
         } else if (v.getId() == R.id.help_item_layout) {
             
@@ -183,19 +194,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             startActivity(intent);
 
         } else if (v.getId() == R.id.shock_switch_img) {
-            shock_switch_state = !settingHelper.getVibrationStatus();
-            shock_switch.setImageResource(shock_switch_state ? R.drawable.setting_switch_on
-                    : R.drawable.setting_switch_off);
-            String message = shock_switch_state ? "开启震动" : "关闭震动";
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-            settingHelper.setVibrationStatus(shock_switch_state);
+
         } else if (v.getId() == R.id.voice_switch_img) {
-            voice_switch_state = !settingHelper.getVoiceStatus();
-            voice_switch.setImageResource(voice_switch_state ? R.drawable.setting_switch_on
-                    : R.drawable.setting_switch_off);
-            String message = voice_switch_state ? "开启音效" : "关闭音效";
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-            settingHelper.setVoiceStatus(voice_switch_state);
+
         } else if (v.getId() == R.id.me_close) {
             if (meView != null && meView.isShown())
                 meWin.dismiss();
@@ -333,15 +334,14 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     	  LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
           settingView = inflater.inflate(R.layout.activity_setting, null);
           setting_dialog_layout = (RelativeLayout)settingView.findViewById(R.id.setting_dialog_layout);
-          setting_close = (ImageView)settingView.findViewById(R.id.setting_close);
           voice_item_layout = (RelativeLayout)settingView.findViewById(R.id.voice_item_layout);
           shock_item_layout = (RelativeLayout)settingView.findViewById(R.id.shock_item_layout);
           help_item_layout = (RelativeLayout)settingView.findViewById(R.id.help_item_layout);
           about_item_layout = (RelativeLayout)settingView.findViewById(R.id.about_item_layout);
+          setting_bg = (ImageView)settingView.findViewById(R.id.setting_bg);
           
           voice_switch = (ImageView)settingView.findViewById(R.id.voice_switch_img);
           shock_switch = (ImageView)settingView.findViewById(R.id.shock_switch_img);
-          setting_close.setOnClickListener(MainActivity.this);
           voice_item_layout.setOnClickListener(this);
           shock_item_layout.setOnClickListener(this);
           help_item_layout.setOnClickListener(this);
@@ -353,9 +353,16 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
+				if(event.getAction() == MotionEvent.ACTION_DOWN){
+					x = event.getX();
+					y = event.getY();
+				}
 				if (event.getAction() == MotionEvent.ACTION_UP) {
-					if(settingView != null && settingView.isShown())
-						settingWin.dismiss();
+					if(!(x <= setting_bg.getRight() && x >= setting_bg.getLeft()
+	                        && y >= setting_bg.getTop() && y <= setting_bg.getBottom())){
+						if(settingView != null && settingView.isShown())
+							settingWin.dismiss();
+					}
 				}
 				return true;
 			}

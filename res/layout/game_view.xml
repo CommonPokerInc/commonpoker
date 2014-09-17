@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/game_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
     
         <RelativeLayout
+        android:id="@+id/game_me_view_layout"    
+        android:background="#46537b"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/game_me_view_layout_height">
 
     <com.poker.common.custom.MeView
         android:id="@+id/game_me_view"
@@ -15,23 +16,236 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/game_me_view_margintop"
         android:rotation="180" >
     </com.poker.common.custom.MeView>
 
     </RelativeLayout>
     
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/game_bottom_bg"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/game_me_view_layout"
         android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:id="@+id/game_cool_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_below="@+id/game_poker_layout"
+        android:layout_marginLeft="@dimen/game_cool_layout_marginleft"
+        android:layout_marginRight="@dimen/game_cool_layout_marginright"
+        android:layout_marginTop="@dimen/game_cool_layout_marintop" >
 
-  <LinearLayout
+        <ImageView
+            android:id="@+id/game_back_img"
+            android:layout_width="@dimen/game_back_img_width"
+            android:layout_height="@dimen/game_back_img_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/game_back_img_marginbottom"
+            android:layout_marginLeft="@dimen/game_back_img_marginleft"
+            android:src="@drawable/game_exit_btn" />
+        
+        <ImageView 
+            android:id="@+id/game_help_img"
+            android:layout_width="@dimen/game_back_img_width"
+            android:layout_height="@dimen/game_back_img_height"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/game_help_img_marginright"
+            android:layout_marginBottom="@dimen/game_back_img_marginbottom"
+            android:src="@drawable/game_help_btn"/>
+
+        <RelativeLayout
+            android:id="@+id/game_maincool_layout"
+            android:layout_width="@dimen/game_maincool_layout_width"
+            android:layout_height="@dimen/game_maincool_layout_height"
+            android:layout_alignBottom="@+id/game_back_img"
+            android:layout_marginLeft="@dimen/game_maincool_layout_marginleft"
+            android:layout_toRightOf="@+id/game_back_img"
+            android:background="@drawable/chip_plate_l" >
+
+            <ImageView
+                android:id="@+id/game_maincool_chip_img"
+                android:layout_width="@dimen/game_maincool_chip_img_width"
+                android:layout_height="@dimen/game_maincool_chip_img_height"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_maincool_chip_img_marginleft"
+                android:src="@drawable/chip_m" />
+
+            <TextView
+                android:id="@+id/game_maincool_chip_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_maincool_chip_txt_marginleft"
+                android:layout_toRightOf="@+id/game_maincool_chip_img"
+                android:text="@string/game_maincool_chip_txt"
+                android:textColor="@color/game_maincool_chip_txt_color"
+                android:textSize="@dimen/game_maincool_chip_txt_size" />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/game_sidecool_layout1"
+            android:layout_width="@dimen/game_sidecool_layout_width"
+            android:layout_height="@dimen/game_sidecool_layout_height"
+            android:layout_alignBottom="@+id/game_back_img"
+            android:layout_marginLeft="@dimen/game_sidecool_layout_marginleft"
+            android:layout_toRightOf="@+id/game_maincool_layout"
+            android:background="@drawable/chip_plate_l" >
+
+            <ImageView
+                android:id="@+id/game_sizecool_chip_img1"
+                android:layout_width="@dimen/game_sidecool_chip_img_width"
+                android:layout_height="@dimen/game_sidecool_chip_img_height"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_sidecool_chip_img_marginleft"
+                android:src="@drawable/chip_s" />
+
+            <TextView
+                android:id="@+id/game_sidecool_chip_txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_sidecool_chip_txt_marginleft"
+                android:layout_toRightOf="@+id/game_sizecool_chip_img1"
+                android:text="@string/game_sidecool_chip_txt"
+                android:textColor="@color/game_sidecool_chip_txt_color"
+                android:textSize="@dimen/game_sidecool_chip_txt_size" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/game_sidecool_layout2"
+            android:layout_width="@dimen/game_sidecool_layout_width"
+            android:layout_height="@dimen/game_sidecool_layout_height"
+            android:layout_alignBottom="@+id/game_back_img"
+            android:layout_marginLeft="@dimen/game_sidecool_layout_marginleft"
+            android:layout_toRightOf="@+id/game_sidecool_layout1"
+            android:background="@drawable/chip_plate_l" >
+
+            <ImageView
+                android:id="@+id/game_sizecool_chip_img2"
+                android:layout_width="@dimen/game_sidecool_chip_img_width"
+                android:layout_height="@dimen/game_sidecool_chip_img_height"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_sidecool_chip_img_marginleft"
+                android:src="@drawable/chip_s" />
+
+            <TextView
+                android:id="@+id/game_sidecool_chip_txt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_sidecool_chip_txt_marginleft"
+                android:layout_toRightOf="@+id/game_sizecool_chip_img2"
+                android:text="@string/game_sidecool_chip_txt"
+                android:textColor="@color/game_sidecool_chip_txt_color"
+                android:textSize="@dimen/game_sidecool_chip_txt_size" />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/game_sidecool_layout3"
+            android:layout_width="@dimen/game_sidecool_layout_width"
+            android:layout_height="@dimen/game_sidecool_layout_height"
+            android:layout_alignBottom="@+id/game_back_img"
+            android:layout_marginLeft="@dimen/game_sidecool_layout_marginleft"
+            android:layout_toRightOf="@+id/game_sidecool_layout2"
+            android:background="@drawable/chip_plate_l" >
+
+            <ImageView
+                android:id="@+id/game_sizecool_chip_img3"
+                android:layout_width="@dimen/game_sidecool_chip_img_width"
+                android:layout_height="@dimen/game_sidecool_chip_img_height"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_sidecool_chip_img_marginleft"
+                android:src="@drawable/chip_s" />
+
+            <TextView
+                android:id="@+id/game_sidecool_chip_txt3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_sidecool_chip_txt_marginleft"
+                android:layout_toRightOf="@+id/game_sizecool_chip_img3"
+                android:text="@string/game_sidecool_chip_txt"
+                android:textColor="@color/game_sidecool_chip_txt_color"
+                android:textSize="@dimen/game_sidecool_chip_txt_size" />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/game_sidecool_layout4"
+            android:layout_width="@dimen/game_sidecool_layout_width"
+            android:layout_height="@dimen/game_sidecool_layout_height"
+            android:layout_alignBottom="@+id/game_back_img"
+            android:layout_marginLeft="@dimen/game_sidecool_layout_marginleft"
+            android:layout_toRightOf="@+id/game_sidecool_layout3"
+            android:background="@drawable/chip_plate_l" >
+
+            <ImageView
+                android:id="@+id/game_sizecool_chip_img4"
+                android:layout_width="@dimen/game_sidecool_chip_img_width"
+                android:layout_height="@dimen/game_sidecool_chip_img_height"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_sidecool_chip_img_marginleft"
+                android:src="@drawable/chip_s" />
+
+            <TextView
+                android:id="@+id/game_sidecool_chip_txt4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_sidecool_chip_txt_marginleft"
+                android:layout_toRightOf="@+id/game_sizecool_chip_img4"
+                android:text="@string/game_sidecool_chip_txt"
+                android:textColor="@color/game_sidecool_chip_txt_color"
+                android:textSize="@dimen/game_sidecool_chip_txt_size" />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/game_sidecool_layout5"
+            android:layout_width="@dimen/game_sidecool_layout_width"
+            android:layout_height="@dimen/game_sidecool_layout_height"
+            android:layout_alignBottom="@+id/game_back_img"
+            android:layout_marginLeft="@dimen/game_sidecool_layout_marginleft"
+            android:layout_toRightOf="@+id/game_sidecool_layout4"
+            android:background="@drawable/chip_plate_l" >
+
+            <ImageView
+                android:id="@+id/game_sizecool_chip_img5"
+                android:layout_width="@dimen/game_sidecool_chip_img_width"
+                android:layout_height="@dimen/game_sidecool_chip_img_height"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_sidecool_chip_img_marginleft"
+                android:src="@drawable/chip_s" />
+
+            <TextView
+                android:id="@+id/game_sidecool_chip_txt5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/game_sidecool_chip_txt_marginleft"
+                android:layout_toRightOf="@+id/game_sizecool_chip_img5"
+                android:text="@string/game_sidecool_chip_txt"
+                android:textColor="@color/game_sidecool_chip_txt_color"
+                android:textSize="@dimen/game_sidecool_chip_txt_size" />
+        </RelativeLayout>
+        
+    </RelativeLayout>
+
+    <LinearLayout
         android:id="@+id/game_poker_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/game_poker_layout_margintop"
-        android:layout_gravity="center"
         android:orientation="horizontal" >
 
         <ImageView
@@ -89,42 +303,13 @@
             android:layout_marginLeft="@dimen/game_pokers_img_marginleft"
             android:layout_marginTop="@dimen/game_mypoker_type_txt_margintop"
             android:background="@drawable/game_my_cards"
-            android:singleLine="true"
             android:gravity="center"
+            android:singleLine="true"
             android:text="@string/game_mypoker_type_txt"
             android:textColor="@color/white"
             android:textSize="@dimen/game_mypoker_type_txt_size" />
-
     </LinearLayout>
     
-    <RelativeLayout 
-        android:id="@+id/game_cool_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/game_cool_layout_height"
-        android:layout_marginTop="@dimen/game_cool_layout_marintop"
-        android:layout_marginLeft="@dimen/game_cool_layout_marginleft"
-        android:layout_marginRight="@dimen/game_cool_layout_marginright"
-        android:layout_gravity="center"
-        >
-
-        <ImageView
-            android:id="@+id/game_back_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/game_exit_btn" />
-        
-        <ImageView 
-            android:id="@+id/game_help_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/game_help_btn"/>
-        
     </RelativeLayout>
-    
-    </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
