@@ -3,6 +3,7 @@ package com.poker.common.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,12 +35,12 @@ public class zzkTestActivity extends Activity implements OnTouchListener,OnGestu
 	private GestureDetector mGestureDetector; 
 	private int verticalMinDistance = 5,horizontalMinDistance = 5;
     private int minVelocity         = 0;
-    private RelativeLayout addBetLayout;
     private LinearLayout toastLayout;
     //玩家toast控件的元素
-    private ImageView player,allInImg;
-    private TextView name,othersAction,myAction,betTxt;
+    private ImageView player,bet_fullImg,bet_nullImg;
+    private TextView name,othersAction,myAction;
     private int max = 0;//玩家投注的最大值
+    private int mMaxMoney,mCurrentMoney = 0;
     @Override
 	    protected void onCreate(Bundle savedInstanceState) {
 	        // TODO Auto-generated method stub
@@ -50,12 +52,11 @@ public class zzkTestActivity extends Activity implements OnTouchListener,OnGestu
 	        toastLayout = (LinearLayout)findViewById(R.id.toast_layout);
 	        
 	        //增加赌注的滑动条初始化控件
-	        addBetLayout = (RelativeLayout)findViewById(R.id.addbet_layout);
-	        addBetLayout.setVisibility(View.INVISIBLE);
-	        betTxt = (TextView)findViewById(R.id.bet_txt);
-	        allInImg = (ImageView)findViewById(R.id.allin);
+	        bet_fullImg = (ImageView)findViewById(R.id.bet_full);
+	        bet_nullImg = (ImageView)findViewById(R.id.bet_null);
+	        mMaxMoney = 2000;
 	        
-	        mGestureDetector = new GestureDetector((OnGestureListener)this);
+	        mGestureDetector = new GestureDetector(this);
 	        testToastButton.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -108,6 +109,26 @@ public class zzkTestActivity extends Activity implements OnTouchListener,OnGestu
         }
         myToast.show();
     }
+    
+    
+	private void showMoneyBarSlide(float y) {
+		// TODO Auto-generated method stub
+		Display display = getWindowManager().getDefaultDisplay();
+		int windowWidth = display.getWidth();
+		int windowHeight = display.getHeight();
+		float percent = y/windowHeight;
+		int index = (int)(percent * mMaxMoney) + mCurrentMoney;
+		if(index > mMaxMoney){
+			index = mMaxMoney;
+		}else if(index < 0){
+			index = 0;
+		}
+		
+		//更新进度条
+		ViewGroup.LayoutParams lp = bet_fullImg.getLayoutParams();
+		lp.height = bet_nullImg.getLayoutParams().height * index/mMaxMoney;
+		bet_fullImg.setLayoutParams(lp);
+	}
 
     @Override
     public boolean onDown(MotionEvent arg0) {
@@ -125,13 +146,13 @@ public class zzkTestActivity extends Activity implements OnTouchListener,OnGestu
 //            showMyToast();
         }
         if(arg0.getY() - arg1.getY() > horizontalMinDistance && Math.abs(arg3) > minVelocity){
-//        	showSeekBar(arg0.getY() - arg1.getY());
+        	showMoneyBarSlide(arg0.getY() - (int)arg1.getRawY());
         }else if(arg1.getY() - arg0.getY() > horizontalMinDistance && Math.abs(arg3) > minVelocity){
-        	
+        	showMoneyBarSlide(arg0.getY() - (int)arg1.getRawY());
         }
         return false;
     }
-    
+
 	@Override
     public void onLongPress(MotionEvent arg0) {
         // TODO Auto-generated method stub
@@ -141,6 +162,7 @@ public class zzkTestActivity extends Activity implements OnTouchListener,OnGestu
     @Override
     public boolean onScroll(MotionEvent arg0, MotionEvent arg1, float arg2, float arg3) {
         // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -159,7 +181,22 @@ public class zzkTestActivity extends Activity implements OnTouchListener,OnGestu
     @Override
     public boolean onTouch(View arg0, MotionEvent arg1) {
         // TODO Auto-generated method stub
+    	 if (mGestureDetector.onTouchEvent(arg1))
+             return true;
+ 
+         // 处理手势结束
+         switch (arg1.getAction() & MotionEvent.ACTION_MASK) {
+         case MotionEvent.ACTION_UP:
+             endGesture();
+             break;
+         }
+         
         return mGestureDetector.onTouchEvent(arg1);
     }
+
+	private void endGesture() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
