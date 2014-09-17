@@ -411,7 +411,23 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     }
     
     public void checkIsMeOption(){
-        if(playerList.get(currentOptionPerson).getInfo().getId().equals(currentPlay.getInfo().getId())){
+         if(playerList.get(currentOptionPerson).getInfo().getId().equals(currentPlay.getInfo().getId())){
+             
+             showToast("currentOptionPerson: "+currentOptionPerson+" currentOptionPerson quit: "+
+             playerList.get(currentOptionPerson).getInfo().isQuit()+" currentPlay: "+currentPlay.getInfo().isQuit());
+             currentPlay.getInfo().setQuit(playerList.get(currentOptionPerson).getInfo().isQuit());
+             if(playerList.get(currentOptionPerson).getInfo().isQuit()){
+                 sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_FINISH_OPTIOIN,
+                         -1, null));
+                 if(app.isServer()){
+                     currentOptionPerson = (currentOptionPerson+1)%playerList.size(); 
+                     wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
+                     wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
+                 }
+                 optionChoice(false);
+                 return ;
+            }
+             
             if(currentOptionPerson == maxChipIndex){
                 isEnd = true;
             }else{
