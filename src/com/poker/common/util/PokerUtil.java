@@ -112,6 +112,7 @@ public class PokerUtil {
 					max = temp;
 				}
 			}
+			pokersType.set(i, max);
 		}
 		
 		for(int i = 0;i<playerList.size();i++){

@@ -522,11 +522,14 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 				sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_SHOW_PUBLIC_POKER,
 						-1,  String.valueOf(DIndex)));
 				if(app.isServer()){
-				    Message message = new Message();
-	                 message.what = WorkHandler.MSG_ADD_BET;
-	                 message.arg1 = currentOptionPerson;
-	                 message.arg2 = money;
-	                 wHandler.sendMessage(message);
+				    
+	                 if(money != 0){
+	                     Message message = new Message();
+	                     message.what = WorkHandler.MSG_ADD_BET;
+	                     message.arg1 = currentOptionPerson;
+	                     message.arg2 = money;
+	                     wHandler.sendMessage(message);
+	                }
 					currentOptionPerson = (DIndex+1)%playerList.size();
 		    		maxChipIndex = DIndex;
 		    		wHandler.removeMessages(WorkHandler.MSG_SHOW_PUBLIC_POKER);
@@ -598,6 +601,10 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     }
     
     public void setChairChip(int playerIndex,int money,int isShow){
+        if(money == -1){
+//            如果是-1，则不需要设置
+            return ;
+        }
     	if(money == 0){
     		playerList.get(playerIndex).getInfo().setAroundChip(0);
     	}else{
