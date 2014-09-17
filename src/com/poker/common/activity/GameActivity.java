@@ -366,8 +366,9 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
         desk_tips.setVisibility(View.INVISIBLE);
         currentPlayIndex  = findIndexWithIPinList(playerList);
         app.isGameStarted = true;
+        currentPlay.setInfo(playerList.get(currentPlayIndex).getInfo());
 //        currentPlay.getInfo().setBaseMoney(room.getBasicChips());
-        currentPlay.getInfo().setQuit(false);
+//        currentPlay.getInfo().setQuit(false);
         if(app.isServer()){
             if(isInOrOut||DIndex == -1){
     //            重新生成D
@@ -547,7 +548,16 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
 	                     wHandler.sendMessage(message);
 	                }
 					currentOptionPerson = (DIndex+1)%playerList.size();
-		    		maxChipIndex = DIndex;
+//					if(playerList.get(DIndex).getInfo().isQuit()){
+						int i = DIndex;
+						while(playerList.get(i%playerList.size()).getInfo().isQuit()){
+							i = Math.abs(i-1);
+//							i++;
+						}
+						maxChipIndex = i;
+//					}
+					
+//		    		maxChipIndex = DIndex;
 		    		wHandler.removeMessages(WorkHandler.MSG_SHOW_PUBLIC_POKER);
 		            wHandler.sendEmptyMessage(WorkHandler.MSG_SHOW_PUBLIC_POKER);
 		            wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
@@ -1039,6 +1049,8 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
         }else if (msg.getPlayerList() != null && msg.getPlayerList().get(0) != null) {
         	msg.getPlayerList().get(0).getInfo().setBaseMoney(room.getBasicChips());
         	msg.getPlayerList().get(0).getInfo().setAroundChip(0);
+        	msg.getPlayerList().get(0).getInfo().setAroundSumChip(0);
+        	msg.getPlayerList().get(0).getInfo().setQuit(false);
 			playerList.add(msg.getPlayerList().get(0));
 			msg.setPlayerList(playerList);
 			msg.setRoom(room);
