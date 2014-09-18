@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -76,6 +77,8 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 	private SettingHelper helper;
 	
 	private final static int MAX_COUNT = 6;
+	
+	private final static String MOBILE_NAME = "_"+Build.MODEL; 
 	
 	private final static int MSG_CREATE_SERVER_SOCKET = 1;
 	private final static int MSG_SHOW_CREATE_HOT_ERROR =2;
@@ -222,7 +225,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 				room.setMinStake(100);
 				room.setName("Godlike");
 				room.setBasicChips(10000);
-				mSSID = "Godlike"+Constant.WIFI_SUFFIX;
+				mSSID = "Godlike"+MOBILE_NAME+Constant.WIFI_SUFFIX;
 				app.wm.startAWifiHot(mSSID,this);
 				break;
 			case R.id.btn_create_rank:
@@ -234,7 +237,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 				room.setMinStake(100);
 				room.setName("Godlike");
 				room.setBasicChips(10000);
-				mSSID = "Godlike"+Constant.WIFI_SUFFIX;
+				mSSID = "Godlike"+MOBILE_NAME+Constant.WIFI_SUFFIX;
 				app.wm.startAWifiHot(mSSID,this);
 				break;
 			case R.id.btn_create_room:
@@ -255,7 +258,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 				room.setBasicChips(mBet);
 				room.setName(edtWifi.getText().toString());
 				strWifi = edtWifi.getText().toString();
-				mSSID = strWifi+Constant.WIFI_SUFFIX;
+				mSSID = strWifi+MOBILE_NAME+Constant.WIFI_SUFFIX;
 				app.wm.startAWifiHot(mSSID,this);
 				break;
 		}
