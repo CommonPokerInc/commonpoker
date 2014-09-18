@@ -12,28 +12,34 @@
         android:layout_height="wrap_content"
         android:text="显示toast" />
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/bet_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
+        android:paddingBottom="25dip"
         android:background="@drawable/add_plate">
 
         <ImageView
             android:id="@+id/bet_null"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_height="200dp"
+            android:layout_gravity="bottom|center_horizontal"
             android:src="@drawable/add_zero"/>
 
         <ImageView
             android:id="@+id/bet_full"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_gravity="bottom|center_horizontal"
             android:src="@drawable/add_full" 
             android:scaleType="matrix" />
 
-    </RelativeLayout>
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="游戏界面" />
 
 </LinearLayout>

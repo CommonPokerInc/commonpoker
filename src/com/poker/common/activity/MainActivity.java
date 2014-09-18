@@ -56,7 +56,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private PopupWindow settingWin, meWin,firstWin;
 
-    private ImageView setting_close, me_close,setting_bg;
+    private ImageView setting_close, me_close,setting_bg,me_bg;
 
     private RelativeLayout voice_item_layout, shock_item_layout, help_item_layout,
             about_item_layout;
@@ -292,22 +292,30 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         me_left = (ImageButton) meView.findViewById(R.id.left);
         me_head_img = (ImageView) meView.findViewById(R.id.head_img);
         nickname_edt = (EditText) meView.findViewById(R.id.nickname_edt);
+        me_bg = (ImageView)settingView.findViewById(R.id.me_bg);
         me_close.setOnClickListener(this);
         confirm_edit_btn.setOnClickListener(this);
         me_left.setOnClickListener(this);
         me_right.setOnClickListener(this);
         me_dialog_layout.setOnTouchListener(new OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // TODO Auto-generated method stub
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (meView != null && meView.isShown())
-                        meWin.dismiss();
-                }
-                return true;
-            }
-        });
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				if(event.getAction() == MotionEvent.ACTION_DOWN){
+					x = event.getX();
+					y = event.getY();
+				}
+				if (event.getAction() == MotionEvent.ACTION_UP) {
+					if(!(x <= me_bg.getRight() && x >= me_bg.getLeft()
+	                        && y >= me_bg.getTop() && y <= me_bg.getBottom())){
+						if(meView != null && meView.isShown())
+							meWin.dismiss();
+					}
+				}
+				return true;
+			}
+		});
 
         meWin = new PopupWindow(meView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
         meWin.setBackgroundDrawable(new BitmapDrawable());

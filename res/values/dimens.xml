@@ -153,6 +153,9 @@
     <dimen name="me_action_txt_size">50sp</dimen>
     <dimen name="me_action_txt_width">500dp</dimen>
     <dimen name="me_action_txt_height">100dp</dimen>
+    <dimen name="me_action_confirm_img_width">138dp</dimen>
+    <dimen name="me_action_confirm_img_height">37dp</dimen>
+    <dimen name="me_action_confirm_btn_txt_size">25sp</dimen>
     
     <!-- 游戏界面 -->
     
