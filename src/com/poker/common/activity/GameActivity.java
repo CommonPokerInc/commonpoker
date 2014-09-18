@@ -1073,7 +1073,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     		break;
     	case GameMessage.ACTION_SHOW_PUBLIC_POKER:
     		currentOptionPerson = (DIndex+1)%playerList.size();
-    		maxChipIndex = DIndex;
+            int i = DIndex;
+            while(playerList.get(i%playerList.size()).getInfo().isQuit()){
+                i = Math.abs(i-1);
+            }
+            maxChipIndex = i;
     		sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_SHOW_PUBLIC_POKER,
     				-1, String.valueOf(DIndex)));
     		wHandler.removeMessages(WorkHandler.MSG_SHOW_PUBLIC_POKER);
@@ -1180,7 +1184,11 @@ public class GameActivity extends AbsGameActivity implements OnClickListener{
     	case GameMessage.ACTION_SHOW_PUBLIC_POKER:
     		DIndex = Integer.parseInt(msg.getExtra().toString());
     		currentOptionPerson = (DIndex+1)%playerList.size();
-			maxChipIndex = DIndex;
+    		int i = DIndex;
+            while(playerList.get(i%playerList.size()).getInfo().isQuit()){
+                i = Math.abs(i-1);
+            }
+            maxChipIndex = i;
 			wHandler.removeMessages(WorkHandler.MSG_SHOW_PUBLIC_POKER);
 	        wHandler.sendEmptyMessage(WorkHandler.MSG_SHOW_PUBLIC_POKER);
 			wHandler.removeMessages(WorkHandler.MSG_CHECKISME);

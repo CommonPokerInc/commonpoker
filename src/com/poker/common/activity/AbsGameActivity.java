@@ -72,12 +72,12 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		if(app.isServer()){
 			app.getServer().setListener(this);
 			app.getServer().beginListen(this);
-			initTimeMap();
+//			initTimeMap();
 		}else{
 			app.getClient().beganAcceptMessage(this);
 			mReceiveTime = System.currentTimeMillis();
 		}
-		initBackHandler();
+//		initBackHandler();
 	}
 	
 	@SuppressLint("HandlerLeak")
