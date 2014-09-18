@@ -93,6 +93,14 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 				beginScan();
 			}
 		});
+		findViewById(R.id.reback).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				RoomActivity.this.finish();
+			}
+		});
 	}
 	
 	private class MyItemListener implements OnItemListener{

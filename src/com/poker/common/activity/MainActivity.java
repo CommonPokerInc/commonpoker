@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -78,6 +79,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private TextView edit_or_confirm;
 
+    private View formerActionView;;
+    
     private int[] head_img = {R.drawable.img_player_picture1,
     		R.drawable.img_player_picture2,R.drawable.img_player_picture3,
     		R.drawable.img_player_picture4,R.drawable.img_player_picture5,
@@ -98,7 +101,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_name);
+        setContentView(R.layout.activity_main);
         app = (BaseApplication) getApplication();
         init();
         if(Environment.getExternalStorageState()
@@ -127,17 +130,28 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     	return null == settingHelper.getNickname();
     }
     
-    @Override
+    private boolean checkAndShowFirstView(View view,boolean shouldSave){
+    	if(userExists()){
+    		showFirstDialog();
+    		if(shouldSave){
+    			formerActionView = view;
+    		}
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }
+    
+    @SuppressWarnings("deprecation")
+	@SuppressLint("ResourceAsColor")
+	@Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
         if (v.getId() == R.id.send_game_btn) {
             Intent it = new Intent(MainActivity.this, SendGameActivity.class);
             startActivity(it);
         } else if (v.getId() == R.id.join_home_btn) {
-        	if(userExists()){
-        		showFirstDialog();
-        		return;
-        	}
+        	if(checkAndShowFirstView(v, true))return;
             if (app.isConnected && app.isServer()) {
                 app.getServer().clearServer();
                 app.isConnected = false;
@@ -148,19 +162,13 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             Intent it = new Intent(MainActivity.this, RoomActivity.class);
             startActivity(it);
         } else if (v.getId() == R.id.create_home_btn) {
-        	if(userExists()){
-        		showFirstDialog();
-        		return;
-        	}
+        	if(checkAndShowFirstView(v, true))return;
             Intent it = new Intent(MainActivity.this, RoomCreateActivity.class);
             startActivity(it);
         } else if (v.getId() == R.id.mainpage_setting_btn) {
             showSettingDialog();
         } else if (v.getId() == R.id.mainpage_me_btn) {
-        	if(userExists()){
-        		showFirstDialog();
-        		return;
-        	}
+        	if(checkAndShowFirstView(v, true))return;
             showMeDialog();
         } else if (v.getId() == R.id.voice_item_layout) {
 //            Intent intent = new Intent(this, RankActivity.class);
@@ -207,14 +215,24 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         	}
             editable = !editable;
             if(!editable){
+            	me_right.setVisibility(View.INVISIBLE);
+                me_left.setVisibility(View.INVISIBLE);
             	Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
             	settingHelper.setAvatarNumber(whichImg);
             	settingHelper.setNickname(nickname_edt.getText().toString());
             	confirm_edit_btn.setImageResource(R.drawable.img_edit_btn);
             	edit_or_confirm.setText(R.string.edit);
+            	nickname_edt.setBackgroundDrawable(null);
+            	nickname_edt.setBackgroundColor(R.color.transparent);
+            	nickname_edt.setTextColor(R.color.input_text);
             }else{
+            	me_right.setVisibility(View.VISIBLE);
+                me_left.setVisibility(View.VISIBLE);
             	confirm_edit_btn.setImageResource(R.drawable.img_confirm_btn);
                 edit_or_confirm.setText(R.string.confirm);
+                nickname_edt.setBackgroundDrawable(null);
+                nickname_edt.setBackgroundResource(R.drawable.bg_input);
+                nickname_edt.setTextColor(R.color.white);
             }
             nickname_edt.setEnabled(editable);
             
@@ -251,6 +269,10 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 				settingHelper.setNickname(strName);
 				settingHelper.setAvatarNumber(Math.abs(resId));
 				Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
+				if(null!=formerActionView){
+					onClick(formerActionView);
+					formerActionView = null;
+				}
 				firstWin.dismiss();
 			}
 		}
@@ -293,17 +315,16 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         meWin.setOutsideTouchable(true);
         meWin.setAnimationStyle(R.style.settingAnimation);
     	}
-        meWin.showAtLocation(MainActivity.this.meBtn, Gravity.BOTTOM, 0, 0);
-        meWin.update();
         whichImg = settingHelper.getAvatarNumber();
         me_head_img.setImageResource(head_img[settingHelper.getAvatarNumber()]);
         nickname_edt.setText(settingHelper.getNickname());
+        me_right.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
+        me_left.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
+        meWin.showAtLocation(MainActivity.this.meBtn, Gravity.BOTTOM, 0, 0);
+        meWin.update();
     }
 
     private void showFirstDialog(){
-    	if(settingHelper.getNickname()!=null){
-    		return;
-    	}
     	if(null==firstWin){
     		LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
     		firstView = inflater.inflate(R.layout.activity_first, null);

@@ -8,27 +8,35 @@
     <RelativeLayout
         android:id="@+id/hotTitle"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp" >
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
+        <ImageButton
+            android:id="@+id/reback"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="13dp"
+            android:background="@drawable/img_back_btn" />
         <TextView
             android:id="@+id/hotTitleName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="加入房间"
-            android:textColor="@color/wheat"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/btn_refresh_room"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:text="刷新"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:background="@drawable/bg_btn_refresh"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_centerVertical="true" />
     </RelativeLayout>
 
     <RelativeLayout

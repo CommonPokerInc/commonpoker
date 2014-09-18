@@ -92,6 +92,14 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 		findViewById(R.id.btn_create_rank).setOnClickListener(this);
 		findViewById(R.id.btn_create_limit).setOnClickListener(this);
 		findViewById(R.id.btn_create_room).setOnClickListener(this);
+		findViewById(R.id.reback).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				RoomCreateActivity.this.finish();
+			}
+		});
 		helper = new SettingHelper(this);
 		rBtnLimit = (RadioButton) findViewById(R.id.radio_limit_rounds);
 		rBtnRank = (RadioButton) findViewById(R.id.radio_rank_rounds);
@@ -101,6 +109,9 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				// TODO Auto-generated method stub
 				rBtnLimit.setChecked(!arg1);
+				if(arg1){
+					tipsView.setVisibility(View.GONE);
+				}
 			}
 		});
 		rBtnLimit.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -109,6 +120,9 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				// TODO Auto-generated method stub
 				rBtnRank.setChecked(!arg1);
+				if(arg1&tipsView.getVisibility()==View.GONE){
+					tipsView.setVisibility(View.VISIBLE);
+				}
 			}
 		});
 		rGroup = (RadioGroup) findViewById(R.id.radio_group);
@@ -141,15 +155,13 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
-				if(tipsView.getVisibility()==View.VISIBLE){
-					tipsView.setVisibility(View.GONE);
-				}
 			}
 			
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
-				if(tipsView.getVisibility()==View.GONE){
+				if(!rBtnLimit.isChecked()){
+					rBtnLimit.setChecked(true);
 					tipsView.setVisibility(View.VISIBLE);
 				}
 			}
@@ -159,7 +171,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 					boolean fromUser) {
 				// TODO Auto-generated method stub
 				if(fromUser){
-					tipsView.setText(progress+"");
+					tipsView.setText(String.valueOf(progress==0?1:progress));
 				}
 			}
 		});
@@ -246,8 +258,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 					return;
 				}
 				if(seekRounds.getProgress()==0){
-					Toast.makeText(this, "筹码不能为零", Toast.LENGTH_SHORT).show();
-					return;
+					mRounds = 1;
 				}
 				allowCreate = false;
 				room = new Room();
