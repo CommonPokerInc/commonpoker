@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -70,6 +71,14 @@ public class SendGameActivity extends AbsBaseActivity implements WifiCreateListe
         initFiles();
         intent = new Intent(this, WebService.class);
         startService(intent);
+        findViewById(R.id.send_game_back_btn).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				SendGameActivity.this.finish();
+			}
+		});
         backBtn.setOnClickListener(new View.OnClickListener() {
             
             @Override
