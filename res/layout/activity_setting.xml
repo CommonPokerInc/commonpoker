@@ -68,7 +68,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="14dp"
-                android:clickable="true"
                 android:src="@drawable/setting_switch_on" />
         </RelativeLayout>
 
@@ -98,7 +97,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="14dp"
-                android:clickable="true"
                 android:src="@drawable/setting_switch_on" />
         </RelativeLayout>
 

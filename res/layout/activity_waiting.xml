@@ -1,0 +1,233 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/waiting_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/waiting_layout_bg_color"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/waiting_time_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="08:50"
+        android:textSize="20sp"
+        android:textColor="#565d7b"        
+        ></TextView>
+        
+
+    <TextView
+        android:id="@+id/waiting_title_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/waiting_title_txt_margintop"
+        android:text="@string/waiting_title_txt"
+        android:textColor="@color/waiting_title_txt_color"
+        android:textSize="@dimen/waiting_title_txt_size" />
+
+    <TextView
+        android:id="@+id/waiting_tips_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="长按头像踢走路人"
+        android:textColor="@color/waiting_tips_txt_color"
+        android:textSize="@dimen/waiting_tips_txt_size" />
+
+    <RelativeLayout
+        android:id="@+id/waitint_players_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/waiting_roomer_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" >
+
+            <ImageView
+                android:id="@+id/waiting_roomer_txt_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/waiting_roomer_txt" />
+
+            <RelativeLayout
+                android:id="@+id/waiting_roomer"
+                android:layout_width="@dimen/waiting_player_layout_width"
+                android:layout_height="@dimen/waiting_player_layout_height"
+                android:layout_below="@+id/waiting_roomer_txt_img"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/seat" >
+
+                <ImageView
+                    android:id="@+id/waiting_roomer_img"
+                    android:layout_width="@dimen/waiting_roomer_img_width"
+                    android:layout_height="@dimen/waiting_roomer_img_height"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/img_player_picture1" />
+
+                <TextView
+                    android:id="@+id/waiting_roomer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/waiting_roomer_img"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/waiting_players_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/waiting_players_name_size" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/waiting_player1"
+            android:layout_width="@dimen/waiting_player_layout_width"
+            android:layout_height="@dimen/waiting_player_layout_height"
+            android:layout_alignBottom="@+id/waiting_roomer_layout"
+            android:layout_marginLeft="@dimen/waiting_players_marginleft"
+            android:layout_toRightOf="@+id/waiting_roomer_layout"
+            android:background="@drawable/seat" >
+
+            <ImageView
+                android:id="@+id/waiting_player1_img"
+                android:layout_width="@dimen/waiting_roomer_img_width"
+                android:layout_height="@dimen/waiting_roomer_img_height"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_player_picture1" />
+
+            <TextView
+                android:id="@+id/waiting_player1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/waiting_player1_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/waiting_players_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/waiting_players_name_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/waiting_player2"
+            android:layout_width="@dimen/waiting_player_layout_width"
+            android:layout_height="@dimen/waiting_player_layout_height"
+            android:layout_alignBottom="@+id/waiting_roomer_layout"
+            android:layout_marginLeft="@dimen/waiting_players_marginleft"
+            android:layout_toRightOf="@+id/waiting_player1"
+            android:background="@drawable/seat" >
+
+            <ImageView
+                android:id="@+id/waiting_player2_img"
+                android:layout_width="@dimen/waiting_roomer_img_width"
+                android:layout_height="@dimen/waiting_roomer_img_height"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_player_picture1" />
+
+            <TextView
+                android:id="@+id/waiting_player2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/waiting_player2_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/waiting_players_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/waiting_players_name_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/waiting_player3"
+            android:layout_width="@dimen/waiting_player_layout_width"
+            android:layout_height="@dimen/waiting_player_layout_height"
+            android:layout_alignBottom="@+id/waiting_roomer_layout"
+            android:layout_marginLeft="@dimen/waiting_players_marginleft"
+            android:layout_toRightOf="@+id/waiting_player2"
+            android:background="@drawable/seat" >
+
+            <ImageView
+                android:id="@+id/waiting_player3_img"
+                android:layout_width="@dimen/waiting_roomer_img_width"
+                android:layout_height="@dimen/waiting_roomer_img_height"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_player_picture1" />
+
+            <TextView
+                android:id="@+id/waiting_player3_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/waiting_player3_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/waiting_players_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/waiting_players_name_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/waiting_player4"
+            android:layout_width="@dimen/waiting_player_layout_width"
+            android:layout_height="@dimen/waiting_player_layout_height"
+            android:layout_alignBottom="@+id/waiting_roomer_layout"
+            android:layout_marginLeft="@dimen/waiting_players_marginleft"
+            android:layout_toRightOf="@+id/waiting_player3"
+            android:background="@drawable/seat" >
+
+            <ImageView
+                android:id="@+id/waiting_player4_img"
+                android:layout_width="@dimen/waiting_roomer_img_width"
+                android:layout_height="@dimen/waiting_roomer_img_height"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_player_picture1" />
+
+            <TextView
+                android:id="@+id/waiting_player4_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/waiting_player4_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/waiting_players_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/waiting_players_name_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/waiting_player5"
+            android:layout_width="@dimen/waiting_player_layout_width"
+            android:layout_height="@dimen/waiting_player_layout_height"
+            android:layout_alignBottom="@+id/waiting_roomer_layout"
+            android:layout_marginLeft="@dimen/waiting_players_marginleft"
+            android:layout_toRightOf="@+id/waiting_player4"
+            android:background="@drawable/seat" >
+
+            <ImageView
+                android:id="@+id/waiting_player5_img"
+                android:layout_width="@dimen/waiting_roomer_img_width"
+                android:layout_height="@dimen/waiting_roomer_img_height"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_player_picture1" />
+
+            <TextView
+                android:id="@+id/waiting_player5_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/waiting_player5_img"
+                android:layout_centerHorizontal="true"
+                android:text="@string/waiting_players_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/waiting_players_name_size" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/waiting_operation_btn"
+        android:layout_width="@dimen/waiting_operation_btn_width"
+        android:layout_height="@dimen/waiting_operation_btn_height"
+        android:layout_marginTop="@dimen/waiting_operation_btn_margintop"
+        android:layout_gravity="center"
+        android:text="开战"
+        android:textColor="@color/white"
+        android:textSize="@dimen/waiting_operation_btn_txt_size"
+        android:background="@drawable/waiting_begin_btn" />
+
+</LinearLayout>

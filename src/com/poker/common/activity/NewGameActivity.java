@@ -76,6 +76,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
     public void initView(){
         betLayout = (FrameLayout)findViewById(R.id.new_bet_layout);
+        betLayout.setVisibility(View.INVISIBLE);
         //增加赌注的滑动条初始化控件
         bet_fullImg = (ImageView)findViewById(R.id.new_bet_full);
         bet_nullImg = (ImageView)findViewById(R.id.new_bet_null);
@@ -219,6 +220,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                 if ((float) disYSlide / disXSlide > 1f) {
                     verticalSlide = false;
                     horizontalSlide = true;
+                    betLayout.setVisibility(View.VISIBLE);
                 } else {
                     verticalSlide = true;
                     horizontalSlide = false;
@@ -229,12 +231,14 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             } else if (disYSlide > 0) {
                 verticalSlide = false;
                 horizontalSlide = true;
+                betLayout.setVisibility(View.VISIBLE);
             }
         }
 
         if (verticalSlide) {
             if (arg0.getX() - arg1.getX() > verticalMinDistance
                     && Math.abs(arg2) > minVelocity) {
+            	isFollow = false;
                 showMyToast("弃牌");
             } else if (arg1.getX() - arg0.getX() > verticalMinDistance
                     && Math.abs(arg2) > minVelocity) {
@@ -262,14 +266,11 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         return false;
     }
 
-    
-    
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // TODO Auto-generated method stub
         if (mGestureDetector.onTouchEvent(event))
             return true;
-
         // 处理手势结束
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
         case MotionEvent.ACTION_UP:

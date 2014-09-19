@@ -198,12 +198,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
         } else if (v.getId() == R.id.about_item_layout) {
         	
-            Intent intent = new Intent(this, zzkTestActivity.class);
+            Intent intent = new Intent(this,WaitingActivity.class);
             startActivity(intent);
-
-        } else if (v.getId() == R.id.shock_switch_img) {
-
-        } else if (v.getId() == R.id.voice_switch_img) {
 
         } else if (v.getId() == R.id.me_close) {
             if (meView != null && meView.isShown())
@@ -292,7 +288,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         me_left = (ImageButton) meView.findViewById(R.id.left);
         me_head_img = (ImageView) meView.findViewById(R.id.head_img);
         nickname_edt = (EditText) meView.findViewById(R.id.nickname_edt);
-        me_bg = (ImageView)settingView.findViewById(R.id.me_bg);
+        me_bg = (ImageView)meView.findViewById(R.id.me_bg);
         me_close.setOnClickListener(this);
         confirm_edit_btn.setOnClickListener(this);
         me_left.setOnClickListener(this);
@@ -375,8 +371,6 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
           shock_item_layout.setOnClickListener(this);
           help_item_layout.setOnClickListener(this);
           about_item_layout.setOnClickListener(this);
-          voice_switch.setOnClickListener(this);
-          shock_switch.setOnClickListener(this);
           setting_dialog_layout.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
@@ -389,8 +383,10 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 				if (event.getAction() == MotionEvent.ACTION_UP) {
 					if(!(x <= setting_bg.getRight() && x >= setting_bg.getLeft()
 	                        && y >= setting_bg.getTop() && y <= setting_bg.getBottom())){
-						if(settingView != null && settingView.isShown())
+						if(settingView != null && settingView.isShown()){
 							settingWin.dismiss();
+						}
+							
 					}
 				}
 				return true;
@@ -401,7 +397,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
           settingWin.setBackgroundDrawable(new BitmapDrawable());
           settingWin.setOutsideTouchable(true);
           settingWin.setFocusable(true);
-          settingWin.setAnimationStyle(R.style.settingAnimation);
+//          settingWin.setAnimationStyle(R.style.settingAnimation);
 		}
           settingWin.showAtLocation(MainActivity.this.settingBtn, Gravity.BOTTOM, 0, 0); 
           settingWin.update();
@@ -484,4 +480,5 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         System.exit(0);
         super.onDestroy();
     }
+  
 }

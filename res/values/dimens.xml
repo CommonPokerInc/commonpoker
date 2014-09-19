@@ -219,4 +219,19 @@
     <dimen name="game_back_img_width">40dp</dimen>
     <dimen name="game_back_img_height">40dp</dimen>
     
+    <!-- dengdai -->
+    <dimen name="waiting_title_txt_size">50sp</dimen>
+    <dimen name="waiting_title_txt_margintop">23dp</dimen>
+    <dimen name="waiting_tips_txt_size">20sp</dimen>
+    <dimen name="waiting_players_name_size">23sp</dimen>
+    <dimen name="waiting_roomer_img_width">80dp</dimen>
+    <dimen name="waiting_roomer_img_height">80dp</dimen>
+    <dimen name="waiting_players_marginleft">10dp</dimen>
+    <dimen name="waiting_player_layout_width">90dp</dimen>
+    <dimen name="waiting_player_layout_height">110dp</dimen>
+    <dimen name="waiting_operation_btn_margintop">15dp</dimen>
+    <dimen name="waiting_operation_btn_width">166dp</dimen>
+    <dimen name="waiting_operation_btn_height">47dp</dimen>
+    <dimen name="waiting_operation_btn_txt_size">30sp</dimen>
+    
 </resources>

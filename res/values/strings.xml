@@ -49,7 +49,6 @@
     <string name="punishment_txt">你这么聪明，你爸妈造吗？滚粗。。。。。。</string>
     <string name="punishment_begin_txt">开始</string>
     <string name="punishment_close_txt">关闭</string>
-    
     <string name="player_name">逗比</string>
     <string name="player_action_txt">投注2000</string>
     <string name="bet_txt">3000</string>
@@ -59,5 +58,10 @@
     <string name="game_mypoker_type_txt">皇家同花順</string>
     <string name="game_maincool_chip_txt">100000</string>
     <string name="game_sidecool_chip_txt">100000</string>
+    <string name="title_activity_waiting">WaitingActivity</string>
+    
+    <!-- dengdai -->
+    <string name="waiting_title_txt">为了部落而战！</string>
+    <string name="waiting_players_name">逗比</string>
 
 </resources>

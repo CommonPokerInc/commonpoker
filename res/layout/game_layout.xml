@@ -524,7 +524,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:clickable="true"
-            android:src="@drawable/addnumber_btn" />
+            android:src="@drawable/waiting_begin_btn" />
 
         <com.poker.common.custom.VerticalSeekBar
             android:id="@+id/ChipSeekbar"

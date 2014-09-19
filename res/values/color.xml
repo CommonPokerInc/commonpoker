@@ -306,5 +306,8 @@
     <color name="game_maincool_chip_txt_color">#feec00</color>
     <color name="game_sidecool_chip_txt_color">#f5bd42</color>
     <color name="player_action_txt_color">#feec00</color>
+    <color name="waiting_layout_bg_color">#2f2c42</color>
+    <color name="waiting_title_txt_color">#f0de08</color>
+    <color name="waiting_tips_txt_color">#505470</color>
 
 </resources>

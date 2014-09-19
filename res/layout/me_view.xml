@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/me_dealer_img"
-        android:background="#e0000000" >
+        android:background="#000000"
+        android:alpha="0.8" >
 
         <ImageView
             android:id="@+id/me_image_img"
