@@ -223,7 +223,6 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 	}
 	
 	private void refreshWifiList(ArrayList<ScanResult> results) {
-		adapter.clearData();
 		wifiList = results;
 		if(results.size()==0){
 			txtNoRoom.setVisibility(View.VISIBLE);
@@ -236,6 +235,7 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 			adapter = new RoomAdapter(results, this,new MyItemListener());
 			ltvRoom.setAdapter(adapter);
 		} else {
+			adapter.clearData();
 			adapter.refreshData(results);
 		}
 	}

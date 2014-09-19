@@ -82,9 +82,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     private View formerActionView;
 
     private ImageView me_head_img;
-
-    private int whichImg;
-
+    
     private RelativeLayout setting_dialog_layout, me_dialog_layout;
 
 	private int resId =-1;
@@ -204,7 +202,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             	me_right.setVisibility(View.INVISIBLE);
                 me_left.setVisibility(View.INVISIBLE);
             	Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
-            	settingHelper.setAvatarNumber(whichImg);
+            	settingHelper.setAvatarNumber(resId);
             	settingHelper.setNickname(nickname_edt.getText().toString());
             	confirm_edit_btn.setImageResource(R.drawable.img_edit_btn);
             	edit_or_confirm.setText(R.string.edit);
@@ -223,29 +221,17 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             nickname_edt.setEnabled(editable);
             
         } else if (v.getId() == R.id.left) {
-        	if(!editable)
-        		return;
-            if (whichImg <= 0) {
-                me_head_img.setImageResource(UserUtil.head_img[whichImg]);
-            } else {
-                whichImg--;
-                me_head_img.setImageResource(UserUtil.head_img[whichImg]);
-            }
+            resId = (resId-1)%UserUtil.head_img.length;
+            me_head_img.setImageResource(UserUtil.head_img[Math.abs(resId)]);
         } else if (v.getId() == R.id.right) {
-        	if(!editable)
-        		return;
-            if (whichImg >= 7) {
-                me_head_img.setImageResource(UserUtil.head_img[whichImg]);
-            } else {
-                whichImg++;
-                me_head_img.setImageResource(UserUtil.head_img[whichImg]);
-            }
+        	resId = (resId+1)%UserUtil.head_img.length;
+        	me_head_img.setImageResource(UserUtil.head_img[Math.abs(resId)]);
         }else if(v.getId()==R.id.btn_change_left){
 			resId = (resId-1)%UserUtil.head_img.length;
 			first_head_img.setImageResource(UserUtil.head_img[Math.abs(resId)]);
 		}else if(v.getId()==R.id.btn_change_right){
 			resId = (resId+1)%UserUtil.head_img.length;
-			first_head_img.setImageResource(UserUtil.head_img[resId]);
+			first_head_img.setImageResource(UserUtil.head_img[Math.abs(resId)]);
 		}else if(v.getId()==R.id.btn_go){
 			String strName = edtFirstName.getText().toString();
 			if(strName.equals("")){
@@ -307,7 +293,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         meWin.setOutsideTouchable(true);
         meWin.setAnimationStyle(R.style.settingAnimation);
     	}
-        whichImg = settingHelper.getAvatarNumber();
+    	resId  = settingHelper.getAvatarNumber();
         me_head_img.setImageResource(UserUtil.head_img[settingHelper.getAvatarNumber()]);
         nickname_edt.setText(settingHelper.getNickname());
         me_right.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
