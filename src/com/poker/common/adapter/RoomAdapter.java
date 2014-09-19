@@ -72,8 +72,7 @@ public class RoomAdapter extends BaseAdapter {
 			}
 		});
 		Log.i("frankchan", ":"+strSSID);
-		String result = strSSID.substring(0, strSSID.lastIndexOf(Constant.WIFI_SUFFIX));
-		nameTxt.setText(result);
+		nameTxt.setText(strSSID);
 		
 		return convertView;
 	}

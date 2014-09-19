@@ -71,6 +71,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private EditText edtFirstName,nickname_edt;
     
+    private TextView nickname_txt;
+    
     private Button btnGo;
     
     private boolean voice_switch_state = false, shock_switch_state = false;//
@@ -206,17 +208,15 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             	settingHelper.setNickname(nickname_edt.getText().toString());
             	confirm_edit_btn.setImageResource(R.drawable.img_edit_btn);
             	edit_or_confirm.setText(R.string.edit);
-            	nickname_edt.setBackgroundDrawable(null);
-            	nickname_edt.setBackgroundColor(R.color.transparent);
-            	nickname_edt.setTextColor(R.color.input_text);
+            	nickname_edt.setVisibility(View.GONE);
+            	nickname_txt.setVisibility(View.VISIBLE);
             }else{
             	me_right.setVisibility(View.VISIBLE);
                 me_left.setVisibility(View.VISIBLE);
             	confirm_edit_btn.setImageResource(R.drawable.img_confirm_btn);
                 edit_or_confirm.setText(R.string.confirm);
-                nickname_edt.setBackgroundDrawable(null);
-                nickname_edt.setBackgroundResource(R.drawable.bg_input);
-                nickname_edt.setTextColor(R.color.white);
+                nickname_txt.setVisibility(View.GONE);
+                nickname_edt.setVisibility(View.VISIBLE);
             }
             nickname_edt.setEnabled(editable);
             
@@ -263,6 +263,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         me_left = (ImageButton) meView.findViewById(R.id.left);
         me_head_img = (ImageView) meView.findViewById(R.id.head_img);
         nickname_edt = (EditText) meView.findViewById(R.id.nickname_edt);
+        nickname_txt = (TextView) meView.findViewById(R.id.nickname_txt);
         me_bg = (ImageView)meView.findViewById(R.id.me_bg);
         confirm_edit_btn.setOnClickListener(this);
         me_left.setOnClickListener(this);
@@ -281,6 +282,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 	                        && y >= me_bg.getTop() && y <= me_bg.getBottom())){
 						if(meView != null && meView.isShown())
 							meWin.dismiss();
+						editable =false;
 					}
 				}
 				return true;
@@ -296,8 +298,11 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     	resId  = settingHelper.getAvatarNumber();
         me_head_img.setImageResource(UserUtil.head_img[settingHelper.getAvatarNumber()]);
         nickname_edt.setText(settingHelper.getNickname());
+        nickname_txt.setText(settingHelper.getNickname());
         me_right.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
         me_left.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
+        nickname_edt.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
+        nickname_txt.setVisibility(!editable?View.VISIBLE:View.INVISIBLE);
         meWin.showAtLocation(MainActivity.this.meBtn, Gravity.BOTTOM, 0, 0);
         meWin.update();
     }
