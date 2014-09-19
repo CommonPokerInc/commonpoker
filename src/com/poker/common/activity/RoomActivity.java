@@ -136,7 +136,8 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 			// TODO Auto-generated method stub
 			switch(msg.what){
 			case MSG_CONNECT_FAILURE:
-				Toast.makeText(RoomActivity.this, "加入房间失败", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RoomActivity.this, "加入房间失败,房间不存在或者已经开始", Toast.LENGTH_SHORT).show();
+				app.wm.disconnectWifi(mSSID);
 				allowEntry = true;
 				break;
 			case MSG_CONNECT_SUCCESS:
@@ -222,6 +223,7 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 	}
 	
 	private void refreshWifiList(ArrayList<ScanResult> results) {
+		adapter.clearData();
 		wifiList = results;
 		if(results.size()==0){
 			txtNoRoom.setVisibility(View.VISIBLE);

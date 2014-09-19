@@ -78,7 +78,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 	
 	private final static int MAX_COUNT = 6;
 	
-	private final static String MOBILE_NAME = "_"+Build.MODEL; 
+	private final static String MOBILE_NAME = "=_="+Build.MODEL; 
 	
 	private final static int MSG_CREATE_SERVER_SOCKET = 1;
 	private final static int MSG_SHOW_CREATE_HOT_ERROR =2;
@@ -264,7 +264,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 				room = new Room();
 				room.setType(mType);
 				room.setCount(MAX_COUNT);
-				room.setInnings(mRounds);
+				room.setInnings(mType==Room.TYPE_RANK?-1:mRounds);
 				room.setMinStake(mStakes);
 				room.setBasicChips(mBet);
 				room.setName(edtWifi.getText().toString());

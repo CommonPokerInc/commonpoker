@@ -76,13 +76,13 @@
                 android:layout_toRightOf="@+id/txt_room_name"
                 android:hint="请输入3-12个英文字母或数字"
                 android:background="@drawable/bg_input"
-                android:inputType="number|text"
                 android:maxHeight="35dp"
                 android:maxWidth="300dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:textColor="#394262"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:digits="@string/digits" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -258,8 +258,8 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/room_rounds_extra"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/btn_create_room"
-            android:gravity="center"
             android:text="开房！"
             android:textColor="@color/white"
             android:textSize="17sp" />

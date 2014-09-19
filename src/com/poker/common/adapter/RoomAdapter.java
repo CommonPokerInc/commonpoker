@@ -50,7 +50,7 @@ public class RoomAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 
 		System.out.println("into getView()");
 		TextView nameTxt = null;
@@ -59,18 +59,19 @@ public class RoomAdapter extends BaseAdapter {
 			convertView = View.inflate(mContext, R.layout.adapter_room_item, null);
 		}
 		nameTxt = (TextView) convertView.findViewById(R.id.hotName);
-		final String strSSID = mResults.get(position).SSID;
+		String [] strGroup =mResults.get(position).SSID.split("=_=");
+		final String strSSID = strGroup[0];
 		nameTxt.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(null!=listener){
-					listener.onItemClick(strSSID);
+					listener.onItemClick(mResults.get(position).SSID);
 				}
 			}
 		});
-		Log.i("frankchan", "筛选房间名："+strSSID);
+		Log.i("frankchan", ":"+strSSID);
 		String result = strSSID.substring(0, strSSID.lastIndexOf(Constant.WIFI_SUFFIX));
 		nameTxt.setText(result);
 		
