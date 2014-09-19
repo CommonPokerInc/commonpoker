@@ -111,6 +111,10 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		
 	}
 	
+	protected void forbidJoin(){
+		app.getServer().setJoinForbidden(true);
+	}
+	
 	@Override
 	public void onSendSuccess() {
 		// TODO Auto-generated method stub
@@ -326,11 +330,13 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		if(app.isServer()){
 			app.getServer().stopListner();
 			app.getServer().clearServer();
+			app.getServer().freeAll();
 			app.setServer(null);
 			app.wm.disableWifiHot();
 		}else{
 			app.getClient().stopAcceptMessage();
 			app.getClient().clearClient();
+			app.getClient().freeAll();
 			app.setClient(null);
 			if(null!=mSSID){
 				app.wm.deleteMoreCon(mSSID);

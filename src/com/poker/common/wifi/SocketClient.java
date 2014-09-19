@@ -30,8 +30,12 @@ public class SocketClient {
 	
 	private ClientConnectListener connListener;
 
+	public void freeAll(){
+		client = null;
+		socketClient = null;
+		onGoinglistner = true;
+	}
 	
-	//���ӷ������ص��ӿ�
 	public static interface ClientConnectListener {
 		public void onSuccess();
 		public void onFailure(String errorInfo);
@@ -61,8 +65,6 @@ public class SocketClient {
 				try {
 					client = new Socket(site, port);
 					Log.i(TAG, "Client is created! site:" + site + " port:" + port);
-					//���뷿��������������Ϣ���ٿ�ʼ����
-					//acceptMsg();
 					connListener.onSuccess();
 				} catch (UnknownHostException e) {
 					e.printStackTrace();

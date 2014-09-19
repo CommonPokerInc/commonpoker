@@ -23,7 +23,7 @@ public class SocketServer {
 
 	private static SocketServer serverSocket;
 
-	public static List<Socket> socketQueue = new ArrayList<Socket>();
+	//public static List<Socket> socketQueue = new ArrayList<Socket>();
 
 	public static HashMap<String,Socket>socketMap = new HashMap<String,Socket>();
 	
@@ -35,11 +35,21 @@ public class SocketServer {
 	
 	private WifiCreateListener createListener;
 	
+	private boolean joinForbidden = false;
+	
 	public interface WifiCreateListener{
 		void onCreateSuccess();
 		void OnCreateFailure(String strError);
 	}
 	
+
+	public void freeAll(){
+		serverSocket = null;
+		server = null;
+		joinForbidden = false;
+		onGoinglistner =true;
+		socketMap.clear();
+	}
 	
 	private boolean onGoinglistner = true;
 
@@ -54,7 +64,6 @@ public class SocketServer {
 		return serverSocket;
 	}
 	
-	//�����ȵ��������仯������
 	public void setClientListener(WifiClientListener clientListener){
 	}
 	
@@ -110,8 +119,8 @@ public class SocketServer {
 						try {
 							final Socket socket = server.accept();
 							if (socket != null) {
-								if (!socketQueue.contains(socket)) {
-									socketQueue.add(socket);
+								if (!joinForbidden&&!socketMap.containsValue(socket)) {
+									//socketQueue.add(socket);
 									socketMap.put(socket.getInetAddress().getHostName(), socket);
 									if(null!=clientListener){
 										clientListener.clientIncrease(socket.getInetAddress().getHostName());
@@ -226,4 +235,13 @@ public class SocketServer {
 	public void setCreateListener(WifiCreateListener createListener) {
 		this.createListener = createListener;
 	}
+
+	public boolean isJoinForbidden() {
+		return joinForbidden;
+	}
+
+	public void setJoinForbidden(boolean joinForbidden) {
+		this.joinForbidden = joinForbidden;
+	}
+	
 }
