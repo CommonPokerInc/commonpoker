@@ -2,6 +2,7 @@ package com.poker.common.custom;
 
 import com.poker.common.R;
 import com.poker.common.entity.ClientPlayer;
+import com.poker.common.util.UserUtil;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -47,16 +48,20 @@ public class MeView extends FrameLayout{
 	    player_action_txt.setText(actionText);
 	}
 	
-	public void setMeMoneyText(String str){
+	public void setBaseMoneyText(String str){
 	    me_money_txt.setText(str);
 	}
 	
-	public void setBaseMoneyText(String str){
+	public void setBetMoneyText(String str){
 	    bet_txt.setText(str);
 	}
 	
+	public void setBetVisiable(int v){
+	    bet_layout.setVisibility(v);
+	}
+	
 	public void setPerson(ClientPlayer player){
-	    setPersonImg(player.getInfo().getAvatar());
+	    setPersonImg(UserUtil.head_img[player.getInfo().getAvatar()]);
 	    setPersonName(player.getInfo().getName());
 	    setBaseMoneyText(String.valueOf(player.getInfo().getBaseMoney()));
 	}

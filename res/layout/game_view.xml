@@ -3,13 +3,23 @@
     android:id="@+id/game_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
         <RelativeLayout
         android:id="@+id/game_me_view_layout"    
         android:background="#46537b"
         android:layout_width="match_parent"
         android:layout_height="@dimen/game_me_view_layout_height">
-
+	<DigitalClock
+        android:id="@+id/digitalClock1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:maxLength="5"
+        android:text="DigitalClock" />
+            
     <com.poker.common.custom.MeView
         android:id="@+id/game_me_view"
         android:layout_width="wrap_content"
@@ -19,6 +29,15 @@
         android:layout_marginTop="@dimen/game_me_view_margintop"
         android:rotation="180" >
     </com.poker.common.custom.MeView>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/game_me_view"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/digitalClock1"
+        android:text="Button" />
 
     </RelativeLayout>
     
@@ -336,5 +355,14 @@
             android:scaleType="matrix" />
 
     </FrameLayout>
+    
+      <ImageView 
+        android:id="@+id/isMeImageView"
+   		android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:src="@drawable/img_in_me"
+    	android:scaleType="fitXY"
+        >
+  	  </ImageView>
 
 </RelativeLayout>

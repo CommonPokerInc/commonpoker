@@ -1,14 +1,12 @@
 ﻿
 package com.poker.common.activity;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.List;
+import com.poker.common.BaseApplication;
+import com.poker.common.R;
+import com.poker.common.util.SettingHelper;
+import com.poker.common.util.UserUtil;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.BitmapDrawable;
@@ -30,9 +28,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.poker.common.BaseApplication;
-import com.poker.common.R;
-import com.poker.common.util.SettingHelper;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * ��˵��
@@ -79,13 +79,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private TextView edit_or_confirm;
 
-    private View formerActionView;;
-    
-    private int[] head_img = {R.drawable.img_player_picture1,
-    		R.drawable.img_player_picture2,R.drawable.img_player_picture3,
-    		R.drawable.img_player_picture4,R.drawable.img_player_picture5,
-    		R.drawable.img_player_picture6,R.drawable.img_player_picture7,
-    		R.drawable.img_player_picture8};
+    private View formerActionView;
 
     private ImageView me_head_img;
 
@@ -236,26 +230,26 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         	if(!editable)
         		return;
             if (whichImg <= 0) {
-                me_head_img.setImageResource(head_img[whichImg]);
+                me_head_img.setImageResource(UserUtil.head_img[whichImg]);
             } else {
                 whichImg--;
-                me_head_img.setImageResource(head_img[whichImg]);
+                me_head_img.setImageResource(UserUtil.head_img[whichImg]);
             }
         } else if (v.getId() == R.id.right) {
         	if(!editable)
         		return;
             if (whichImg >= 7) {
-                me_head_img.setImageResource(head_img[whichImg]);
+                me_head_img.setImageResource(UserUtil.head_img[whichImg]);
             } else {
                 whichImg++;
-                me_head_img.setImageResource(head_img[whichImg]);
+                me_head_img.setImageResource(UserUtil.head_img[whichImg]);
             }
         }else if(v.getId()==R.id.btn_change_left){
-			resId = (resId-1)%head_img.length;
-			first_head_img.setImageResource(head_img[Math.abs(resId)]);
+			resId = (resId-1)%UserUtil.head_img.length;
+			first_head_img.setImageResource(UserUtil.head_img[Math.abs(resId)]);
 		}else if(v.getId()==R.id.btn_change_right){
-			resId = (resId+1)%head_img.length;
-			first_head_img.setImageResource(head_img[resId]);
+			resId = (resId+1)%UserUtil.head_img.length;
+			first_head_img.setImageResource(UserUtil.head_img[resId]);
 		}else if(v.getId()==R.id.btn_go){
 			String strName = edtFirstName.getText().toString();
 			if(strName.equals("")){
@@ -320,7 +314,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         meWin.setAnimationStyle(R.style.settingAnimation);
     	}
         whichImg = settingHelper.getAvatarNumber();
-        me_head_img.setImageResource(head_img[settingHelper.getAvatarNumber()]);
+        me_head_img.setImageResource(UserUtil.head_img[settingHelper.getAvatarNumber()]);
         nickname_edt.setText(settingHelper.getNickname());
         me_right.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
         me_left.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
@@ -347,7 +341,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     		firstWin.setAnimationStyle(R.style.settingAnimation);
     	}
 		resId  = settingHelper.getAvatarNumber();
-		first_head_img.setImageResource(head_img[resId]);
+		first_head_img.setImageResource(UserUtil.head_img[resId]);
     	firstWin.showAtLocation(meBtn,Gravity.BOTTOM,0,0);
 		firstWin.update();
     }
