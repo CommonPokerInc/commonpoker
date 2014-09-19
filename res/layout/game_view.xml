@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+
+
         <RelativeLayout
         android:id="@+id/game_me_view_layout"    
         android:background="#46537b"
@@ -364,5 +366,12 @@
     	android:scaleType="fitXY"
         >
   	  </ImageView>
+  	  
+          <ImageView
+        android:id="@+id/help_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/game_help" />
 
 </RelativeLayout>

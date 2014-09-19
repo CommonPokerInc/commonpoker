@@ -28,6 +28,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -103,6 +105,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
     private TextView poolsText[];
     
+    private ImageView helpImg,helpPic;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -120,6 +124,23 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         //增加赌注的滑动条初始化控件
         bet_fullImg = (ImageView)findViewById(R.id.new_bet_full);
         bet_nullImg = (ImageView)findViewById(R.id.new_bet_null);
+        helpImg = (ImageView)findViewById(R.id.game_help_img);
+//        helpImg.setOnTouchListener(new OnTouchListener() {
+//			
+//        	@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				// TODO Auto-generated method stub
+//				if(event.getAction() == MotionEvent.ACTION_DOWN){
+//					helpPic.setVisibility(View.VISIBLE);
+//				}
+//				if (event.getAction() == MotionEvent.ACTION_UP) {
+//					helpPic.setVisibility(View.INVISIBLE);
+//				}
+//				return true;
+//			}
+//		});
+        helpPic = (ImageView)findViewById(R.id.help_img);
+        helpPic.setVisibility(View.INVISIBLE);
         public_poker1 = (ImageView)findViewById(R.id.game_pokers_img1);
         public_poker2 = (ImageView)findViewById(R.id.game_pokers_img2);
         public_poker3 = (ImageView)findViewById(R.id.game_pokers_img3);
@@ -300,14 +321,14 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     @Override
     public boolean onFling(MotionEvent arg0, MotionEvent arg1, float arg2, float arg3) {
         // TODO Auto-generated method stub
-
+        
         return false;
     }
 
     @Override
     public void onLongPress(MotionEvent arg0) {
         // TODO Auto-generated method stub
-        
+    	
     }
 
     @Override
@@ -361,7 +382,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     @Override
     public void onShowPress(MotionEvent arg0) {
         // TODO Auto-generated method stub
-        
+    	
     }
 
     @Override
