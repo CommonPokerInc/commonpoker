@@ -124,7 +124,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 			Log.e("frankchan", "配置没完成");
 			return;
 		}
-		if(strInfo.length()<=15){
+		if(strInfo.length()<=15&&strInfo.startsWith("192.168")){
 			Message msg = mHandler.obtainMessage(MSG_RECEIVE_ACK, strInfo);
 			mHandler.sendMessage(msg);
 			return;
