@@ -64,4 +64,8 @@ public class BaseApplication extends Application{
 	private void setServer(boolean isServer) {
 		this.isServer = isServer;
 	}
+	
+	public void resetServerState(){
+		this.isServer =false;
+	}
 }

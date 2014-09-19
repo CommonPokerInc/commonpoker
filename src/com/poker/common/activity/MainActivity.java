@@ -56,7 +56,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private PopupWindow settingWin, meWin,firstWin;
 
-    private ImageView setting_close, me_close,setting_bg,me_bg;
+    private ImageView setting_close,setting_bg,me_bg;
 
     private RelativeLayout voice_item_layout, shock_item_layout, help_item_layout,
             about_item_layout;
@@ -194,10 +194,6 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         	
             Intent intent = new Intent(this,WaitingActivity.class);
             startActivity(intent);
-
-        } else if (v.getId() == R.id.me_close) {
-            if (meView != null && meView.isShown())
-                meWin.dismiss();
         } else if (v.getId() == R.id.confirm_edit_btn) {
         	if(nickname_edt.getText().toString().equals("")){
             	Toast.makeText(this, "不能为空", Toast.LENGTH_SHORT).show();
@@ -275,7 +271,6 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
         meView = inflater.inflate(R.layout.activity_me, null);
         me_dialog_layout = (RelativeLayout) meView.findViewById(R.id.me_dialog_layout);
-        me_close = (ImageView) meView.findViewById(R.id.me_close);
         confirm_edit_btn = (ImageView) meView.findViewById(R.id.confirm_edit_btn);
         edit_or_confirm = (TextView) meView.findViewById(R.id.confirm_edit_txt);
         me_right = (ImageButton) meView.findViewById(R.id.right);
@@ -283,7 +278,6 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         me_head_img = (ImageView) meView.findViewById(R.id.head_img);
         nickname_edt = (EditText) meView.findViewById(R.id.nickname_edt);
         me_bg = (ImageView)meView.findViewById(R.id.me_bg);
-        me_close.setOnClickListener(this);
         confirm_edit_btn.setOnClickListener(this);
         me_left.setOnClickListener(this);
         me_right.setOnClickListener(this);

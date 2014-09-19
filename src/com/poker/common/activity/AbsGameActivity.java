@@ -343,6 +343,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 			}
 			app.wm.disconnectWifi(mSSID);
 		}
+		app.resetServerState();
 		app.isConnected = false;
 		app.isGameStarted =false;
 		super.onDestroy();
