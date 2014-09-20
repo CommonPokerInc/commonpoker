@@ -4,7 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+<include 
+    android:id="@+id/game_waiting_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    layout="@layout/activity_waiting"
+    android:visibility="invisible"
+    />
 
+<RelativeLayout 
+    android:id="@+id/game_view_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    >
 
         <RelativeLayout
         android:id="@+id/game_me_view_layout"    
@@ -365,6 +377,7 @@
             android:scaleType="matrix" />
 
     </FrameLayout>
+    </RelativeLayout>
     
       <ImageView 
         android:id="@+id/isMeImageView"
