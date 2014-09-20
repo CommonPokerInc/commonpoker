@@ -24,7 +24,7 @@ public class UserInfo {
 	private int aroundSumChip = 0;
 	
 	private int cardType = 0;
-
+	
 	public int getCardType() {
 		return cardType;
 	}

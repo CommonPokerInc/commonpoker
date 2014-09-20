@@ -2,7 +2,6 @@
 
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.Poker;
-
 import com.poker.common.R;
 import com.poker.common.entity.Poker;
 
@@ -414,4 +413,29 @@ public class PokerUtil {
 		}
 		return sum;
 	}
+	
+	public static String getCardTypeString(int cardType){
+	        switch(cardType/1000){
+	            case HIGH_CARD:
+	                return "高牌";
+	            case PAIR:
+                    return "一对";
+	            case TWO_PAIR:
+                    return "两对";
+	            case THREE:
+                    return "三条";
+	            case STRAIGHT:
+                    return "顺子";
+	            case ROYAL_FLUSH:
+                    return "同花";
+	            case GOURD:
+                    return "葫芦";
+	            case KING_KONG:
+                    return "四条";
+	            case FLUSH:
+                    return "皇家同花顺";
+	        }
+	        return "高牌";
+	}
+
 }

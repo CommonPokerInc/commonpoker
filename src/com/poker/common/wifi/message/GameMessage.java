@@ -2,47 +2,48 @@
 package com.poker.common.wifi.message;
 /*
  * author FrankChan
- * description ÓÎÏ·¿ªÊ¼ºóµÄÐÅÏ¢ÔØÌå
+ * description ï¿½ï¿½Ï·ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
  * time 2014-8-16
  *
  */
 public class GameMessage extends BaseMessage{
 
 	/**
-	 * ÐòÁÐ»¯°æ±¾ºÅ
+	 * ï¿½ï¿½ï¿½Ð»ï¿½ï¿½æ±¾ï¿½ï¿½
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	//ÆúÅÆ
+	//ï¿½ï¿½ï¿½ï¿½
 	public final static int ACTION_ABANDOM = 1;
-	//ÈÃÅÆ
+	//ï¿½ï¿½ï¿½ï¿½
 	public final static int ACTION_GIVE_IN = 2;
-	//¸ú×¢
+	//ï¿½ï¿½×¢
 	public final static int ACTION_FOLLOW =3;
-	//¼Ó×¢
+	//ï¿½ï¿½×¢
 	public final static int ACTION_ADD_BET =4;
-	//·¢¹«¹²ÅÆ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public final static int ACTION_SHOW_PUBLIC_POKER =5;
-//	·¢µ×ÅÆ
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public final static int ACTION_SEND_BOOL = 6;
-//	·¢4ÕÅÅÆ
+//	ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½
 	public final static int ACTION_SEND_FOUR = 7;
-//	·¢5ÕÅÅÆ
+//	ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½
 	public final static int ACTION_SEND_FIVE = 8;
-//	µ±Ç°²Ù×÷µÄÈË
+//	ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public final static int ACTION_CURRENT_PERSON = 9;
-//	µ±Ç°²Ù×÷µÄÈËÍê³É²Ù×÷£¬ÌáÊ¾ÏÂÒ»¼Ò½øÐÐ²Ù×÷
+//	ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ò»ï¿½Ò½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½
 	public final static int ACTION_FINISH_OPTIOIN = 10;
-//	¸üÐÂÖ¸¶¨ÏÂ±êµÄÍæ¼ÒµÄÇ®
+//	ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Â±ï¿½ï¿½ï¿½ï¿½Òµï¿½Ç®
 	public final static int ACTION_UPDATE_MONEY = 11;
 	
 	public final static int ACTION_NEXT_ROUND = 12;
+
 	
 	private int id;
 	
 	private int action;
 
-	//½ðÇ®
+	//ï¿½ï¿½Ç®
 	private int amount;
 	
 	public int getId() {

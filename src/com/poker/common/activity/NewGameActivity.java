@@ -8,6 +8,8 @@ import com.poker.common.entity.Poker;
 import com.poker.common.entity.Room;
 import com.poker.common.entity.ToastView;
 import com.poker.common.util.PokerUtil;
+import com.poker.common.util.SystemUtil;
+import com.poker.common.util.UserUtil;
 import com.poker.common.wifi.message.GameMessage;
 import com.poker.common.wifi.message.MessageFactory;
 import com.poker.common.wifi.message.PeopleMessage;
@@ -55,13 +57,14 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
 //    private int aroundIndex = -1;
   //玩家toast控件的元素
     private ImageView player,bet_fullImg,bet_nullImg;
-    private TextView name,othersAction,myAction;
+    private TextView name,othersAction,myAction,bet_txt;
     private Button confirmBtn;
     private int mMaxAddBetCan,mPreAddBet = 0,mCurAddBet;
     private float percent;
     private FrameLayout betLayout;
-    private boolean verticalSlide = false,horizontalSlide = false,isFollow=false,isQuit = false;
+    private boolean verticalSlide = false,horizontalSlide = false,isFollow=false;
     private Sensor sensor;
+    private Sensor lightSensor;
     private SensorManager sm ;
     
     private MeView meView;
@@ -107,6 +110,16 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
     private ImageView helpImg,helpPic;
     
+    private boolean isMe = false;
+    
+    private boolean isHasDoOption = true;
+    
+    private int z = 10;
+    
+    private int lux = 10;
+    
+    private ImageView game_back_img;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -136,12 +149,6 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         game_mypoker_img1 = (ImageView)findViewById(R.id.game_mypoker_img1);
         game_mypoker_img2 = (ImageView)findViewById(R.id.game_mypoker_img2);
         game_mypoker_type_txt = (TextView)findViewById(R.id.game_mypoker_type_txt);
-//        game_maincool_layout = (RelativeLayout)findViewById(R.id.game_maincool_layout);
-//        game_sidecool_layout1 = (RelativeLayout)findViewById(R.id.game_sidecool_layout1);
-//        game_sidecool_layout2 = (RelativeLayout)findViewById(R.id.game_sidecool_layout2);
-//        game_sidecool_layout3 = (RelativeLayout)findViewById(R.id.game_sidecool_layout3);
-//        game_sidecool_layout4 = (RelativeLayout)findViewById(R.id.game_sidecool_layout4);
-//        game_sidecool_layout5 = (RelativeLayout)findViewById(R.id.game_sidecool_layout5);
         isMeImageView = (ImageView)findViewById(R.id.isMeImageView);
         pools = new RelativeLayout[6];
         pools[1] = (RelativeLayout)findViewById(R.id.game_sidecool_layout1);
@@ -158,9 +165,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         poolsText[3] = (TextView)findViewById(R.id.game_sidecool_chip_txt3);
         poolsText[4] = (TextView)findViewById(R.id.game_sidecool_chip_txt4);
         poolsText[5] = (TextView)findViewById(R.id.game_sidecool_chip_txt5);
-        
+        game_back_img = (ImageView)findViewById(R.id.game_back_img);
         button1 = (Button)findViewById(R.id.button1);
         button1.setOnClickListener(this);
+        game_back_img.setOnClickListener(this);
         chipList = new ArrayList();
 //        mMaxAddBetCan = 300;
         wHandler = new WorkHandler(getMainLooper());
@@ -235,20 +243,46 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         //从系统服务中获得传感器管理器       
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);       
-        SensorEventListener lsn = new SensorEventListener() {       
-            public void onSensorChanged(SensorEvent e) {       
-                float x = e.values[SensorManager.DATA_X];       
-                float y = e.values[SensorManager.DATA_Y];       
-                float z = e.values[SensorManager.DATA_Z];       
-//                setTitle("x=" + (int) x + "," + "y=" + (int) y + "," + "z="+ (int) z);  
-//                Log.v("zkzhou1",""+x+","+""+y+","+""+z);
+        lightSensor = sm.getDefaultSensor(Sensor.TYPE_LIGHT);
+        SensorEventListener sn = new SensorEventListener() {       
+            public void onSensorChanged(SensorEvent e) {            
+                z =(int)e.values[SensorManager.DATA_Z];
             }       
             public void onAccuracyChanged(Sensor s, int accuracy) {       
+
             }       
         };       
+        SensorEventListener lsn = new SensorEventListener(){
+
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                // TODO Auto-generated method stub
+                //获取光线强度  
+                lux = (int)event.values[0];  
+                if(checkisQuit(z,lux)&&isMe&&!isHasDoOption){
+                    showMyToast("弃牌");
+                    doQuit();
+                    isHasDoOption = true;
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+        };
         
         // 注册listener，第三个参数是检测的精确度       
-        sm.registerListener(lsn, sensor, SensorManager.SENSOR_DELAY_GAME);  
+        sm.registerListener(lsn, lightSensor, SensorManager.SENSOR_DELAY_GAME);  
+        sm.registerListener(sn, sensor, SensorManager.SENSOR_DELAY_GAME); 
+    }
+    
+    public boolean checkisQuit(int z,int lux){
+        if(lux<=3&&z<=-7)
+            return true;
+        return false;
     }
     
     private void getScreenSize(){
@@ -278,6 +312,27 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         confirmBtn.setVisibility(View.INVISIBLE);
         confirmBtn.setOnClickListener(this);
         myToast.show();
+    }
+    
+    private void showOtherAction(int playerIndex,String str){
+        if(inflater == null){
+            inflater = LayoutInflater.from(this);
+        }
+        if(othersView == null){
+            othersView = inflater.inflate(R.layout.player_action_view, null);
+            player = (ImageView)othersView.findViewById(R.id.player_img);
+            name = (TextView)othersView.findViewById(R.id.player_name_txt);
+            othersAction = (TextView)othersView.findViewById(R.id.player_action_txt);
+            bet_txt = (TextView)othersView.findViewById(R.id.bet_txt);
+        }
+        if(othersToast == null){
+            othersToast = new ToastView(this,othersView,this.height/4,Toast.LENGTH_LONG);
+        }
+        player.setImageResource(UserUtil.head_img[playerList.get(playerIndex).getInfo().getAvatar()]);
+        name.setText(playerList.get(playerIndex).getInfo().getName());
+        othersAction.setText(str);
+        bet_txt.setText(String.valueOf(playerList.get(playerIndex).getInfo().getBaseMoney()));
+        othersToast.show();
     }
     
     
@@ -322,45 +377,45 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     public boolean onScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
             float arg3) {
         // TODO Auto-generated method stub
-        isFollow = false;
-        isQuit = false;
-        float disXSlide = Math.abs(arg1.getX() - arg0.getX());
-        float disYSlide = Math.abs(arg1.getY() - arg0.getY());
-        if (disXSlide > 0 || disYSlide > 0) {
-            if (disXSlide > 0 && disYSlide > 0) {
-                if ((float) disYSlide / disXSlide > 1f) {
+        if(isMe){
+            isFollow = false;
+            float disXSlide = Math.abs(arg1.getX() - arg0.getX());
+            float disYSlide = Math.abs(arg1.getY() - arg0.getY());
+            if (disXSlide > 0 || disYSlide > 0) {
+                if (disXSlide > 0 && disYSlide > 0) {
+                    if ((float) disYSlide / disXSlide > 1f) {
+                        verticalSlide = false;
+                        horizontalSlide = true;
+                        betLayout.setVisibility(View.VISIBLE);
+                    } else {
+                        verticalSlide = true;
+                        horizontalSlide = false;
+                    }
+                } else if (disXSlide > 0) {
+                    verticalSlide = true;
+                    horizontalSlide = false;
+                } else if (disYSlide > 0) {
                     verticalSlide = false;
                     horizontalSlide = true;
                     betLayout.setVisibility(View.VISIBLE);
-                } else {
-                    verticalSlide = true;
-                    horizontalSlide = false;
                 }
-            } else if (disXSlide > 0) {
-                verticalSlide = true;
-                horizontalSlide = false;
-            } else if (disYSlide > 0) {
-                verticalSlide = false;
-                horizontalSlide = true;
-                betLayout.setVisibility(View.VISIBLE);
             }
-        }
-
-        if (verticalSlide) {
-            if (arg0.getX() - arg1.getX() > verticalMinDistance
-                    && Math.abs(arg2) > minVelocity) {
-            	isFollow = false;
-                showMyToast("弃牌");
-                isQuit = true;
-            } else if (arg1.getX() - arg0.getX() > verticalMinDistance
-                    && Math.abs(arg2) > minVelocity) {
-                showMyToast("跟注");
-                isFollow = true;
+    
+            if (verticalSlide) {
+                if (arg0.getX() - arg1.getX() > verticalMinDistance
+                        && Math.abs(arg2) > minVelocity) {
+                	isFollow = false;
+    //                showMyToast("弃牌");
+                } else if (arg1.getX() - arg0.getX() > verticalMinDistance
+                        && Math.abs(arg2) > minVelocity) {
+                    showMyToast("跟注");
+                    isFollow = true;
+                }
             }
-        }
-
-        if (horizontalSlide) {
-            showMoneyBarSlide(arg0.getY() - (int) arg1.getRawY());
+    
+            if (horizontalSlide) {
+                showMoneyBarSlide(arg0.getY() - (int) arg1.getRawY());
+            }
         }
         
         return false;
@@ -386,7 +441,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         // 处理手势结束
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
         case MotionEvent.ACTION_UP:
-            if(horizontalSlide || isFollow||isQuit){
+            if(horizontalSlide || isFollow){
                 endGesture();
             }
             break;
@@ -398,15 +453,16 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     private void endGesture() {
         // TODO Auto-generated method stub
         confirmBtn.setVisibility(View.VISIBLE);
-        if(isFollow){
-            followAction();
-        }else if(isQuit){
-            doQuit();
+        if(isMe){
+            if(isFollow){
+                followAction();
+            }
         }
     }
     
     public void playerAbandom(int playerIndex){
         playerList.get(playerIndex).getInfo().setQuit(true);
+        showOtherAction(playerIndex,"弃牌");
         if(playerList.get(playerIndex).getInfo().getId() == currentPlay.getInfo().getId()){
             meView.setActionText("弃牌");
             meView.setActionViewVisiable(View.VISIBLE);
@@ -435,6 +491,14 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                }
             }
         }
+        showAroundMessage();
+    }
+    
+    public void showAroundMessage(){
+        int index = findIndexWithIPinList(playerList);
+        Log.i("Rinfon", playerList.get(index).getInfo().getCardType()+"");
+        game_mypoker_type_txt.setText(PokerUtil.getCardTypeString(playerList.get(index).getInfo().getCardType()));
+        game_mypoker_type_txt.setVisibility(View.VISIBLE);
     }
     
     public void setBaseMoney(ClientPlayer player,int money){
@@ -453,9 +517,15 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             poolsText[i].setVisibility(View.VISIBLE);
         }
     }
+    
+    public void setActionText(String actionName,int v){
+        meView.setActionViewVisiable(v);
+        meView.setActionText(actionName);
+    }
 
     public void doQuit(){
         Log.i("Rinfon", currentOptionPerson+"");
+        SystemUtil.Vibrate(this, 500);
         sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ABANDOM, -1, String.valueOf(currentOptionPerson)));
         if(app.isServer()){
             Message message = new Message();
@@ -484,6 +554,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                 maxChipIndex = currentOptionPerson;
                 isEnd = false;
             }
+            setActionText("加注"+money,View.VISIBLE);
             sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ADD_BET, money, String.valueOf(maxChipIndex)));
             if(app.isServer()){
                 Message message = new Message();
@@ -498,8 +569,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         }
     }
     
+    
+    
     public void followAction(){
-        int money = 0;
+        int money = -1;
           if(currentPlay.getInfo().getAroundChip()<playerList.get(maxChipIndex).getInfo().getAroundChip()){
                if(currentPlay.getInfo().getBaseMoney()<(playerList.get(maxChipIndex).getInfo().getAroundChip()
                        -currentPlay.getInfo().getAroundChip())){
@@ -507,21 +580,20 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                }else{
                    money = playerList.get(maxChipIndex).getInfo().getAroundChip();
                }
-               sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_UPDATE_MONEY, 
-                       money, String.valueOf(currentOptionPerson)));
+               setActionText("跟注"+money,View.VISIBLE);
+              
            }
+          sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_UPDATE_MONEY, 
+                  money, String.valueOf(currentOptionPerson)));
            if(isEnd){
                sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_SHOW_PUBLIC_POKER,
                        -1,  String.valueOf(DIndex)));
                if(app.isServer()){
-                   
-                    if(money != 0){
-                        Message message = new Message();
-                        message.what = WorkHandler.MSG_ADD_BET;
-                        message.arg1 = currentOptionPerson;
-                        message.arg2 = money;
-                        wHandler.sendMessage(message);
-                   }
+                   Message message = new Message();
+                   message.what = WorkHandler.MSG_ADD_BET;
+                   message.arg1 = currentOptionPerson;
+                   message.arg2 = money;
+                   wHandler.sendMessage(message);
                    currentOptionPerson = (DIndex+1)%playerList.size();
                    int i = DIndex;
                    while(playerList.get(i%playerList.size()).getInfo().isQuit()){
@@ -575,6 +647,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         	break;
         case R.id.head_img:
         	helpPic.setVisibility(View.GONE);
+        case R.id.game_back_img:
+            showMyToast("弹窗退出");
+            finish();
+            break;
         default:
             break;
         }
@@ -594,6 +670,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
  // 发公共牌
     public void showPublicPoker() {
+        meView.setActionViewVisiable(View.INVISIBLE);
         if(public_poker5.getVisibility() == View.VISIBLE){
             if(app.isServer()){
 //            一轮结束，进行下一轮
@@ -632,6 +709,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     }
     
     public void checkIsMeOption(){
+        Toast.makeText(getApplicationContext(), "currentOptionPerson:"+currentOptionPerson , 1000).show();
         if(playerList.get(currentOptionPerson).getInfo().getId().equals(currentPlay.getInfo().getId())){
             
             currentPlay.getInfo().setQuit(playerList.get(currentOptionPerson).getInfo().isQuit());
@@ -675,7 +753,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     }
     
     public void optionChoice(boolean isMe){
+        this.isMe = isMe;
         if(isMe){
+            isHasDoOption = false;
+            SystemUtil.Vibrate(this, 500);
             isMeImageView.setVisibility(View.VISIBLE);
         }else{
             isMeImageView.setVisibility(View.INVISIBLE);
@@ -684,12 +765,18 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     }
     
     public void setChips(int playerIndex,int money,int isShow){
-        if(money == 0){
+        
+        if(money == -1){
+            showOtherAction(playerIndex,"让牌");
+        }else if(money == 0){
             playerList.get(playerIndex).getInfo().setAroundChip(0);
         }else{
             playerList.get(playerIndex).getInfo().setBaseMoney(playerList.get(playerIndex).getInfo().getBaseMoney()
                     +playerList.get(playerIndex).getInfo().getAroundChip() - money);
             playerList.get(playerIndex).getInfo().setAroundChip(money);
+            if(playerList.get(playerIndex).getInfo().getId() != currentPlay.getInfo().getId()){
+                showOtherAction(playerIndex,"跟注"+money);
+            }  
         }
         if(playerList.get(playerIndex).getInfo().getId() == currentPlay.getInfo().getId()){
             currentPlay.setInfo(playerList.get(playerIndex).getInfo());
@@ -887,7 +974,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     public void onClientReceive(GameMessage msg) {
         // TODO Auto-generated method stub
         int cmd = msg.getAction();
-        switch(msg.getAction()){
+        switch(cmd){
         case GameMessage.ACTION_SEND_BOOL:
              if(msg.getExtra()!=null){
                 this.DIndex = Integer.parseInt(msg.getExtra());
@@ -1006,8 +1093,8 @@ private class WorkHandler extends Handler {
 //      private static final int MSG_UPDATE_MONEY =8;
         private static final int MSG_ACTION_ABANDOM = 8;
         private static final int MSG_NEXT_ROUND = 9;
-        
         private static final int MSG_COUNT_POOL = 10;
+        
         
         public WorkHandler(Looper looper) {
             super(looper);
@@ -1051,6 +1138,7 @@ private class WorkHandler extends Handler {
                 case MSG_COUNT_POOL:
                     countMoney();
                     break;
+
                 default:
                     break;
             }
