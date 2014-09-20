@@ -125,22 +125,9 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         bet_fullImg = (ImageView)findViewById(R.id.new_bet_full);
         bet_nullImg = (ImageView)findViewById(R.id.new_bet_null);
         helpImg = (ImageView)findViewById(R.id.game_help_img);
-//        helpImg.setOnTouchListener(new OnTouchListener() {
-//			
-//        	@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				// TODO Auto-generated method stub
-//				if(event.getAction() == MotionEvent.ACTION_DOWN){
-//					helpPic.setVisibility(View.VISIBLE);
-//				}
-//				if (event.getAction() == MotionEvent.ACTION_UP) {
-//					helpPic.setVisibility(View.INVISIBLE);
-//				}
-//				return true;
-//			}
-//		});
+        helpImg.setOnClickListener(this);
         helpPic = (ImageView)findViewById(R.id.help_img);
-        helpPic.setVisibility(View.INVISIBLE);
+        helpPic.setOnClickListener(this);
         public_poker1 = (ImageView)findViewById(R.id.game_pokers_img1);
         public_poker2 = (ImageView)findViewById(R.id.game_pokers_img2);
         public_poker3 = (ImageView)findViewById(R.id.game_pokers_img3);
@@ -299,7 +286,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         mMaxAddBetCan = currentPlay.getInfo().getBaseMoney();
         percent = y/height;
         mCurAddBet= (int)(percent * mMaxAddBetCan) + mPreAddBet;
-        mPreAddBet = mCurAddBet/4;
+        mPreAddBet = mCurAddBet/8;
         if(mCurAddBet > mMaxAddBetCan){
             mCurAddBet = mMaxAddBetCan;
         }else if(mCurAddBet < 0){
@@ -583,6 +570,11 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                 Toast.makeText(getApplicationContext(), "还没人齐啊扑街", 1000).show();
             }
             break;
+        case R.id.game_help_img:
+        	helpPic.setVisibility(View.VISIBLE);
+        	break;
+        case R.id.head_img:
+        	helpPic.setVisibility(View.GONE);
         default:
             break;
         }

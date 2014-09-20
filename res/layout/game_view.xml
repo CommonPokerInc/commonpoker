@@ -49,6 +49,13 @@
         android:layout_below="@+id/game_me_view_layout"
         android:orientation="vertical" >
     
+        <ImageView 
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/game_bottom_bg"
+        android:scaleType="fitXY"
+            />
+    
     <RelativeLayout
         android:id="@+id/game_cool_layout"
         android:layout_width="fill_parent"
@@ -339,7 +346,8 @@
         android:layout_height="wrap_content" 
         android:paddingBottom="25dip"
         android:layout_marginTop="20dp"
-        android:background="@drawable/add_plate">
+        android:background="@drawable/add_plate"
+        android:visibility="invisible">
 
         <ImageView
             android:id="@+id/new_bet_null"
@@ -364,6 +372,7 @@
     	android:layout_height="match_parent"
     	android:src="@drawable/img_in_me"
     	android:scaleType="fitXY"
+    	android:visibility="invisible"
         >
   	  </ImageView>
   	  
@@ -372,6 +381,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/game_help" />
+        android:src="@drawable/game_help" 
+        android:visibility="invisible"/>
 
 </RelativeLayout>
