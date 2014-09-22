@@ -195,7 +195,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             Intent intent = new Intent(this,WaitingActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.confirm_edit_btn) {
-        	if(nickname_edt.getText().toString().equals("")){
+        	if(nickname_edt.getText().toString().trim().equals("")){
             	Toast.makeText(this, "不能为空", Toast.LENGTH_SHORT).show();
             	return;
         	}
@@ -208,6 +208,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             	settingHelper.setNickname(nickname_edt.getText().toString());
             	confirm_edit_btn.setImageResource(R.drawable.img_edit_btn);
             	edit_or_confirm.setText(R.string.edit);
+            	nickname_txt.setText(nickname_edt.getText().toString().trim());
             	nickname_edt.setVisibility(View.GONE);
             	nickname_txt.setVisibility(View.VISIBLE);
             }else{

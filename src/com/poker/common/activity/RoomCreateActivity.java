@@ -253,7 +253,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 				app.wm.startAWifiHot(mSSID,this);
 				break;
 			case R.id.btn_create_room:
-				if(edtWifi.getText().toString().equals("")){
+				if(edtWifi.getText().toString().trim().equals("")){
 					Toast.makeText(this, "Wifi名不能为空", Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -267,7 +267,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 				room.setInnings(mType==Room.TYPE_RANK?-1:mRounds);
 				room.setMinStake(mStakes);
 				room.setBasicChips(mBet);
-				room.setName(edtWifi.getText().toString());
+				room.setName(edtWifi.getText().toString().trim());
 				strWifi = edtWifi.getText().toString();
 				mSSID = strWifi+MOBILE_NAME+Constant.WIFI_SUFFIX;
 				app.wm.startAWifiHot(mSSID,this);
