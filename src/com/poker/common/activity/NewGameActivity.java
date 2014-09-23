@@ -123,6 +123,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
 
     private Vibrator vibrator;  
     
+    private boolean isHelpLongPressed =false;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -141,9 +143,23 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         bet_fullImg = (ImageView)findViewById(R.id.new_bet_full);
         bet_nullImg = (ImageView)findViewById(R.id.new_bet_null);
         helpImg = (ImageView)findViewById(R.id.game_help_img);
-        helpImg.setOnClickListener(this);
+//        helpImg.setOnClickListener(this);
+        helpImg.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				if(event.getAction() == MotionEvent.ACTION_DOWN){
+					helpPic.setVisibility(View.VISIBLE);
+				} 
+				if(event.getAction() == MotionEvent.ACTION_UP){
+					helpPic.setVisibility(View.INVISIBLE);
+				}
+				return false;
+			}
+		});
         helpPic = (ImageView)findViewById(R.id.help_img);
-        helpPic.setOnClickListener(this);
+//        helpPic.setOnClickListener(this);
         public_poker1 = (ImageView)findViewById(R.id.game_pokers_img1);
         public_poker2 = (ImageView)findViewById(R.id.game_pokers_img2);
         public_poker3 = (ImageView)findViewById(R.id.game_pokers_img3);
@@ -447,6 +463,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             if(horizontalSlide || isFollow){
                 endGesture();
             }
+//            if(isHelpLongPressed){
+//            	helpPic.setVisibility(View.GONE);
+//            	isHelpLongPressed =false;
+//            }
             break;
         }
         
