@@ -5,28 +5,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ImageView
+<!--     <ImageView
         android:id="@+id/me_dealer_img"
         android:layout_width="@dimen/me_dealer_img_width"
         android:layout_height="@dimen/me_dealer_img_height"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/img_dealer" />
+        android:src="@drawable/img_dealer" /> -->
 
     <RelativeLayout
         android:id="@+id/me_view_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/me_dealer_img"
-        android:background="#000000"
-        android:alpha="0.8" >
+        android:layout_alignParentLeft="true"
+        >
 
+        <ImageView 
+            android:id="@+id/me_view_bg_img"
+            android:layout_width="@dimen/me_image_img_width"
+            android:layout_height="@dimen/me_view_bg_img_height"
+            android:background="#000000" 
+            android:alpha="0.5"
+            />
         <ImageView
             android:id="@+id/me_image_img"
             android:layout_width="@dimen/me_image_img_width"
             android:layout_height="@dimen/me_image_img_height"
-            android:src="@drawable/img_player_picture1" />
+            android:src="@drawable/img_player_picture1" 
+            />
 
         <TextView
             android:id="@+id/me_name_txt"
@@ -79,7 +86,6 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/me_dealer_img"
         android:layout_toRightOf="@+id/relativeLayout1" >
 
 <LinearLayout 

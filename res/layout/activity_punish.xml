@@ -13,7 +13,7 @@
         android:layout_height="@dimen/punishment_title_img_height"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/punishment_title_img_margintop"
-        android:src="@drawable/huangjia" />
+        android:src="@drawable/punish_title" />
 
     <LinearLayout
         android:id="@+id/punishment_player_layout"
@@ -22,111 +22,184 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/punishment_player_layout_margintop"
         android:orientation="horizontal" >
+        
+        <RelativeLayout
+            android:id="@+id/punishment_player_layout1"
+            android:layout_width="@dimen/punishment_player_layout_width"
+            android:layout_height="@dimen/punishment_player_layout_height"
+            android:layout_marginRight="@dimen/punishment_player_img_marginright"
+            android:background="@drawable/punish_frame"
+            android:visibility="visible">
 
         <ImageView
             android:id="@+id/punishment_player_img1"
             android:layout_width="@dimen/punishment_player_width"
             android:layout_height="@dimen/punishment_player_height"
-            android:src="@drawable/img_player_picture6"
+            android:layout_below="@+id/punishment_player_name1"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_player_picture6"/>
+
+        <TextView
+            android:id="@+id/punishment_player_name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="逗比"
+            android:textColor="@color/black"
+            android:textSize="@dimen/punishment_player_name" />
+        
+        </RelativeLayout>
+
+<RelativeLayout
+            android:id="@+id/punishment_player_layout2"
+            android:layout_width="@dimen/punishment_player_layout_width"
+            android:layout_height="@dimen/punishment_player_layout_height"
             android:layout_marginRight="@dimen/punishment_player_img_marginright"
-            android:visibility="gone" />
+            android:background="@drawable/punish_frame"
+            android:visibility="gone">
 
         <ImageView
             android:id="@+id/punishment_player_img2"
             android:layout_width="@dimen/punishment_player_width"
             android:layout_height="@dimen/punishment_player_height"
+            android:layout_below="@+id/punishment_player_name2"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_player_picture6"/>
+
+        <TextView
+            android:id="@+id/punishment_player_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="逗比"
+            android:textColor="@color/black"
+            android:textSize="@dimen/punishment_player_name" />
+        
+        </RelativeLayout>
+
+<RelativeLayout
+            android:id="@+id/punishment_player_layout3"
+            android:layout_width="@dimen/punishment_player_layout_width"
+            android:layout_height="@dimen/punishment_player_layout_height"
             android:layout_marginRight="@dimen/punishment_player_img_marginright"
-            android:src="@drawable/img_player_picture6"
-            android:visibility="gone" />
+            android:background="@drawable/punish_frame"
+            android:visibility="gone">
 
         <ImageView
             android:id="@+id/punishment_player_img3"
             android:layout_width="@dimen/punishment_player_width"
             android:layout_height="@dimen/punishment_player_height"
+            android:layout_below="@+id/punishment_player_name3"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_player_picture6" />
+
+        <TextView
+            android:id="@+id/punishment_player_name3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="逗比"
+            android:textColor="@color/black"
+            android:textSize="@dimen/punishment_player_name" />
+        
+        </RelativeLayout>
+
+<RelativeLayout
+            android:id="@+id/punishment_player_layout4"
+            android:layout_width="@dimen/punishment_player_layout_width"
+            android:layout_height="@dimen/punishment_player_layout_height"
             android:layout_marginRight="@dimen/punishment_player_img_marginright"
-            android:src="@drawable/img_player_picture6"
-            android:visibility="gone" />
+            android:background="@drawable/punish_frame"
+            android:visibility="gone">
 
         <ImageView
             android:id="@+id/punishment_player_img4"
             android:layout_width="@dimen/punishment_player_width"
             android:layout_height="@dimen/punishment_player_height"
+            android:layout_below="@+id/punishment_player_name4"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_player_picture6" />
+
+        <TextView
+            android:id="@+id/punishment_player_name4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="逗比"
+            android:textColor="@color/black"
+            android:textSize="@dimen/punishment_player_name" />
+        
+        </RelativeLayout>
+
+<RelativeLayout
+            android:id="@+id/punishment_player_layout5"
+            android:layout_width="@dimen/punishment_player_layout_width"
+            android:layout_height="@dimen/punishment_player_layout_height"
             android:layout_marginRight="@dimen/punishment_player_img_marginright"
-            android:src="@drawable/img_player_picture6"
-            android:visibility="gone" />
+            android:background="@drawable/punish_frame"
+            android:visibility="gone" >
 
         <ImageView
             android:id="@+id/punishment_player_img5"
             android:layout_width="@dimen/punishment_player_width"
             android:layout_height="@dimen/punishment_player_height"
-            android:layout_marginRight="@dimen/punishment_player_img_marginright"
-            android:src="@drawable/img_player_picture6"
-            android:visibility="gone" />
+            android:layout_below="@+id/punishment_player_name5"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_player_picture6" />
+
+        <TextView
+            android:id="@+id/punishment_player_name5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="逗比"
+            android:textColor="@color/black"
+            android:textSize="@dimen/punishment_player_name" />
+        
+        </RelativeLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/punishment_txt"
-        android:layout_width="@dimen/punishment_txt_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/punishment_txt_margintop"
-        android:gravity="center"
-        android:text="@string/punishment_txt"
-        android:textColor="@color/white"
-        android:textSize="@dimen/punishment_txt_size" />
-
-    <LinearLayout
+   <LinearLayout
         android:id="@+id/punishment_bottom_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/punishment_bottom_layout_margintop"
         android:orientation="horizontal" >
 
-        <RelativeLayout
-            android:id="@+id/punishment_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/punishment_layout_marginright" >
 
-            <ImageView
-                android:id="@+id/punishment_img"
-                android:layout_width="@dimen/punishment_snapshot_img_width"
-                android:layout_height="@dimen/punishment_snapshot_img_height"
-                android:src="@drawable/rank_snapshot_btn" />
+       <Button
+           android:id="@+id/punishment_zhenxinhua_btn"
+           android:layout_width="@dimen/punishment_btn_width"
+           android:layout_height="@dimen/punishment_btn_height"
+           android:text="真心话"
+           android:textColor="@color/white"
+           android:textSize="@dimen/punishment_btn_txt_size"
+           android:background="@drawable/waiting_begin_btn"
+           android:layout_margin="@dimen/punishment_btn_margin"
+           >
+       </Button>
 
-            <TextView
-                android:id="@+id/punishment_begin_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="@string/punishment_begin_txt"
-                android:textColor="@color/white"
-                android:textSize="@dimen/punishment_snapshot_txt_size" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/punishment_close_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:id="@+id/punishment_close_img"
-                android:layout_width="@dimen/punishment_snapshot_img_width"
-                android:layout_height="@dimen/punishment_snapshot_img_height"
-                android:src="@drawable/rank_close_btn" />
-
-            <TextView
-                android:id="@+id/punishment_close_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="@string/punishment_close_txt"
-                android:textColor="@color/white"
-                android:textSize="@dimen/punishment_snapshot_txt_size" />
-        </RelativeLayout>
+        <Button
+           android:id="@+id/punishment_damaoxian_btn"
+           android:layout_width="@dimen/punishment_btn_width"
+           android:layout_height="@dimen/punishment_btn_height"
+           android:text="大冒险"
+           android:textColor="@color/white"
+           android:textSize="@dimen/punishment_btn_txt_size"
+           android:background="@drawable/btn_go_btn"
+           android:layout_margin="@dimen/punishment_btn_margin"
+           >
+       </Button>
     </LinearLayout>
 
 </LinearLayout>

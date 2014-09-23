@@ -16,8 +16,11 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,14 +30,14 @@ import java.util.TimerTask;
 
 public class PunishActivity extends AbsBaseActivity implements OnClickListener {
 
-    private ImageView punishmentBegin,close;
+    private Button zhenxinhua,damaoxian;
     private LinearLayout punishmentLayout;
-    private TextView punishmentTxt,txt;
     private boolean hasBegin = false;
     private List<ClientPlayer> punishmentPlayers = new ArrayList<ClientPlayer>();
     private Intent intent;
     private LayoutParams llayout;
-    private ImageView[]players;
+    private RelativeLayout[]playerLayouts;
+    private RelativeLayout playerLayout1,playerLayout2,playerLayout3,playerLayout4,playerLayout5;
     private ImageView player1,player2,player3,player4,player5;
     private Timer timer = new Timer();
     private int index =-1;
@@ -45,12 +48,12 @@ public class PunishActivity extends AbsBaseActivity implements OnClickListener {
         {  
             switch (msg.what) {
                 case 0:
-                    players[4].setAlpha(1f);
-                    players[0].setAlpha(0.5f);
+                	playerLayouts[4].setAlpha(1f);
+                	playerLayouts[0].setAlpha(0.5f);
                     break;
                 default:
-                    players[msg.what - 1].setAlpha(1f);
-                    players[msg.what].setAlpha(0.5f);
+                	playerLayouts[msg.what - 1].setAlpha(1f);
+                	playerLayouts[msg.what].setAlpha(0.5f);
                     break;
             }
             
@@ -72,11 +75,9 @@ public class PunishActivity extends AbsBaseActivity implements OnClickListener {
 
     private void initView() {
         // TODO Auto-generated method stub
-        punishmentBegin = (ImageView)findViewById(R.id.punishment_img);
-        close = (ImageView)findViewById(R.id.punishment_close_img);
-        punishmentLayout = (LinearLayout)findViewById(R.id.punishment_layout);
-        punishmentTxt = (TextView)findViewById(R.id.punishment_txt);
-        txt = (TextView)findViewById(R.id.punishment_begin_txt);
+        zhenxinhua = (Button)findViewById(R.id.punishment_zhenxinhua_btn);
+        damaoxian = (Button)findViewById(R.id.punishment_damaoxian_btn);
+        
         
         player1 = (ImageView)findViewById(R.id.punishment_player_img1);
         player2 = (ImageView)findViewById(R.id.punishment_player_img2);
@@ -84,26 +85,26 @@ public class PunishActivity extends AbsBaseActivity implements OnClickListener {
         player4 = (ImageView)findViewById(R.id.punishment_player_img4);
         player5 = (ImageView)findViewById(R.id.punishment_player_img5);
         
-        players = new ImageView[]{player1,player2,player3,player4,player5};
+        playerLayouts = new RelativeLayout[]{playerLayout1,playerLayout2,playerLayout3,playerLayout4,playerLayout5};
         
 //        llayout = new LayoutParams(3*60,LayoutParams.WRAP_CONTENT);
 //        punishmentLayout.setLayoutParams(llayout);
         for(int i=0;i<5;i++){
-            players[i].setVisibility(View.VISIBLE);
+        	playerLayouts[i].setVisibility(View.VISIBLE);
         }
         
-        punishmentBegin.setOnClickListener(this);
-        close.setOnClickListener(this);
+        zhenxinhua.setOnClickListener(this);
+        damaoxian.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View arg0) {
         // TODO Auto-generated method stub
         switch (arg0.getId()) {
-            case R.id.punishment_img:
+            case R.id.punishment_damaoxian_btn:
                 hasBegin = !hasBegin;
                 if(hasBegin){
-                    txt.setText("½YÊø");
+//                    txt.setText("ï¿½Yï¿½ï¿½");
                     timer.scheduleAtFixedRate(new TimerTask()  
                     {  
                         @Override  
@@ -120,13 +121,13 @@ public class PunishActivity extends AbsBaseActivity implements OnClickListener {
                         }  
                     }, 0, 100);  
                 }else{
-                    txt.setText("¿ªÊ¼");
+//                    txt.setText("ï¿½ï¿½Ê¼");
                     timer.cancel();
-                    punishmentBegin.setClickable(false);
+                    zhenxinhua.setClickable(false);
                 }
                 break;
                 
-            case R.id.punishment_close_img:
+            case R.id.punishment_zhenxinhua_btn:
                 finish();
                 break;
 

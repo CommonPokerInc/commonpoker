@@ -1,4 +1,4 @@
-package com.poker.common.activity;
+﻿package com.poker.common.activity;
 
 import com.poker.common.BaseApplication;
 import com.poker.common.R;
@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -119,6 +120,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     private int lux = 10;
     
     private ImageView game_back_img;
+
+    private Vibrator vibrator;  
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -809,6 +812,13 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             }
         }
         return -1;
+    }
+    
+    //手机震动
+    public void phoneShock(){
+    	vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+    	long [] pattern = {100,400,100,400};   // 停止 开启 停止 开启 
+    	vibrator.vibrate(pattern,-1);
     }
     
     
