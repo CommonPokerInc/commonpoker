@@ -302,6 +302,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         nickname_txt.setText(settingHelper.getNickname());
         me_right.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
         me_left.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
+        confirm_edit_btn.setImageResource(R.drawable.img_edit_btn);
+        edit_or_confirm.setText(R.string.edit);
         nickname_edt.setVisibility(editable?View.VISIBLE:View.INVISIBLE);
         nickname_txt.setVisibility(!editable?View.VISIBLE:View.INVISIBLE);
         meWin.showAtLocation(MainActivity.this.meBtn, Gravity.BOTTOM, 0, 0);
@@ -460,5 +462,15 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         System.exit(0);
         super.onDestroy();
     }
+
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		editable =false;
+	}
   
+    
+    
 }
