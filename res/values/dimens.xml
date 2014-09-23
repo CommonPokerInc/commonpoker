@@ -139,7 +139,7 @@
     
     <!--  玩家行为toast-->
     <dimen name="player_layout_marginright">8dp</dimen>
-    <dimen name="player_action_txt_size">30sp</dimen>
+    <dimen name="player_action_txt_size">40sp</dimen>
     <dimen name="player_action_layout">15dp</dimen>
     <dimen name="player_layouy_margintop">8dp</dimen>
     <dimen name="player_layout_marginleft">8dp</dimen>
@@ -147,7 +147,7 @@
     <dimen name="player_action_layout_margintop">40dp</dimen>
     <dimen name="player_action_view_layout_width">500dp</dimen>
     <dimen name="player_action_view_layout_height">250dp</dimen>
-    <dimen name="bet_txt">25sp</dimen>
+    <dimen name="bet_txt">40sp</dimen>
     <dimen name="player_img_width">150dp</dimen>
     <dimen name="player_img_height">150dp</dimen>
     
@@ -167,12 +167,13 @@
     <dimen name="me_image_img_width">100dp</dimen>
     <dimen name="me_image_img_height">100dp</dimen>
     <dimen name="me_name_txt_size">25sp</dimen>
-    <dimen name="me_money_txt_size">30sp</dimen>
+    <dimen name="me_money_txt_size">40sp</dimen>
     <dimen name="relativeLayout1_marginright">20dp</dimen>
+    <dimen name="relativeLayout1_marginleft">5dp</dimen>
     <dimen name="game_me_view_margintop">8dp</dimen>
     <dimen name="game_me_view_layout_height">150dp</dimen>
-    <dimen name="bet_img_width">130dp</dimen>
-    <dimen name="bet_img_height">40dp</dimen>
+    <dimen name="bet_img_width">180dp</dimen>
+    <dimen name="bet_img_height">50dp</dimen>
     <dimen name="bet_icon_width">30dp</dimen>
     <dimen name="bet_icon_height">30dp</dimen>
     <dimen name="bet_icon_marginleft">10dp</dimen>

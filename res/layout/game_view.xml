@@ -50,14 +50,14 @@
         android:rotation="180" >
     </com.poker.common.custom.MeView>
 
-    <Button
+<!--     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/game_me_view"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/digitalClock1"
-        android:text="Button" />
+        android:text="Button" /> -->
 
     </RelativeLayout>
     
@@ -353,7 +353,9 @@
             android:singleLine="true"
             android:text="@string/game_mypoker_type_txt"
             android:textColor="@color/white"
-            android:textSize="@dimen/game_mypoker_type_txt_size" />
+            android:textSize="@dimen/game_mypoker_type_txt_size" 
+            android:visibility="gone"
+            />
     </LinearLayout>
     
     </RelativeLayout>
