@@ -39,6 +39,7 @@ public class PunishActivity extends AbsBaseActivity implements OnClickListener {
     private RelativeLayout[]playerLayouts;
     private RelativeLayout playerLayout1,playerLayout2,playerLayout3,playerLayout4,playerLayout5;
     private ImageView player1,player2,player3,player4,player5;
+    private TextView name1,name2,name3,name4,name5;
     private Timer timer = new Timer();
     private int index =-1;
     private Handler handler = new Handler(){
@@ -78,12 +79,23 @@ public class PunishActivity extends AbsBaseActivity implements OnClickListener {
         zhenxinhua = (Button)findViewById(R.id.punishment_zhenxinhua_btn);
         damaoxian = (Button)findViewById(R.id.punishment_damaoxian_btn);
         
+        playerLayout1 = (RelativeLayout)findViewById(R.id.punishment_player_layout1);
+        playerLayout2 = (RelativeLayout)findViewById(R.id.punishment_player_layout2);
+        playerLayout3 = (RelativeLayout)findViewById(R.id.punishment_player_layout3);
+        playerLayout4 = (RelativeLayout)findViewById(R.id.punishment_player_layout4);
+        playerLayout5 = (RelativeLayout)findViewById(R.id.punishment_player_layout5);
         
         player1 = (ImageView)findViewById(R.id.punishment_player_img1);
         player2 = (ImageView)findViewById(R.id.punishment_player_img2);
         player3 = (ImageView)findViewById(R.id.punishment_player_img3);
         player4 = (ImageView)findViewById(R.id.punishment_player_img4);
         player5 = (ImageView)findViewById(R.id.punishment_player_img5);
+        
+        name1 = (TextView)findViewById(R.id.punishment_player_name1);
+        name2 = (TextView)findViewById(R.id.punishment_player_name2);
+        name3 = (TextView)findViewById(R.id.punishment_player_name3);
+        name4 = (TextView)findViewById(R.id.punishment_player_name4);
+        name5 = (TextView)findViewById(R.id.punishment_player_name5);
         
         playerLayouts = new RelativeLayout[]{playerLayout1,playerLayout2,playerLayout3,playerLayout4,playerLayout5};
         
@@ -103,6 +115,7 @@ public class PunishActivity extends AbsBaseActivity implements OnClickListener {
         switch (arg0.getId()) {
             case R.id.punishment_damaoxian_btn:
                 hasBegin = !hasBegin;
+                damaoxian.setClickable(false);
                 if(hasBegin){
 //                    txt.setText("�Y��");
                     timer.scheduleAtFixedRate(new TimerTask()  

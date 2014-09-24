@@ -25,8 +25,8 @@
 
         <ImageButton
             android:id="@+id/btn_change_left"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
+            android:layout_width="25dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/left"
@@ -46,8 +46,8 @@
 
         <ImageButton
             android:id="@+id/btn_change_right"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
+            android:layout_width="25dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"

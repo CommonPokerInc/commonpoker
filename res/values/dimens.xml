@@ -16,11 +16,13 @@
     <dimen name="person_momey_margin_bottom">5dip</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="mainpage_girl_width">300dp</dimen>
+    <dimen name="mainpage_girl_width">280dp</dimen>
     <dimen name="mainpage_girl_height">330dp</dimen>
     <dimen name="mainpage_title_width">300dp</dimen>
     <dimen name="mainpage_title_height">100dp</dimen>
     <dimen name="game_btn_txt_size">25sp</dimen>
+    <dimen name="linearLayout1_margintop">10dp</dimen>
+    <dimen name="mainpage_setting_btn_padding">10dp</dimen>
 
     <!-- 游戏界面 -->
     <dimen name="poker_back_height">25dp</dimen>

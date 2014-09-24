@@ -125,18 +125,54 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
     private boolean isHelpLongPressed =false;
     
+    private View waitView,winView;
+    
+    private boolean gameReady = false;
+    
+    private RelativeLayout game_view_layout;
+    
+    private Button wait_begin_btn;
+    
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_view);
-        
-        getScreenSize();
-        registerListener();
-        initView();
+		getScreenSize();
+		registerListener();
+		initView();
+        waitingOthers();
+
     }
     
-    public void initView(){
+    private void waitingOthers() {
+		// TODO Auto-generated method stub
+        setViewVisibility(View.GONE,View.VISIBLE,View.GONE,View.GONE);
+    	wait_begin_btn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setViewVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE);
+			}
+		});
+	}
+
+    //用于设置几个大模块的layout可不可见
+	private void setViewVisibility(int arg1,int arg2,int arg3,int arg4) {
+		// TODO Auto-generated method stub
+    	game_view_layout.setVisibility(arg1);
+    	waitView.setVisibility(arg2);
+    	isMeImageView.setVisibility(arg3);
+    	helpPic.setVisibility(arg4);
+	}
+
+	public void initView(){
+		game_view_layout = (RelativeLayout)findViewById(R.id.game_view_layout);
+		waitView = (View)findViewById(R.id.game_waiting_layout);
+		wait_begin_btn = (Button)waitView.findViewById(R.id.waiting_operation_btn);
+		winView = (View)findViewById(R.id.game_win_layout);
         betLayout = (FrameLayout)findViewById(R.id.new_bet_layout);
         betLayout.setVisibility(View.INVISIBLE);
         //增加赌注的滑动条初始化控件
@@ -144,13 +180,22 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         bet_nullImg = (ImageView)findViewById(R.id.new_bet_null);
         helpImg = (ImageView)findViewById(R.id.game_help_img);
 //        helpImg.setOnClickListener(this);
+        helpImg.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				// TODO Auto-generated method stub
+				helpPic.setVisibility(View.VISIBLE);
+				return false;
+			}
+		});
         helpImg.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				if(event.getAction() == MotionEvent.ACTION_DOWN){
-					helpPic.setVisibility(View.VISIBLE);
+//					helpPic.setVisibility(View.VISIBLE);
 				} 
 				if(event.getAction() == MotionEvent.ACTION_UP){
 					helpPic.setVisibility(View.INVISIBLE);
@@ -665,11 +710,6 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                 Toast.makeText(getApplicationContext(), "还没人齐啊扑街", 1000).show();
             }
             break;
-        case R.id.game_help_img:
-        	helpPic.setVisibility(View.VISIBLE);
-        	break;
-        case R.id.head_img:
-        	helpPic.setVisibility(View.GONE);
         case R.id.game_back_img:
             showMyToast("弹窗退出");
             finish();
