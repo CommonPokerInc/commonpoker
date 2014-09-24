@@ -20,6 +20,7 @@
     <dimen name="mainpage_girl_height">330dp</dimen>
     <dimen name="mainpage_title_width">300dp</dimen>
     <dimen name="mainpage_title_height">100dp</dimen>
+    <dimen name="game_btn_txt_size">25sp</dimen>
 
     <!-- 游戏界面 -->
     <dimen name="poker_back_height">25dp</dimen>

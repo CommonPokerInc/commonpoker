@@ -46,7 +46,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private ImageButton sendGameBtn;
 
-    private ImageButton joinGameBtn, createRoomBtn, settingBtn, meBtn;
+    private ImageButton settingBtn, meBtn;
+    
+    private Button createRoomBtn,joinGameBtn;
 
     private BaseApplication app;
 
@@ -107,8 +109,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     public void init() {
         sendGameBtn = (ImageButton) findViewById(R.id.send_game_btn);
-        joinGameBtn = (ImageButton) findViewById(R.id.join_home_btn);
-        createRoomBtn = (ImageButton) findViewById(R.id.create_home_btn);
+        joinGameBtn = (Button) findViewById(R.id.join_home_btn);
+        createRoomBtn = (Button) findViewById(R.id.create_home_btn);
         settingBtn = (ImageButton) findViewById(R.id.mainpage_setting_btn);
         meBtn = (ImageButton) findViewById(R.id.mainpage_me_btn);
         sendGameBtn.setOnClickListener(this);
