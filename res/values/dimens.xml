@@ -171,7 +171,7 @@
     <dimen name="me_image_img_height">100dp</dimen>
     <dimen name="me_name_txt_size">25sp</dimen>
     <dimen name="me_money_txt_size">40sp</dimen>
-    <dimen name="relativeLayout1_marginright">20dp</dimen>
+    <dimen name="relativeLayout1_marginright">110dp</dimen>
     <dimen name="relativeLayout1_marginleft">5dp</dimen>
     <dimen name="game_me_view_margintop">8dp</dimen>
     <dimen name="game_me_view_layout_height">150dp</dimen>
@@ -182,6 +182,7 @@
     <dimen name="bet_icon_marginleft">10dp</dimen>
     <dimen name="bet_txt_marginleft">10dp</dimen>
     <dimen name="me_view_bg_img_height">130dp</dimen>
+    
     
     <!-- 扑克牌 -->
     <dimen name="game_poker_layout_widht">400dp</dimen>
@@ -197,7 +198,7 @@
     
     <!-- 池 -->
     <dimen name="game_cool_layout_height">45dp</dimen>
-    <dimen name="game_cool_layout_marintop">10dp</dimen>
+    <dimen name="game_cool_layout_marintop">0dp</dimen>
     <dimen name="game_cool_layout_marginleft">5dp</dimen>
     <dimen name="game_cool_layout_marginright">5dp</dimen>
     <dimen name="game_maincool_layout_width">95dp</dimen>
