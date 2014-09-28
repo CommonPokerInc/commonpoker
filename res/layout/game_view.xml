@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/game_view"
     android:layout_width="match_parent"
@@ -9,20 +9,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     layout="@layout/activity_waiting"
-    android:visibility="visible"
+    android:visibility="gone"
     />
 
 <RelativeLayout 
     android:id="@+id/game_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:visibility="gone"
     >
 
     <include 
         android:id="@+id/game_win_layout"
         layout="@layout/win_view"
-        android:visibility="gone"
+        android:visibility="visible"
         />
     
         <RelativeLayout
@@ -69,14 +68,6 @@
         android:layout_height="@dimen/game_me_view_layout_height"
         layout="@layout/win_view"
         android:visibility="invisible"
-        />
-    
-            <include 
-        android:id="@+id/game_win_layout"
-        layout="@layout/win_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/game_me_view_layout_height"
-        android:visibility="visible"
         />
     
     <RelativeLayout
@@ -432,15 +423,5 @@
         android:src="@drawable/game_help" 
         android:visibility="invisible"/>
 
-          <Button
-              android:id="@+id/button1"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentLeft="true"
-              android:layout_alignParentTop="true"
-              android:layout_marginLeft="54dp"
-              android:text="Button"
-              android:visibility="gone"
-               /> 
 
 </RelativeLayout>

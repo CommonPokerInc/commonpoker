@@ -1,5 +1,8 @@
 
 package com.poker.common.entity;
+
+import java.util.ArrayList;
+
 /*
  * author FrankChan
  * description 
@@ -25,13 +28,23 @@ public class UserInfo {
 	
 	private int cardType = 0;
 	
+	private ArrayList<Poker> pokerBack;
+	
 	public int getCardType() {
 		return cardType;
 	}
-
+	
 	public void setCardType(int cardType) {
-		this.cardType = cardType;
-	}
+        this.cardType = cardType;
+    }
+
+	public ArrayList<Poker> getPokerBack() {
+        return pokerBack;
+    }
+
+    public void setPokerBack(ArrayList<Poker> pokerBack) {
+        this.pokerBack = pokerBack;
+    }
 
 	public int getAroundSumChip() {
         return aroundSumChip;

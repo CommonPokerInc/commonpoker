@@ -98,6 +98,9 @@ public class PokerUtil {
 			box.add(p6);
 			box.add(p7);
 			playerList.get(i).getInfo().setCardType(getPokerType(box, pokersBack));
+			ArrayList<Poker> temp = new ArrayList<Poker>();
+			temp.addAll(pokersBack);
+			playerList.get(i).getInfo().setPokerBack(temp);
 			if(!pokersType.contains(playerList.get(i).getInfo().getCardType())){
 				pokersType.add(playerList.get(i).getInfo().getCardType());
 			}

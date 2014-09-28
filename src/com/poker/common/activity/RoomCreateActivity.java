@@ -245,7 +245,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 				room = new Room();
 				room.setType(Room.TYPE_RANK);
 				room.setCount(MAX_COUNT);
-				//room.setInnings(10);
+				room.setInnings(-1);
 				room.setMinStake(100);
 				room.setName("Godlike");
 				room.setBasicChips(10000);

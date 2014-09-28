@@ -15,6 +15,10 @@ import com.poker.common.wifi.message.MessageFactory;
 import com.poker.common.wifi.message.PeopleMessage;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -346,6 +350,13 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     }
     
     public void resetAllPoker(){
+        public_poker1.setAlpha(255);
+        public_poker2.setAlpha(255);
+        public_poker3.setAlpha(255);
+        public_poker4.setAlpha(255);
+        public_poker5.setAlpha(255);
+        game_mypoker_img1.setAlpha(255);
+        game_mypoker_img2.setAlpha(255);
         public_poker1.setVisibility(View.INVISIBLE);
         public_poker2.setVisibility(View.INVISIBLE);
         public_poker3.setVisibility(View.INVISIBLE);
@@ -617,6 +628,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     }
     
     public void shareMoney(){
+        optionChoice(false);
         HashMap<String,ArrayList<ClientPlayer>> winSet = PokerUtil.getWinner(playerList, All_poker);
         if(winSet.get("0").contains(currentPlay)){
             winView.setVisibility(View.VISIBLE);
@@ -633,7 +645,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                }
             }
         }
-//        showAroundMessage();
+        showAroundMessage(); 
     }
     
     public void setWinView(ClientPlayer p){
@@ -644,30 +656,67 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         winView.setVisibility(View.VISIBLE);
     }
     
+    public void setPokerAlpha(ArrayList<Poker> pokers,int index){
+        if(!pokers.contains(All_poker.get(All_poker.size()-5))){
+            public_poker1.setAlpha(60);
+        }
+        if(!pokers.contains(All_poker.get(All_poker.size()-4))){
+            public_poker2.setAlpha(60);
+        }
+        if(!pokers.contains(All_poker.get(All_poker.size()-3))){
+            public_poker3.setAlpha(60);
+        }
+        if(!pokers.contains(All_poker.get(All_poker.size()-2))){
+            public_poker4.setAlpha(60);
+        }
+        if(!pokers.contains(All_poker.get(All_poker.size()-1))){
+            public_poker5.setAlpha(60);
+        }
+        if(!pokers.contains(All_poker.get(index*2))){
+            game_mypoker_img1.setAlpha(60);
+        }
+        if(!pokers.contains(All_poker.get(index*2+1))){
+            game_mypoker_img2.setAlpha(60);
+        }
+        
+        
+    }
+    
     public void showAroundMessage(){
         int index = findIndexWithIPinList(playerList);
         Log.i("Rinfon", playerList.get(index).getInfo().getCardType()+"");
         game_mypoker_type_txt.setText(PokerUtil.getCardTypeString(playerList.get(index).getInfo().getCardType()));
         game_mypoker_type_txt.setVisibility(View.VISIBLE);
-        if(app.isServer()){
-            if(aroundIndex<=room.getInnings()){
-                if(room.getInnings()!=-1)
-                    aroundIndex++;
-                if(isInOrOut||DIndex == -1){
-                    newDIndex();
-                }else {
-                    DIndex++;
+        setPokerAlpha(playerList.get(index).getInfo().getPokerBack(),index);
+
+        new Handler().postDelayed(new Runnable(){    
+            public void run() {    
+                if(app.isServer()){
+                    if(aroundIndex<=room.getInnings()){
+                        if(room.getInnings()!=-1)
+                            aroundIndex++;
+                        if(isInOrOut||DIndex == -1){
+                            newDIndex();
+                        }else {
+                            DIndex++;
+                        }
+                        
+                        if(DIndex>=playerList.size()){
+                            DIndex = DIndex%playerList.size();
+                        }
+                        All_poker = PokerUtil.getPokers(playerList.size());
+                        sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_RESET_ROUND, -1, String.valueOf(DIndex), All_poker));
+                        wHandler.removeMessages(WorkHandler.MSG_RESET_ROUND);
+                        wHandler.sendEmptyMessage(WorkHandler.MSG_RESET_ROUND);
+                    }else{
+                        sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_GAME_OVER, -1, null));
+                        wHandler.removeMessages(WorkHandler.MSG_GAME_OVER);
+                        wHandler.sendEmptyMessage(WorkHandler.MSG_GAME_OVER);
+                    }
                 }
-                
-                if(DIndex>=playerList.size()){
-                    DIndex = DIndex%playerList.size();
-                }
-                All_poker = PokerUtil.getPokers(playerList.size());
-                sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_RESET_ROUND, -1, String.valueOf(DIndex), All_poker));
-                wHandler.removeMessages(WorkHandler.MSG_RESET_ROUND);
-                wHandler.sendEmptyMessage(WorkHandler.MSG_RESET_ROUND);
-            }
-        }
+            }    
+         }, 3000);  
+
     }
     
     public void setBaseMoney(ClientPlayer player,int money){
@@ -916,6 +965,17 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
        }
    }
     
+    public void gameOver(){
+        Intent intent = new Intent();
+        
+        //用intent.putExtra(String name, String value);来传递参数。
+        int index = findIndexWithIPinList(playerList);
+        intent.putExtra("rankList", playerList);
+        intent.putExtra("index", index);
+        intent.setClass(NewGameActivity.this, RankActivity.class);
+        startActivity(intent);
+    }
+    
     public int currentPlayCount(){
         int j = 0;
         for(int i = playerList.size()-1;i>=0;i--){
@@ -941,7 +1001,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     public void setChips(int playerIndex,int money,int isShow){
         
         if(money == -1){
-            showOtherAction(playerIndex,"让牌");
+//            showOtherAction(playerIndex,"让牌");
         }else if(money == 0){
             playerList.get(playerIndex).getInfo().setAroundChip(0);
         }else{
@@ -949,7 +1009,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                     +playerList.get(playerIndex).getInfo().getAroundChip() - money);
             playerList.get(playerIndex).getInfo().setAroundChip(money);
             if(playerList.get(playerIndex).getInfo().getId() != currentPlay.getInfo().getId()){
-                showOtherAction(playerIndex,"跟注"+money);
+//                showOtherAction(playerIndex,"跟注"+money);
             }  
         }
         if(playerList.get(playerIndex).getInfo().getId() == currentPlay.getInfo().getId()){
@@ -995,7 +1055,12 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
     public void startGame(){
         setViewVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE);
-        aroundIndex = room.getInnings();
+        if(room.getInnings() == -1){
+            aroundIndex = -1;
+        }else{
+            aroundIndex = 0;
+        }
+        
         currentPlayIndex  = findIndexWithIPinList(playerList);
         app.isGameStarted = true;
         currentPlay.setInfo(playerList.get(currentPlayIndex).getInfo());
@@ -1282,6 +1347,7 @@ private class WorkHandler extends Handler {
         private static final int MSG_COUNT_POOL = 10;
         private static final int MSG_UPDATE_CHAIR = 11;
         private static final int MSG_RESET_ROUND = 12;
+        private static final int MSG_GAME_OVER = 13;
         
         
         public WorkHandler(Looper looper) {
@@ -1334,6 +1400,9 @@ private class WorkHandler extends Handler {
                     resetAllPoker();
                     resetChipPool();
                     bottomDeal();
+                    break;
+                case MSG_GAME_OVER:
+                    gameOver();
                     break;
                 default:
                     break;

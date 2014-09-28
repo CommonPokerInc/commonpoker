@@ -45,6 +45,8 @@ public class GameMessage extends BaseMessage{
 	
 	public final static int ACTION_RESET_ROUND = 13;
 
+	public final static int ACTION_GAME_OVER = 14;
+
 	
 	private int id;
 	
