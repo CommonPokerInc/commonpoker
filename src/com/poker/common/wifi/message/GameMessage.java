@@ -1,5 +1,10 @@
 
 package com.poker.common.wifi.message;
+
+import com.poker.common.entity.Poker;
+
+import java.util.ArrayList;
+
 /*
  * author FrankChan
  * description ��Ϸ��ʼ�����Ϣ����
@@ -37,11 +42,15 @@ public class GameMessage extends BaseMessage{
 	public final static int ACTION_UPDATE_MONEY = 11;
 	
 	public final static int ACTION_NEXT_ROUND = 12;
+	
+	public final static int ACTION_RESET_ROUND = 13;
 
 	
 	private int id;
 	
 	private int action;
+	
+	private ArrayList<Poker>pokerList;
 
 	//��Ǯ
 	private int amount;
@@ -69,6 +78,14 @@ public class GameMessage extends BaseMessage{
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	
+	public ArrayList<Poker> getPokerList() {
+        return pokerList;
+    }
+
+    public void setPokerList(ArrayList<Poker> pokerList) {
+        this.pokerList = pokerList;
+    }
 	
 }
 

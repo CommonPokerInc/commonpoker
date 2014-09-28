@@ -9,24 +9,36 @@ import com.poker.common.entity.Room;
 
 /*
  * author FrankChan
- * description ĞÅÏ¢ÔØÌåÉú²úÀà
+ * description ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * time 2014-8-16
  *
  */
 public class MessageFactory {
 	
-	//²úÉúÓÎÏ·ĞĞÎªĞÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½Îªï¿½ï¿½Ï¢
 	public static GameMessage newGameMessage(boolean exit,int type,int money,String extra){
-		GameMessage msg = new GameMessage();
-		msg.setSource(BaseMessage.MESSAGE_SOURCE);
-		msg.setAction(type);
-		msg.setExit(exit);
-		msg.setAmount(money);
-		msg.setExtra(extra);
-		return msg;
+//		GameMessage msg = new GameMessage();
+//		msg.setSource(BaseMessage.MESSAGE_SOURCE);
+//		msg.setAction(type);
+//		msg.setExit(exit);
+//		msg.setAmount(money);
+//		msg.setExtra(extra);
+//		return msg;
+	    return newGameMessage(exit,type,money,extra,null);
 	}
 	
-	//²úÉúÍæ¼ÒĞÅÏ¢
+	public static GameMessage newGameMessage(boolean exit,int type,int money,String extra,ArrayList<Poker> pokerList){
+        GameMessage msg = new GameMessage();
+        msg.setSource(BaseMessage.MESSAGE_SOURCE);
+        msg.setAction(type);
+        msg.setExit(exit);
+        msg.setAmount(money);
+        msg.setExtra(extra);
+        msg.setPokerList(pokerList);
+        return msg;
+    }
+	
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	public static PeopleMessage newPeopleMessage(boolean start,boolean exit,
 			ArrayList<ClientPlayer>clientList,ArrayList<Poker>pokerList,Room room,String extra){
 		PeopleMessage msg = new PeopleMessage();

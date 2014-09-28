@@ -21,7 +21,7 @@
     <include 
         android:id="@+id/game_win_layout"
         layout="@layout/win_view"
-        android:visibility="gone"
+        android:visibility="visible"
         />
     
         <RelativeLayout
@@ -62,6 +62,13 @@
         android:text="Button" /> -->
 
     </RelativeLayout>
+        <include 
+        android:id="@+id/game_win_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/game_me_view_layout_height"
+        layout="@layout/win_view"
+        android:visibility="invisible"
+        />
     
     <RelativeLayout
         android:layout_width="match_parent"
