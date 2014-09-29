@@ -46,9 +46,9 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);// È¡Ïû±êÌâÀ¸
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);// È«ÆÁ
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);// È«ï¿½ï¿½
 		setContentView(R.layout.activity_rank);
 
 		initData();
@@ -94,10 +94,10 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 		case R.id.snapshot_img:
 			isScreenShot = ScreenShot.shoot(RankActivity.this);
 			if (isScreenShot) {
-				Toast.makeText(getApplicationContext(), "½ØÍ¼±£´æ³É¹¦£¡",
+				Toast.makeText(getApplicationContext(), "ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½",
 						Toast.LENGTH_SHORT).show();
 			} else {
-				Toast.makeText(getApplicationContext(), "½ØÍ¼±£´æ²»³É¹¦£¡",
+				Toast.makeText(getApplicationContext(), "ï¿½ï¿½Í¼ï¿½ï¿½ï¿½æ²»ï¿½É¹ï¿½ï¿½ï¿½",
 						Toast.LENGTH_SHORT).show();
 			}
 			break;

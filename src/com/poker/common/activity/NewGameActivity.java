@@ -31,6 +31,7 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -684,7 +685,6 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
     public void showAroundMessage(){
         int index = findIndexWithIPinList(playerList);
-        Log.i("Rinfon", playerList.get(index).getInfo().getCardType()+"");
         game_mypoker_type_txt.setText(PokerUtil.getCardTypeString(playerList.get(index).getInfo().getCardType()));
         game_mypoker_type_txt.setVisibility(View.VISIBLE);
         setPokerAlpha(playerList.get(index).getInfo().getPokerBack(),index);
@@ -870,7 +870,9 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
 //            }
 //            break;
         case R.id.game_back_img:
-            showMyToast("弹窗退出");
+        	playerList.clear();
+            playerList.add(currentPlay);
+            sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
             finish();
             break;
         default:
@@ -1100,6 +1102,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         if(msg.isExit()){
             int exitIndex = findPlayer(msg.getPlayerList().get(0));
             if(exitIndex!=-1){
+            	sendMessage(msg);
                 playerList.remove(exitIndex);
                 wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
                 wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
@@ -1193,8 +1196,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                 finish();
             }
             playerList.remove(msg.getPlayerList().get(0));
-//            wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
-//            wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
+            wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
         }
         if (msg.isStart()) {
 //          游戏开始
@@ -1206,12 +1209,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             this.playerList.clear();
             this.playerList.addAll(msg.getPlayerList());
             if(this.room == null){
-            this.room = msg.getRoom();
-            wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
-            wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
+            	this.room = msg.getRoom();
             }   
-//            wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
-//            wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
+            wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
         }
     }
 
@@ -1293,6 +1294,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             wHandler.removeMessages(WorkHandler.MSG_RESET_ROUND);
             wHandler.sendEmptyMessage(WorkHandler.MSG_RESET_ROUND);
             break;
+        case GameMessage.ACTION_GAME_OVER:
+        	wHandler.removeMessages(WorkHandler.MSG_GAME_OVER);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_GAME_OVER);
+        	break;
         }
     }
 
@@ -1402,6 +1407,7 @@ private class WorkHandler extends Handler {
                     bottomDeal();
                     break;
                 case MSG_GAME_OVER:
+                	Log.i("Rinfon", "Game over");
                     gameOver();
                     break;
                 default:
@@ -1409,4 +1415,19 @@ private class WorkHandler extends Handler {
             }
         }
     }
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if (keyCode == KeyEvent.KEYCODE_BACK )  
+        {  
+			playerList.clear();
+            playerList.add(currentPlay);
+            sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
+            finish();
+        }  
+          
+        return false;  
+	}
+
 }
