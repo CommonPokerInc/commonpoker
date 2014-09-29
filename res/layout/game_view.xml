@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/game_view"
     android:layout_width="match_parent"
@@ -12,17 +12,13 @@
     android:visibility="gone"
     />
 
+
 <RelativeLayout 
     android:id="@+id/game_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
     >
 
-    <include 
-        android:id="@+id/game_win_layout"
-        layout="@layout/win_view"
-        android:visibility="visible"
-        />
     
         <RelativeLayout
         android:id="@+id/game_me_view_layout"    
@@ -62,13 +58,6 @@
         android:text="Button" /> -->
 
     </RelativeLayout>
-        <include 
-        android:id="@+id/game_win_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/game_me_view_layout_height"
-        layout="@layout/win_view"
-        android:visibility="invisible"
-        />
     
     <RelativeLayout
         android:layout_width="match_parent"
