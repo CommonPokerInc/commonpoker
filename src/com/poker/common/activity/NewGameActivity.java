@@ -140,6 +140,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
     private Button wait_begin_btn;
     
+    private TextView waiting_tips_txt;
+    
     private ImageView game_win_tips_img,game_winner_img,game_sheng_img;
     
     private TextView game_winner_name_txt,game_winner_card_type_txt;
@@ -209,6 +211,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     	
     	 if (!app.isServer()) {
     	     wait_begin_btn.setVisibility(View.INVISIBLE);
+    	     waiting_tips_txt.setText("等房主发号师令");
     	 }else{
     	     wait_begin_btn.setVisibility(View.VISIBLE);
     	 }
@@ -240,6 +243,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
 		game_view_layout = (RelativeLayout)findViewById(R.id.game_view_layout);
 		waitView = (View)findViewById(R.id.game_waiting_layout);
 		wait_begin_btn = (Button)waitView.findViewById(R.id.waiting_operation_btn);
+		waiting_tips_txt = (TextView)waitView.findViewById(R.id.waiting_tips_txt);
 		winView = (View)findViewById(R.id.game_win_layout);
 		game_win_tips_img =(ImageView)winView.findViewById(R.id.game_win_tips_img);
 		game_winner_img = (ImageView)winView.findViewById(R.id.game_winner_img);
