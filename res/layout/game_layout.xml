@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2b2937" >
+
+    <TextView
+        android:id="@+id/player_current_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/player_current_rank_star"
+        android:text="@string/player_current_rank" />
+
+    <ImageView
+        android:id="@+id/player_current_rank_star"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/img_rank_1" >
+    </ImageView>
+
+    <Button
+        android:id="@+id/follow"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/add"
+        android:background="@drawable/back_btn"
+        android:text="@string/follow"
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/autopq"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/add"
+        android:background="@drawable/img_auto_button"
+        android:gravity="right|center_vertical"
+        android:paddingRight="15dp"
+        android:text="@string/autopq"
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/quit"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/follow"
+        android:background="@drawable/back_btn"
+        android:text="@string/quit"
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/autopass"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/autopq"
+        android:background="@drawable/img_auto_button"
+        android:gravity="right|center_vertical"
+        android:paddingRight="5dp"
+        android:text="@string/autopass"
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/desk_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/follow"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/reback"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="-10dp"
+        android:background="@drawable/img_desk" >
+        
+        <LinearLayout
+            android:id="@+id/desk_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+        <Button
+            android:id="@+id/desk_tips_start_game_btn"
+            android:layout_width="@dimen/desk_tips_start_game_btn_width"
+            android:layout_height="@dimen/desk_tips_start_game_btn_height"
+            android:background="@drawable/start_game_btn"
+            android:text="@string/start_game"
+            android:textColor="@color/white" >
+        </Button>
+        </LinearLayout>
+
+        <com.poker.common.custom.RightSeatView
+            android:id="@+id/seat_three"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/player_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp" >
+        </com.poker.common.custom.RightSeatView>
+
+        <com.poker.common.custom.LeftSeatView           android:id="@+id/seat_six"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/player_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp" >
+        </com.poker.common.custom.LeftSeatView>
+
+        <com.poker.common.custom.RightSeatView
+            android:id="@+id/seat_four"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/player_height"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/seat_marginleft"
+            android:layout_toRightOf="@+id/seat_three" >
+        </com.poker.common.custom.RightSeatView>
+
+        <com.poker.common.custom.LeftSeatView         android:id="@+id/seat_five"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/player_height"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="@dimen/seat_marginright"
+            android:layout_toLeftOf="@+id/seat_six" >
+        </com.poker.common.custom.LeftSeatView>
+
+        <com.poker.common.custom.RightSeatView
+            android:id="@+id/seat_two"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/player_height"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/seat_marginleft"
+            android:layout_toRightOf="@+id/seat_three" >
+        </com.poker.common.custom.RightSeatView>
+
+        <com.poker.common.custom.LeftSeatView       
+            android:id="@+id/seat_one"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/player_height"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="@dimen/seat_marginright"
+            android:layout_toLeftOf="@+id/seat_six" >
+        </com.poker.common.custom.LeftSeatView>
+
+        <LinearLayout
+            android:id="@+id/pokers_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sidepool_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/pokers_layout_marginbottom"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/poker1"
+                android:layout_width="@dimen/public_poker_width"
+                android:layout_height="@dimen/public_poker_height"
+                android:layout_marginLeft="7dp"
+                android:padding="@dimen/public_poker_padding"
+                android:src="@drawable/diamond10" />
+
+            <ImageView
+                android:id="@+id/poker2"
+                android:layout_width="@dimen/public_poker_width"
+                android:layout_height="@dimen/public_poker_height"
+                android:layout_marginLeft="7dp"
+                android:padding="@dimen/public_poker_padding"
+                android:src="@drawable/diamond10" />
+
+            <ImageView
+                android:id="@+id/poker3"
+                android:layout_width="@dimen/public_poker_width"
+                android:layout_height="@dimen/public_poker_height"
+                android:layout_marginLeft="7dp"
+                android:padding="@dimen/public_poker_padding"
+                android:src="@drawable/diamond10" />
+
+            <ImageView
+                android:id="@+id/poker4"
+                android:layout_width="@dimen/public_poker_width"
+                android:layout_height="@dimen/public_poker_height"
+                android:layout_marginLeft="7dp"
+                android:padding="@dimen/public_poker_padding"
+                android:src="@drawable/diamond10" />
+
+            <ImageView
+                android:id="@+id/poker5"
+                android:layout_width="@dimen/public_poker_width"
+                android:layout_height="@dimen/public_poker_height"
+                android:layout_marginLeft="7dp"
+                android:padding="@dimen/public_poker_padding"
+                android:src="@drawable/diamond10" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/deal_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/room_name"
+            android:layout_alignBottom="@+id/room_name"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/room_name"
+            android:text="35/70"
+             android:textSize="@dimen/room_name_txt_size" />
+
+        <TextView
+            android:id="@+id/room_round_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/deal_text"
+            android:layout_alignBottom="@+id/deal_text"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/deal_text"
+            android:text="1/20局"
+             android:textSize="@dimen/room_name_txt_size" />
+
+        <LinearLayout
+            android:id="@+id/sidepool_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/sidepool_height"
+            android:layout_below="@+id/mainpool_layout"
+            android:layout_centerHorizontal="true" >
+
+            <RelativeLayout
+                android:id="@+id/sidepool_layout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp" >
+
+                <ImageView
+                    android:id="@+id/sidepool1"
+                    android:layout_width="@dimen/sidepool_width"
+                    android:layout_height="@dimen/sidepool_height"
+                    android:src="@drawable/sidepool" />
+
+                <TextView
+                    android:id="@+id/sidepool1_txt"
+                    android:layout_width="@dimen/sidepool_txt_width"
+                    android:layout_height="@dimen/sidepool_txt_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/sidepool_txt"
+                    android:textSize="@dimen/sidepool_txt_size"
+                    android:textColor="@color/deepyellow" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sidepool_layout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp" >
+
+                <ImageView
+                    android:id="@+id/sidepool2"
+                    android:layout_width="@dimen/sidepool_width"
+                    android:layout_height="@dimen/sidepool_height"
+                    android:src="@drawable/sidepool" />
+
+                <TextView
+                    android:id="@+id/sidepool2_txt"
+                    android:layout_width="@dimen/sidepool_txt_width"
+                    android:layout_height="@dimen/sidepool_txt_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/sidepool_txt"
+                    android:textSize="@dimen/sidepool_txt_size"
+                    android:textColor="@color/deepyellow" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sidepool_layout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp" >
+
+                <ImageView
+                    android:id="@+id/sidepool3"
+                    android:layout_width="@dimen/sidepool_width"
+                    android:layout_height="@dimen/sidepool_height"
+                    android:src="@drawable/sidepool" />
+
+                <TextView
+                    android:id="@+id/sidepool3_txt"
+                    android:layout_width="@dimen/sidepool_txt_width"
+                    android:layout_height="@dimen/sidepool_txt_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/sidepool_txt"
+                    android:textSize="@dimen/sidepool_txt_size"
+                    android:textColor="@color/deepyellow" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sidepool_layout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp" >
+
+                <ImageView
+                    android:id="@+id/sidepool4"
+                    android:layout_width="@dimen/sidepool_width"
+                    android:layout_height="@dimen/sidepool_height"
+                    android:src="@drawable/sidepool" />
+
+                <TextView
+                    android:id="@+id/sidepool4_txt"
+                    android:layout_width="@dimen/sidepool_txt_width"
+                    android:layout_height="@dimen/sidepool_txt_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/sidepool_txt"
+                    android:textSize="@dimen/sidepool_txt_size"
+                    android:textColor="@color/deepyellow" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sidepool_layout5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp" >
+
+                <ImageView
+                    android:id="@+id/sidepool5"
+                    android:layout_width="@dimen/sidepool_width"
+                    android:layout_height="@dimen/sidepool_height"
+                    android:src="@drawable/sidepool" />
+
+                <TextView
+                    android:id="@+id/sidepool5_txt"
+                    android:layout_width="@dimen/sidepool_txt_width"
+                    android:layout_height="@dimen/sidepool_txt_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/sidepool_txt"
+                    android:textSize="@dimen/sidepool_txt_size"
+                    android:textColor="@color/deepyellow" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/mainpool_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/desk_tips_text"
+            android:layout_marginTop="@dimen/mainpool_layout_margintop"
+            android:layout_centerHorizontal="true" >
+
+            <ImageView
+                android:id="@+id/mainpool"
+                android:layout_width="@dimen/mainpool_width"
+                android:layout_height="@dimen/mainpool_height"
+                android:src="@drawable/mainpool" />
+
+            <TextView
+                android:id="@+id/mainpool_txt"
+                android:layout_width="@dimen/mainpool_txt_width"
+                android:layout_height="@dimen/mainpool_txt_height"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/sidepool_txt"
+                android:textColor="@color/deepyellow"
+                android:textSize="@dimen/mainpool_txt_size" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/room_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/pokers_layout"
+            android:layout_marginBottom="@dimen/room_name_marginbottom"
+            android:layout_alignLeft="@+id/pokers_layout"
+            android:text="房间：傻猪猪"
+            android:textSize="@dimen/room_name_txt_size" />
+
+        <TextView
+            android:id="@+id/desk_tips_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/desk_tips"
+            android:layout_centerHorizontal="true"
+            android:text="@string/waiting_people"
+            android:textColor="@color/desk_tips_text_color"
+            android:textSize="@dimen/desk_tips_txt_size" />
+
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/reback"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/player_current_rank"
+        android:layout_marginLeft="13dp"
+        android:background="@drawable/img_back_btn" />
+
+    <Button
+        android:id="@+id/tips"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/img_tips_btn"
+        android:text="@string/tips"
+        android:textColor="@color/ivory" />
+
+    <DigitalClock
+        android:id="@+id/digitalClock1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/player_current_rank_star"
+        android:layout_below="@+id/player_current_rank_star"
+        android:layout_marginTop="5dp"
+        android:maxLength="5"
+        android:text="DigitalClock" />
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/back_btn"
+        android:text="@string/add"
+        android:textColor="@color/ivory"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/autofollow"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/img_auto_button"
+        android:gravity="right|center_vertical"
+        android:paddingRight="5dp"
+        android:text="@string/autofollow"
+        android:textColor="@color/ivory"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/autopass_checked"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/autopass"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/autopass"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/img_auto_uncheck"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/autopq_checked"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/autopq"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/autopq"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/img_auto_uncheck"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/autofollow_checked"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/autofollow"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/autofollow"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/img_auto_uncheck"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/allin_layout"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" 
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/allin"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/addnumber"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="-12dp"
+            android:src="@drawable/addnumber_allin"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/addnumber"
+            android:layout_width="100dp"
+            android:layout_height="240dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:src="@drawable/waiting_begin_btn" />
+
+        <com.poker.common.custom.VerticalSeekBar
+            android:id="@+id/ChipSeekbar"
+            android:layout_width="21dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/allin"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:maxHeight="9dip"
+            android:minHeight="9dip"
+            android:progressDrawable="@drawable/bg_bar"
+            android:thumb="@drawable/thumb_bar"
+            android:thumbOffset="0dip" />
+
+        <TextView
+            android:id="@+id/chips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/ChipSeekbar"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="2000"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</RelativeLayout>

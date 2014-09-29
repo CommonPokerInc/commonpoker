@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/right_seat_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/right_counter_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/right_counter_img"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:gravity="right"
+        android:text="2000"
+        android:textColor="@color/yellow"
+        android:textSize="14dip" />
+
+    <ImageView
+        android:id="@+id/right_up"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/right_seat_personView"
+        android:src="@drawable/img_dealer" />
+
+    
+
+    <com.poker.common.custom.PersonView
+        android:id="@+id/right_seat_personView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" >
+
+    </com.poker.common.custom.PersonView>
+    
+            <TextView
+        android:id="@+id/card_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/right_seat_personView"
+        android:textSize="@dimen/card_type_size"
+        android:text="@string/tips" />
+            
+    <ImageView
+        android:id="@+id/right_seat_poker1"
+        android:layout_width="@dimen/poker_back_width"
+        android:layout_height="@dimen/poker_back_height"
+        android:layout_above="@+id/card_type"
+        android:layout_toRightOf="@+id/right_seat_personView"
+        android:layout_marginLeft="-12dp"
+        android:padding="@dimen/public_poker_padding"
+        android:src="@drawable/img_poker_back" />
+
+        <ImageView
+        android:id="@+id/right_seat_poker2"
+        android:layout_width="@dimen/poker_back_width"
+        android:layout_height="@dimen/poker_back_height"
+        android:layout_marginLeft="-8dp"
+        android:layout_above="@+id/card_type"
+        android:layout_toRightOf="@+id/right_seat_personView"
+		android:padding="@dimen/public_poker_padding"
+        android:src="@drawable/img_poker_back" />
+
+    <ImageView
+        android:id="@+id/right_counter_img"
+        android:layout_width="@dimen/counter_img_width"
+        android:layout_height="@dimen/counter_img_height"
+        android:layout_toRightOf="@+id/right_seat_personView"
+        android:layout_centerVertical="true"
+        android:src="@drawable/img_bet" />
+
+</RelativeLayout>
