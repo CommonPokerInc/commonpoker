@@ -72,12 +72,12 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		if(app.isServer()){
 			app.getServer().setListener(this);
 			app.getServer().beginListen(this);
-//			initTimeMap();
+			initTimeMap();
 		}else{
 			app.getClient().beganAcceptMessage(this);
 			mReceiveTime = System.currentTimeMillis();
 		}
-//		initBackHandler();
+		initBackHandler();
 	}
 	
 	@SuppressLint("HandlerLeak")
@@ -291,6 +291,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 					long mInterval = System.currentTimeMillis()-mReceiveTime;
 					if(mInterval>INTERVAL_MAX_ACK){
 						Log.e("frankchan", "没有及时收到服务器的消息");
+						app.getClient().stopAcceptMessage();
 						disconnectFromServer((int)mInterval/1000);
 					}else{
 						Log.i("frankchan", "Server及时应答");

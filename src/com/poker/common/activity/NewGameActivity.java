@@ -14,6 +14,7 @@ import com.poker.common.wifi.message.GameMessage;
 import com.poker.common.wifi.message.MessageFactory;
 import com.poker.common.wifi.message.PeopleMessage;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -558,7 +559,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             }
     
             if (horizontalSlide) {
-                showMoneyBarSlide(arg0.getY() - (int) arg1.getRawY());
+                showMoneyBarSlide(2*arg0.getY() - (int) arg1.getRawY());
             }
         }
         
@@ -1334,7 +1335,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     @Override
     public void disconnectFromServer(int sec) {
         // TODO Auto-generated method stub
-        
+        new AlertDialog.Builder(this).setMessage("连接以及断开，请检查网络").setPositiveButton("确定", null);
     }
     
 private class WorkHandler extends Handler {

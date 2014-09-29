@@ -246,28 +246,32 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:src="@drawable/diamond13" />
+                    android:src="@drawable/diamond13"
+                    android:layout_marginRight="15dp"  />
 
                 <ImageView
                     android:id="@+id/card2"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:src="@drawable/diamond13" />
+                    android:src="@drawable/diamond13"
+                    android:layout_marginRight="15dp"  />
 
                 <ImageView
                     android:id="@+id/card3"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:src="@drawable/diamond13" />
+                    android:src="@drawable/diamond13"
+                    android:layout_marginRight="15dp"  />
 
                 <ImageView
                     android:id="@+id/card4"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:src="@drawable/diamond13" />
+                    android:src="@drawable/diamond13"
+                    android:layout_marginRight="15dp"  />
 
                 <ImageView
                     android:id="@+id/card5"
