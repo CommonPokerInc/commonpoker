@@ -21,13 +21,13 @@
         android:layout_width="@dimen/mainpage_title_width"
         android:layout_height="@dimen/mainpage_title_height"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/mainpage_me_title_margintop"
         android:src="@drawable/img_main_title" />
         <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/linearLayout1_margintop"
+        android:id="@+id/mainpage_btn_layout"
+        android:layout_width="@dimen/mainpage_btn_layout_width"
+        android:layout_height="@dimen/mainpage_btn_layout_height"
+        android:layout_marginTop="@dimen/mainpage_btn_layout_margintop"
          android:layout_gravity="center"
         android:orientation="vertical" >
 
@@ -36,7 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="创建房间"
+            android:layout_weight="1"
             android:textColor="@color/white"
+            android:layout_gravity="center"
             android:textSize="@dimen/game_btn_txt_size"
             android:background="@drawable/img_create_home_btn" />
 
@@ -46,6 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/join_home_margin_top"
             android:text="加入房间"
+            android:layout_gravity="center"
+            android:layout_weight="1"
             android:textColor="@color/white"
             android:textSize="@dimen/game_btn_txt_size"
             android:background="@drawable/img_join_home_btn" />
@@ -55,8 +59,8 @@
 
     <ImageButton
         android:id="@+id/mainpage_setting_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/mainpage_setting_btn_width"
+        android:layout_height="@dimen/mainpage_setting_btn_height"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="@dimen/mainpage_me_margin_bottom"
@@ -65,8 +69,8 @@
 
     <ImageButton
         android:id="@+id/mainpage_me_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/mainpage_me_btn_width"
+        android:layout_height="@dimen/mainpage_me_btn_height"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/mainpage_me_margin_bottom"
         android:layout_marginLeft="@dimen/mainpage_me_margin_left"
@@ -85,8 +89,8 @@
 
     <ImageButton
         android:id="@+id/send_game_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/send_game_btn_width"
+        android:layout_height="@dimen/send_game_btn_height"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="@dimen/send_game_margin_right"

@@ -63,15 +63,10 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/game_me_view_layout"
-        android:orientation="vertical" >
-    
-        <ImageView 
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:src="@drawable/game_bottom_bg"
-        android:scaleType="fitXY"
-            />
-    
+        android:orientation="vertical" 
+        android:background="#2f2c42"
+        >
+
     <RelativeLayout
         android:id="@+id/game_cool_layout"
         android:layout_width="fill_parent"

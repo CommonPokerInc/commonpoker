@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <!-- 首页 -->
+    <dimen name="mainpage_title_width">240dp</dimen>
+    <dimen name="mainpage_title_height">70dp</dimen>
+    <dimen name="mainpage_btn_layout_width">180dp</dimen>
+    <dimen name="mainpage_btn_layout_height">120dp</dimen>
+    <dimen name="mainpage_setting_btn_width">30dp</dimen>
+    <dimen name="mainpage_setting_btn_height">30dp</dimen>
+    <dimen name="mainpage_me_btn_width">30dp</dimen>
+    <dimen name="mainpage_me_btn_height">30dp</dimen>
+    <dimen name="send_game_btn_width">180dp</dimen>
+    <dimen name="send_game_btn_height">30dp</dimen>
+    <dimen name="mainpage_girl_width">240dp</dimen>
+    <dimen name="mainpage_girl_height">300dp</dimen>
+    <dimen name="mainpage_me_title_margintop">15dp</dimen>
+    
     <!-- 我的action -->
     <dimen name="relativeLayout1_marginright">80dp</dimen>
     <dimen name="game_me_view_layout_height">135dp</dimen>
