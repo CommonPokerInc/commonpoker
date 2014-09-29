@@ -131,7 +131,7 @@ public class SocketClient {
 								try {
 									in = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
 									String chatMsg = in.readLine();
-									Log.i(TAG, "into acceptMsg()  chatMsg =" + chatMsg);
+//									Log.i(TAG, "into acceptMsg()  chatMsg =" + chatMsg);
 									if (chatMsg != null && !chatMsg.equals("")) {
 										listener.onStringReceive(chatMsg);
 									}

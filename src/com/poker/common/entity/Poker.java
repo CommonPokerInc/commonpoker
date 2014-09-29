@@ -4,13 +4,15 @@ package com.poker.common.entity;
 import com.poker.common.R;
 import com.poker.common.util.PokerUtil;
 
+import java.io.Serializable;
+
 /*
  * author zkzhou
  * description �˿�����
  * time 2014-7-29
  *
  */
-public class Poker {
+public class Poker implements Serializable{
 
     // �˿��ƻ�ɫ
     // 0������

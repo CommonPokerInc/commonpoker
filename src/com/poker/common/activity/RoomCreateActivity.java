@@ -247,7 +247,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 				room = new Room();
 				room.setType(Room.TYPE_LIMIT);
 				room.setCount(MAX_COUNT);
-				room.setInnings(10);
+				room.setInnings(1);
 				room.setMinStake(100);
 				room.setName("Godlike");
 				room.setBasicChips(10000);
@@ -308,7 +308,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 		app.setServer(SocketServer.newInstance());
 		UserInfo info = new UserInfo();
 		info.setAvatar(helper.getAvatarNumber());
-		info.setName("房主:"+helper.getNickname());
+		info.setName(helper.getNickname());
 		info.setIp("192.168.43.1");
 		info.setId(SystemUtil.getIMEI(getApplicationContext()));
 		app.sp = new ServerPlayer(info, app.getServer());

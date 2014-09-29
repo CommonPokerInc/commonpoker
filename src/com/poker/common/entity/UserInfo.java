@@ -1,6 +1,7 @@
 
 package com.poker.common.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * time 2014-8-25
  *
  */
-public class UserInfo {
+public class UserInfo implements Serializable{
 	private String name;
 	
 	private String ip;

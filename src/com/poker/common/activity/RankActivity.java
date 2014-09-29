@@ -59,7 +59,9 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 	private void initView() {
 		// TODO Auto-generated method stub
 		rankList = (ListView) findViewById(R.id.rank_list);
-		// rankAdapter = new RankAdapter(getApplicationContext(),players,index,rankImg);
+		initRankImg();
+		rankAdapter = new RankAdapter(getApplicationContext(),players,index,rankImg);
+		rankList.setAdapter(rankAdapter);
 		snapshot = (ImageView) findViewById(R.id.snapshot_img);
 		close = (ImageView) findViewById(R.id.close_img);
 
@@ -73,11 +75,13 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		/*
-		 * intent = getIntent(); players = new ArrayList<AbsPlayer>(); players =
-		 * intent.getParcelableArrayListExtra("rankList"); index =
-		 * intent.getIntExtra("index", 0);
-		 */
+		
+		  intent = getIntent(); 
+		  Bundle buldle = intent.getExtras(); 
+		  players = (ArrayList<ClientPlayer>)buldle.getSerializable("arrayList");
+//		  intent.getParcelableArrayListExtra("rankList");
+          index = intent.getIntExtra("index", 0);
+		 
 	}
 
 	@Override
@@ -124,7 +128,7 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 		private int isme;
 		private int[] rankImage;
 
-		public RankAdapter(Context context, List<ClientPlayer> list, int indext,int[] rankImg) {
+		public RankAdapter(Context context, List<ClientPlayer> list, int indext,int[] rankImage) {
 			this.context = context;
 			this.list = list;
 			this.isme = index;

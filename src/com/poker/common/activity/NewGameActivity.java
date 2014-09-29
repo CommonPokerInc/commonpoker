@@ -15,11 +15,10 @@ import com.poker.common.wifi.message.MessageFactory;
 import com.poker.common.wifi.message.PeopleMessage;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -196,16 +195,16 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                setViewVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE);
-                if(playerList.size()>=2){
-                    All_poker = PokerUtil.getPokers(playerList.size());
-                    sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, All_poker,null,null));
-                    wHandler.removeMessages(WorkHandler.MSG_START_GAME);
-                    wHandler.sendEmptyMessage(WorkHandler.MSG_START_GAME);
-                }else{
-                    Toast.makeText(getApplicationContext(), "还没人齐啊扑街", 1000).show();
+                    setViewVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE);
+                    if(playerList.size()>=2){
+                        All_poker = PokerUtil.getPokers(playerList.size());
+                        sendMessage(MessageFactory.newPeopleMessage(true, false, playerList, All_poker,null,null));
+                        wHandler.removeMessages(WorkHandler.MSG_START_GAME);
+                        wHandler.sendEmptyMessage(WorkHandler.MSG_START_GAME);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "还没人齐啊扑街", 1000).show();
+                    } 
                 }
-            }
         });
     	
     	 if (!app.isServer()) {
@@ -559,7 +558,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             }
     
             if (horizontalSlide) {
-                showMoneyBarSlide(2*arg0.getY() - (int) arg1.getRawY());
+                showMoneyBarSlide(arg0.getY() - (int) arg1.getRawY());
             }
         }
         
@@ -973,7 +972,9 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         
         //用intent.putExtra(String name, String value);来传递参数。
         int index = findIndexWithIPinList(playerList);
-        intent.putExtra("rankList", playerList);
+        Bundle bundle = new Bundle();  
+        bundle.putSerializable("arrayList", playerList);  
+        intent.putExtras(bundle);
         intent.putExtra("index", index);
         intent.setClass(NewGameActivity.this, RankActivity.class);
         startActivity(intent);
@@ -1071,6 +1072,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         currentPlay.getInfo().setQuit(false);
         setPersonView(currentPlay);
         if(app.isServer()){
+            forbidJoin();
             if(isInOrOut||DIndex == -1){
                 newDIndex();
             }else {
@@ -1193,12 +1195,12 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         // TODO Auto-generated method stub
         if (msg.isExit()) {
             if("server exit".equals(msg.getExtra())){
-                Toast.makeText(getApplicationContext(), "Server exit", 1000).show();
+//                Toast.makeText(getApplicationContext(), "Server exit", 1000).show();
                 finish();
             }
             playerList.remove(msg.getPlayerList().get(0));
-            wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
-            wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
+            wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
         }
         if (msg.isStart()) {
 //          游戏开始
@@ -1212,8 +1214,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             if(this.room == null){
             	this.room = msg.getRoom();
             }   
-            wHandler.removeMessages(WorkHandler.MSG_CHAIR_UPDATE);
-            wHandler.sendEmptyMessage(WorkHandler.MSG_CHAIR_UPDATE);
+            wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
         }
     }
 
@@ -1329,18 +1331,26 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     @Override
     public void clientDecrease(String clientName) {
         // TODO Auto-generated method stub
+        ArrayList<ClientPlayer> box = new ArrayList<ClientPlayer>();
+        for(int i=0;i<playerList.size();i++){
+            if(playerList.get(i).getInfo().getIp().equals(clientName)){
+                box.add(playerList.get(i));
+                break;
+            }
+        }
+        sendMessage(MessageFactory.newPeopleMessage(false, true, box, null, room, "client exit"));
         
     }
 
     @Override
     public void disconnectFromServer(int sec) {
         // TODO Auto-generated method stub
-        new AlertDialog.Builder(this).setMessage("连接以及断开，请检查网络").setPositiveButton("确定", null);
+        
     }
     
 private class WorkHandler extends Handler {
         
-        private static final int MSG_CHAIR_UPDATE = 1;
+//        private static final int MSG_CHAIR_UPDATE = 1;
         private static final int MSG_SEND_BOOL = 2;
         private static final int MSG_START_GAME = 3;
         private static final int MSG_ROOM_UPDATE = 4;
@@ -1362,9 +1372,9 @@ private class WorkHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case MSG_CHAIR_UPDATE:
-//                    chairUpdate(playerList);
-                    break;
+//                case MSG_CHAIR_UPDATE:
+////                    chairUpdate(playerList);
+//                    break;
                 case MSG_SEND_BOOL:
                     bottomDeal();
                     break;
@@ -1422,10 +1432,23 @@ private class WorkHandler extends Handler {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK )  
         {  
-			playerList.clear();
-            playerList.add(currentPlay);
-            sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
-            finish();
+		    Dialog dialog = new AlertDialog.Builder(this).setMessage("是否退出游戏？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // TODO Auto-generated method stub
+                    playerList.clear();
+                    playerList.add(currentPlay);
+                    if(app.isServer())
+                        sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
+                    else{
+                        sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"client exit"));
+                    }
+                    finish();
+                }
+            }).setNegativeButton("取消", null).create();
+		    dialog.show();
+			
         }  
           
         return false;  
