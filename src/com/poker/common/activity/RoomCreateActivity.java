@@ -52,7 +52,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 	
 	private SeekBar seekRounds;
 	
-	private TextView tipsView;
+	private TextView tipsView,txtRounds;
 	
 	private RadioButton rBtnLimit,rBtnRank;
 	
@@ -134,15 +134,19 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 				switch(checkedId){
 				case R.id.radio_diors:
 					mBet = bets[0];
+					mStakes = stakes[0];
 					break;
 				case R.id.radio_normal:
 					mBet = bets[1];
+					mStakes = stakes[1];
 					break;
 				case R.id.radio_rich:
 					mBet = bets[2];
+					mStakes = stakes[2];
 					break;
 				case R.id.radio_millionaire:
 					mBet = bets[3];
+					mStakes = stakes[3];
 					break;
 				}
 			}
@@ -150,6 +154,16 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 		edtWifi = (EditText) findViewById(R.id.edit_room_name);
 		seekRounds = (SeekBar) findViewById(R.id.seek_rounds);
 		tipsView = (TextView) findViewById(R.id.txt_tips);
+		txtRounds = (TextView)findViewById(R.id.txt_rank_rounds);
+
+		txtRounds.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				rBtnRank.setChecked(true);
+			}
+		});
 		seekRounds.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override

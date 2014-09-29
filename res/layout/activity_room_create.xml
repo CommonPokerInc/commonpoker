@@ -248,7 +248,8 @@
                 android:layout_toRightOf="@+id/radio_rank_rounds"
                 android:gravity="right"
                 android:text="淘汰赛（无限局）"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:clickable="true" />
         </RelativeLayout>
 
         <Button
