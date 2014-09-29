@@ -44,8 +44,9 @@
         android:id="@+id/game_me_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true" 
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/game_me_view_margintop"
         android:rotation="180" >
     </com.poker.common.custom.MeView>
@@ -389,6 +390,20 @@
             android:scaleType="matrix" />
 
     </FrameLayout>
+
+     <TextView
+         android:id="@+id/game_mychips_txt"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginRight="@dimen/game_mychips_txt_marginright"
+         android:layout_alignParentRight="true"
+         android:text="3600"
+         android:textColor="@color/white"
+         android:layout_marginBottom="@dimen/game_mychips_txt_marginbottom"
+         android:layout_alignParentBottom="true"
+         android:textSize="@dimen/game_mychips_txt_size"
+         android:visibility="visible" />
+
     </RelativeLayout>
     
       <ImageView 
@@ -408,6 +423,5 @@
         android:scaleType="fitXY"
         android:src="@drawable/game_help" 
         android:visibility="invisible"/>
-
 
 </RelativeLayout>

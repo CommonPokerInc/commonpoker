@@ -489,7 +489,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         mMaxAddBetCan = currentPlay.getInfo().getBaseMoney();
         percent = y/height;
         mCurAddBet= (int)(percent * mMaxAddBetCan) + mPreAddBet;
-        mPreAddBet = mCurAddBet/8;
+        mPreAddBet = mCurAddBet/4;
         if(mCurAddBet > mMaxAddBetCan){
             mCurAddBet = mMaxAddBetCan;
         }else if(mCurAddBet < 0){

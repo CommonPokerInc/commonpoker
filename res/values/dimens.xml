@@ -204,6 +204,9 @@
     <dimen name="game_mypoker_type_txt_margintop">10dp</dimen>
     <dimen name="game_mypoker_type_txt_width">90dp</dimen>
     <dimen name="game_mypoker_type_txt_height">30dp</dimen>
+    <dimen name="game_mychips_txt_size">30sp</dimen>
+    <dimen name="game_mychips_txt_marginright">15dp</dimen>
+    <dimen name="game_mychips_txt_marginbottom">60dp</dimen>
     
     <!-- 池 -->
     <dimen name="game_cool_layout_height">45dp</dimen>
