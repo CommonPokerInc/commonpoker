@@ -48,7 +48,7 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 	
 	private TextView txtNoRoom; 
 	
-	private ProgressDialog dialog;
+	private ProgressDialog dialog,connectDialog;
 	
 	private List<ScanResult> wifiList;
 	
@@ -108,6 +108,12 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 		@Override
 		public void onItemClick(String SSID) {
 			// TODO Auto-generated method stub
+			if(null==connectDialog){
+				connectDialog = new ProgressDialog(RoomActivity.this);
+				connectDialog.setTitle("德州扑克");
+				connectDialog.setMessage("正在为你连接该房间");
+			}
+			connectDialog.show();
 			if(!allowEntry){
 				if(mSSID.equals(SSID)){
 					Toast.makeText(RoomActivity.this, "正在为您连接此房间", Toast.LENGTH_SHORT).show();
@@ -136,11 +142,13 @@ public class RoomActivity extends AbsBaseActivity implements WifiBroadCastOperat
 			// TODO Auto-generated method stub
 			switch(msg.what){
 			case MSG_CONNECT_FAILURE:
+				connectDialog.dismiss();
 				Toast.makeText(RoomActivity.this, "加入房间失败,房间不存在或者已经开始", Toast.LENGTH_SHORT).show();
 				app.wm.disconnectWifi(mSSID);
 				allowEntry = true;
 				break;
 			case MSG_CONNECT_SUCCESS:
+				connectDialog.dismiss();
 				allowEntry =true;
 				app.setClient(client);
 				UserInfo info = new UserInfo();

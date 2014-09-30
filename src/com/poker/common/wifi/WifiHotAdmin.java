@@ -12,7 +12,7 @@ import android.util.Log;
 import com.poker.common.wifi.SocketServer.WifiCreateListener;
 
 /**
- * ÈÈµãËÑË÷£¬´´½¨£¬¹Ø±Õ
+ * ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½
  */
 public class WifiHotAdmin {
 
@@ -42,14 +42,14 @@ public class WifiHotAdmin {
 	}
 
 	public void startWifiAp(String wifiName,WifiCreateListener listener) {
-		Log.i(TAG, "into startWifiAp£¨£©");
+		Log.i(TAG, "into startWifiApï¿½ï¿½ï¿½ï¿½");
 		stratWifiAp(wifiName,listener);
 	}
 
-	// †¢„ÓÒ»‚€Wifi Ÿáüc
+	// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Wifi ï¿½ï¿½ï¿½c
 	private boolean stratWifiAp(String wifiName,WifiCreateListener listener) {
 
-		Log.i(TAG, "into startWifiAp£¨£© Æô¶¯Ò»¸öWifi ÈÈµã£¡");
+		Log.i(TAG, "into startWifiApï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Wifi ï¿½Èµã£¡");
 		Method method1 = null;
 		boolean ret = false;
 		try {
@@ -77,16 +77,16 @@ public class WifiHotAdmin {
 			Log.d(TAG, "stratWifiAp() NoSuchMethodException e");
 			listener.OnCreateFailure(e.getMessage());
 		}
-		Log.i(TAG, "out startWifiAp£¨£© Æô¶¯Ò»¸öWifi ÈÈµã£¡");
+		Log.i(TAG, "out startWifiApï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Wifi ï¿½Èµã£¡");
 		listener.onCreateSuccess();
 		return ret;
 
 	}
 
-	// êPé]WifiŸáüc
+	// ï¿½Pï¿½]Wifiï¿½ï¿½ï¿½c
 	private boolean closeWifiAp(WifiManager wifiManager) {
 
-		Log.i(TAG, "into closeWifiAp£¨£© ¹Ø±ÕÒ»¸öWifi ÈÈµã£¡");
+		Log.i(TAG, "into closeWifiApï¿½ï¿½ï¿½ï¿½ ï¿½Ø±ï¿½Ò»ï¿½ï¿½Wifi ï¿½Èµã£¡");
 		boolean ret = false;
 		if (isWifiApEnabled(wifiManager)) {
 			try {
@@ -109,11 +109,11 @@ public class WifiHotAdmin {
 				e.printStackTrace();
 			}
 		}
-		Log.i(TAG, "out closeWifiAp£¨£© ¹Ø±ÕÒ»¸öWifi ÈÈµã£¡");
+		Log.i(TAG, "out closeWifiApï¿½ï¿½ï¿½ï¿½ ï¿½Ø±ï¿½Ò»ï¿½ï¿½Wifi ï¿½Èµã£¡");
 		return ret;
 	}
 
-	// ¼ì²âWifi ÈÈµãÊÇ·ñ¿ÉÓÃ
+	// ï¿½ï¿½ï¿½Wifi ï¿½Èµï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 	public boolean isWifiApEnabled(WifiManager wifiManager) {
 		try {
 			Method method = wifiManager.getClass().getMethod("isWifiApEnabled");
@@ -127,10 +127,10 @@ public class WifiHotAdmin {
 		return false;
 	}
 
-	// wepÃÜÂë±£»¤ config.wepKeys[0] = "" + mPasswd + ""; ÊÇ¹Ø¼ü
+	// wepï¿½ï¿½ï¿½ë±£ï¿½ï¿½ config.wepKeys[0] = "" + mPasswd + ""; ï¿½Ç¹Ø¼ï¿½
 	private WifiConfiguration createPassHotWifiConfig(String mSSID, String mPasswd) {
 
-		Log.i(TAG, "out createPassHotWifiConfig£¨£© ÐÂ½¨Ò»¸öWifiÅäÖÃ£¡ SSID =" + mSSID + " password =" + mPasswd);
+		Log.i(TAG, "out createPassHotWifiConfigï¿½ï¿½ï¿½ï¿½ ï¿½Â½ï¿½Ò»ï¿½ï¿½Wifiï¿½ï¿½ï¿½Ã£ï¿½ SSID =" + mSSID + " password =" + mPasswd);
 		WifiConfiguration config = new WifiConfiguration();
 		config.allowedAuthAlgorithms.clear();
 		config.allowedGroupCiphers.clear();
@@ -146,10 +146,18 @@ public class WifiHotAdmin {
 		config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
 		config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
 		config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+		
+		config.preSharedKey = mPasswd;
+		config.allowedAuthAlgorithms.set(0);
+		config.allowedProtocols.set(1);
+		config.allowedProtocols.set(0);
+		config.allowedKeyManagement.set(1);
+		config.allowedPairwiseCiphers.set(2);
+		config.allowedPairwiseCiphers.set(1);
 		config.wepTxKeyIndex = 0;
 		config.priority = 0;
 
-		Log.i(TAG, "out createPassHotWifiConfig£¨£© Æô¶¯Ò»¸öWifiÅäÖÃ£¡ config.SSID=" + config.SSID + "password =" + config.wepKeys[0]);
+		Log.i(TAG, "out createPassHotWifiConfigï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Wifiï¿½ï¿½ï¿½Ã£ï¿½ config.SSID=" + config.SSID + "password =" + config.wepKeys[0]);
 		return config;
 	}
 	

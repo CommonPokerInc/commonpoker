@@ -296,7 +296,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         meWin.setBackgroundDrawable(new BitmapDrawable());
         meWin.setFocusable(true);
         meWin.setOutsideTouchable(true);
-//        meWin.setAnimationStyle(R.style.settingAnimation);
+        meWin.setAnimationStyle(R.style.settingAnimation);
     	}
     	resId  = settingHelper.getAvatarNumber();
         me_head_img.setImageResource(UserUtil.head_img[settingHelper.getAvatarNumber()]);
@@ -328,7 +328,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     		firstWin.setBackgroundDrawable(new BitmapDrawable());
     		firstWin.setFocusable(true);
     		firstWin.setOutsideTouchable(false);
-//    		firstWin.setAnimationStyle(R.style.settingAnimation);
+    		firstWin.setAnimationStyle(R.style.settingAnimation);
     	}
 		resId  = settingHelper.getAvatarNumber();
 		first_head_img.setImageResource(UserUtil.head_img[resId]);
@@ -381,7 +381,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
           settingWin.setBackgroundDrawable(new BitmapDrawable());
           settingWin.setOutsideTouchable(true);
           settingWin.setFocusable(true);
-//          settingWin.setAnimationStyle(R.style.settingAnimation);
+          settingWin.setAnimationStyle(R.style.settingAnimation);
 		}
           settingWin.showAtLocation(MainActivity.this.settingBtn, Gravity.BOTTOM, 0, 0); 
           settingWin.update();

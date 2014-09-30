@@ -9,7 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:scrollbars="none"
     tools:context=".RoomCreateActivity" >
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
@@ -19,7 +18,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
-
+			
+			<TextView
+            	android:layout_width="fill_parent"
+           	 	android:layout_height="fill_parent"
+            	android:gravity="center"
+            	android:text="创建房间"
+            	android:textColor="@color/white"
+            	android:textSize="25sp" />
             <Button
                 android:id="@+id/btn_create_rank"
                 android:layout_width="fill_parent"
@@ -28,7 +34,8 @@
                 android:layout_marginLeft="80dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:text="创建淘汰局" />
+                android:text="创建淘汰局"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_create_limit"
@@ -38,7 +45,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="80dp"
                 android:layout_weight="1"
-                android:text="创建有限局" />
+                android:text="创建有限局"
+                android:visibility="gone"  />
         </LinearLayout>
 
         <ImageButton
@@ -54,7 +62,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:layout_below="@id/room_title"
-            android:layout_marginTop="10dp" >
+            android:layout_marginTop="20dp" >
 
             <TextView
                 android:id="@+id/txt_room_name"
@@ -74,7 +82,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_toRightOf="@+id/txt_room_name"
-                android:hint="请输入3-12个英文字母或数字"
+                android:hint="请输入1-4个英文字母或数字"
+                android:maxLength="4"
                 android:background="@drawable/bg_input"
                 android:maxHeight="35dp"
                 android:maxWidth="300dp"
@@ -82,7 +91,8 @@
                 android:paddingRight="10dp"
                 android:textColor="#394262"
                 android:textSize="15sp"
-                android:digits="@string/digits" />
+                android:digits="@string/digits"
+                android:inputType="textUri|textMultiLine"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -248,8 +258,7 @@
                 android:layout_toRightOf="@+id/radio_rank_rounds"
                 android:gravity="right"
                 android:text="淘汰赛（无限局）"
-                android:textSize="17sp"
-                android:clickable="true" />
+                android:textSize="17sp"/>
         </RelativeLayout>
 
         <Button
