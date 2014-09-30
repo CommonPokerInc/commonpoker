@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/game_layout"
     android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:layout_above="@+id/mainpage_setting_btn"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/mainpage_me_girl"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="@dimen/game_left_layout_marginright"
         android:orientation="vertical" >
         
     <ImageView
@@ -89,7 +89,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/send_game_btn"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:src="@drawable/img_main_girl"
         android:visibility="invisible" />
 
