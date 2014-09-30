@@ -99,8 +99,8 @@
     <dimen name="rank_list_height">215dp</dimen>
     <dimen name="rank_bottom_layout_width">340dp</dimen>
     <dimen name="rank_bottom_layout_height">40dp</dimen>
-    <dimen name="rank_head_img_width">200dp</dimen>
-    <dimen name="rank_head_img_height">100dp</dimen>
+    <dimen name="rank_head_img_width">220dp</dimen>
+    <dimen name="rank_head_img_height">80dp</dimen>
     <dimen name="rank_head_img_marginbottom">-25dp</dimen>
     <dimen name="rank_middle_layout_margintop">-25dp</dimen>
     <dimen name="innings_marginbottom">18dp</dimen>
@@ -272,4 +272,16 @@
     <dimen name="game_sheng_img_width">85dp</dimen>
     <dimen name="game_sheng_img_height">85dp</dimen>
     
+    <!-- 设置 -->
+    <dimen name="setting_bg_width">500dp</dimen>
+    <dimen name="setting_bg_height">285dp</dimen>
+    <dimen name="setting_items_layout_width">400dp</dimen>
+    <dimen name="setting_items_layout_height">250dp</dimen>
+    <dimen name="item_layout_height">60dp</dimen>
+    <dimen name="txt_marginleft">20dp</dimen>
+    <dimen name="switch_img_marginright">14dp</dimen>
+    <dimen name="txt_size">20dp</dimen>
+    <dimen name="switch_img_width">70dp</dimen>
+    <dimen name="help_open_img_width">25dp</dimen>
+    <dimen name="help_open_img_marginright">19dp</dimen>
 </resources>

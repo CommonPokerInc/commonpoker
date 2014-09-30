@@ -407,12 +407,12 @@
     android:visibility="gone"
     /> 
     
-<!--  	   <include
+  	   <include
         android:id="@+id/game_win_layout" 
         layout="@layout/win_view"
 	    android:layout_width="match_parent"
 	    android:layout_height="@dimen/game_me_view_layout_height"
-	    android:visibility="gone"/>  -->
+	    android:visibility="gone"/>  
 
       <ImageView 
         android:id="@+id/isMeImageView"

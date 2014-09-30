@@ -97,15 +97,16 @@
 
             <TextView
                 android:id="@+id/innings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:gravity="right"
-                android:layout_marginBottom="@dimen/innings_marginbottom"
+                android:gravity="center"
                 android:text="@string/innings_txt"
                 android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rank_head"
                 android:textSize="@dimen/innings_txt_size" />
 
         </RelativeLayout>

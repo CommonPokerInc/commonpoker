@@ -273,4 +273,17 @@
     <dimen name="game_sheng_img_width">85dp</dimen>
     <dimen name="game_sheng_img_height">85dp</dimen>
     
+    <!-- 设置 -->
+    <dimen name="setting_bg_width">500dp</dimen>
+    <dimen name="setting_bg_height">285dp</dimen>
+    <dimen name="setting_items_layout_width">400dp</dimen>
+    <dimen name="setting_items_layout_height">250dp</dimen>
+    <dimen name="item_layout_height">60dp</dimen>
+    <dimen name="txt_marginleft">20dp</dimen>
+    <dimen name="switch_img_marginright">14dp</dimen>
+    <dimen name="txt_size">20dp</dimen>
+    <dimen name="switch_img_width">70dp</dimen>
+    <dimen name="help_open_img_width">25dp</dimen>
+    <dimen name="help_open_img_marginright">19dp</dimen>
+    
 </resources>

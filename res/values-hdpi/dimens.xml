@@ -72,4 +72,23 @@
     <dimen name="waiting_title_txt_size">40sp</dimen>
     <dimen name="waiting_operation_btn_width">156dp</dimen>
     <dimen name="waiting_operation_btn_height">40dp</dimen>
+    
+    <!-- 设置 -->
+    <dimen name="setting_bg_width">460dp</dimen>
+    <dimen name="setting_bg_height">265dp</dimen>
+    <dimen name="setting_items_layout_width">400dp</dimen>
+    <dimen name="setting_items_layout_height">240dp</dimen>
+    <dimen name="item_layout_height">57dp</dimen>
+    <dimen name="txt_marginleft">20dp</dimen>
+    <dimen name="switch_img_marginright">14dp</dimen>
+    <dimen name="txt_size">20dp</dimen>
+    <dimen name="switch_img_width">70dp</dimen>
+    <dimen name="help_open_img_width">25dp</dimen>
+    <dimen name="help_open_img_marginright">19dp</dimen>
+    
+    <!-- 排名 -->
+    <dimen name="rank_middle_layout_width">320dp</dimen>
+    <dimen name="rank_middle_layout_height">220dp</dimen>
+    <dimen name="rank_list_height">195dp</dimen>
+    
 </resources>

@@ -592,10 +592,6 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             if(horizontalSlide || isFollow){
                 endGesture();
             }
-//            if(isHelpLongPressed){
-//            	helpPic.setVisibility(View.GONE);
-//            	isHelpLongPressed =false;
-//            }
             break;
         }
         
@@ -605,6 +601,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     private void endGesture() {
         // TODO Auto-generated method stub
         confirmBtn.setVisibility(View.VISIBLE);
+        //滑动后加注条消失
+        betLayout.setVisibility(View.INVISIBLE);
         if(isMe){
             if(isFollow){
                 followAction();
