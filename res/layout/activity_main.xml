@@ -22,14 +22,15 @@
         android:layout_height="@dimen/mainpage_title_height"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/mainpage_me_title_margintop"
-        android:src="@drawable/img_main_title" />
+        android:src="@drawable/img_main_title"
+        android:visibility="invisible"/>
         <LinearLayout
         android:id="@+id/mainpage_btn_layout"
         android:layout_width="@dimen/mainpage_btn_layout_width"
         android:layout_height="@dimen/mainpage_btn_layout_height"
         android:layout_marginTop="@dimen/mainpage_btn_layout_margintop"
-         android:layout_gravity="center"
-        android:orientation="vertical" >
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/create_home_btn"
@@ -40,7 +41,8 @@
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:textSize="@dimen/game_btn_txt_size"
-            android:background="@drawable/img_create_home_btn" />
+            android:background="@drawable/img_create_home_btn"
+        	android:visibility="invisible" />
 
         <Button
             android:id="@+id/join_home_btn"
@@ -52,7 +54,8 @@
             android:layout_weight="1"
             android:textColor="@color/white"
             android:textSize="@dimen/game_btn_txt_size"
-            android:background="@drawable/img_join_home_btn" />
+            android:background="@drawable/img_join_home_btn"
+        	android:visibility="invisible" />
 
     </LinearLayout>
     </LinearLayout>
@@ -65,7 +68,8 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="@dimen/mainpage_me_margin_bottom"
         android:layout_marginLeft="@dimen/mainpage_me_margin_left"
-        android:background="@drawable/img_mainpage_setting_btn" />
+        android:background="@drawable/img_mainpage_setting_btn"
+        android:visibility="invisible" />
 
     <ImageButton
         android:id="@+id/mainpage_me_btn"
@@ -75,7 +79,8 @@
         android:layout_marginBottom="@dimen/mainpage_me_margin_bottom"
         android:layout_marginLeft="@dimen/mainpage_me_margin_left"
         android:layout_toRightOf="@+id/mainpage_setting_btn"
-        android:background="@drawable/img_mainpage_person_btn" />
+        android:background="@drawable/img_mainpage_person_btn"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/mainpage_me_girl"
@@ -85,7 +90,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/send_game_btn"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_main_girl" />
+        android:src="@drawable/img_main_girl"
+        android:visibility="invisible" />
 
     <ImageButton
         android:id="@+id/send_game_btn"
@@ -95,5 +101,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="@dimen/send_game_margin_right"
         android:layout_marginTop="@dimen/send_game_margin_top"
-        android:background="@drawable/img_send_game_btn" />
+        android:background="@drawable/img_send_game_btn"
+        android:visibility="invisible" />
 </RelativeLayout>

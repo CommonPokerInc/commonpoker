@@ -3,6 +3,7 @@ package com.poker.common.activity;
 
 import com.poker.common.BaseApplication;
 import com.poker.common.R;
+import com.poker.common.util.AnimationProvider;
 import com.poker.common.util.SettingHelper;
 import com.poker.common.util.UserUtil;
 
@@ -12,6 +13,7 @@ import android.content.pm.PackageInfo;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -44,6 +46,8 @@ import java.util.List;
  */
 public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
+	private View mView,titleView,girlView;
+	
     private ImageButton sendGameBtn;
 
     private ImageButton settingBtn, meBtn;
@@ -104,10 +108,58 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         		.equals(android.os.Environment.MEDIA_MOUNTED)){
         	new Thread(copyRunnable).start();
         }
+        startAnimation();
     }
     
-
+    private void startAnimation(){
+    	handler.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				mView.startAnimation(AnimationProvider.
+						getAlphaAnimation(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE, 1000));
+			}
+		});
+    	handler.postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				meBtn.startAnimation(AnimationProvider.
+						getTranslateAnimation(AnimationProvider.TYPE_ANIMATION_BOTTOM, 
+								1,AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE , 200, true));
+				settingBtn.startAnimation(AnimationProvider.
+						getTranslateAnimation(AnimationProvider.TYPE_ANIMATION_BOTTOM, 
+								1,AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE , 200, true));
+				girlView.startAnimation(AnimationProvider.
+						getTranslateAnimation(AnimationProvider.TYPE_ANIMATION_RIGHT, 
+								1,AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE , 800, true));
+			}
+		}, 1000);
+    	handler.postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				sendGameBtn.startAnimation(AnimationProvider.
+						getAlphaAnimation(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE, 1000));
+				titleView.startAnimation(AnimationProvider.
+						getAlphaAnimation(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE, 1000));
+				createRoomBtn.startAnimation(AnimationProvider.
+						getAlphaAnimation(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE, 1000));
+				joinGameBtn.startAnimation(AnimationProvider.
+						getAlphaAnimation(AnimationProvider.TYPE_INTERPLATOR_ACCELERATE_DECELERATE, 1000));
+			}
+		}, 1800);
+    }
+    
+    private Handler handler =new Handler();
+    
     public void init() {
+    	mView =findViewById(R.id.game_layout);
+    	titleView = findViewById(R.id.mainpage_me_title);
+    	girlView = findViewById(R.id.mainpage_me_girl);
         sendGameBtn = (ImageButton) findViewById(R.id.send_game_btn);
         joinGameBtn = (Button) findViewById(R.id.join_home_btn);
         createRoomBtn = (Button) findViewById(R.id.create_home_btn);
