@@ -4,17 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-	<include 
-    android:id="@+id/game_waiting_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    layout="@layout/activity_waiting"
-    android:visibility="gone"
-    />
-	
-	<include layout="@layout/win_view"
-	    android:visibility="gone"/>
-
 <RelativeLayout 
     android:id="@+id/game_view_layout"
     android:layout_width="match_parent"
@@ -59,6 +48,8 @@
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/digitalClock1"
         android:text="Button" /> -->
+        
+
 
     </RelativeLayout>
     
@@ -406,6 +397,23 @@
 
     </RelativeLayout>
     
+
+    
+ 	<include 
+    android:id="@+id/game_waiting_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    layout="@layout/activity_waiting"
+    android:visibility="gone"
+    /> 
+    
+<!--  	   <include
+        android:id="@+id/game_win_layout" 
+        layout="@layout/win_view"
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/game_me_view_layout_height"
+	    android:visibility="gone"/>  -->
+
       <ImageView 
         android:id="@+id/isMeImageView"
    		android:layout_width="match_parent"
@@ -423,5 +431,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/game_help" 
         android:visibility="invisible"/>
+          
+
 
 </RelativeLayout>

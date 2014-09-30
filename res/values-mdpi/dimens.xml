@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- 首页 -->
+    <dimen name="mainpage_title_width">230dp</dimen>
+    <dimen name="mainpage_title_height">65dp</dimen>
+    <dimen name="mainpage_btn_layout_width">160dp</dimen>
+    <dimen name="mainpage_btn_layout_height">110dp</dimen>
+    <dimen name="mainpage_setting_btn_width">30dp</dimen>
+    <dimen name="mainpage_setting_btn_height">30dp</dimen>
+    <dimen name="mainpage_me_btn_width">30dp</dimen>
+    <dimen name="mainpage_me_btn_height">30dp</dimen>
+    <dimen name="send_game_btn_width">170dp</dimen>
+    <dimen name="send_game_btn_height">30dp</dimen>
+    <dimen name="mainpage_girl_width">235dp</dimen>
+    <dimen name="mainpage_girl_height">200dp</dimen>
+    <dimen name="mainpage_me_title_margintop">25dp</dimen>
+    <dimen name="game_left_layout_marginright">8dp</dimen>
+    
+    <!-- 我的action -->
+    <dimen name="relativeLayout1_marginright">80dp</dimen>
+    <dimen name="game_me_view_layout_height">135dp</dimen>
+    <dimen name="me_image_img_width">90dp</dimen>
+    <dimen name="me_image_img_height">90dp</dimen>
+    <dimen name="me_view_bg_img_height">120dp</dimen>
+    <dimen name="me_name_txt_size">20sp</dimen>
+    <dimen name="me_money_txt_size">28sp</dimen>
+    <dimen name="bet_img_width">160dp</dimen>
+    <dimen name="bet_img_height">40dp</dimen>
+    <dimen name="bet_icon_marginleft">20dp</dimen>
+    
+    <!-- 玩家行为 -->
+    <dimen name="player_action_txt_size">28sp</dimen>
+    <dimen name="bet_txt">28sp</dimen>
+    
+    <!-- 扑克牌 -->
+    <dimen name="game_pokers_img_width">80dp</dimen>
+    <dimen name="game_pokers_img_height">130dp</dimen>
+    <dimen name="game_mychips_txt_size">25sp</dimen>
+    
+    <!-- 返回，帮助 -->
+    <dimen name="game_back_img_width">30dp</dimen>
+    <dimen name="game_back_img_height">30dp</dimen>
+    
+    <!-- 池 -->
+    <dimen name="game_maincool_layout_width">70dp</dimen>
+    <dimen name="game_maincool_layout_height">23dp</dimen>
+    <dimen name="game_maincool_chip_txt_size">10sp</dimen>
+    <dimen name="game_sidecool_layout_width">60dp</dimen>
+    <dimen name="game_sidecool_layout_height">23dp</dimen>
+    <dimen name="game_sidecool_chip_txt_size">9sp</dimen>
+    <dimen name="game_maincool_chip_txt_marginleft">2dp</dimen>
+    <dimen name="game_maincool_chip_img_marginleft">5dp</dimen>
+    <dimen name="game_maincool_chip_img_width">18dp</dimen>
+    <dimen name="game_maincool_chip_img_height">20dp</dimen>
+    <dimen name="game_sidecool_chip_img_width">15dp</dimen>
+    <dimen name="game_sidecool_chip_img_height">18dp</dimen>
+    <dimen name="game_sidecool_layout_marginleft">3dp</dimen>
+    <dimen name="game_maincool_layout_marginleft">5dp</dimen>
+    
+    <!-- 赢-->
+    <dimen name="game_sheng_img_marginright">40dp</dimen>
+    <dimen name="game_winner_img_marginleft">70dp</dimen>
+    <dimen name="game_winner_img_width">110dp</dimen>
+    <dimen name="game_winner_img_height">110dp</dimen>
+    <dimen name="game_winner_name_txt_size">23sp</dimen>
+    <dimen name="game_winner_card_type_txt_width">130dp</dimen>
+    <dimen name="game_winner_card_type_txt_height">25dp</dimen>
+    <dimen name="game_winner_card_tpye_size">20sp</dimen>
+    <dimen name="game_win_tips_img_width">450dp</dimen>
+    <dimen name="game_win_tips_img_height">120dp</dimen>
+    
+    <!-- 等待 -->
+    <dimen name="waiting_title_txt_margintop">8dp</dimen>
+    <dimen name="waiting_player_layout_width">70dp</dimen>
+    <dimen name="waiting_player_layout_height">93dp</dimen>
+    <dimen name="waiting_players_marginleft">5dp</dimen>
+    <dimen name="waiting_roomer_img_width">65dp</dimen>
+    <dimen name="waiting_roomer_img_height">73dp</dimen>
+    <dimen name="waiting_players_name_size">15sp</dimen>
+    <dimen name="waiting_title_txt_size">35sp</dimen>
+    <dimen name="waiting_operation_btn_width">140dp</dimen>
+    <dimen name="waiting_operation_btn_height">35dp</dimen>
+    <dimen name="waiting_operation_btn_txt_size">25sp</dimen>
+    <dimen name="waiting_tips_txt_size">15sp</dimen>
+</resources>
