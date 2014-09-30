@@ -147,13 +147,13 @@ public class WifiHotAdmin {
 		config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
 		config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
 		
-		config.preSharedKey = mPasswd;
-		config.allowedAuthAlgorithms.set(0);
-		config.allowedProtocols.set(1);
-		config.allowedProtocols.set(0);
-		config.allowedKeyManagement.set(1);
-		config.allowedPairwiseCiphers.set(2);
-		config.allowedPairwiseCiphers.set(1);
+//		config.preSharedKey = mPasswd;
+//		config.allowedAuthAlgorithms.set(0);
+//		config.allowedProtocols.set(1);
+//		config.allowedProtocols.set(0);
+//		config.allowedKeyManagement.set(1);
+//		config.allowedPairwiseCiphers.set(2);
+//		config.allowedPairwiseCiphers.set(1);
 		config.wepTxKeyIndex = 0;
 		config.priority = 0;
 
