@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+﻿<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/game_win_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/winer_tip" 
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/game_winner_img"
