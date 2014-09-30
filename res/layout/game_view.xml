@@ -4,10 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+   
+
 <RelativeLayout 
     android:id="@+id/game_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
+    android:visibility="gone"
     >
 
     
@@ -407,12 +410,13 @@
     android:visibility="gone"
     /> 
     
-  	   <include
-        android:id="@+id/game_win_layout" 
+ 	    
+    <include 
+        android:id="@+id/game_win_layout"
         layout="@layout/win_view"
-	    android:layout_width="match_parent"
-	    android:layout_height="@dimen/game_me_view_layout_height"
-	    android:visibility="gone"/>  
+        />
+    
+
 
       <ImageView 
         android:id="@+id/isMeImageView"
@@ -431,7 +435,5 @@
         android:scaleType="fitXY"
         android:src="@drawable/game_help" 
         android:visibility="invisible"/>
-          
-
 
 </RelativeLayout>
