@@ -7,7 +7,7 @@
     android:orientation="vertical" >
     
     <DigitalClock
-        android:id="@+id/digitalClock1"
+        android:id="@+id/digitalClock2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -21,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/game_maincool_chip_txt_marginleft"
+        android:layout_marginLeft="10dp"
         android:text="room name"
-        android:layout_alignLeft="@+id/digitalClock1"
+        android:layout_alignLeft="@+id/digitalClock2"
         android:textSize="@dimen/game_maincool_chip_txt_size" />  
  
 
