@@ -186,6 +186,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 				// TODO Auto-generated method stub
 				if(fromUser){
 					tipsView.setText(String.valueOf(progress==0?1:progress));
+					mRounds = progress==0?1:progress;
 				}
 			}
 		});
