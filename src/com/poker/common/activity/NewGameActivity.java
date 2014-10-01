@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Vibrator;
+import android.provider.MediaStore.Audio.Playlists;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -64,11 +65,11 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
   //玩家toast控件的元素
     private ImageView player,bet_fullImg,bet_nullImg;
     private TextView name,othersAction,myAction,bet_txt;
-    private Button confirmBtn;
+//    private Button confirmBtn;
     private int mMaxAddBetCan,mPreAddBet = 0,mCurAddBet;
     private float percent;
     private FrameLayout betLayout;
-    private boolean verticalSlide = false,horizontalSlide = false,isFollow=false;
+    private boolean verticalSlide = false,horizontalSlide = false,isFollow=false,isAdd = false;
     private Sensor sensor;
     private Sensor lightSensor;
     private SensorManager sm ;
@@ -116,6 +117,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
     private TextView poolsText[];
     
+    private TextView game_room_name_txt,game_round_txt;
+    
     private ImageView helpImg,helpPic;
     
     private boolean isMe = false;
@@ -145,6 +148,9 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     private ImageView game_win_tips_img,game_winner_img,game_sheng_img;
     
     private TextView game_winner_name_txt,game_winner_card_type_txt;
+    
+    private TextView game_mychips_txt;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -161,6 +167,25 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     private void waitingOthers() {
 		// TODO Auto-generated method stub
         setViewVisibility(View.GONE,View.VISIBLE,View.GONE,View.GONE);
+        OnLongClickListener kickPeopleOnLongClickListener = new OnLongClickListener(){
+
+            @Override
+            public boolean onLongClick(View v) {
+                // TODO Auto-generated method stub
+                if(app.isServer()){
+                    int index = Integer.parseInt(v.getTag().toString());
+                    ArrayList<ClientPlayer> kickMan = new ArrayList<ClientPlayer>();
+                    kickMan.add(playerList.get(index));
+                    sendMessage(MessageFactory.newPeopleMessage(false, false, kickMan, null, room, "KICK_MAN"));
+                    playerList.remove(index);
+                    wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
+                    wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
+                }
+                return false;
+            }
+            
+        };
+        
         waitingImg = new ImageView[6];
         waitingImg[0] = (ImageView)waitView.findViewById(R.id.waiting_roomer_img);
         waitingImg[1] = (ImageView)waitView.findViewById(R.id.waiting_player1_img);
@@ -168,6 +193,18 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         waitingImg[3] = (ImageView)waitView.findViewById(R.id.waiting_player3_img);
         waitingImg[4] = (ImageView)waitView.findViewById(R.id.waiting_player4_img);
         waitingImg[5] = (ImageView)waitView.findViewById(R.id.waiting_player5_img);
+        waitingImg[0].setTag("0");
+        waitingImg[1].setTag("1");
+        waitingImg[2].setTag("2");
+        waitingImg[3].setTag("3");
+        waitingImg[4].setTag("4");
+        waitingImg[5].setTag("5");
+        waitingImg[1].setOnLongClickListener(kickPeopleOnLongClickListener);
+        waitingImg[2].setOnLongClickListener(kickPeopleOnLongClickListener);
+        waitingImg[3].setOnLongClickListener(kickPeopleOnLongClickListener);
+        waitingImg[4].setOnLongClickListener(kickPeopleOnLongClickListener);
+        waitingImg[5].setOnLongClickListener(kickPeopleOnLongClickListener);
+        game_room_name_txt = (TextView)waitView.findViewById(R.id.game_room_name_txt);
         
         waitingText = new TextView[6];
         waitingText[0] = (TextView)waitView.findViewById(R.id.waiting_roomer_name);
@@ -209,15 +246,28 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                 }
         });
     	
-    	 if (!app.isServer()) {
-    	     wait_begin_btn.setVisibility(View.INVISIBLE);
-    	     waiting_tips_txt.setText("等房主发号师令");
+    	 if (app.isServer()) {
+    	     if(playerList.size()>1){
+    	         wait_begin_btn.setVisibility(View.VISIBLE);
+    	     }
+    	     else{
+    	         wait_begin_btn.setVisibility(View.INVISIBLE);
+    	     }
     	 }else{
-    	     wait_begin_btn.setVisibility(View.VISIBLE);
+    	     wait_begin_btn.setVisibility(View.INVISIBLE);
+             waiting_tips_txt.setText("等房主发号师令");
     	 }
 	}
     
     private void setWaitingPersonView(){
+        if (app.isServer()) {
+            if(playerList.size()>1){
+                wait_begin_btn.setVisibility(View.VISIBLE);
+            }
+            else{
+                wait_begin_btn.setVisibility(View.INVISIBLE);
+            }
+        }
         int index = 0;
         for(int i = 0;i<playerList.size();i++){
             waitingImg[i].setImageResource(UserUtil.head_img[playerList.get(i).getInfo().getAvatar()]);
@@ -252,9 +302,11 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
 		game_winner_card_type_txt = (TextView)winView.findViewById(R.id.game_winner_card_type_txt);
         betLayout = (FrameLayout)findViewById(R.id.new_bet_layout);
         betLayout.setVisibility(View.INVISIBLE);
+        game_round_txt = (TextView)findViewById(R.id.game_round_txt);
         //增加赌注的滑动条初始化控件
         bet_fullImg = (ImageView)findViewById(R.id.new_bet_full);
         bet_nullImg = (ImageView)findViewById(R.id.new_bet_null);
+        game_mychips_txt = (TextView)findViewById(R.id.game_mychips_txt);
         helpImg = (ImageView)findViewById(R.id.game_help_img);
 //        helpImg.setOnClickListener(this);
         helpImg.setOnLongClickListener(new OnLongClickListener() {
@@ -280,6 +332,33 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
 				return false;
 			}
 		});
+        OnLongClickListener pokerLongClickListener = new OnLongClickListener(){
+
+            @Override
+            public boolean onLongClick(View v) {
+                // TODO Auto-generated method stub
+                turnAroundPoker(true);
+                return false;
+            } 
+        };
+        
+        OnTouchListener pokerOnTouchListener = new OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+//                  helpPic.setVisibility(View.VISIBLE);
+                } 
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    turnAroundPoker(false);
+                }
+                return false;
+            }
+            
+        };
+
+        
         helpPic = (ImageView)findViewById(R.id.help_img);
 //        helpPic.setOnClickListener(this);
         public_poker1 = (ImageView)findViewById(R.id.game_pokers_img1);
@@ -329,11 +408,38 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             currentPlay.getInfo().setAroundChip(0);
             playerList.add(currentPlay); 
             setPersonView(currentPlay);
+            wHandler.removeMessages(WorkHandler.MSG_ROOM_UPDATE);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_ROOM_UPDATE);
             wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
             wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
         }
         
+        game_winner_img.setVisibility(View.INVISIBLE);
+        game_sheng_img.setVisibility(View.INVISIBLE);
+        game_winner_name_txt.setVisibility(View.INVISIBLE);
+        game_winner_card_type_txt.setVisibility(View.INVISIBLE);
+        winView.setVisibility(View.INVISIBLE);
+        
+        
+        game_mypoker_img1.setOnLongClickListener(pokerLongClickListener);
+        game_mypoker_img2.setOnLongClickListener(pokerLongClickListener);
+        
+        game_mypoker_img1.setOnTouchListener(pokerOnTouchListener);
+        game_mypoker_img2.setOnTouchListener(pokerOnTouchListener);
+        
     }
+	
+	public void turnAroundPoker(boolean isShow){
+	    if(!isShow){
+	        game_mypoker_img1.setImageResource(R.drawable.img_poker_back);
+	        game_mypoker_img2.setImageResource(R.drawable.img_poker_back);
+	    }else{
+	        int index  = findIndexWithIPinList(playerList);
+	        game_mypoker_img1.setImageResource(All_poker.get(index*2).getPokerImageId());
+	        game_mypoker_img2.setImageResource(All_poker.get(index*2+1).getPokerImageId());
+	    }
+	    
+	}
     
     public void setPersonView(ClientPlayer player){
         meView.setPerson(player);
@@ -449,7 +555,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         if(myView == null){
             myView = inflater.inflate(R.layout.me_action_view, null);
             myAction = (TextView)myView.findViewById(R.id.me_action_txt);
-            confirmBtn = (Button)myView.findViewById(R.id.me_action_confirm_btn);
+//            confirmBtn = (Button)myView.findViewById(R.id.me_action_confirm_btn);
         }
         if(myToast == null){
             myToast = new ToastView(this,myView,this.height/4,Toast.LENGTH_SHORT);
@@ -457,8 +563,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         if(str != null){
             myAction.setText(str);
         }
-        confirmBtn.setVisibility(View.INVISIBLE);
-        confirmBtn.setOnClickListener(this);
+//        confirmBtn.setVisibility(View.INVISIBLE);
+//        confirmBtn.setOnClickListener(this);
         myToast.show();
     }
     
@@ -527,6 +633,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         // TODO Auto-generated method stub
         if(isMe){
             isFollow = false;
+            isAdd = false;
             float disXSlide = Math.abs(arg1.getX() - arg0.getX());
             float disYSlide = Math.abs(arg1.getY() - arg0.getY());
             if (disXSlide > 0 || disYSlide > 0) {
@@ -563,6 +670,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
             if (horizontalSlide) {
                 showMoneyBarSlide(arg0.getY() - (int) arg1.getRawY());
+                isAdd = true;
             }
         }
         
@@ -600,12 +708,22 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
 
     private void endGesture() {
         // TODO Auto-generated method stub
-        confirmBtn.setVisibility(View.VISIBLE);
+//        confirmBtn.setVisibility(View.VISIBLE);
         //滑动后加注条消失
         betLayout.setVisibility(View.INVISIBLE);
         if(isMe){
             if(isFollow){
                 followAction();
+            }else if(isAdd){
+                Dialog dialog = new AlertDialog.Builder(this).setMessage("是否要加注？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        addChipAction();
+                    }
+                }).setNegativeButton("取消", null).create();
+                dialog.show();   
             }
         }
     }
@@ -631,11 +749,16 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     }
     
     public void shareMoney(){
-        optionChoice(false);
+//        optionChoice(false);
         HashMap<String,ArrayList<ClientPlayer>> winSet = PokerUtil.getWinner(playerList, All_poker);
         if(winSet.get("0").contains(currentPlay)){
-            winView.setVisibility(View.VISIBLE);
             game_win_tips_img.setVisibility(View.VISIBLE);
+            game_winner_img.setVisibility(View.INVISIBLE);
+            game_sheng_img.setVisibility(View.INVISIBLE);
+            game_winner_name_txt.setVisibility(View.INVISIBLE);
+            game_winner_card_type_txt.setVisibility(View.VISIBLE);
+            game_winner_card_type_txt.setText(PokerUtil.getCardTypeString(currentPlay.getInfo().getCardType()));
+            winView.setVisibility(View.VISIBLE);
         }else{
             setWinView(winSet.get("0").get(0));
         }
@@ -652,11 +775,19 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     }
     
     public void setWinView(ClientPlayer p){
+        game_win_tips_img.setVisibility(View.INVISIBLE);
         game_winner_img.setImageResource(UserUtil.head_img[p.getInfo().getAvatar()]);
+        game_winner_img.setVisibility(View.VISIBLE);
         game_sheng_img.setVisibility(View.VISIBLE);
+        game_winner_name_txt.setVisibility(View.VISIBLE);
         game_winner_name_txt.setText(p.getInfo().getName());
+        game_winner_card_type_txt.setVisibility(View.VISIBLE);
         game_winner_card_type_txt.setText(PokerUtil.getCardTypeString(p.getInfo().getCardType()));
         winView.setVisibility(View.VISIBLE);
+    }
+    
+    public void resetWinView(){
+        winView.setVisibility(View.INVISIBLE);
     }
     
     public void setPokerAlpha(ArrayList<Poker> pokers,int index){
@@ -686,17 +817,21 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     }
     
     public void showAroundMessage(){
+        turnAroundPoker(true);
         int index = findIndexWithIPinList(playerList);
         game_mypoker_type_txt.setText(PokerUtil.getCardTypeString(playerList.get(index).getInfo().getCardType()));
         game_mypoker_type_txt.setVisibility(View.VISIBLE);
         setPokerAlpha(playerList.get(index).getInfo().getPokerBack(),index);
-
+        if(room.getInnings()!=-1)
+            aroundIndex++;
+        wHandler.removeMessages(WorkHandler.MSG_GAME_ROUND_TEXT);
+        wHandler.sendEmptyMessage(WorkHandler.MSG_GAME_ROUND_TEXT);
         new Handler().postDelayed(new Runnable(){    
             public void run() {    
                 if(app.isServer()){
-                    if(aroundIndex<=room.getInnings()){
-                        if(room.getInnings()!=-1)
-                            aroundIndex++;
+                    if(aroundIndex<room.getInnings()){
+//                        if(room.getInnings()!=-1)
+//                            aroundIndex++;
                         if(isInOrOut||DIndex == -1){
                             newDIndex();
                         }else {
@@ -727,6 +862,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         if(playerList.get(playerIndex).getInfo().getId() == currentPlay.getInfo().getId()){
             currentPlay.setInfo(playerList.get(playerIndex).getInfo());
             meView.setBaseMoneyText(String.valueOf(currentPlay.getInfo().getBaseMoney()));
+            game_mychips_txt.setText(String.valueOf(currentPlay.getInfo().getBaseMoney()));
         }
    }
     
@@ -808,15 +944,21 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                }else{
                    money = playerList.get(maxChipIndex).getInfo().getAroundChip();
                }
-               setActionText("跟注"+money,View.VISIBLE);
               
            }
+          if(money == -1||money == 0){
+              setActionText("跟注",View.VISIBLE);
+          }else{
+              setActionText("跟注"+money,View.VISIBLE);
+          }
           sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_UPDATE_MONEY, 
                   money, String.valueOf(currentOptionPerson)));
+           Log.i("followAction","isEnd"+isEnd);
            if(isEnd){
                sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_SHOW_PUBLIC_POKER,
                        -1,  String.valueOf(DIndex)));
                if(app.isServer()){
+                   Log.i("followAction","one");
                    Message message = new Message();
                    message.what = WorkHandler.MSG_ADD_BET;
                    message.arg1 = currentOptionPerson;
@@ -827,6 +969,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                    while(playerList.get(i%playerList.size()).getInfo().isQuit()){
                        i = Math.abs(i-1);
                    }
+                   Log.i("followAction","two");
                    maxChipIndex = i;
                    wHandler.removeMessages(WorkHandler.MSG_SHOW_PUBLIC_POKER);
                    wHandler.sendEmptyMessage(WorkHandler.MSG_SHOW_PUBLIC_POKER);
@@ -834,15 +977,18 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                    wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
                }
            }else{
+               Log.i("followAction","three");
                sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_FINISH_OPTIOIN,
                        -1, null));
                if(app.isServer()){
+                   Log.i("followAction","four");
                    Message message2 = new Message();
                     message2.what = WorkHandler.MSG_ADD_BET;
                     message2.arg1 = currentOptionPerson;
                     message2.arg2 = money;
                     wHandler.sendMessage(message2);
                    currentOptionPerson = (currentOptionPerson+1)%playerList.size(); 
+                   Log.i("followAction","five");
                    wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
                    wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
                }
@@ -853,13 +999,13 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
-        case R.id.me_action_confirm_btn:
-            betLayout.setVisibility(View.GONE);
-            if(myToast != null){
-                myToast.cancel();
-            }
-            addChipAction();
-            break;
+//        case R.id.me_action_confirm_btn:
+//            betLayout.setVisibility(View.GONE);
+//            if(myToast != null){
+//                myToast.cancel();
+//            }
+//            addChipAction();
+//            break;
 //        case R.id.wait_begin_btn:
 //            setViewVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE);
 //            if(this.playerList.size()>=2){
@@ -872,10 +1018,19 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
 //            }
 //            break;
         case R.id.game_back_img:
-        	playerList.clear();
-            playerList.add(currentPlay);
-            sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
-            finish();
+            Dialog dialog = new AlertDialog.Builder(this).setMessage("是否退出游戏？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // TODO Auto-generated method stub
+                    playerList.clear();
+                    playerList.add(currentPlay);
+                    sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
+                    finish();
+                }
+            }).setNegativeButton("取消", null).create();
+            dialog.show();
+            	
             break;
         default:
             break;
@@ -883,7 +1038,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     }
     
  // 发底牌
-    public void bottomDeal() {
+    public void bottomDeal() { 
+        for(int i = 0;i<playerList.size();i++){
+            playerList.get(i).getInfo().setQuit(false);
+        }
         game_mypoker_type_txt.setVisibility(View.INVISIBLE);
         int index = findIndexWithIPinList(this.playerList);
         bigBlindIndex = (DIndex+2)%playerList.size();
@@ -892,6 +1050,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         setChips((DIndex+1)%playerList.size(),room.getMinStake()/2,View.VISIBLE);
         currentOptionPerson = (maxChipIndex+1)%playerList.size();
         setMePokers(All_poker.get(index*2).getPokerImageId(), All_poker.get(index*2+1).getPokerImageId(),View.VISIBLE);
+        turnAroundPoker(false);
         checkIsMeOption();
     }
     
@@ -899,14 +1058,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     public void showPublicPoker() {
         meView.setActionViewVisiable(View.INVISIBLE);
         if(public_poker5.getVisibility() == View.VISIBLE){
-            if(app.isServer()){
-//            一轮结束，进行下一轮
-                sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_NEXT_ROUND, -1, null));
-                wHandler.removeMessages(WorkHandler.MSG_NEXT_ROUND);
-                wHandler.sendEmptyMessage(WorkHandler.MSG_NEXT_ROUND);
-            }else{
-                return;
-            }
+            optionChoice(false);
+            wHandler.removeMessages(WorkHandler.MSG_NEXT_ROUND);
+            wHandler.sendEmptyMessage(WorkHandler.MSG_NEXT_ROUND);
+            return;
         }
         if (public_poker1.getVisibility() != View.VISIBLE) {
             public_poker1.setImageResource(All_poker.get(All_poker.size()-5).getPokerImageId());
@@ -936,7 +1091,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     }
     
     public void checkIsMeOption(){
-        Toast.makeText(getApplicationContext(), "currentOptionPerson:"+currentOptionPerson , 1000).show();
+//        Toast.makeText(getApplicationContext(), "currentOptionPerson:"+currentOptionPerson , 1000).show();
         if(playerList.get(currentOptionPerson).getInfo().getId().equals(currentPlay.getInfo().getId())){
             
             currentPlay.getInfo().setQuit(playerList.get(currentOptionPerson).getInfo().isQuit());
@@ -948,6 +1103,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                     wHandler.removeMessages(WorkHandler.MSG_CHECKISME);
                     wHandler.sendEmptyMessage(WorkHandler.MSG_CHECKISME);
                 }
+                Log.i("checkIsMeOption","currentOptionPerson:"+currentOptionPerson+"--1");
                 optionChoice(false);
                 return ;
            }
@@ -960,11 +1116,19 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
            if(isEnd&&currentPlayCount() == 1){
 //             所有玩家都弃牌，只剩一个玩家，进行分钱
 //               showToast("一轮游戏结束");
+//               for(int i = 0;i<playerList.size();i++){
+//                   if(!playerList.get(i).getInfo().isQuit()){
+//                       setBaseMoney(playerList.get(i), (sum/winSet.get(String.valueOf(i)).size())
+//                               +winSet.get(String.valueOf(i)).get(n).getInfo().getBaseMoney());
+//                   }
+//               }
                return;
            }else{
+               Log.i("checkIsMeOption","currentOptionPerson:"+currentOptionPerson+"--2");
                optionChoice(true);
            }
        }else{
+           Log.i("checkIsMeOption","currentOptionPerson:"+currentOptionPerson+"--3");
            optionChoice(false);
        }
    }
@@ -1021,8 +1185,13 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         if(playerList.get(playerIndex).getInfo().getId() == currentPlay.getInfo().getId()){
             currentPlay.setInfo(playerList.get(playerIndex).getInfo());
             meView.setBaseMoneyText(String.valueOf(playerList.get(playerIndex).getInfo().getBaseMoney()));
-            meView.setBetMoneyText(String.valueOf(playerList.get(playerIndex).getInfo().getAroundChip()));
-            meView.setBetVisiable(isShow);
+            if(playerList.get(playerIndex).getInfo().getAroundChip() != 0){
+                meView.setBetMoneyText(String.valueOf(playerList.get(playerIndex).getInfo().getAroundChip()));
+                meView.setBetVisiable(isShow);
+            }else{
+                meView.setBetVisiable(View.INVISIBLE);
+            }
+            game_mychips_txt.setText(String.valueOf(currentPlay.getInfo().getBaseMoney()));
         }
     }
     
@@ -1066,6 +1235,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         }else{
             aroundIndex = 0;
         }
+        wHandler.removeMessages(WorkHandler.MSG_GAME_ROUND_TEXT);
+        wHandler.sendEmptyMessage(WorkHandler.MSG_GAME_ROUND_TEXT);
         
         currentPlayIndex  = findIndexWithIPinList(playerList);
         app.isGameStarted = true;
@@ -1099,6 +1270,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         for(int i = 0;i<playerList.size();i++){
             setChips(i, 0, View.INVISIBLE);
         }
+    }
+    
+    public void updateRoom(Room room){
+        game_room_name_txt.setText(room.getName());
     }
 
     @Override
@@ -1210,11 +1385,26 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             this.All_poker = msg.getPokerList();
             wHandler.removeMessages(WorkHandler.MSG_START_GAME);
             wHandler.sendEmptyMessage(WorkHandler.MSG_START_GAME);
-        } else {
+        } else if(msg.getExtra()!=null&&msg.getExtra().toString().equals("KICK_MAN")){
+            ArrayList<ClientPlayer> kickMan =  msg.getPlayerList();
+            if(kickMan.get(0).getInfo().getId().equals(currentPlay.getInfo().getId())){
+                Toast.makeText(getApplicationContext(), "您已经被房主踢出", 1000).show();
+                finish();
+            }else{
+                playerList.remove(findPlayer(kickMan.get(0)));
+                wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
+                wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
+            }
+        }else{
             this.playerList.clear();
             this.playerList.addAll(msg.getPlayerList());
             if(this.room == null){
             	this.room = msg.getRoom();
+            	wHandler.removeMessages(WorkHandler.MSG_ROOM_UPDATE);
+                wHandler.sendEmptyMessage(WorkHandler.MSG_ROOM_UPDATE);
+                aroundIndex = this.room.getInnings();
+                wHandler.removeMessages(WorkHandler.MSG_GAME_ROUND_TEXT);
+                wHandler.sendEmptyMessage(WorkHandler.MSG_GAME_ROUND_TEXT);
             }   
             wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
             wHandler.sendEmptyMessage(WorkHandler.MSG_UPDATE_CHAIR);
@@ -1225,6 +1415,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     public void onClientReceive(GameMessage msg) {
         // TODO Auto-generated method stub
         int cmd = msg.getAction();
+        Log.i("onClientReceive","action id :"+cmd);
         switch(cmd){
         case GameMessage.ACTION_SEND_BOOL:
              if(msg.getExtra()!=null){
@@ -1366,7 +1557,8 @@ private class WorkHandler extends Handler {
         private static final int MSG_UPDATE_CHAIR = 11;
         private static final int MSG_RESET_ROUND = 12;
         private static final int MSG_GAME_OVER = 13;
-        
+        private static final int MSG_GAME_ROUND_TEXT = 14;
+        private static final int MSG_KICK_MAN = 15;
         
         public WorkHandler(Looper looper) {
             super(looper);
@@ -1384,7 +1576,7 @@ private class WorkHandler extends Handler {
                     startGame();
                     break;
                 case MSG_ROOM_UPDATE:
-//                    updateRoom(room);
+                    updateRoom(room);
                     break;
                 case MSG_CHECKISME:
                     checkIsMeOption();
@@ -1415,6 +1607,7 @@ private class WorkHandler extends Handler {
                     break;
                 case MSG_RESET_ROUND:
                     resetAllPlayerAroundChaip();
+                    resetWinView();
                     resetAllPoker();
                     resetChipPool();
                     bottomDeal();
@@ -1422,6 +1615,9 @@ private class WorkHandler extends Handler {
                 case MSG_GAME_OVER:
                 	Log.i("Rinfon", "Game over");
                     gameOver();
+                    break;
+                case MSG_GAME_ROUND_TEXT:
+                    updateRoundText();
                     break;
                 default:
                     break;
@@ -1455,5 +1651,15 @@ private class WorkHandler extends Handler {
           
         return false;  
 	}
+
+    public void updateRoundText() {
+        // TODO Auto-generated method stub
+        if(aroundIndex!=-1){
+            game_round_txt.setText(aroundIndex+1+"/"+room.getInnings()+"局");
+        }else{
+            game_round_txt.setText("无限局");
+        }
+        
+    }
 
 }

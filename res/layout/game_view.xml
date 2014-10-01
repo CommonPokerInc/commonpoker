@@ -10,7 +10,7 @@
     android:id="@+id/game_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:visibility="gone"
+    android:visibility="visible"
     >
 
     
@@ -29,8 +29,17 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:maxLength="5"
+        android:maxLength="10"
         android:text="DigitalClock" />
+	<TextView
+		android:id="@+id/game_round_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/digitalClock1"
+        android:layout_below="@+id/digitalClock1"
+        android:layout_marginLeft="@dimen/game_maincool_chip_txt_marginleft"
+        android:text="room txt"
+        android:textSize="@dimen/game_maincool_chip_txt_size" />  
             
     <com.poker.common.custom.MeView
         android:id="@+id/game_me_view"
@@ -414,6 +423,7 @@
     <include 
         android:id="@+id/game_win_layout"
         layout="@layout/win_view"
+        android:visibility="invisible"
         />
     
 
