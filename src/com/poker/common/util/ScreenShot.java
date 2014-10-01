@@ -3,34 +3,37 @@ package com.poker.common.util;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.os.Environment;
+import android.provider.CalendarContract.ExtendedProperties;
 import android.view.View;
 
 public class ScreenShot {
 
-	// »ñÈ¡Ö¸¶¨ActivityµÄ½ØÆÁ£¬±£´æµ½pngÎÄ¼þ
+	// ï¿½ï¿½È¡Ö¸ï¿½ï¿½Activityï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æµ½pngï¿½Ä¼ï¿½
 	private static Bitmap takeScreenShot(Activity activity) {
 
-		// ViewÊÇÄãÐèÒª½ØÍ¼µÄView
+		// Viewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Í¼ï¿½ï¿½View
 		View view = activity.getWindow().getDecorView();
 		view.setDrawingCacheEnabled(true);
 		view.buildDrawingCache();
 		Bitmap b1 = view.getDrawingCache();
 
-		// »ñÈ¡×´Ì¬À¸¸ß¶È
+		// ï¿½ï¿½È¡×´Ì¬ï¿½ï¿½ï¿½ß¶ï¿½
 		Rect frame = new Rect();
 		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
 		int statusBarHeight = frame.top;
 		System.out.println(statusBarHeight);
 
-		// »ñÈ¡ÆÁÄ»³¤ºÍ¸ß
+		// ï¿½ï¿½È¡ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Í¸ï¿½
 		int width = activity.getWindowManager().getDefaultDisplay().getWidth();
 		int height = activity.getWindowManager().getDefaultDisplay()
 				.getHeight();
 
-		// È¥µô±êÌâÀ¸
+		// È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		// Bitmap b = Bitmap.createBitmap(b1, 0, 25, 320, 455);
 		Bitmap b = Bitmap.createBitmap(b1, 0, 0, width, height
 				- 0);
@@ -38,7 +41,7 @@ public class ScreenShot {
 		return b;
 	}
 
-	// ±£´æµ½sdcard
+	// ï¿½ï¿½ï¿½æµ½sdcard
 	private static boolean savePic(Bitmap b, String strFileName) {
 		FileOutputStream fos = null;
 		try {
@@ -57,8 +60,8 @@ public class ScreenShot {
 		return false;
 	}
 
-	// ³ÌÐòÈë¿Ú
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public static boolean shoot(Activity a) {
-		return ScreenShot.savePic(ScreenShot.takeScreenShot(a), "sdcard/xx.png");
+		return ScreenShot.savePic(ScreenShot.takeScreenShot(a), Environment.getExternalStorageDirectory().toString()+"/"+System.currentTimeMillis()+".jpg");
 	}
 }

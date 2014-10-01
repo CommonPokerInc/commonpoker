@@ -98,10 +98,10 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 		case R.id.snapshot_img:
 			isScreenShot = ScreenShot.shoot(RankActivity.this);
 			if (isScreenShot) {
-				Toast.makeText(getApplicationContext(), "��ͼ����ɹ���",
+				Toast.makeText(getApplicationContext(), "截图已完成",
 						Toast.LENGTH_SHORT).show();
 			} else {
-				Toast.makeText(getApplicationContext(), "��ͼ���治�ɹ���",
+				Toast.makeText(getApplicationContext(), "截图失败",
 						Toast.LENGTH_SHORT).show();
 			}
 			break;

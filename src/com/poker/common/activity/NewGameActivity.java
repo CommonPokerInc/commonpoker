@@ -601,7 +601,11 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         }else if(mCurAddBet < 0){
             mCurAddBet = 0;
         }
-        showMyToast("加注"+""+mCurAddBet);
+        if(mCurAddBet == mMaxAddBetCan){
+            showMyToast("ALL IN");
+        }else{
+            showMyToast("加注"+""+mCurAddBet);
+        }
         //更新进度条
         ViewGroup.LayoutParams lp = bet_fullImg.getLayoutParams();
         lp.height = bet_nullImg.getLayoutParams().height * mCurAddBet/mMaxAddBetCan;
@@ -756,7 +760,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             game_winner_img.setVisibility(View.INVISIBLE);
             game_sheng_img.setVisibility(View.INVISIBLE);
             game_winner_name_txt.setVisibility(View.INVISIBLE);
-            game_winner_card_type_txt.setVisibility(View.VISIBLE);
+            game_winner_card_type_txt.setVisibility(View.INVISIBLE);
             game_winner_card_type_txt.setText(PokerUtil.getCardTypeString(currentPlay.getInfo().getCardType()));
             winView.setVisibility(View.VISIBLE);
         }else{
@@ -829,7 +833,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         new Handler().postDelayed(new Runnable(){    
             public void run() {    
                 if(app.isServer()){
-                    if(aroundIndex<room.getInnings()){
+                    if(aroundIndex<room.getInnings()&&checkMoneyEnough()){
 //                        if(room.getInnings()!=-1)
 //                            aroundIndex++;
                         if(isInOrOut||DIndex == -1){
@@ -852,8 +856,22 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                     }
                 }
             }    
-         }, 3000);  
+         }, 5000);  
 
+    }
+    
+    public boolean checkMoneyEnough(){
+        int count = 0;
+        for(int i = 0;i<playerList.size();i++){
+            if(playerList.get(i).getInfo().getBaseMoney() == 0){
+                count++;
+            }
+        }
+        if((playerList.size() - count)>1){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     public void setBaseMoney(ClientPlayer player,int money){
@@ -913,17 +931,26 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         }else{
             money += playerList.get(maxChipIndex).getInfo().getAroundChip();
             if(playerList.get(currentOptionPerson).getInfo().getBaseMoney()<=money){
-                money = playerList.get(maxChipIndex).getInfo().getAroundChip() + playerList.get(currentOptionPerson).getInfo().getBaseMoney();
+                money = playerList.get(currentOptionPerson).getInfo().getBaseMoney()+ playerList.get(currentOptionPerson).getInfo().getAroundChip();
+                if(money>playerList.get(maxChipIndex).getInfo().getAroundChip()){
+                    maxChipIndex = currentOptionPerson;
+                }
+//                money = playerList.get(maxChipIndex).getInfo().getAroundChip() + playerList.get(currentOptionPerson).getInfo().getBaseMoney();
             }else{
                 maxChipIndex = currentOptionPerson;
                 isEnd = false;
             }
-            setActionText("加注"+money,View.VISIBLE);
+            if(money == currentPlay.getInfo().getBaseMoney()){
+                setActionText("ALL IN",View.VISIBLE);
+            }else{
+                setActionText("加注"+money,View.VISIBLE);
+            }
+            
             sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ADD_BET, money, String.valueOf(maxChipIndex)));
             if(app.isServer()){
                 Message message = new Message();
                 message.what = WorkHandler.MSG_ADD_BET;
-                message.arg1 = maxChipIndex;
+                message.arg1 = currentOptionPerson;
                 message.arg2 = money;
                 wHandler.sendMessage(message);
                 currentOptionPerson = (currentOptionPerson+1)%playerList.size();
@@ -1340,7 +1367,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                 sendMessage(msg);
                 Message message = new Message();
                 message.what = WorkHandler.MSG_ADD_BET;
-                message.arg1 = maxChipIndex;
+                message.arg1 = currentOptionPerson;
                 message.arg2 = msg.getAmount();
                 wHandler.sendMessage(message);
                 
@@ -1463,7 +1490,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             maxChipIndex = Integer.parseInt(msg.getExtra());
             Message message = new Message();
             message.what = WorkHandler.MSG_ADD_BET;
-            message.arg1 = maxChipIndex;
+            message.arg1 = currentOptionPerson;
             message.arg2 = msg.getAmount();
             wHandler.sendMessage(message);
             
