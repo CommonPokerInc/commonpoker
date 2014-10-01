@@ -66,7 +66,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 	
 	private int mStakes = stakes[0];
 	
-	private int mRounds = 5;
+	private int mRounds = 10;
 	
 	private int mType = Room.TYPE_LIMIT;
 	
@@ -219,6 +219,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 			case MSG_SUCCESS_JUMP_GAME:
 				Toast.makeText(RoomCreateActivity.this, "创建房间成功", Toast.LENGTH_SHORT).show();
 				gotoGameActivity();
+				RoomCreateActivity.this.finish();
 				break;
 			}
 		}

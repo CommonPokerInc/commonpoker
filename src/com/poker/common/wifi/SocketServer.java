@@ -53,6 +53,8 @@ public class SocketServer {
 	
 	private boolean onGoinglistner = true;
 
+	protected WifiClientListener clientListener;
+
 	public static synchronized SocketServer newInstance(int port) {
 		if (serverSocket == null) {
 			serverSocket = new SocketServer(port);
@@ -68,6 +70,7 @@ public class SocketServer {
 	}
 	
 	private void closeConnection() {
+		mThread.stop();
 		Log.i(TAG, "into closeConnection()...................................");
 		if (server != null) {
 			try {
@@ -109,32 +112,35 @@ public class SocketServer {
 		}
 	}
 	
-	public void beginListen(final WifiClientListener clientListener) {
-		setClientListener(clientListener);
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				if (server != null) {
-					while (onGoinglistner) {
-						try {
-							final Socket socket = server.accept();
-							if (socket != null) {
-								if (!joinForbidden&&!socketMap.containsValue(socket)) {
-									//socketQueue.add(socket);
-									socketMap.put(socket.getInetAddress().getHostName(), socket);
-									if(null!=clientListener){
-										clientListener.clientIncrease(socket.getInetAddress().getHostName());
-									}
+	private Thread mThread = new Thread(new Runnable() {
+		@Override
+		public void run() {
+			if (server != null) {
+				while (onGoinglistner) {
+					try {
+						final Socket socket = server.accept();
+						if (socket != null) {
+							if (!joinForbidden&&!socketMap.containsValue(socket)) {
+								//socketQueue.add(socket);
+								socketMap.put(socket.getInetAddress().getHostName(), socket);
+								if(null!=clientListener){
+									clientListener.clientIncrease(socket.getInetAddress().getHostName());
 								}
-								serverAcceptMsg(socket);
 							}
-						} catch (IOException e) {
-							e.printStackTrace();
+							serverAcceptMsg(socket);
 						}
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
 				}
 			}
-		}).start();
+		}
+	});
+	
+	public void beginListen(final WifiClientListener clientListener) {
+		this.clientListener = clientListener;
+		setClientListener(clientListener);
+		mThread.start();
 	}
 
 	//�Ե����ͻ��˷�����Ϣ,�����ڿ�ʼ������Ϊ��ſ�ִ��
