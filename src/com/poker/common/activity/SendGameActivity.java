@@ -53,9 +53,9 @@ public class SendGameActivity extends AbsBaseActivity implements WifiCreateListe
     
     private SettingHelper helper;
     
-	private static final int QR_WIDTH = 150;
+	private static final int QR_WIDTH = 240;
 	
-	private static final int QR_HEIGHT = 150;
+	private static final int QR_HEIGHT = 240;
 
 	private static final String TAG = "QRCode";
 	

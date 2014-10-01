@@ -65,7 +65,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private PopupWindow settingWin, meWin,firstWin;
 
-    private ImageView setting_close,setting_bg,me_bg;
+    private ImageView setting_bg,me_bg,first_bg;
 
     private RelativeLayout voice_item_layout, shock_item_layout, help_item_layout,
             about_item_layout;
@@ -94,7 +94,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private ImageView me_head_img;
     
-    private RelativeLayout setting_dialog_layout, me_dialog_layout;
+    private RelativeLayout setting_dialog_layout, me_dialog_layout,first_dialog_layout;
 
 	private int resId =-1;
 	
@@ -371,11 +371,34 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     	if(null==firstWin){
     		LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
     		firstView = inflater.inflate(R.layout.activity_first, null);
+    		first_bg = (ImageView) firstView.findViewById(R.id.first_bg);
     		firstLeft = (ImageButton) firstView.findViewById(R.id.btn_change_left);
     		firstRight = (ImageButton) firstView.findViewById(R.id.btn_change_right);
     		first_head_img = (ImageView) firstView.findViewById(R.id.img_avatar);
     		edtFirstName = (EditText) firstView.findViewById(R.id.edt_name);
     		btnGo = (Button) firstView.findViewById(R.id.btn_go);
+    		first_dialog_layout = (RelativeLayout) firstView.findViewById(R.id.first_dialog_layout);
+    		first_dialog_layout.setOnTouchListener(new OnTouchListener() {
+    			
+    			@Override
+    			public boolean onTouch(View v, MotionEvent event) {
+    				// TODO Auto-generated method stub
+    				if(event.getAction() == MotionEvent.ACTION_DOWN){
+    					x = event.getX();
+    					y = event.getY();
+    				}
+    				if (event.getAction() == MotionEvent.ACTION_UP) {
+    					if(!(x <= first_bg.getRight() && x >= first_bg.getLeft()
+    	                        && y >= first_bg.getTop() && y <= first_bg.getBottom())){
+    						if(firstView != null && firstView.isShown()){
+    							firstWin.dismiss();
+    						}
+    							
+    					}
+    				}
+    				return true;
+    			}
+    		});
     		firstLeft.setOnClickListener(this);
     		firstRight.setOnClickListener(this);
     		btnGo.setOnClickListener(this);
