@@ -8,6 +8,8 @@ import com.poker.common.util.SettingHelper;
 import com.poker.common.util.UserUtil;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -379,7 +382,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     		firstWin = new PopupWindow(firstView,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT,true);
     		firstWin.setBackgroundDrawable(new BitmapDrawable());
     		firstWin.setFocusable(true);
-    		firstWin.setOutsideTouchable(false);
+    		firstWin.setOutsideTouchable(true);
     		firstWin.setAnimationStyle(R.style.settingAnimation);
     	}
 		resId  = settingHelper.getAvatarNumber();
@@ -523,8 +526,27 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
 		editable =false;
+		
 	}
   
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(event.getAction()==KeyEvent.ACTION_DOWN && 
+				event.getKeyCode()==KeyEvent.KEYCODE_BACK){
+			new AlertDialog.Builder(this).setMessage("是否退出应用").setTitle("德州面对面").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					MainActivity.this.finish();
+				}
+			}).setNegativeButton("取消", null).create().show();
+			return true;
+			
+		}
+		return super.dispatchKeyEvent(event);
+	}
     
     
 }
