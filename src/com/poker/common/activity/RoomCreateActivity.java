@@ -60,7 +60,7 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 	
 	private int[]bets = {800,8000,80000,800000};
 	
-	private int[]stakes ={5,40,250,2000};
+	private int[]stakes ={10,80,500,4000};
 	
 	private int mBet = bets[0];
 	
