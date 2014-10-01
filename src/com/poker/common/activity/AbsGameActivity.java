@@ -324,6 +324,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
+		try{
 		stopBeatSendAndCheck();
 		if(null!=mThread){
 			mThread.quit();
@@ -347,6 +348,9 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 		app.resetServerState();
 		app.isConnected = false;
 		app.isGameStarted =false;
+		}catch(Exception ex){
+			Log.e("frankchan", "退出游戏界面异常捕捉");
+		}
 		super.onDestroy();
 	}
 }
