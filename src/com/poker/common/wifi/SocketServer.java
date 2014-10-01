@@ -45,7 +45,6 @@ public class SocketServer {
 
 	public void freeAll(){
 		serverSocket = null;
-		server = null;
 		joinForbidden = false;
 		onGoinglistner =true;
 		socketMap.clear();
@@ -70,7 +69,6 @@ public class SocketServer {
 	}
 	
 	private void closeConnection() {
-		mThread.stop();
 		Log.i(TAG, "into closeConnection()...................................");
 		if (server != null) {
 			try {

@@ -233,10 +233,15 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 			app.wm = WifiHotManager.getInstance(app, this);
 		}
 		if(app.isConnected){
-			if(app.isServer())
-				app.getServer().clearServer();
-			else
-				app.getClient().clearClient();
+			if(app.isServer()){
+				app.wm.closeAWifiHot();
+				app.wm.disableWifiHot();
+				app.wm.disconnectWifi(app.ssid);
+			}
+			else{
+				app.wm.disconnectWifi(app.ssid);
+			}
+				
 		}
 
 		if(!allowCreate){
@@ -304,6 +309,12 @@ public class RoomCreateActivity extends AbsBaseActivity implements OnClickListen
 		// TODO Auto-generated method stub
 		Log.e("frankchan", "创建热点失败："+strError);
 		handler.sendEmptyMessage(MSG_SHOW_CREATE_HOT_ERROR);
+		Log.e("frankchan", WifiUtil.getLocalIpAddress());
+		if(!WifiUtil.getLocalIpAddress().equals("192.168.43.1")){
+			handler.sendEmptyMessage(MSG_SHOW_CREATE_HOT_ERROR);
+		}else{
+			handler.sendEmptyMessage(MSG_CREATE_SERVER_SOCKET);
+		}
 	}
 
 	private void gotoGameActivity(){

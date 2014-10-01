@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -68,6 +69,7 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 	protected void registerListener(){
 		app = (BaseApplication) getApplication();
 		mSSID = getIntent().getStringExtra("SSID");
+		app.ssid = mSSID;
 		mClientIpAddress = getIntent().getStringExtra("IpAddress");
 		if(app.isServer()){
 			app.getServer().setListener(this);
@@ -321,36 +323,42 @@ public abstract class AbsGameActivity extends AbsBaseActivity
 	 */
 	public abstract void disconnectFromServer(int sec);
 	
+	
+	public void restartApplication() {  
+        final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());  
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
+        startActivity(intent);  
+	}
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		try{
-		stopBeatSendAndCheck();
-		if(null!=mThread){
-			mThread.quit();
-		}
-		if(app.isServer()){
-			app.getServer().stopListner();
-			app.getServer().clearServer();
-			app.getServer().freeAll();
-			app.setServer(null);
-			app.wm.disableWifiHot();
-		}else{
-			app.getClient().stopAcceptMessage();
-			app.getClient().clearClient();
-			app.getClient().freeAll();
-			app.setClient(null);
-			if(null!=mSSID){
-				app.wm.deleteMoreCon(mSSID);
-			}
-			app.wm.disconnectWifi(mSSID);
-		}
-		app.resetServerState();
-		app.isConnected = false;
-		app.isGameStarted =false;
-		}catch(Exception ex){
-			Log.e("frankchan", "退出游戏界面异常捕捉");
-		}
+//		try{
+//		stopBeatSendAndCheck();
+//		if(null!=mThread){
+//			mThread.quit();
+//		}
+//		if(app.isServer()){
+//			app.getServer().stopListner();
+//			app.getServer().clearServer();
+//			SocketServer.newInstance().freeAll();
+//			app.wm.closeAWifiHot();
+//			app.setServer(null);
+//		}else{
+//			app.getClient().stopAcceptMessage();
+//			app.getClient().clearClient();
+//			//app.getClient().freeAll();
+//			app.setClient(null);
+//			if(null!=mSSID){
+//				app.wm.deleteMoreCon(mSSID);
+//			}
+//			app.wm.disconnectWifi(mSSID);
+//		}
+//		app.resetServerState();
+//		app.isConnected = false;
+//		app.isGameStarted =false;
+//		}catch(Exception ex){
+//			Log.e("frankchan", "退出游戏界面异常捕捉");
+//		}
 		super.onDestroy();
 	}
 }

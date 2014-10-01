@@ -1053,7 +1053,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                     playerList.clear();
                     playerList.add(currentPlay);
                     sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"server exit"));
-                    finish();
+
+            		restartApplication();
                 }
             }).setNegativeButton("取消", null).create();
             dialog.show();
@@ -1400,7 +1401,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         if (msg.isExit()) {
             if("server exit".equals(msg.getExtra())){
 //                Toast.makeText(getApplicationContext(), "Server exit", 1000).show();
-                finish();
+
+        		restartApplication();
             }
             playerList.remove(msg.getPlayerList().get(0));
             wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
@@ -1416,7 +1418,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             ArrayList<ClientPlayer> kickMan =  msg.getPlayerList();
             if(kickMan.get(0).getInfo().getId().equals(currentPlay.getInfo().getId())){
                 Toast.makeText(getApplicationContext(), "您已经被房主踢出", 1000).show();
-                finish();
+
+        		restartApplication();
             }else{
                 playerList.remove(findPlayer(kickMan.get(0)));
                 wHandler.removeMessages(WorkHandler.MSG_UPDATE_CHAIR);
@@ -1669,7 +1672,8 @@ private class WorkHandler extends Handler {
                     else{
                         sendMessage(MessageFactory.newPeopleMessage(false, true, playerList, null,null,"client exit"));
                     }
-                    finish();
+
+            		restartApplication();
                 }
             }).setNegativeButton("取消", null).create();
 		    dialog.show();

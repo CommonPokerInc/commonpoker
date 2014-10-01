@@ -15,6 +15,7 @@ public class BaseApplication extends Application{
 	private SocketServer server;
 	private SocketClient client;
 	public WifiHotManager wm;
+	public String ssid;
 	private boolean isServer =false; 
 	public boolean isConnected = false;
 	public boolean isGameStarted =false;
