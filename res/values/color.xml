@@ -309,5 +309,6 @@
     <color name="waiting_layout_bg_color">#2f2c42</color>
     <color name="waiting_title_txt_color">#f0de08</color>
     <color name="waiting_tips_txt_color">#505470</color>
+    <color name="about_color">#8f95ab</color>
 
 </resources>

@@ -85,6 +85,12 @@
     <dimen name="switch_img_width">70dp</dimen>
     <dimen name="help_open_img_width">25dp</dimen>
     <dimen name="help_open_img_marginright">19dp</dimen>
+    <dimen name="about_bg_width">420dp</dimen>
+    <dimen name="about_title_txt_size">35sp</dimen>
+    <dimen name="about_title_txt_margintop">10dp</dimen>
+    <dimen name="about_title_txt_marginbottom">5dp</dimen>
+    <dimen name="about_content_txt_size">20dp</dimen>
+    <dimen name="about_centent_txt_margintop">50dp</dimen>
     
     <!-- 排名 -->
     <dimen name="rank_middle_layout_width">320dp</dimen>

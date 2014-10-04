@@ -27,6 +27,8 @@
     <string name="shock">震动</string>
     <string name="help">帮助</string>
     <string name="about">关于</string>
+    <string name="about_content1">德州面对面  Version: 1.0(201410)</string>
+    <string name="about_content2">copyright(C) 2014 德州狗 All Rights Reserved</string>
 
     <!-- wo -->
     <string name="best_cardtype">最牛牌型</string>
@@ -66,4 +68,5 @@
 
     <!-- 创建房间 -->
     <string name="digits">._0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ </string>
+    
 </resources>

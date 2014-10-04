@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,6 +39,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
+
+import javax.security.auth.PrivateCredentialPermission;
 
 /**
  * ��˵��
@@ -59,7 +62,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private BaseApplication app;
 
-    private View settingView;
+    private View settingView,aboutView;
 
     private View meView,firstView;
 
@@ -69,6 +72,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private RelativeLayout voice_item_layout, shock_item_layout, help_item_layout,
             about_item_layout;
+    
+    private LinearLayout setting_items_layout;
 
     private ImageView confirm_edit_btn;
 
@@ -249,8 +254,10 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
         } else if (v.getId() == R.id.about_item_layout) {
         	
-            Intent intent = new Intent(this,WaitingActivity.class);
-            startActivity(intent);
+            aboutView.setVisibility(View.VISIBLE);
+            setting_items_layout.setVisibility(View.INVISIBLE);
+//            Intent intent = new Intent(this,WaitingActivity.class);
+//            startActivity(intent);
         } else if (v.getId() == R.id.confirm_edit_btn) {
         	if(nickname_edt.getText().toString().trim().equals("")){
             	Toast.makeText(this, "不能为空", Toast.LENGTH_SHORT).show();
@@ -421,11 +428,13 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     	  LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
           settingView = inflater.inflate(R.layout.activity_setting, null);
           setting_dialog_layout = (RelativeLayout)settingView.findViewById(R.id.setting_dialog_layout);
+          setting_items_layout = (LinearLayout)settingView.findViewById(R.id.setting_items_layout);
           voice_item_layout = (RelativeLayout)settingView.findViewById(R.id.voice_item_layout);
           shock_item_layout = (RelativeLayout)settingView.findViewById(R.id.shock_item_layout);
           help_item_layout = (RelativeLayout)settingView.findViewById(R.id.help_item_layout);
           about_item_layout = (RelativeLayout)settingView.findViewById(R.id.about_item_layout);
           setting_bg = (ImageView)settingView.findViewById(R.id.setting_bg);
+          aboutView = (View)settingView.findViewById(R.id.about_view);
           
           voice_switch = (ImageView)settingView.findViewById(R.id.voice_switch_img);
           shock_switch = (ImageView)settingView.findViewById(R.id.shock_switch_img);
@@ -447,6 +456,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 	                        && y >= setting_bg.getTop() && y <= setting_bg.getBottom())){
 						if(settingView != null && settingView.isShown()){
 							settingWin.dismiss();
+							aboutView.setVisibility(View.GONE);
 						}
 							
 					}
@@ -523,6 +533,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     private void initSetting() {
         // TODO Auto-generated method stub
 
+        setting_items_layout.setVisibility(View.VISIBLE);
         voice_switch.setImageResource(settingHelper.getVoiceStatus() ? R.drawable.setting_switch_on
                 : R.drawable.setting_switch_off);
         shock_switch
