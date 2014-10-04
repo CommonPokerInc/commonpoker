@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +63,9 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private BaseApplication app;
 
-    private View settingView,aboutView;
+    private View settingView,aboutView,helpView;
+    
+    private ScrollView playScrollView,allocateScrollView,introduceScrollView,raidersScrollView;
 
     private View meView,firstView;
 
@@ -85,7 +88,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 
     private EditText edtFirstName,nickname_edt;
     
-    private TextView nickname_txt;
+    private TextView nickname_txt,help_play_txt,help_allocate_txt,help_introduce_txt,help_raiders_txt;
     
     private Button btnGo;
     
@@ -198,8 +201,6 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     	}
     }
     
-    @SuppressWarnings("deprecation")
-	@SuppressLint("ResourceAsColor")
 	@Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
@@ -248,9 +249,11 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             settingHelper.setVibrationStatus(shock_switch_state);
 
         } else if (v.getId() == R.id.help_item_layout) {
-            
-            Intent intent = new Intent(this, PunishActivity.class);
-            startActivity(intent);
+            helpView.setVisibility(View.VISIBLE);
+            setScrollVisibility(true,false,false,false);
+            setting_items_layout.setVisibility(View.INVISIBLE);
+//            Intent intent = new Intent(this, PunishActivity.class);
+//            startActivity(intent);
 
         } else if (v.getId() == R.id.about_item_layout) {
         	
@@ -312,8 +315,29 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 				}
 				firstWin.dismiss();
 			}
+		}else if(v.getId() == R.id.help_play_txt){
+		    setScrollVisibility(true,false,false,false);
+		}else if(v.getId() == R.id.help_allocate_txt){
+		    setScrollVisibility(false,true,false,false);
+		}else if(v.getId() == R.id.help_introduce_txt){
+		    setScrollVisibility(false,false,true,false);
+		}else if(v.getId() == R.id.help_raiders_txt){
+		    setScrollVisibility(false,false,false,true);
 		}
         
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void setScrollVisibility(boolean play, boolean allocate, boolean introduce, boolean raiders) {
+        // TODO Auto-generated method stub
+        playScrollView.setVisibility(play?View.VISIBLE:View.GONE);
+        help_play_txt.setTextColor(play?this.getResources().getColor(R.color.help_color_clicked):this.getResources().getColor(R.color.about_color));
+        allocateScrollView.setVisibility(allocate?View.VISIBLE:View.GONE);
+        help_allocate_txt.setTextColor(allocate?this.getResources().getColor(R.color.help_color_clicked):this.getResources().getColor(R.color.about_color));
+        raidersScrollView.setVisibility(raiders?View.VISIBLE:View.GONE);
+        help_raiders_txt.setTextColor(raiders?this.getResources().getColor(R.color.help_color_clicked):this.getResources().getColor(R.color.about_color));
+        introduceScrollView.setVisibility(introduce?View.VISIBLE:View.GONE);
+        help_introduce_txt.setTextColor(introduce?this.getResources().getColor(R.color.help_color_clicked):this.getResources().getColor(R.color.about_color));
     }
 
     private void showMeDialog() {
@@ -435,6 +459,20 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
           about_item_layout = (RelativeLayout)settingView.findViewById(R.id.about_item_layout);
           setting_bg = (ImageView)settingView.findViewById(R.id.setting_bg);
           aboutView = (View)settingView.findViewById(R.id.about_view);
+          helpView = (View)settingView.findViewById(R.id.help_view);
+          playScrollView = (ScrollView)helpView.findViewById(R.id.help_play_scroll);
+          allocateScrollView = (ScrollView)helpView.findViewById(R.id.help_allocate_scroll);
+          introduceScrollView = (ScrollView)helpView.findViewById(R.id.help_introduce_scroll);
+          raidersScrollView = (ScrollView)helpView.findViewById(R.id.help_raiders_scroll);
+          
+          help_play_txt = (TextView) helpView.findViewById(R.id.help_play_txt);
+          help_allocate_txt = (TextView) helpView.findViewById(R.id.help_allocate_txt);
+          help_introduce_txt = (TextView) helpView.findViewById(R.id.help_introduce_txt);
+          help_raiders_txt = (TextView) helpView.findViewById(R.id.help_raiders_txt);
+          help_play_txt.setOnClickListener(this);
+          help_allocate_txt.setOnClickListener(this);
+          help_introduce_txt.setOnClickListener(this);
+          help_raiders_txt.setOnClickListener(this);
           
           voice_switch = (ImageView)settingView.findViewById(R.id.voice_switch_img);
           shock_switch = (ImageView)settingView.findViewById(R.id.shock_switch_img);
@@ -456,7 +494,13 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 	                        && y >= setting_bg.getTop() && y <= setting_bg.getBottom())){
 						if(settingView != null && settingView.isShown()){
 							settingWin.dismiss();
-							aboutView.setVisibility(View.GONE);
+							if(aboutView != null){
+							    aboutView.setVisibility(View.GONE);
+							}
+							if(helpView != null){
+							    helpView.setVisibility(View.GONE);
+							}
+							
 						}
 							
 					}

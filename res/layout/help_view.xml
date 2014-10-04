@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/help"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/help_layout"
+        android:layout_width="@dimen/setting_bg_width"
+        android:layout_height="@dimen/setting_bg_height"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/setting_bg"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/help_title_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/about_title_txt_margintop"
+            android:text="帮助"
+            android:textColor="@color/about_color"
+            android:textSize="@dimen/about_title_txt_size" />
+
+        <ImageView
+            android:id="@+id/help_bg"
+            android:layout_width="@dimen/help_bg_width"
+            android:layout_height="1px"
+            android:layout_above="@+id/help_tab_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/help_bg_marginbottom"
+            android:background="@color/about_color" />
+
+        <LinearLayout
+            android:id="@+id/help_tab_layout"
+            android:layout_width="@dimen/help_tab_layout_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/help_tab_layout_marginbottom"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/help_play_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="游戏玩法"
+                android:padding="5dp"
+                android:textColor="@color/about_color"
+                android:textSize="@dimen/help_tab_txt_size" />
+
+            <TextView
+                android:id="@+id/help_allocate_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="奖池分配"
+                android:padding="5dp"
+                android:textColor="@color/about_color"
+                android:textSize="@dimen/help_tab_txt_size" />
+
+            <TextView
+                android:id="@+id/help_introduce_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="牌型介绍"
+                android:padding="5dp"
+                android:textColor="@color/about_color"
+                android:textSize="@dimen/help_tab_txt_size" />
+
+            <TextView
+                android:id="@+id/help_raiders_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="操作攻略"
+                android:padding="5dp"
+                android:textColor="@color/about_color"
+                android:textSize="@dimen/help_tab_txt_size" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/help_play_scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/help_bg"
+            android:layout_alignLeft="@+id/help_bg"
+            android:layout_alignRight="@+id/help_bg"
+            android:layout_below="@+id/help_title_txt"
+            android:scrollbars="none"
+            android:visibility="visible" >
+
+            <LinearLayout
+                android:id="@+id/help_play_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/help_play_img"
+                    android:layout_width="@dimen/help_play_img_width"
+                    android:layout_height="@dimen/help_play_img_height"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/help_play" />
+
+                <TextView
+                    android:id="@+id/help_play_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/help_play_txt"
+                    android:textColor="@color/about_color"
+                    android:textSize="@dimen/help_playe_txt_size" />
+            </LinearLayout>
+        </ScrollView>
+
+        <ScrollView
+            android:id="@+id/help_allocate_scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/help_bg"
+            android:layout_alignLeft="@+id/help_bg"
+            android:layout_alignRight="@+id/help_bg"
+            android:layout_below="@+id/help_title_txt"
+            android:scrollbars="none"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:id="@+id/help_allocate_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/help_allocate_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/help_allocate_txt"
+                    android:textColor="@color/about_color"
+                    android:textSize="@dimen/help_allocate_txt_size" />
+            </LinearLayout>
+        </ScrollView>
+
+        <ScrollView
+            android:id="@+id/help_introduce_scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/help_bg"
+            android:layout_alignLeft="@+id/help_bg"
+            android:layout_alignRight="@+id/help_bg"
+            android:layout_below="@+id/help_title_txt"
+            android:scrollbars="none"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:id="@+id/help_introduce_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/help_introduce_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/help_introduce_img_height"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/help_introduce" />
+            </LinearLayout>
+        </ScrollView>
+
+        <ScrollView
+            android:id="@+id/help_raiders_scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/help_bg"
+            android:layout_alignLeft="@+id/help_bg"
+            android:layout_alignRight="@+id/help_bg"
+            android:layout_below="@+id/help_title_txt"
+            android:scrollbars="none"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:id="@+id/help_raiders_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/help_raiders_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/help_raiders" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -167,5 +167,11 @@
         layout="@layout/about_view"
         android:visibility="gone"
         />
+    
+    <include 
+        android:id="@+id/help_view"
+        android:visibility="gone"
+        layout="@layout/help_view"
+        />
 
 </RelativeLayout>

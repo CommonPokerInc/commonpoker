@@ -29,7 +29,9 @@
     <string name="about">关于</string>
     <string name="about_content1">德州面对面  Version: 1.0(201410)</string>
     <string name="about_content2">copyright(C) 2014 德州狗 All Rights Reserved</string>
-
+    <string name="help_play_txt">在牌局开始的时候， 每个玩家分得两张底牌（仅自己可见）， 系统会分三次陆续发出五张公共牌（3张+1张+1张）。 从每个玩家的底牌和公共牌（共7张）中， 选出组合最大牌型的5张（可能出现0+5的组合， 即公共牌最大）， 与其他玩家的最大牌型进行比较， 决出胜负。 </string>
+    <string name="help_allocate_txt">德州扑克的奖池是指每个玩家投入到牌局中的筹码， 玩家跟注、 加注、 全下都需要将自己手里一定数量的筹码投入到奖池。 德州扑克的奖池分主池和边池， 如果每个玩家下的筹码一样多， 那就只有一个主池， 否则就会产生边池。 当有人全下(All In)时， 就会出现边池。 摊牌后， All In者如获胜， 则只参与主池分配。 </string>
+    
     <!-- wo -->
     <string name="best_cardtype">最牛牌型</string>
     <string name="nickname">昵称</string>
