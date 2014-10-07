@@ -123,6 +123,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         	new Thread(copyRunnable).start();
         }
         startAnimation();
+        SoundPlayer.playMusic(0, true);
 //        SystemUtil.initSounds(getApplicationContext());
         
     }
@@ -209,7 +210,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 	@Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
-    	SoundPlayer.playSound(R.raw.backgroudmusic);
+    	
         if (v.getId() == R.id.send_game_btn) {
             Intent it = new Intent(MainActivity.this, SendGameActivity.class);
             startActivity(it);

@@ -54,7 +54,7 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 
 		initData();
 		initView();
-		SoundPlayer.playSound(R.raw.win);
+//		SoundPlayer.playSound(R.raw.win);
 	}
 
 	private void initView() {

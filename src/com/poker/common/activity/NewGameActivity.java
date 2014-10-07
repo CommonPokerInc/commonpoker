@@ -161,8 +161,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
 		registerListener();
 		initView();
 		waitingOthers();
-        
-		SoundPlayer.stopSound(R.raw.backgroudmusic);
+//		SoundPlayer.init(getApplicationContext());
+		SoundPlayer.pauseMusic();
     }
     
     private void waitingOthers() {
@@ -953,6 +953,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             }else{
                 setActionText("加注"+money,View.VISIBLE);
             }
+        	SoundPlayer.playMusic(1, false);
             
             sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ADD_BET, money, String.valueOf(maxChipIndex)));
             if(app.isServer()){
@@ -1092,6 +1093,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
  // 发公共牌
     public void showPublicPoker() {
+    	SoundPlayer.playMusic(3, false);
         meView.setActionViewVisiable(View.INVISIBLE);
         if(public_poker5.getVisibility() == View.VISIBLE){
             optionChoice(false);
@@ -1174,12 +1176,22 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         
         //用intent.putExtra(String name, String value);来传递参数。
         int index = findIndexWithIPinList(playerList);
-        Bundle bundle = new Bundle();  
-        bundle.putSerializable("arrayList", playerList);  
-        intent.putExtras(bundle);
-        intent.putExtra("index", index);
-        intent.setClass(NewGameActivity.this, RankActivity.class);
-        startActivity(intent);
+        int max = playerList.get(0).getInfo().getBaseMoney();
+        int winIndex = 0;
+        for(int i = 1;i<playerList.size();i++){
+        	if(playerList.get(i).getInfo().getBaseMoney()>max){
+        		max = playerList.get(i).getInfo().getBaseMoney();
+        		winIndex = i;
+        	}
+        }
+        if(winIndex == index){
+	        Bundle bundle = new Bundle();  
+	        bundle.putSerializable("arrayList", playerList);  
+	        intent.putExtras(bundle);
+	        intent.putExtra("index", index);
+	        intent.setClass(NewGameActivity.this, RankActivity.class);
+	        startActivity(intent);
+        }
     }
     
     public int currentPlayCount(){

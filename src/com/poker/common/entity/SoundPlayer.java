@@ -21,7 +21,7 @@ public class SoundPlayer {
     private static boolean soundSt = true; //音效开关
     private static Context context;
      
-    private static final int[] musicId = {R.raw.backgroudmusic};
+    private static final int[] musicId = {R.raw.backgroudmusic,R.raw.chip,R.raw.kongjian,R.raw.turnpoker,R.raw.win};
     private static Map<Integer,Integer> soundMap; //音效资源id与加载过后的音源id的映射关系表
      
     /**
@@ -40,7 +40,7 @@ public class SoundPlayer {
     //初始化音效播放器
     private static void initSound()
     {
-        soundPool = new SoundPool(10,AudioManager.STREAM_MUSIC,100);
+        soundPool = new SoundPool(3,AudioManager.STREAM_MUSIC,100);
          
         soundMap = new HashMap<Integer,Integer>();
         soundMap.put(R.raw.backgroudmusic, soundPool.load(context, R.raw.backgroudmusic, 1));
@@ -54,7 +54,7 @@ public class SoundPlayer {
     private static void initMusic()
     {
         int r = new Random().nextInt(musicId.length);
-        music = MediaPlayer.create(context,musicId[r]);
+        music = MediaPlayer.create(context,musicId[0]);
         music.setLooping(true);
     }
      
@@ -62,14 +62,14 @@ public class SoundPlayer {
      * 播放音效
      * @param resId 音效资源id
      */
-    public static void playSound(int resId)
+    public static void playSound(int resId,int loop)
     {
         if(soundSt == false)
             return;
 
         Integer soundId = soundMap.get(resId);
         if(soundId != null)
-            soundPool.play(soundId, 1, 1, 1, -1, 1);
+            soundPool.play(soundId, 1, 1, 1, loop, 1);
     }
     
     public static void stopSound(int resId){
@@ -97,6 +97,17 @@ public class SoundPlayer {
     {
         if(musicSt)
             music.start();
+    }
+    
+    public static void playMusic(int id,boolean isLoop){
+    	if(musicSt){
+    		if(music != null)
+                music.release();
+    		music = MediaPlayer.create(context,musicId[id]);
+        	music.setLooping(isLoop);
+        	startMusic();
+    	}
+    		
     }
      
     /**
