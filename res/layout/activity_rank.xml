@@ -102,11 +102,10 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:gravity="center"
                 android:text="@string/innings_txt"
-                android:textColor="@color/white"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rank_head"
+                android:textColor="@color/yellow"
                 android:textSize="@dimen/innings_txt_size" />
 
         </RelativeLayout>

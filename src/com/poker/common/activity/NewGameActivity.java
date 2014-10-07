@@ -6,6 +6,7 @@ import com.poker.common.custom.MeView;
 import com.poker.common.entity.ClientPlayer;
 import com.poker.common.entity.Poker;
 import com.poker.common.entity.Room;
+import com.poker.common.entity.SoundPlayer;
 import com.poker.common.entity.ToastView;
 import com.poker.common.util.PokerUtil;
 import com.poker.common.util.SystemUtil;
@@ -161,7 +162,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
 		initView();
 		waitingOthers();
         
-
+		SoundPlayer.stopSound(R.raw.backgroudmusic);
     }
     
     private void waitingOthers() {
@@ -665,8 +666,11 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                         && Math.abs(arg2) > minVelocity) {
                 	isFollow = false;
     //                showMyToast("弃牌");
-                } else if (arg1.getX() - arg0.getX() > verticalMinDistance
-                        && Math.abs(arg2) > minVelocity) {
+                } else if (arg1.getX() - arg0.getX() > 100*verticalMinDistance
+                        && Math.abs(arg2) > 100*minVelocity) {
+                	Log.i("Rinfon", "arg1.getX() - arg0.getX()"+(arg1.getX() - arg0.getX()));
+                	Log.i("Rinfon", "Math.abs(arg2)"+Math.abs(arg2));
+                	Log.i("Rinfon", "verticalMinDistance"+verticalMinDistance+"minVelocity"+minVelocity);
                     showMyToast("跟注");
                     isFollow = true;
                 }
@@ -700,6 +704,10 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             return true;
         // 处理手势结束
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
+        case MotionEvent.ACTION_DOWN:
+            isFollow = false;
+            isAdd = false;
+            break;
         case MotionEvent.ACTION_UP:
             if(horizontalSlide || isFollow){
                 endGesture();

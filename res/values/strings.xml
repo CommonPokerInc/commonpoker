@@ -42,7 +42,7 @@
     <string name="title_activity_rank">RankActivity</string>
     <string name="snapshot_txt">截图保存</string>
     <string name="close_txt">关闭</string>
-    <string name="innings_txt">限时局：50/50局</string>
+    <string name="innings_txt">德州面对面</string>
     <string name="rank_player_name_txt">呵呵呵呵呵</string>
     <string name="rank_player_money_txt">筹码：99999</string>
     <string name="good_cards_each_title_txt">葫芦赢</string>

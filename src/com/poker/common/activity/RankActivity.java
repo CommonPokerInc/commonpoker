@@ -8,6 +8,7 @@ import com.poker.common.R.layout;
 import com.poker.common.R.menu;
 import com.poker.common.entity.AbsPlayer;
 import com.poker.common.entity.ClientPlayer;
+import com.poker.common.entity.SoundPlayer;
 import com.poker.common.util.ScreenShot;
 
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 	private RankAdapter rankAdapter;
 	private ListView rankList;
 	private int index;
-	private List<ClientPlayer> players;
+	private ArrayList<ClientPlayer> players;
 	private ImageView snapshot, close;
 	private boolean isScreenShot = false;
 	private int[] rankImg;
@@ -53,7 +54,7 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 
 		initData();
 		initView();
-
+		SoundPlayer.playSound(R.raw.win);
 	}
 
 	private void initView() {
@@ -107,7 +108,13 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 			break;
 
 		case R.id.close_img:
-			finish();
+		     Bundle bundle = new Bundle();  
+		     players.remove(0);
+		     bundle.putSerializable("arrayList", players);  
+		     intent.putExtras(bundle);
+		     intent.setClass(RankActivity.this, PunishActivity.class);
+		     startActivity(intent);
+			 finish();
 			break;
 
 		default:

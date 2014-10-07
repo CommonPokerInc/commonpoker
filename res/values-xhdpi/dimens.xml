@@ -128,9 +128,9 @@
     <dimen name="good_cards_view_marginbottom">25dp</dimen>
     
     <!-- 惩罚 -->
-    <dimen name="punishment_title_img_width">270dp</dimen>
-    <dimen name="punishment_title_img_height">60dp</dimen>
-    <dimen name="punishment_title_img_margintop">30dp</dimen>
+    <dimen name="punishment_title_img_width">300dp</dimen>
+    <dimen name="punishment_title_img_height">100dp</dimen>
+    <dimen name="punishment_title_img_margintop">10dp</dimen>
     <dimen name="punishment_player_width">65dp</dimen>
     <dimen name="punishment_player_height">65dp</dimen>
     <dimen name="punishment_txt_margintop">15dp</dimen>

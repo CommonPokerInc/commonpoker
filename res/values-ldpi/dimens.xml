@@ -85,8 +85,8 @@
     <dimen name="waiting_tips_txt_size">15sp</dimen>
     
     <!-- 惩罚 -->
-    <dimen name="punishment_title_img_width">290dp</dimen>
-    <dimen name="punishment_title_img_height">80dp</dimen>
+    <dimen name="punishment_title_img_width">320dp</dimen>
+    <dimen name="punishment_title_img_height">120dp</dimen>
     
     <!-- 设置 -->
     <dimen name="setting_bg_width">480dp</dimen>

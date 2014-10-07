@@ -3,8 +3,10 @@ package com.poker.common.activity;
 
 import com.poker.common.BaseApplication;
 import com.poker.common.R;
+import com.poker.common.entity.SoundPlayer;
 import com.poker.common.util.AnimationProvider;
 import com.poker.common.util.SettingHelper;
+import com.poker.common.util.SystemUtil;
 import com.poker.common.util.UserUtil;
 
 import android.annotation.SuppressLint;
@@ -112,6 +114,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        SoundPlayer.init(getApplicationContext()); 
         setContentView(R.layout.activity_main);
         app = (BaseApplication) getApplication();
         init();
@@ -120,6 +123,8 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         	new Thread(copyRunnable).start();
         }
         startAnimation();
+//        SystemUtil.initSounds(getApplicationContext());
+        
     }
     
     private void startAnimation(){
@@ -168,7 +173,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
     private Handler handler =new Handler();
     
     public void init() {
-    	mView =findViewById(R.id.game_layout);
+    	mView = findViewById(R.id.game_layout);
     	titleView = findViewById(R.id.mainpage_me_title);
     	girlView = findViewById(R.id.mainpage_me_girl);
         sendGameBtn = (ImageButton) findViewById(R.id.send_game_btn);
@@ -204,6 +209,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
 	@Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
+    	SoundPlayer.playSound(R.raw.backgroudmusic);
         if (v.getId() == R.id.send_game_btn) {
             Intent it = new Intent(MainActivity.this, SendGameActivity.class);
             startActivity(it);
