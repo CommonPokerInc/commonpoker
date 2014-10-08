@@ -1,4 +1,4 @@
-
+﻿
 package com.poker.common.activity;
 
 import java.util.ArrayList;
@@ -135,7 +135,7 @@ public class PunishActivity extends AbsBaseActivity implements OnClickListener {
         switch (arg0.getId()) {
             case R.id.punishment_damaoxian_btn:
                 hasBegin = !hasBegin;
-                damaoxian.setClickable(false);
+                zhenxinhua.setClickable(false);
                 if(hasBegin){
 //                    txt.setText("�Y��");
                 	endIndex  = new Random().nextInt(20);
@@ -157,6 +157,8 @@ public class PunishActivity extends AbsBaseActivity implements OnClickListener {
                     }, 0, 100);  
                 }else{
 //                    txt.setText("��ʼ");
+                	//弹出显示惩罚的文案，还没做
+                	
                     timer.cancel();
                     zhenxinhua.setClickable(false);
                 }
