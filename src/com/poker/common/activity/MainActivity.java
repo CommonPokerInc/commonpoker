@@ -243,7 +243,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
             String message = voice_switch_state ? "开启音效" : "关闭音效";
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             settingHelper.setVoiceStatus(voice_switch_state);
-
+            SoundPlayer.setMusicSt(voice_switch_state);
         } else if (v.getId() == R.id.shock_item_layout) {
 
 //            Intent intent = new Intent(this, GoodCardsActivity.class);

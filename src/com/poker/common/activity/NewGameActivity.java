@@ -9,6 +9,7 @@ import com.poker.common.entity.Room;
 import com.poker.common.entity.SoundPlayer;
 import com.poker.common.entity.ToastView;
 import com.poker.common.util.PokerUtil;
+import com.poker.common.util.PreferenceHelper;
 import com.poker.common.util.SystemUtil;
 import com.poker.common.util.UserUtil;
 import com.poker.common.wifi.message.GameMessage;
@@ -151,6 +152,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     private TextView game_winner_name_txt,game_winner_card_type_txt;
     
     private TextView game_mychips_txt;
+    
+    private ImageView guide1,guide2;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -309,6 +312,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         bet_nullImg = (ImageView)findViewById(R.id.new_bet_null);
         game_mychips_txt = (TextView)findViewById(R.id.game_mychips_txt);
         helpImg = (ImageView)findViewById(R.id.game_help_img);
+        guide1 = (ImageView)findViewById(R.id.guide1);
+        guide2 = (ImageView)findViewById(R.id.guide2);
 //        helpImg.setOnClickListener(this);
         helpImg.setOnLongClickListener(new OnLongClickListener() {
 			
@@ -732,6 +737,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Auto-generated method stub
+                        SoundPlayer.playMusic(1, false);
                         addChipAction();
                     }
                 }).setNegativeButton("取消", null).create();
@@ -937,7 +943,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         if(money == 0){
             followAction();
         }else{
-            SoundPlayer.playMusic(1, false);
+//            SoundPlayer.playMusic(1, false);
             money += playerList.get(maxChipIndex).getInfo().getAroundChip();
             if(playerList.get(currentOptionPerson).getInfo().getBaseMoney()<=money){
                 money = playerList.get(currentOptionPerson).getInfo().getBaseMoney()+ playerList.get(currentOptionPerson).getInfo().getAroundChip();
@@ -1176,7 +1182,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         Intent intent = new Intent();
         
         //用intent.putExtra(String name, String value);来传递参数。
-        int index = findIndexWithIPinList(playerList);
+        
         int max = playerList.get(0).getInfo().getBaseMoney();
 //        int winIndex = 0;
 //        for(int i = 0;i<playerList.size();i++){
@@ -1201,6 +1207,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                 playerList.get(i).setInfo(box.getInfo());
             }
         }
+        int index = findIndexWithIPinList(playerList);
 //        if(playerList.get(0).getInfo().getId() == playerList.get(index).getInfo().getId()){
 	        Bundle bundle = new Bundle();  
 	        bundle.putSerializable("arrayList", playerList);  
@@ -1295,6 +1302,28 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
     
     
     public void startGame(){
+        PreferenceHelper p = new PreferenceHelper(getApplicationContext());
+        if(!p.getBoolean("guide", false)){
+            p.setBoolean("guide", true);
+            guide1.setVisibility(View.VISIBLE);
+            guide1.setOnClickListener(new OnClickListener() {
+                
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    guide1.setVisibility(View.INVISIBLE);
+                    guide2.setVisibility(View.VISIBLE);
+                    guide2.setOnClickListener(new OnClickListener() {
+                        
+                        @Override
+                        public void onClick(View v) {
+                            // TODO Auto-generated method stub
+                            guide2.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                }
+            });
+        }
         setViewVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE);
         if(room.getInnings() == -1){
             aroundIndex = -1;

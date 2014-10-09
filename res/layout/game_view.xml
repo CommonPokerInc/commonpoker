@@ -445,5 +445,21 @@
         android:scaleType="fitXY"
         android:src="@drawable/game_help" 
         android:visibility="invisible"/>
+          
+                    <ImageView
+        android:id="@+id/guide1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/guide1" 
+        android:visibility="invisible"/>
+                    
+                              <ImageView
+        android:id="@+id/guide2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/guide2" 
+        android:visibility="invisible"/>
 
 </RelativeLayout>
