@@ -937,6 +937,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         if(money == 0){
             followAction();
         }else{
+            SoundPlayer.playMusic(1, false);
             money += playerList.get(maxChipIndex).getInfo().getAroundChip();
             if(playerList.get(currentOptionPerson).getInfo().getBaseMoney()<=money){
                 money = playerList.get(currentOptionPerson).getInfo().getBaseMoney()+ playerList.get(currentOptionPerson).getInfo().getAroundChip();
@@ -953,7 +954,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
             }else{
                 setActionText("加注"+money,View.VISIBLE);
             }
-        	SoundPlayer.playMusic(1, false);
+//        	SoundPlayer.playMusic(1, false);
             
             sendMessage(MessageFactory.newGameMessage(false, GameMessage.ACTION_ADD_BET, money, String.valueOf(maxChipIndex)));
             if(app.isServer()){
@@ -1188,8 +1189,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         for(int i = 0;i<playerList.size();i++){
             int winIndex = i; 
             for(int j = i+1;j<playerList.size();j++){
-                if(playerList.get(i).getInfo().getBaseMoney()>max){
-                    max = playerList.get(i).getInfo().getBaseMoney();
+                if(playerList.get(j).getInfo().getBaseMoney()>max){
+                    max = playerList.get(j).getInfo().getBaseMoney();
                     winIndex = j;
                 }
             }

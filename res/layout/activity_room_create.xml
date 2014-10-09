@@ -152,7 +152,8 @@
                     android:button="@null"
                     android:gravity="center"
                     android:text="小康局\n8000"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    />
 
                 <RadioButton
                     android:id="@+id/radio_rich"
@@ -165,7 +166,8 @@
                     android:button="@null"
                     android:gravity="center"
                     android:text="土豪局\n8W"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="invisible"  />
 
                 <RadioButton
                     android:id="@+id/radio_millionaire"
@@ -177,7 +179,8 @@
                     android:button="@null"
                     android:gravity="center"
                     android:text="土豪局\n80W"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="invisible"  />
             </RadioGroup>
         </RelativeLayout>
 
