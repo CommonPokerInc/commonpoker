@@ -666,8 +666,8 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                         && Math.abs(arg2) > minVelocity) {
                 	isFollow = false;
     //                showMyToast("弃牌");
-                } else if (arg1.getX() - arg0.getX() > 100*verticalMinDistance
-                        && Math.abs(arg2) > 100*minVelocity) {
+                } else if (arg1.getX() - arg0.getX() > 50*verticalMinDistance
+                        && Math.abs(arg2) > 50*minVelocity) {
                 	Log.i("Rinfon", "arg1.getX() - arg0.getX()"+(arg1.getX() - arg0.getX()));
                 	Log.i("Rinfon", "Math.abs(arg2)"+Math.abs(arg2));
                 	Log.i("Rinfon", "verticalMinDistance"+verticalMinDistance+"minVelocity"+minVelocity);
@@ -676,7 +676,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                 }
             }
     
-            if (horizontalSlide) {
+            if (horizontalSlide&&currentPlay.getInfo().getBaseMoney()>0) {
                 showMoneyBarSlide(arg0.getY() - (int) arg1.getRawY());
                 isAdd = true;
             }
@@ -864,7 +864,7 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
                     }
                 }
             }    
-         }, 5000);  
+         }, 7000);  
 
     }
     
@@ -1177,21 +1177,38 @@ public class NewGameActivity extends AbsGameActivity implements OnGestureListene
         //用intent.putExtra(String name, String value);来传递参数。
         int index = findIndexWithIPinList(playerList);
         int max = playerList.get(0).getInfo().getBaseMoney();
-        int winIndex = 0;
-        for(int i = 1;i<playerList.size();i++){
-        	if(playerList.get(i).getInfo().getBaseMoney()>max){
-        		max = playerList.get(i).getInfo().getBaseMoney();
-        		winIndex = i;
-        	}
+//        int winIndex = 0;
+//        for(int i = 0;i<playerList.size();i++){
+//            int winIndex = i; 
+//        	if(playerList.get(i).getInfo().getBaseMoney()>max){
+//        		max = playerList.get(i).getInfo().getBaseMoney();
+//        		winIndex = i;
+//        	}
+//        }
+        for(int i = 0;i<playerList.size();i++){
+            int winIndex = i; 
+            for(int j = i+1;j<playerList.size();j++){
+                if(playerList.get(i).getInfo().getBaseMoney()>max){
+                    max = playerList.get(i).getInfo().getBaseMoney();
+                    winIndex = j;
+                }
+            }
+            if(winIndex!=i){
+                ClientPlayer box = new ClientPlayer();
+                box.setInfo(playerList.get(winIndex).getInfo());
+                playerList.get(winIndex).setInfo( playerList.get(i).getInfo());
+                playerList.get(i).setInfo(box.getInfo());
+            }
         }
-        if(winIndex == index){
+//        if(playerList.get(0).getInfo().getId() == playerList.get(index).getInfo().getId()){
 	        Bundle bundle = new Bundle();  
 	        bundle.putSerializable("arrayList", playerList);  
 	        intent.putExtras(bundle);
 	        intent.putExtra("index", index);
 	        intent.setClass(NewGameActivity.this, RankActivity.class);
 	        startActivity(intent);
-        }
+	        this.finish();
+//        }
     }
     
     public int currentPlayCount(){

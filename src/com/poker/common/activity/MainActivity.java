@@ -123,7 +123,7 @@ public class MainActivity extends AbsBaseActivity implements OnClickListener {
         	new Thread(copyRunnable).start();
         }
         startAnimation();
-        SoundPlayer.playMusic(0, true);
+//        SoundPlayer.playMusic(0, true);
 //        SystemUtil.initSounds(getApplicationContext());
         
     }

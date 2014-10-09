@@ -108,12 +108,16 @@ public class RankActivity extends AbsBaseActivity implements OnClickListener {
 			break;
 
 		case R.id.close_img:
-		     Bundle bundle = new Bundle();  
-		     players.remove(0);
-		     bundle.putSerializable("arrayList", players);  
-		     intent.putExtras(bundle);
-		     intent.setClass(RankActivity.this, PunishActivity.class);
-		     startActivity(intent);
+		    
+		    if(players.get(0).getInfo().getId() == players.get(index).getInfo().getId()){
+		        Bundle bundle = new Bundle();  
+	             players.remove(0);
+	             bundle.putSerializable("arrayList", players);  
+	             intent.putExtras(bundle);
+	             intent.setClass(RankActivity.this, PunishActivity.class);
+	             startActivity(intent);
+	        }
+		     
 			 finish();
 			break;
 
