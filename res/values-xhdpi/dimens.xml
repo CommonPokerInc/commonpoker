@@ -178,8 +178,8 @@
     <dimen name="me_dealer_img_height">25dp</dimen>
     <dimen name="me_image_img_width">100dp</dimen>
     <dimen name="me_image_img_height">100dp</dimen>
-    <dimen name="me_name_txt_size">25sp</dimen>
-    <dimen name="me_money_txt_size">40sp</dimen>
+    <dimen name="me_name_txt_size">15sp</dimen>
+    <dimen name="me_money_txt_size">20sp</dimen>
     <dimen name="relativeLayout1_marginright">110dp</dimen>
     <dimen name="relativeLayout1_marginleft">5dp</dimen>
     <dimen name="game_me_view_margintop">8dp</dimen>
@@ -204,7 +204,7 @@
     <dimen name="game_mypoker_type_txt_margintop">10dp</dimen>
     <dimen name="game_mypoker_type_txt_width">90dp</dimen>
     <dimen name="game_mypoker_type_txt_height">30dp</dimen>
-    <dimen name="game_mychips_txt_size">30sp</dimen>
+    <dimen name="game_mychips_txt_size">10sp</dimen>
     <dimen name="game_mychips_txt_marginright">15dp</dimen>
     <dimen name="game_mychips_txt_marginbottom">60dp</dimen>
     

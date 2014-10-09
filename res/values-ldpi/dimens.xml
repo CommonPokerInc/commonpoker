@@ -23,7 +23,7 @@
     <dimen name="me_image_img_width">90dp</dimen>
     <dimen name="me_image_img_height">90dp</dimen>
     <dimen name="me_view_bg_img_height">120dp</dimen>
-    <dimen name="me_name_txt_size">20sp</dimen>
+    <dimen name="me_name_txt_size">15sp</dimen>
     <dimen name="me_money_txt_size">28sp</dimen>
     <dimen name="bet_img_width">160dp</dimen>
     <dimen name="bet_img_height">40dp</dimen>
@@ -36,7 +36,7 @@
     <!-- 扑克牌 -->
     <dimen name="game_pokers_img_width">90dp</dimen>
     <dimen name="game_pokers_img_height">140dp</dimen>
-    <dimen name="game_mychips_txt_size">25sp</dimen>
+    <dimen name="game_mychips_txt_size">15sp</dimen>
     
     <!-- 返回，帮助 -->
     <dimen name="game_back_img_width">30dp</dimen>

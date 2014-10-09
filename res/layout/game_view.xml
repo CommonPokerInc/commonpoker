@@ -404,7 +404,7 @@
          android:textColor="@color/white"
          android:layout_marginBottom="@dimen/game_mychips_txt_marginbottom"
          android:layout_alignParentBottom="true"
-         android:textSize="@dimen/game_mychips_txt_size"
+         android:textSize="10sp"
          android:visibility="visible" />
 
     </RelativeLayout>
